@@ -1,0 +1,225 @@
+/* @import "tailwindcss"; */
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f8f9ff;
+}
+
+.hero-section {
+  background: linear-gradient(180deg, #f8f9ff 0%, #ffffff 100%);
+}
+
+.hero-card {
+  background-image: radial-gradient(circle at top left, rgba(255, 255, 255, 0.25), transparent 30%), radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.18), transparent 25%), linear-gradient(180deg, rgba(11, 19, 38, 0.95), rgba(19, 33, 64, 0.95));
+}
+
+.hero-card h2,
+.hero-card p,
+.hero-card .badge {
+  color: #fff;
+}
+
+.hero-card .btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+.category-item,
+.product-card,
+.benefits-items {
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+
+.category-item:hover,
+.product-card:hover,
+.benefits-items:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(47, 84, 255, 0.08);
+}
+
+
+.icon-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f6ff;
+  color: #2563eb;
+  font-size: 1.5rem;
+}
+
+.product-card {
+  position: relative;
+}
+
+.product-image {
+  min-height: 200px;
+}
+
+.product-img {
+  min-height: 200px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.hero-nav .btn {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+}
+
+.hero-nav .btn:hover {
+  background: #fff;
+}
+
+.benefit-card .icon-circle {
+  margin: 0 auto;
+  width: 56px;
+  height: 56px;
+  font-size: 1.3rem;
+}
+
+.app-cta-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.app-cta-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.18), transparent 25%), radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.12), transparent 15%);
+  pointer-events: none;
+}
+
+.app-phone-card {
+  min-height: 420px;
+  border-radius: 32px;
+}
+
+.app-download-card {
+  bottom: 1.5rem;
+}
+
+.download-icon {
+  min-width: 42px;
+}
+
+.btn-white {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.btn-white:hover {
+  background: #fff;
+}
+
+.page-links-section {
+  background: #ffffff;
+}
+
+.thumb-image {
+  width: 72px;
+  height: 72px;
+  background: #eef2ff;
+}
+
+.chart-placeholder,
+.product-image {
+  min-height: 180px;
+  background: #eef2ff;
+}
+
+.chart-placeholder {
+  border: 1px dashed rgba(15, 23, 42, 0.08);
+}
+
+.card-rounded-top-4 {
+  border-top-left-radius: 1.5rem !important;
+  border-top-right-radius: 1.5rem !important;
+}
+
+
+/* 
+.carousel-control-prev.custom-control {
+  right: 70px;
+}
+
+.carousel-control-next.custom-control {
+  right: 20px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 10px;
+  background-size: 60% 60%;
+} */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 270px;
+  height: 100%;
+  background: white;
+  z-index: 1050;
+  transition: all 0.3s ease;
+  padding: 15px;
+}
+
+
+.sidebar.open {
+  left: 0;
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  .sidebar {
+    position: sticky;
+    width: 250px;
+    height: auto;
+    left: 0;
+  }
+
+  .main-content {
+    margin-left: 30px;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  z-index: 1040;
+}
+
+
+
+
+/* Force the main content to respect the width of its parent */
+.main-content {
+    min-width: 0; 
+    overflow: hidden;
+}
+
+/* Ensure the table container handles the overflow */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+}
+
+/* Optional: Prevent text wrapping in cells to force a scrollbar */
+.table th, .table td {
+    white-space: nowrap;
+}
+
