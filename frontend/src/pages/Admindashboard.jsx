@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useState } from 'react';
-import Helpcenter from '../components/Helpcenter.jsx';
+import Helpcenter from '../components/Helpcenter';
 const Admindashboard = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
