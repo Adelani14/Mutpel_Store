@@ -1,5 +1,5 @@
-import Helpcenter from "../components/Helpcenter";
-import Header from "../components/Header";
+import Helpcenter from "../components/Helpcenter.jsx";
+import Header from "../components/Header.jsx";
 
 
 const Checkout = () => {

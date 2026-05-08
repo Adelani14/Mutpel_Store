@@ -1,5 +1,5 @@
-import Footer from '../components/Footer';
-import Helpcenter from '../components/Helpcenter';
+import Footer from '../components/Footer.jsx';
+import Helpcenter from '../components/Helpcenter.jsx';
 const Landing = () => {
     return (
         <>

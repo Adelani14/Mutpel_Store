@@ -1,4 +1,4 @@
-import Helpcenter from '../components/Helpcenter';
+import Helpcenter from '../components/Helpcenter.jsx';
 
 
 const Login = () => {
