@@ -1,4 +1,4 @@
-import Helpcenter from "../components/helpcenter";
+import Helpcenter from "../components/Helpcenter";
 import Header from "../components/Header";
 
 const Cart = () => {
