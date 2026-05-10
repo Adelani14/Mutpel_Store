@@ -1,12 +1,48 @@
-const { configDotenv } = require('dotenv');
-const express = require('express');
-const { get, connection } = require('mongoose');
+import express from "express";
 const app = express();
-require ('dotenv').config();
-const PORT= process.env.PORT 
-require('./connection.js')
+const PORT = process.env.PORT;
+import dotenv from "dotenv";
+dotenv.config();
+import cookieParser from "cookie-parser";
+import cors from "cors";
+
+import "./connection.js";
+import userRoutes from "./routes/userRoutes.js";
 
 
-app.listen(PORT,()=>{
-    console.log(`server is listen on port ${PORT}`)
-})
+// MIDDLEWARErs
+// GLOBAL MIDDLEWARE
+app.use(cors({
+    origin: [
+        "http://localhost:5173/",
+        "http://localhost:5173",
+    ],
+    credentials: true
+}));
+
+app.use(cookieParser());
+
+app.use(express.json());
+app.use(express.json());
+
+
+
+// ROUTES
+app.use("/api/users", userRoutes);
+
+// app.use("/api/users", userRoutes);
+
+// app.use("/api/products", productRoutes);
+
+// app.use("/api/categories", categoryRoutes);
+
+// app.use("/api/orders", orderRoutes);
+
+// app.use("/api/cart", cartRoutes);
+
+
+
+// SERVER
+app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
+});

@@ -10,7 +10,7 @@ const Productdetail = () => {
       <Helpcenter />
       <Header />
 
-      <main>
+      <main className="container-fluid py-5 bg-light">
         <section className="py-4 bg-body">
           <div className="container">
             <div className="d-flex flex-column flex-md-row align-items-start justify-content-between gap-3 mb-4">
@@ -92,7 +92,8 @@ const Productdetail = () => {
                 </ul>
                 <div className="tab-content">
                   <div className="tab-pane fade show active" id="description">
-                    <p className="mb-0 text-muted">Designed for both professional chefs and home cooks, the Mutpel Master Pro Chef Knife delivers precise cuts and exceptional balance. Its premium steel blade and ergonomic handle are engineered to last.</p>
+                    <p className="mb-0 text-muted">Designed for both professional chefs and home cooks, the Mutpel Master Pro Chef Knife delivers precise cuts and exceptional balance. Its premium steel blade and ergonomic handle are engineered to last. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui, nam. Doloremque perferendis veritatis quibusdam minima repellat eveniet ullam neque laudantium vero, illo ducimus totam ipsa culpa! Voluptates veniam ducimus praesentium?
+                    Accusamus ut delectus dolor odio quasi quo animi ipsum nesciunt nulla recusandae assumenda esse amet, at aperiam magni facilis! Saepe beatae sequi modi alias corporis architecto doloremque repudiandae odio perspiciatis?</p>
                   </div>
                   <div className="tab-pane fade" id="specs">
                     <ul className="list-unstyled text-muted mb-0">

@@ -1,59 +1,163 @@
+import React from 'react';
+import { useState } from 'react';
 import Helpcenter from '../components/Helpcenter.jsx';
-
+import axios from "../utils/axiosInstance.js";
 
 const Login = () => {
+  const [email, setemail] = useState('')
+  const [password, setpassword] = useState('')
+
+  const endpoint = 'http://localhost:4350/api/users/login'
+
+  const submitDetails = async () => {
+
+
+
+    const theemail = document.getElementById("eemail").value;
+    const thepassword = document.getElementById("ppassword").value;
+
+
+
+    if (theemail === "" || thepassword === "") {
+      errorMessage3.style.display = 'block';
+      setTimeout(() => {
+        errorMessage3.style.display = 'none';
+      }, 2000);
+      return;
+    } else {
+
+
+      let emailChecked = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      let emailValid = emailChecked.test(theemail);
+
+      if (!emailValid) {
+        erroremail.style.display = 'block';
+        setTimeout(() => {
+          erroremail.style.display = 'none';
+        }, 2000);
+        return;
+      }
+
+
+      else {
+
+        try {
+          const information = { email, password }
+          const result = await axios.post(
+            endpoint,
+            information,
+            { withCredentials: true }
+          )
+
+          if (result.status === 200) {
+
+            // SAVE TOKEN
+            localStorage.setItem("accessToken", result.data.accessToken)
+
+            const signupbtn = document.getElementById('loginbtn')
+            signupbtn.innerHTML = `<span class="spinner-border spinner-border-sm"></span> Logging in...`
+
+            setTimeout(() => {
+              if (result.data.user.role === "admin") {
+                window.location.href = "/admindashboard"
+              } else {
+                window.location.href = "/userdashboard"
+              }
+            }, 1500)
+          }
+
+
+        }
+        catch (err) {
+
+          if (err.response && err.response.status >= 400) {
+            errorMessage.style.display = 'block';
+            setTimeout(() => {
+              errorMessage.style.display = 'none';
+            }, 2000);
+          }
+        }
+      }
+    }
+  }
+
+
+
   return (
+
     <>
-      <Helpcenter />
 
-      <main class="min-vh-100 bg-light d-flex align-items-center py-5">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-5">
-              <div class="card rounded-4 shadow-sm border-0 p-4">
-                <div class="text-center mb-4">
-                  <div class="brand-icon rounded-4 d-inline-flex align-items-center justify-content-center bg-primary text-white mb-3" style={{width: '60px', height: '60px' }}><i class="bi bi-basket-fill fs-4"></i></div>
-                  <h1 class="h4">Welcome Back</h1>
-                  <p class="text-muted mb-0">Enter your credentials to access your Mutpel account.</p>
-                </div>
-                <form>
-                  <div class="mb-3">
-                    <label class="form-label">Email Address</label>
-                    <input type="email" class="form-control" placeholder="Email" required />
-                  </div>
-                  <div class="mb-3 position-relative">
-                    <label class="form-label">Password</label>
-                    <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                      <span class="input-group-text bg-white border-0"><i class="bi bi-lock"></i></span>
-                      <input type="password" class="form-control border-0" placeholder="Enter password" required />
-                      <button class="btn btn-outline-secondary" type="button"><i class="bi bi-eye"></i></button>
-                    </div>
-                  </div>
-                  <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="rememberMe" />
-                      <label class="form-check-label text-muted" for="rememberMe">Remember this device</label>
-                    </div>
-                    <a href="#" class="text-primary text-decoration-none">Forgot password?</a>
-                  </div>
-                  <p class="text-danger small mb-3 d-none">The password you entered is incorrect.</p>
-                  <button type="submit" class="btn btn-primary w-100">Login to Dashboard</button>
-                </form>
-                <div class="text-center text-muted my-3">OR CONTINUE WITH</div>
-                <div class="d-flex gap-2">
-                  <button class="btn btn-outline-secondary w-100"><i class="bi bi-google me-2"></i>Google</button>
-                  <button class="btn btn-outline-secondary w-100"><i class="bi bi-facebook me-2"></i>Facebook</button>
-                </div>
-                <p class="text-center text-muted small mt-4 mb-0">Don’t have an account yet? <a href="register.html" class="text-primary text-decoration-none">Create Account</a></p>
-              </div>
-              <p class="text-center auth-form-footer">By continuing, you agree to our <a href="#">Terms of Service</a> and <a
-                href="#">Privacy Policy</a>.</p>
-            </div>
+
+      < div className="container min-vh-100 d-flex flex-column justify-content-center align-items-center" >
+
+        <div className="card shadow-lg p-4 mt-3" style={{ maxWidth: "480px", width: "100%", borderRadius: "20px" }}>
+          <div class="text-center mb-4">
+            <div class="brand-icon rounded-4 d-inline-flex align-items-center justify-content-center bg-primary text-white mb-3" style={{ width: '60px', height: '60px' }}><i class="bi bi-basket-fill fs-4"></i></div>
+            <h1 class="h4">Welcome Back</h1>
+            <p class="text-muted mb-0">Enter your credentials to access your Mutpel account.</p>
           </div>
-        </div>
-      </main>
-    </>
 
+          <form>
+            <small className=" text-danger " id="errorMessage3" style={{ display: "none" }}>
+              Fill up all the inputs!
+            </small>
+            <div className="mb-3">
+              <label className="form-label fw-bold small">Email Address</label>
+              <div className="input-group">
+                <span className="input-group-text bg-light border-end-0"><i className="bi bi-envelope"></i></span>
+                <input onChange={(e) => { setemail(e.target.value) }} type="email" id='eemail' className="form-control bg-light border-start-0" placeholder="name@example.com" value={email} />
+
+              </div>
+              <small className="ms-3 text-danger " id="erroremail" style={{ display: "none" }}>
+                enter a valid email address!
+              </small>
+            </div>
+
+            <div className="mb-3">
+              <div className="d-flex justify-content-between">
+                <label className="form-label fw-bold small">Password</label>
+                <a href="#" className="text-primary small text-decoration-none">Forgot password?</a>
+              </div>
+              <div className="input-group">
+                <span className="input-group-text bg-light border-end-0"><i className="bi bi-lock"></i></span>
+                <input onChange={(e) => { setpassword(e.target.value) }} type="password" id='ppassword' className="form-control bg-light border-start-0" placeholder="Enter your password" value={password} />
+
+              </div>
+              <small className="ms-3 text-danger " id="errorMessage" style={{ display: "none" }}>
+                incorrect Password or email!
+              </small>
+            </div>
+            {/* 
+            <div className="alert alert-info bg-primary-subtle border-0 small d-flex align-items-start py-2">
+              <i className="bi bi-info-circle me-2 mt-1"></i>
+              <span><strong>Admin Login:</strong> Use any valid format. This system is designed for both Citizens and Authorities.</span>
+            </div> */}
+
+            <button onClick={submitDetails} id='loginbtn' type="button" className="btn btn-outline-primary w-100 mt-2 py-2 fw-bold">Sign In &rarr;</button>
+
+            <div className="text-center">
+
+              <div class="text-center text-muted my-1">OR CONTINUE WITH</div>
+              <div class="d-flex gap-2">
+                <button class="btn btn-outline-secondary w-100"><i class="bi bi-google me-2"></i>Google</button>
+                <button class="btn btn-outline-secondary w-100"><i class="bi bi-facebook me-2"></i>Facebook</button>
+              </div>
+
+
+              <small className="text-muted text-uppercase fw-bold" style={{ fontSize: "10px", letterSpacing: "1px" }}>dont have an account yet?</small>
+              <button type="button" className="btn btn-outline-primary w-100 mt-2 py-2 fw-bold"><a href="/signup" className="text-decoration-none text-dark">Create an Account</a></button>
+            </div>
+          </form>
+        </div >
+
+        <div className="mt-2 small text-muted">
+          <p class="text-center auth-form-footer">By continuing, you agree to our <a href="#">Terms of Service</a> and <a
+            href="#">Privacy Policy</a>.</p>
+        </div>
+      </div >
+
+
+    </>
   );
 };
 

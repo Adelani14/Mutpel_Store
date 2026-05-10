@@ -1,5 +1,7 @@
-const mongoose = require('mongoose');
-require('dotenv').config();
+// const mongoose = require('mongoose');
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
 // const URI = process.env.MONGODB_URI;
 const MONGO_URI = process.env.URI
 

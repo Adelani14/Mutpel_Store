@@ -8,7 +8,7 @@ const Newproduct = () => {
             <Header />
 
 
-            <main className="py-5">
+            <main className="py-5 bg-light">
                 <div className="container-fluid">
                     <div className="row g-4">
                         <div className="col-xl-2">
@@ -92,7 +92,7 @@ const Newproduct = () => {
 
                                 <div className="col-lg-4">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 mb-4 status-card">
-                                        <h2 className="h6 text-uppercase text-muted mb-3">Status & Category</h2>
+                                        <h2 className="h6 text-uppercase text-muted mb-3"> Category , Brand and Status </h2>
                                         <div className="mb-4">
                                             <label className="form-label fw-semibold">Category</label>
                                             <select className="form-select">
@@ -102,6 +102,10 @@ const Newproduct = () => {
                                                 <option>Fashion</option>
                                                 <option>Home & Living</option>
                                             </select>
+                                        </div>
+                                        <div className="mb-4">
+                                            <label className="form-label fw-semibold">Brand</label>
+                                            <input type="text" className="form-control" placeholder="e.g. Mutpel Co." />
                                         </div>
                                         <div className="form-check form-switch">
                                             <input className="form-check-input" type="checkbox" id="inventoryStatus" checked />
@@ -120,9 +124,9 @@ const Newproduct = () => {
                                                 </div>
                                             </div>
                                             <div className="col-6">
-                                                <label className="form-label fw-semibold">Discount</label>
+                                                <label className="form-label fw-semibold">Discount Amount</label>
                                                 <div className="input-group">
-                                                    <span className="input-group-text">%</span>
+                                                    <span className="input-group-text">₦</span>
                                                     <input type="text" className="form-control" placeholder="0.00" />
                                                 </div>
                                             </div>
@@ -130,11 +134,11 @@ const Newproduct = () => {
                                         <div className="row g-3 mt-3">
                                             <div className="col-6">
                                                 <label className="form-label fw-semibold">Stock Count</label>
-                                                <input type="number" className="form-control" value="0" />
+                                                <input type="number" className="form-control" placeholder="1" />
                                             </div>
                                             <div className="col-6">
                                                 <label className="form-label fw-semibold">SKU</label>
-                                                <input type="text" className="form-control" value="VES-001" />
+                                                <input type="text" className="form-control"  />
                                             </div>
                                         </div>
                                     </div>
