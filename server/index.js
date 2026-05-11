@@ -8,6 +8,10 @@ import cors from "cors";
 
 import "./connection.js";
 import userRoutes from "./routes/userRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
+// import orderRoutes from "./routes/orderRoutes.js";
+// import cartRoutes from "./routes/cartRoutes.js";
 
 
 // MIDDLEWARErs
@@ -15,7 +19,7 @@ import userRoutes from "./routes/userRoutes.js";
 app.use(cors({
     origin: [
         "http://localhost:5173/",
-        "http://localhost:5173",
+        "http://localhost:5174",
     ],
     credentials: true
 }));
@@ -34,11 +38,12 @@ app.use("/api/users", userRoutes);
 
 // app.use("/api/products", productRoutes);
 
-// app.use("/api/categories", categoryRoutes);
+app.use("/api/categories", categoryRoutes);
 
 // app.use("/api/orders", orderRoutes);
 
 // app.use("/api/cart", cartRoutes);
+
 
 
 

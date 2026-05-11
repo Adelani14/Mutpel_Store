@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import Helpcenter from '../components/Helpcenter.jsx';
-import axios from "../utils/axiosInstance.js";
+import axios from "../utils/axiosinstance.js";
 
 const Login = () => {
   const [email, setemail] = useState('')
@@ -61,7 +61,7 @@ const Login = () => {
               if (result.data.user.role === "admin") {
                 window.location.href = "/admindashboard"
               } else {
-                window.location.href = "/userdashboard"
+                window.location.href = "/productlisting"
               }
             }, 1500)
           }

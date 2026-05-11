@@ -23,23 +23,17 @@ const Productlisting = () => {
                                 </div>
                                 <div className="mt-5">
                                     <h2 className="h6 mb-3">Price Range</h2>
-                                    <div className="form-check mb-2"><input className="form-check-input" type="checkbox" value="" id="price1" /><label className="form-check-label" for="price1">Under ₦20,000</label></div>
-                                    <div className="form-check mb-2"><input className="form-check-input" type="checkbox" value="" id="price2" /><label className="form-check-label" for="price2">₦20,000 - ₦50,000</label></div>
-                                    <div className="form-check mb-2"><input className="form-check-input" type="checkbox" value="" id="price3" /><label className="form-check-label" for="price3">₦50,000 - ₦100,000</label></div>
-                                    <div className="form-check"><input className="form-check-input" type="checkbox" value="" id="price4" /><label className="form-check-label" for="price4">Above ₦100,000</label></div>
+                                    <div className="form-check mb-2"><input className="form-check-input" type="checkbox" value="" id="price1" /><label className="form-check-label" htmlFor="price1">Under ₦20,000</label></div>
+                                    <div className="form-check mb-2"><input className="form-check-input" type="checkbox" value="" id="price2" /><label className="form-check-label" htmlFor="price2">₦20,000 - ₦50,000</label></div>
+                                    <div className="form-check mb-2"><input className="form-check-input" type="checkbox" value="" id="price3" /><label className="form-check-label" htmlFor="price3">₦50,000 - ₦100,000</label></div>
+                                    <div className="form-check"><input className="form-check-input" type="checkbox" value="" id="price4" /><label className="form-check-label" htmlFor="price4">Above ₦100,000</label></div>
                                 </div>
-                                {/* <div className="mt-5">
-                                        <h2 className="h6 mb-3">Popular Brands</h2>
-                                        <div className="form-check mb-2"><input className="form-check-input" type="checkbox" id="brand1" /><label className="form-check-label" for="brand1">Apple</label></div>
-                                        <div className="form-check mb-2"><input className="form-check-input" type="checkbox" id="brand2" /><label className="form-check-label" for="brand2">Samsung</label></div>
-                                        <div className="form-check mb-2"><input className="form-check-input" type="checkbox" id="brand3" /><label className="form-check-label" for="brand3">Nike</label></div>
-                                        <div className="form-check"><input className="form-check-input" type="checkbox" id="brand4" /><label className="form-check-label" for="brand4">Mutpel</label></div>
-                                    </div> */}
+                               
                                 <div className="mt-5">
                                     <h2 className="h6 mb-3">Customer Rating</h2>
-                                    <div className="form-check mb-2"><input className="form-check-input" type="checkbox" id="rating1" /><label className="form-check-label" for="rating1">★★★★★ & up</label></div>
-                                    <div className="form-check mb-2"><input className="form-check-input" type="checkbox" id="rating2" /><label className="form-check-label" for="rating2">★★★★ & up</label></div>
-                                    <div className="form-check"><input className="form-check-input" type="checkbox" id="rating3" /><label className="form-check-label" for="rating3">★★★ & up</label></div>
+                                    <div className="form-check mb-2"><input className="form-check-input" type="checkbox" id="rating1" /><label className="form-check-label" htmlFor="rating1">★★★★★ & up</label></div>
+                                    <div className="form-check mb-2"><input className="form-check-input" type="checkbox" id="rating2" /><label className="form-check-label" htmlFor="rating2">★★★★ & up</label></div>
+                                    <div className="form-check"><input className="form-check-input" type="checkbox" id="rating3" /><label className="form-check-label" htmlFor="rating3">★★★ & up</label></div>
                                 </div>
                             </div>
                         </div>

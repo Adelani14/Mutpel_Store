@@ -5,7 +5,7 @@ import Category from "../models/Category.js";
 // CREATE CATEGORY
 export const createCategory = async (req, res) => {
     try {
-        const { name, slug, image, description } = req.body;
+        const { title, slug, images, description, isFeatured  } = req.body;
 
         const categoryExists = await Category.findOne({ slug });
 
@@ -16,10 +16,11 @@ export const createCategory = async (req, res) => {
         }
 
         const category = await Category.create({
-            name,
+            title,
             slug,
-            image,
+            images,
             description,
+            isFeatured,
         });
 
         res.status(201).json(category);
@@ -48,3 +49,54 @@ export const getCategories = async (req, res) => {
         });
     }
 };
+
+// GET CATEGORY BY ID
+export const getCategoryById = async (req, res) => {
+    try {
+        const category = await Category.findById(req.params.id);
+        if (!category) {
+            return res.status(404).json({ message: "Category not found" });
+        }
+        res.json(category);
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// UPDATE CATEGORY
+export const updateCategory = async (req, res) => {
+    try {
+        const { title, slug, images, description, isFeatured } = req.body;
+        const category = await Category.findByIdAndUpdate(req.params.id, { title, slug, images, description, isFeatured }, { new: true });
+        if (!category) {
+            return res.status(404).json({ message: "Category not found" });
+        }
+        res.json(category);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+// DELETE CATEGORY
+export const deleteCategory = async (req, res) => {
+    try {
+        const category = await Category.findByIdAndDelete(req.params.id);
+        if (!category) {
+            return res.status(404).json({ message: "Category not found" });
+        }
+        res.json({ message: "Category deleted" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// GET FEATURED CATEGORIES
+export const getFeaturedCategories = async (req, res) => {
+    try {
+        const categories = await Category.find({ isFeatured: true });
+        res.json(categories);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+

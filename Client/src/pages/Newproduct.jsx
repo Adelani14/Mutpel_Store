@@ -1,7 +1,128 @@
+import React, { useEffect, useState } from "react";
 import Helpcenter from "../components/Helpcenter.jsx";
 import Header from "../components/Header.jsx";
 
 const Newproduct = () => {
+
+    const [formData, setFormData] = useState({
+
+        title: "",
+        description: "",
+        price: "",
+        discountAmount: "",
+        stock: "",
+        sku: "",
+        category: "",
+        brand: "",
+
+    });
+
+    const [images, setImages] = useState([]);
+
+    const handleChange = (e) => {
+
+        setFormData({
+            ...formData,
+            [e.target.id]: e.target.value
+        });
+
+    };
+
+    // Fetch categories for dropdown
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+
+        const fetchCategories = async () => {
+
+            try {
+
+                const response = await fetch(
+                    "http://localhost:4350/api/categories/getCategories"
+                );
+
+                const data = await response.json();
+
+                setCategories(data);
+
+            } catch (error) {
+
+                console.log(error);
+
+            }
+
+        };
+
+        fetchCategories();
+
+    }, []);
+
+
+
+    const handleImages = (e) => {
+
+        const files = Array.from(e.target.files);
+
+        // setImages(files);
+        setImages((prev) => [...prev, ...files]);
+    };
+
+    const removeImage = (indexToRemove) => {
+
+        const filteredImages = images.filter(
+            (_, index) => index !== indexToRemove
+        );
+
+        setImages(filteredImages);
+
+    };
+
+
+    const saveProduct = async () => {
+
+        try {
+
+            const data = new FormData();
+
+            // append text fields
+            Object.keys(formData).forEach((key) => {
+                data.append(key, formData[key]);
+            });
+
+            // append images
+            images.forEach((image) => {
+                data.append("images", image);
+            });
+
+
+
+            const response = await fetch(
+                'http://localhost:4350/api/products/createNewProduct',
+                {
+                    method: "POST",
+                    body: data
+                }
+            );
+
+            const result = await response.json();
+
+            console.log(result);
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+
+    };
+
+
+
+
+
+
+
+
     return (
         <>
             <Helpcenter />
@@ -31,7 +152,7 @@ const Newproduct = () => {
                                 </div>
                                 <div className="d-flex gap-2 flex-wrap">
                                     <button className="btn btn-outline-secondary btn-sm">Cancel</button>
-                                    <button className="btn btn-primary btn-sm">Save Product</button>
+                                    <button className="btn btn-primary btn-sm" onClick={saveProduct}>Save Product</button>
                                 </div>
                             </div>
 
@@ -41,11 +162,13 @@ const Newproduct = () => {
                                         <h2 className="h6 text-uppercase text-muted mb-3">General Information</h2>
                                         <div className="mb-4">
                                             <label className="form-label fw-semibold">Product Name</label>
-                                            <input type="text" className="form-control" placeholder="e.g. Minimalist Ceramic Vessel" />
+                                            {/* <input type="text" className="form-control" placeholder="e.g. Minimalist Ceramic Vessel" /> */}
+                                            <input type="text" className="form-control" placeholder="e.g. Minimalist Ceramic Vessel" id="title" value={formData.title} onChange={handleChange} />
+
                                         </div>
                                         <div>
                                             <label className="form-label fw-semibold">Description</label>
-                                            <textarea className="form-control" rows="7" placeholder="Craft a compelling story for this product..."></textarea>
+                                            <textarea className="form-control" rows="7" placeholder="Craft a compelling story for this product..." id="description" value={formData.description} onChange={handleChange}></textarea>
                                         </div>
                                     </div>
 
@@ -63,29 +186,47 @@ const Newproduct = () => {
                                                 <p className="mb-1 fw-semibold">Drag & drop your images here</p>
                                                 <p className="text-muted small mb-0">or click to browse from your computer</p>
                                             </div>
-                                            <input type="file" multiple accept="image/*" className="upload-input" />
+                                            <input type="file" multiple onChange={handleImages} accept="image/*" className="upload-input" />
                                         </div>
-                                        <div className="row g-3 thumb-grid">
-                                            <div className="col-6 col-sm-4 col-xl-3">
-                                                <div className="thumb-item overflow-hidden rounded-3 bg-secondary-subtle">
-                                                    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=500&q=60" alt="Product image" className="w-100 h-100" style={{ objectFit: "cover" }} />
-                                                </div>
-                                            </div>
-                                            <div className="col-6 col-sm-4 col-xl-3">
-                                                <div className="thumb-item d-flex align-items-center justify-content-center text-muted">
-                                                    <i className="bi bi-image fs-3"></i>
-                                                </div>
-                                            </div>
-                                            <div className="col-6 col-sm-4 col-xl-3">
-                                                <div className="thumb-item d-flex align-items-center justify-content-center text-muted">
-                                                    <i className="bi bi-image fs-3"></i>
-                                                </div>
-                                            </div>
-                                            <div className="col-6 col-sm-4 col-xl-3">
-                                                <div className="thumb-item d-flex align-items-center justify-content-center text-muted">
-                                                    <i className="bi bi-image fs-3"></i>
-                                                </div>
-                                            </div>
+                                        <div className="row g-3">
+
+                                            {
+                                                images.map((image, index) => (
+
+                                                    <div
+                                                        className="col-6 col-sm-4 col-xl-3"
+                                                        key={index}
+                                                    >
+
+                                                        <div className="position-relative">
+
+                                                            <img
+                                                                src={URL.createObjectURL(image)}
+                                                                alt=""
+                                                                className="w-100 rounded-3"
+                                                                style={{
+                                                                    height: "120px",
+                                                                    objectFit: "cover"
+                                                                }}
+                                                            />
+
+
+
+                                                            <button
+                                                                type="button"
+                                                                className="btn btn-danger btn-sm position-absolute top-0 end-0 m-2"
+                                                                onClick={() => removeImage(index)}
+                                                            >
+                                                                <i className="bi bi-trash"></i>
+                                                            </button>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                ))
+                                            }
+
                                         </div>
                                     </div>
                                 </div>
@@ -95,21 +236,41 @@ const Newproduct = () => {
                                         <h2 className="h6 text-uppercase text-muted mb-3"> Category , Brand and Status </h2>
                                         <div className="mb-4">
                                             <label className="form-label fw-semibold">Category</label>
-                                            <select className="form-select">
-                                                <option selected>Select category</option>
-                                                <option>Electronics</option>
-                                                <option>Kitchen</option>
-                                                <option>Fashion</option>
-                                                <option>Home & Living</option>
+                                            <select
+                                                className="form-select"
+                                                id="category"
+                                                value={formData.category}
+                                                onChange={handleChange}
+                                            >
+
+                                                <option value="">
+                                                    Select category
+                                                </option>
+
+                                                {
+                                                    categories.map((category) => (
+
+                                                        <option
+                                                            key={category._id}
+                                                            value={category._id}
+                                                        >
+
+                                                            {category.title}
+
+                                                        </option>
+
+                                                    ))
+                                                }
+
                                             </select>
                                         </div>
                                         <div className="mb-4">
                                             <label className="form-label fw-semibold">Brand</label>
-                                            <input type="text" className="form-control" placeholder="e.g. Mutpel Co." />
+                                            <input type="text" className="form-control" placeholder="e.g. Mutpel Co." id="brand" value={formData.brand} onChange={handleChange} />
                                         </div>
                                         <div className="form-check form-switch">
-                                            <input className="form-check-input" type="checkbox" id="inventoryStatus" checked />
-                                            <label className="form-check-label fw-semibold" for="inventoryStatus">Active Listing</label>
+                                            <input className="form-check-input" type="checkbox" id="inventoryStatus" defaultChecked />
+                                            <label className="form-check-label fw-semibold" htmlFor="inventoryStatus">Active Listing</label>
                                         </div>
                                     </div>
 
@@ -120,25 +281,25 @@ const Newproduct = () => {
                                                 <label className="form-label fw-semibold">Price</label>
                                                 <div className="input-group">
                                                     <span className="input-group-text">₦</span>
-                                                    <input type="text" className="form-control" placeholder="0.00" />
+                                                    <input type="text" className="form-control" placeholder="0.00" id="price" value={formData.price} onChange={handleChange} />
                                                 </div>
                                             </div>
                                             <div className="col-6">
                                                 <label className="form-label fw-semibold">Discount Amount</label>
                                                 <div className="input-group">
                                                     <span className="input-group-text">₦</span>
-                                                    <input type="text" className="form-control" placeholder="0.00" />
+                                                    <input type="text" className="form-control" placeholder="0.00" id="discountAmount" value={formData.discountAmount} onChange={handleChange} />
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="row g-3 mt-3">
                                             <div className="col-6">
                                                 <label className="form-label fw-semibold">Stock Count</label>
-                                                <input type="number" className="form-control" placeholder="1" />
+                                                <input type="number" className="form-control" placeholder="1" id="stock" value={formData.stockCount} onChange={handleChange} />
                                             </div>
                                             <div className="col-6">
                                                 <label className="form-label fw-semibold">SKU</label>
-                                                <input type="text" className="form-control"  />
+                                                <input type="text" className="form-control" id="sku" value={formData.sku} onChange={handleChange} />
                                             </div>
                                         </div>
                                     </div>

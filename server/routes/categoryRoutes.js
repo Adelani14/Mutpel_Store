@@ -1,50 +1,14 @@
-import Category from "../models/category.js";
+import express from "express";
+import { createCategory, getCategories, getCategoryById, updateCategory, deleteCategory, getFeaturedCategories } from "../controllers/categoryController.js";
 
 
+const router = express.Router();
 
-// CREATE CATEGORY
-export const createCategory = async (req, res) => {
-  try {
-    const { name, slug, image, description } = req.body;
+router.post("/", createCategory);
+router.get("/getCategories", getCategories);
+router.get("/getCategoryById", getCategoryById);
+router.put("/:id", updateCategory);
+router.delete("/:id", deleteCategory);
+router.get("/featured", getFeaturedCategories);
 
-    const categoryExists = await Category.findOne({ slug });
-
-    if (categoryExists) {
-      return res.status(400).json({
-        message: "Category already exists",
-      });
-    }
-
-    const category = await Category.create({
-      name,
-      slug,
-      image,
-      description,
-    });
-
-    res.status(201).json(category);
-
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
-  }
-};
-
-
-
-
-// GET ALL CATEGORIES
-export const getCategories = async (req, res) => {
-  try {
-
-    const categories = await Category.find();
-
-    res.json(categories);
-
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
-  }
-};
+export default router;

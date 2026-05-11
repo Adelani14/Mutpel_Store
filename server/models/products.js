@@ -40,7 +40,7 @@ const productSchema = new mongoose.Schema(
             default: 0,
         },
 
-        discountpercentage: {
+        discountPercentage: {
             type: Number,
             default: 0,
         },

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const categorySchema = new mongoose.Schema(
     {
-        name: {
+        title: {
             type: String,
             required: true,
             unique: true,
@@ -17,9 +17,9 @@ const categorySchema = new mongoose.Schema(
             trim: true,
         },
 
-        image: {
-            type: String,
-            default: "",
+        images: {
+            type: [String],
+            default: [],
         },
 
         description: {
