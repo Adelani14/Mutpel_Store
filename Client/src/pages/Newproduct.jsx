@@ -1,33 +1,10 @@
 import React, { useEffect, useState } from "react";
-import axios from "../utils/axiosinstance.js";
+// import axios from "../utils/axiosinstance.js";
 import Helpcenter from "../components/Helpcenter.jsx";
 import Header from "../components/Header.jsx";
 
 const Newproduct = () => {
 
-    const [formData, setFormData] = useState({
-
-        title: "",
-        description: "",
-        price: "",
-        discountAmount: "",
-        stockCount: "",
-        sku: "",
-        category: "",
-        brand: "",
-
-    });
-
-    const [imagespath, setImagespath] = useState([]);
-
-    const handleChange = (e) => {
-
-        setFormData({
-            ...formData,
-            [e.target.id]: e.target.value
-        });
-
-    };
 
     // Fetch categories for dropdown
     const [categories, setCategories] = useState([]);
@@ -58,6 +35,38 @@ const Newproduct = () => {
 
     }, []);
 
+    const [formData, setFormData] = useState({
+        title: "",
+        description: "",
+        stockCount: "",
+        sku: "",
+        category: "",
+        brand: "",
+        previousPrice: "",
+        discountAmount: "",
+    });
+
+    const [imagespath, setImagespath] = useState([]);
+
+    const handleChange = (e) => {
+
+        setFormData({
+            ...formData,
+            [e.target.id]: e.target.value
+        });
+
+    };
+    const previousPrice = Number(formData.previousPrice) || 0;
+    const discountAmount = Number(formData.discountAmount) || 0;
+
+    const price = previousPrice - discountAmount;
+
+    const discountPercentage =
+        previousPrice > 0
+            ? ((discountAmount / previousPrice) * 100).toFixed(2)
+            : 0;
+
+
 
 
     const handleImages = (e) => {
@@ -67,6 +76,7 @@ const Newproduct = () => {
         // setImages(files);
         setImagespath((prev) => [...prev, ...files]);
     };
+
 
     const removeImage = (indexToRemove) => {
 
@@ -79,9 +89,14 @@ const Newproduct = () => {
     };
 
 
-    const saveProduct = async () => {
+    const [loading, setLoading] = useState(false);
 
+
+    const saveProduct = async () => {
+        
+        
         try {
+            setLoading(true);
 
             const data = new FormData();
 
@@ -94,6 +109,8 @@ const Newproduct = () => {
             imagespath.forEach((image) => {
                 data.append("images", image);
             });
+            data.append("price", price);
+            data.append("discountPercentage", discountPercentage);
 
 
 
@@ -110,9 +127,27 @@ const Newproduct = () => {
 
             console.log(result);
 
+            setFormData({
+                title: "",
+                description: "",
+                stockCount: "",
+                sku: "",
+                category: "",
+                brand: "",
+                previousPrice: "",
+                discountAmount: "",
+            });
+
+            setImagespath([]);
+
         } catch (error) {
 
             console.log(error);
+
+        }
+        finally {
+
+            setLoading(false);
 
         }
 
@@ -154,9 +189,29 @@ const Newproduct = () => {
                                     <h1 className="h4 mb-0">Add New Product</h1>
                                 </div>
                                 <div className="d-flex gap-2 flex-wrap">
-                                    <button className="btn btn-outline-secondary btn-sm">Cancel</button>
-                                    <button className="btn btn-primary btn-sm" onClick={saveProduct}>Save Product</button>
-                                </div>
+                                    <button className="btn btn-outline-secondary btn-sm" href="Admindashboard">
+                                        Cancel
+                                    </button>
+                                    <button
+                                        className="btn btn-primary btn-sm"
+                                        onClick={saveProduct}
+                                        disabled={loading}
+                                    >
+                                        {
+                                            loading ? (
+                                                <>
+                                                    <span
+                                                        className="spinner-border spinner-border-sm me-2"
+                                                        role="status"
+                                                    ></span>
+
+                                                    Saving...
+                                                </>
+                                            ) : (
+                                                "Save Product"
+                                            )
+                                        }
+                                    </button>                                </div>
                             </div>
 
                             <div className="row g-4">
@@ -281,10 +336,10 @@ const Newproduct = () => {
                                         <h2 className="h6 text-uppercase text-muted mb-3">Pricing & Inventory</h2>
                                         <div className="row g-3">
                                             <div className="col-6">
-                                                <label className="form-label fw-semibold">Price</label>
+                                                <label className="form-label fw-semibold">Original Price</label>
                                                 <div className="input-group">
                                                     <span className="input-group-text">₦</span>
-                                                    <input type="text" className="form-control" placeholder="0.00" id="price" value={formData.price} onChange={handleChange} />
+                                                    <input type="number" className="form-control" placeholder="0.00" id="previousPrice" value={formData.previousPrice} onChange={handleChange} />
                                                 </div>
                                             </div>
                                             <div className="col-6">
@@ -295,10 +350,23 @@ const Newproduct = () => {
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div className="row g-3 mt-3">
                                             <div className="col-6">
-                                                <label className="form-label fw-semibold">Stock Count</label>
-                                                <input type="number" className="form-control" placeholder="1" id="stockCount" value={formData.stockCount} onChange={handleChange} />
+                                                <label className="form-label fw-semibold">Final Price</label>
+                                                <div className="input-group">
+                                                    <span className="input-group-text">₦{price}</span>
+                                                </div>
+                                            </div>
+                                            <div className="col-6">
+                                                <label className="form-label fw-semibold">Percentage</label>
+                                                <div className="input-group">
+                                                    <span className="input-group-text">{discountPercentage}%</span>
+                                                </div>
+                                            </div>
+                                            <div className="col-6">
+                                                <label className="form-label fw-semibold">Stock</label>
+                                                <input type="number" placeholder="1" className="form-control" id="stockCount" value={formData.stockCount} onChange={handleChange} />
                                             </div>
                                             <div className="col-6">
                                                 <label className="form-label fw-semibold">SKU</label>

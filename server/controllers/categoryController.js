@@ -2,36 +2,50 @@ import Category from "../models/Category.js";
 
 
 
-// CREATE CATEGORY
+
+
 export const createCategory = async (req, res) => {
+
     try {
-        const { title, slug, imagespath, description, isFeatured  } = req.body;
+
+        console.log(req.body);
+        console.log(req.file);
+
+        const slug = req.body.title
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, "-");
 
         const categoryExists = await Category.findOne({ slug });
 
         if (categoryExists) {
             return res.status(400).json({
-                message: "Category already exists",
+                message: "Category already exists"
             });
         }
 
         const category = await Category.create({
-            title,
+            title: req.body.title,
             slug,
-            imagespath,
-            description,
-            isFeatured,
+            description: req.body.description,
+            featured: req.body.featured,
+            priority: req.body.priority,
+            image: req.file?.path
         });
 
         res.status(201).json(category);
 
     } catch (error) {
-        res.status(500).json({
-            message: error.message,
-        });
-    }
-};
 
+        console.log(error);
+
+        res.status(500).json({
+            message: error.message
+        });
+
+    }
+
+};
 
 
 

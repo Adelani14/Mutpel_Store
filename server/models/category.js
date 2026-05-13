@@ -17,9 +17,9 @@ const categorySchema = new mongoose.Schema(
             trim: true,
         },
 
-        imagespath: {
-            type: [String],
-            default: [],
+        image: {
+            type: String,
+            default: "",
         },
 
         description: {
@@ -27,7 +27,13 @@ const categorySchema = new mongoose.Schema(
             default: "",
         },
 
-        isFeatured: {
+
+        priority: {
+            type: String,
+            default: "Normal Priority",
+        },
+
+        featured: {
             type: Boolean,
             default: false,
         },

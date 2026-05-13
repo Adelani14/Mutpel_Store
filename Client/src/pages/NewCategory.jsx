@@ -9,7 +9,7 @@ const NewCategory = () => {
         featured: false,
         priority: "Normal Priority",
     });
-
+    const [bannerImage, setBannerImage] = useState(null);
     const [bannerPreview, setBannerPreview] = useState(null);
 
     const handleChange = (e) => {
@@ -21,17 +21,89 @@ const NewCategory = () => {
     };
 
     const handleBannerChange = (e) => {
-        const file = e.target.files?.[0];
+
+        const file = e.target.files[0];
+
         if (!file) return;
 
-        const reader = new FileReader();
-        reader.onload = () => setBannerPreview(reader.result);
-        reader.readAsDataURL(file);
+        setBannerImage(file);
+
+        setBannerPreview(URL.createObjectURL(file));
+
     };
 
-    const saveCategory = () => {
-        console.log("Saving category", { ...formData, bannerPreview });
+
+
+    const [loading, setLoading] = useState(false);
+
+
+
+    const saveCategory = async () => {
+
+
+        try {
+            setLoading(true);
+
+            const data = new FormData();
+
+            // append text fields
+            Object.keys(formData).forEach((key) => {
+                data.append(key, formData[key]);
+            });
+
+            // append banner image
+            if (bannerImage) {
+                data.append("image", bannerImage);
+            }
+
+            
+
+
+            const response = await fetch(
+                'http://localhost:4350/api/categories/createCategory',
+                {
+                    method: "POST",
+                    body: data
+                }
+            );
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.message);
+            }
+
+            alert("Category created successfully!");
+
+            console.log(result);
+
+            setFormData({
+                title: "",
+                description: "",
+                featured: false,
+                priority: "Normal Priority",
+
+
+
+            });
+            setBannerImage(null);
+            setBannerPreview(null);
+
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+        finally {
+
+            setLoading(false);
+
+        }
+
     };
+
+
 
     return (
         <>
@@ -43,7 +115,7 @@ const NewCategory = () => {
                     <div className="row g-4">
                         <div className="col-xl-2">
                             <div className="card rounded-4 shadow-sm border-0 p-3 h-100">
-                                
+
                                 <div className="nav flex-column nav-pills" aria-orientation="vertical">
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-speedometer2 me-2"></i>Dashboard</a>
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-box-seam me-2"></i>Products</a>
@@ -63,9 +135,29 @@ const NewCategory = () => {
                                         <h1 className="h4 mb-0">Create New Category</h1>
                                     </div>
                                     <div className="d-flex gap-2 flex-wrap">
-                                        <button className="btn btn-outline-secondary btn-sm">Cancel</button>
-                                        <button className="btn btn-primary btn-sm" onClick={saveCategory}>Save Category</button>
-                                    </div>
+                                        <button className="btn btn-outline-secondary btn-sm" href="Admindashboard">
+                                            Cancel
+                                        </button>
+                                        <button
+                                            className="btn btn-primary btn-sm"
+                                            onClick={saveCategory}
+                                            disabled={loading}
+                                        >
+                                            {
+                                                loading ? (
+                                                    <>
+                                                        <span
+                                                            className="spinner-border spinner-border-sm me-2"
+                                                            role="status"
+                                                        ></span>
+
+                                                        Saving...
+                                                    </>
+                                                ) : (
+                                                    "Save Category"
+                                                )
+                                            }
+                                        </button>                                    </div>
                                 </div>
 
                                 <div className="card rounded-4 border-0 p-4 mb-4 bg-white shadow-sm">
