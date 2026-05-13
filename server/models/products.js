@@ -45,7 +45,7 @@ const productSchema = new mongoose.Schema(
             default: 0,
         },
 
-        stock: {
+        stockCount: {
             type: Number,
             required: true,
             default: 0,
@@ -61,7 +61,7 @@ const productSchema = new mongoose.Schema(
             default: "",
         },
 
-        images: [
+        imagespath: [
             {
                 type: String,
             },

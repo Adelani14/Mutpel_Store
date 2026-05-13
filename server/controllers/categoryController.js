@@ -5,7 +5,7 @@ import Category from "../models/Category.js";
 // CREATE CATEGORY
 export const createCategory = async (req, res) => {
     try {
-        const { title, slug, images, description, isFeatured  } = req.body;
+        const { title, slug, imagespath, description, isFeatured  } = req.body;
 
         const categoryExists = await Category.findOne({ slug });
 
@@ -18,7 +18,7 @@ export const createCategory = async (req, res) => {
         const category = await Category.create({
             title,
             slug,
-            images,
+            imagespath,
             description,
             isFeatured,
         });
@@ -67,8 +67,8 @@ export const getCategoryById = async (req, res) => {
 // UPDATE CATEGORY
 export const updateCategory = async (req, res) => {
     try {
-        const { title, slug, images, description, isFeatured } = req.body;
-        const category = await Category.findByIdAndUpdate(req.params.id, { title, slug, images, description, isFeatured }, { new: true });
+        const { title, slug, imagespath, description, isFeatured } = req.body;
+        const category = await Category.findByIdAndUpdate(req.params.id, { title, slug, imagespath, description, isFeatured }, { new: true });
         if (!category) {
             return res.status(404).json({ message: "Category not found" });
         }

@@ -4,17 +4,71 @@ import Product from "../models/products.js";
 
 
 // CREATE PRODUCT
+
 export const createProduct = async (req, res) => {
     try {
-        const { title, price, description, images, category, previousPrice, discountAmount, shortDescription, brand, stock, discountPercentage, sku, ratings, numReviews, isActive, featured } = req.body;
+
+        const {
+            title,
+            price,
+            description,
+            category,
+            previousPrice,
+            discountAmount,
+            shortDescription,
+            brand,
+            stockCount,
+            discountPercentage,
+            sku,
+            ratings,
+            numReviews,
+            isActive,
+            featured
+        } = req.body;
+
         const slug = title
-            .toLowerCase()
-            .replaceAll(" ", "-");
-        const product = new Product({ title, slug, price, description, images, category, previousPrice, discountAmount, shortDescription, brand, stock, discountPercentage, sku, ratings, numReviews, isActive, featured });
+            ? `${title.toLowerCase().trim().replace(/\s+/g, "-")}-${Date.now()}`
+            : "";
+
+        // Cloudinary image URL
+        const imagespath = req.files
+            ? req.files.map(file => file.path)
+            : [];
+
+
+        const product = new Product({
+            title,
+            slug,
+            price,
+            description,
+            imagespath,
+            category,
+            previousPrice,
+            discountAmount,
+            shortDescription,
+            brand,
+            stockCount,
+            discountPercentage,
+            sku,
+            ratings,
+            numReviews,
+            isActive,
+            featured
+        });
+
         await product.save();
+
         res.status(201).json(product);
+
     } catch (error) {
-        res.status(400).json({ message: error.message });
+
+        console.error("FULL ERROR:", error);
+
+        res.status(500).json({
+            message: error.message,
+            error
+        });
+
     }
 };
 
@@ -45,14 +99,71 @@ export const getProductById = async (req, res) => {
 // UPDATE PRODUCT
 export const updateProduct = async (req, res) => {
     try {
-        const { title, slug, price, description, images, category, previousPrice, discountAmount, shortDescription, brand, stock, discountPercentage, sku, ratings, numReviews, isActive, featured } = req.body;
-        const product = await Product.findByIdAndUpdate(req.params.id, { title, slug, price, description, images, category, previousPrice, discountAmount, shortDescription, brand, stock, discountPercentage, sku, ratings, numReviews, isActive, featured }, { new: true }).populate("category");
-        if (!product) {
-            return res.status(404).json({ message: "Product not found" });
+
+        const {
+            title,
+            price,
+            description,
+            category,
+            previousPrice,
+            discountAmount,
+            shortDescription,
+            brand,
+            stockCount,
+            discountPercentage,
+            sku,
+            ratings,
+            numReviews,
+            isActive,
+            featured
+        } = req.body;
+
+        const slug = title
+            ? `${title.toLowerCase().trim().replace(/\s+/g, "-")}-${Date.now()}`
+            : "";
+
+        let updatedData = {
+            title,
+            slug,
+            price,
+            description,
+            category,
+            previousPrice,
+            discountAmount,
+            shortDescription,
+            brand,
+            stockCount,
+            discountPercentage,
+            sku,
+            ratings,
+            numReviews,
+            isActive,
+            featured
+        };
+
+        // if new image uploaded
+        if (req.files && req.files.length > 0) {
+            updatedData.imagespath = req.files.map(file => file.path);
         }
+
+        const product = await Product.findByIdAndUpdate(
+            req.params.id,
+            updatedData,
+            { new: true }
+        ).populate("category");
+
+        if (!product) {
+            return res.status(404).json({
+                message: "Product not found"
+            });
+        }
+
         res.json(product);
+
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({
+            message: error.message
+        });
     }
 };
 

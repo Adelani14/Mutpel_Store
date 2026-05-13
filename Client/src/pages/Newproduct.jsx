@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "../utils/axiosinstance.js";
 import Helpcenter from "../components/Helpcenter.jsx";
 import Header from "../components/Header.jsx";
 
@@ -10,14 +11,14 @@ const Newproduct = () => {
         description: "",
         price: "",
         discountAmount: "",
-        stock: "",
+        stockCount: "",
         sku: "",
         category: "",
         brand: "",
 
     });
 
-    const [images, setImages] = useState([]);
+    const [imagespath, setImagespath] = useState([]);
 
     const handleChange = (e) => {
 
@@ -38,7 +39,7 @@ const Newproduct = () => {
             try {
 
                 const response = await fetch(
-                    "http://localhost:4350/api/categories/getCategories"
+                    "http://localhost:4350/api/categories/fetchCategories"
                 );
 
                 const data = await response.json();
@@ -64,16 +65,16 @@ const Newproduct = () => {
         const files = Array.from(e.target.files);
 
         // setImages(files);
-        setImages((prev) => [...prev, ...files]);
+        setImagespath((prev) => [...prev, ...files]);
     };
 
     const removeImage = (indexToRemove) => {
 
-        const filteredImages = images.filter(
+        const filteredImages = imagespath.filter(
             (_, index) => index !== indexToRemove
         );
 
-        setImages(filteredImages);
+        setImagespath(filteredImages);
 
     };
 
@@ -90,7 +91,7 @@ const Newproduct = () => {
             });
 
             // append images
-            images.forEach((image) => {
+            imagespath.forEach((image) => {
                 data.append("images", image);
             });
 
@@ -105,6 +106,7 @@ const Newproduct = () => {
             );
 
             const result = await response.json();
+            alert("Product created successfully!");
 
             console.log(result);
 
@@ -131,12 +133,13 @@ const Newproduct = () => {
 
             <main className="py-5 bg-light">
                 <div className="container-fluid">
-                    <div className="row g-4">
+                    <div className="row g-3">
                         <div className="col-xl-2">
                             <div className="card rounded-4 shadow-sm border-0 p-3 h-100">
                                 <div className="nav flex-column nav-pills" aria-orientation="vertical">
-                                    <a className="nav-link rounded-4 mb-2" href="admin-dashboard.html"><i className="bi bi-speedometer2 me-2"></i>Dashboard</a>
                                     <a className="nav-link active rounded-4 mb-2" href="#"><i className="bi bi-box-seam me-2"></i>New Product</a>
+                                    <a className="nav-link rounded-4 mb-2" href="admin-dashboard.html"><i className="bi bi-speedometer2 me-2"></i>Dashboard</a>
+                                    <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-folder-plus me-2"></i>New Category</a>
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-basket2 me-2"></i>Orders</a>
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-box-seam me-2"></i>Products</a>
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-gear me-2"></i>Settings</a>
@@ -191,7 +194,7 @@ const Newproduct = () => {
                                         <div className="row g-3">
 
                                             {
-                                                images.map((image, index) => (
+                                                imagespath.map((image, index) => (
 
                                                     <div
                                                         className="col-6 col-sm-4 col-xl-3"
@@ -288,14 +291,14 @@ const Newproduct = () => {
                                                 <label className="form-label fw-semibold">Discount Amount</label>
                                                 <div className="input-group">
                                                     <span className="input-group-text">₦</span>
-                                                    <input type="text" className="form-control" placeholder="0.00" id="discountAmount" value={formData.discountAmount} onChange={handleChange} />
+                                                    <input type="number" className="form-control" placeholder="0.00" id="discountAmount" value={formData.discountAmount} onChange={handleChange} />
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="row g-3 mt-3">
                                             <div className="col-6">
                                                 <label className="form-label fw-semibold">Stock Count</label>
-                                                <input type="number" className="form-control" placeholder="1" id="stock" value={formData.stockCount} onChange={handleChange} />
+                                                <input type="number" className="form-control" placeholder="1" id="stockCount" value={formData.stockCount} onChange={handleChange} />
                                             </div>
                                             <div className="col-6">
                                                 <label className="form-label fw-semibold">SKU</label>

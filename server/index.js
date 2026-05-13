@@ -18,25 +18,26 @@ import categoryRoutes from "./routes/categoryRoutes.js";
 // GLOBAL MIDDLEWARE
 app.use(cors({
     origin: [
-        "http://localhost:5173/",
+        "http://localhost:5173",
         "http://localhost:5174",
     ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+
     credentials: true
 }));
 
 app.use(cookieParser());
 
 app.use(express.json());
-app.use(express.json());
 
-
+app.use(express.urlencoded({ extended: true }));
 
 // ROUTES
 app.use("/api/users", userRoutes);
 
 // app.use("/api/users", userRoutes);
 
-// app.use("/api/products", productRoutes);
+app.use("/api/products", productRoutes);
 
 app.use("/api/categories", categoryRoutes);
 

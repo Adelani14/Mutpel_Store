@@ -1,7 +1,6 @@
 import User from "../models/users.js";
 import bcrypt from "bcryptjs";
 // import cookieParser from "cookie-parser";
-import cors from "cors";
 import jwt from "jsonwebtoken";
 
 import {
