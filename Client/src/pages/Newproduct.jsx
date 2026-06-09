@@ -5,6 +5,8 @@ import Header from "../components/Header.jsx";
 
 const Newproduct = () => {
 
+    const token = localStorage.getItem("accessToken") || null;
+
 
     // Fetch categories for dropdown
     const [categories, setCategories] = useState([]);
@@ -16,7 +18,13 @@ const Newproduct = () => {
             try {
 
                 const response = await fetch(
-                    "http://localhost:4350/api/categories/fetchCategories"
+                    "http://localhost:4350/api/categories/fetchCategories",
+                    {
+                        method: "GET",
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
                 );
 
                 const data = await response.json();
@@ -63,7 +71,7 @@ const Newproduct = () => {
 
     const discountPercentage =
         previousPrice > 0
-            ? ((discountAmount / previousPrice) * 100).toFixed(2)
+            ? Math.round((discountAmount / previousPrice) * 100)
             : 0;
 
 
@@ -93,8 +101,8 @@ const Newproduct = () => {
 
 
     const saveProduct = async () => {
-        
-        
+
+
         try {
             setLoading(true);
 

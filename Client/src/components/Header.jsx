@@ -8,7 +8,7 @@ const Header = () => {
             <div className="d-flex align-items-center gap-2">
               <a href="/" className="text-decoration-none d-flex align-items-center gap-2">
                 <div className="brand-icon rounded-3 d-flex align-items-center justify-content-center bg-primary text-white" style={{ width: "44px", height: "44px" }}><i className="bi bi-basket-fill fs-5"></i></div>
-                <div><h1 className="h5 mb-0 text-primary">Mutpel</h1></div>
+                <div><h1 className="h5 mb-0 text-primary">Motpel Household</h1></div>
               </a>
             </div>
             <form className="flex-grow-1 mx-3 d-none d-md-flex" style={{ minWidth: "300px" }}>

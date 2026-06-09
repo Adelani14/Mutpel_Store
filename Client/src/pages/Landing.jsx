@@ -1,5 +1,6 @@
 import Footer from "../components/Footer";
 import Helpcenter from '../components/Helpcenter.jsx';
+import { Link } from "react-router-dom";
 const Landing = () => {
     return (
         <>
@@ -32,8 +33,8 @@ const Landing = () => {
                             </button>
                             <button className="btn btn-link text-secondary"><i className="bi bi-bell"></i></button>
                             <div className="vr d-none d-lg-block"></div>
-                            <a href="#" className="text-secondary text-decoration-none">Login</a>
-                            <a href="#" className="btn btn-primary btn-sm">Sign Up</a>
+                            <Link to="/login" className="text-secondary text-decoration-none">Login</Link>
+                            <Link to="/signup" className="btn btn-primary btn-sm">Sign Up</Link>
                         </div>
                     </div>
                 </div>

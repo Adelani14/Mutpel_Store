@@ -1,7 +1,65 @@
 import Helpcenter from "../components/Helpcenter.jsx";
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer";
+import { useState, useEffect } from "react";
+import ProductCard from "../components/ProductCard";
+
+
 const Productlisting = () => {
+
+
+
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
+    const fetchProducts = async () => {
+        try {
+            const response = await fetch(
+                "http://localhost:4350/api/products"
+            );
+
+            const data = await response.json();
+
+            setProducts(data);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (loading) {
+        return <h3>Loading products...</h3>;
+    }
+
+    // return (
+    //     <div className="container py-5">
+    //         <div className="row">
+    //             {products.map((product) => (
+    //                 <div
+    //                     className="col-md-4 col-lg-3 mb-4"
+    //                     key={product._id}
+    //                 >
+    //                     <ProductCard product={product} />
+    //                 </div>
+    //             ))}
+    //         </div>
+    //     </div>
+    // );
+
+    // export default Products;
+
+
+
+
+
+
+
+
     return (
         <>
             <Helpcenter />
@@ -28,7 +86,7 @@ const Productlisting = () => {
                                     <div className="form-check mb-2"><input className="form-check-input" type="checkbox" value="" id="price3" /><label className="form-check-label" htmlFor="price3">₦50,000 - ₦100,000</label></div>
                                     <div className="form-check"><input className="form-check-input" type="checkbox" value="" id="price4" /><label className="form-check-label" htmlFor="price4">Above ₦100,000</label></div>
                                 </div>
-                               
+
                                 <div className="mt-5">
                                     <h2 className="h6 mb-3">Customer Rating</h2>
                                     <div className="form-check mb-2"><input className="form-check-input" type="checkbox" id="rating1" /><label className="form-check-label" htmlFor="rating1">★★★★★ & up</label></div>
@@ -50,87 +108,19 @@ const Productlisting = () => {
                             </div>
 
                             <div className="row g-3">
-                                <div className="col-6 col-sm-4 col-xl-3">
-                                    <div className="card rounded-4 shadow-sm border-0 h-100">
-                                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
-                                        <div className="card-body">
-                                            <h3 className="h6">Samsung Galaxy Watch</h3>
-                                            <p className="text-muted mb-2">₦82,000</p>
-                                            <a href="product-details.html" className="btn btn-primary btn-sm">Add to Cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-6 col-sm-4 col-xl-3">
-                                    <div className="card rounded-4 shadow-sm border-0 h-100">
-                                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
-                                        <div className="card-body">
-                                            <h3 className="h6">Samsung Galaxy Watch</h3>
-                                            <p className="text-muted mb-2">₦82,000</p>
-                                            <a href="product-details.html" className="btn btn-primary btn-sm">Add to Cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-6 col-sm-4 col-xl-3">
-                                    <div className="card rounded-4 shadow-sm border-0 h-100">
-                                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
-                                        <div className="card-body">
-                                            <h3 className="h6">Samsung Galaxy Watch</h3>
-                                            <p className="text-muted mb-2">₦82,000</p>
-                                            <a href="product-details.html" className="btn btn-primary btn-sm">Add to Cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-6 col-sm-4 col-xl-3">
-                                    <div className="card rounded-4 shadow-sm border-0 h-100">
-                                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
-                                        <div className="card-body">
-                                            <h3 className="h6">Samsung Galaxy Watch</h3>
-                                            <p className="text-muted mb-2">₦82,000</p>
-                                            <a href="product-details.html" className="btn btn-primary btn-sm">Add to Cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-6 col-sm-4 col-xl-3">
-                                    <div className="card rounded-4 shadow-sm border-0 h-100">
-                                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
-                                        <div className="card-body">
-                                            <h3 className="h6">Samsung Galaxy Watch</h3>
-                                            <p className="text-muted mb-2">₦82,000</p>
-                                            <a href="product-details.html" className="btn btn-primary btn-sm">Add to Cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-6 col-sm-4 col-xl-3">
-                                    <div className="card rounded-4 shadow-sm border-0 h-100">
-                                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
-                                        <div className="card-body">
-                                            <h3 className="h6">Samsung Galaxy Watch</h3>
-                                            <p className="text-muted mb-2">₦82,000</p>
-                                            <a href="product-details.html" className="btn btn-primary btn-sm">Add to Cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-6 col-sm-4 col-xl-3">
-                                    <div className="card rounded-4 shadow-sm border-0 h-100">
-                                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
-                                        <div className="card-body">
-                                            <h3 className="h6">Samsung Galaxy Watch</h3>
-                                            <p className="text-muted mb-2">₦82,000</p>
-                                            <a href="product-details.html" className="btn btn-primary btn-sm">Add to Cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-6 col-sm-4 col-xl-3">
-                                    <div className="card rounded-4 shadow-sm border-0 h-100">
-                                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
-                                        <div className="card-body">
-                                            <h3 className="h6">Samsung Galaxy Watch</h3>
-                                            <p className="text-muted mb-2">₦82,000</p>
-                                            <a href="product-details.html" className="btn btn-primary btn-sm">Add to Cart</a>
-                                        </div>
-                                    </div>
-                                </div>
+                                {products.map((product) => (
+                                    <ProductCard key={product._id}
+                                        title={product.title}
+                                        imgsrc={product.imagespath[0]} // Assuming the first image is the main one
+                                        description={product.description}
+                                        shortDescription={product.shortDescription}
+                                        price={product.price}
+                                        previousPrice={product.previousPrice}
+                                        stockCount={product.stockCount}
+                                        discountPercentage={product.discountPercentage}
 
+                                    />
+                                ))}
                             </div>
 
                             <nav className="mt-5" aria-label="Page navigation">

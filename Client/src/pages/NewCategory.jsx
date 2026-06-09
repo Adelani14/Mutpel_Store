@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Helpcenter from "../components/Helpcenter.jsx";
 import Header from "../components/Header.jsx";
+import { Link } from "react-router-dom";
 
 const NewCategory = () => {
     const [formData, setFormData] = useState({
@@ -56,7 +57,7 @@ const NewCategory = () => {
                 data.append("image", bannerImage);
             }
 
-            
+
 
 
             const response = await fetch(
@@ -135,9 +136,10 @@ const NewCategory = () => {
                                         <h1 className="h4 mb-0">Create New Category</h1>
                                     </div>
                                     <div className="d-flex gap-2 flex-wrap">
-                                        <button className="btn btn-outline-secondary btn-sm" href="Admindashboard">
+
+                                        <Link to="/admindashboard" className="btn btn-outline-secondary btn-sm">
                                             Cancel
-                                        </button>
+                                        </Link>
                                         <button
                                             className="btn btn-primary btn-sm"
                                             onClick={saveCategory}

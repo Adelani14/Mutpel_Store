@@ -1,8 +1,5 @@
 import Product from "../models/products.js";
 
-
-
-
 // CREATE PRODUCT
 
 export const createProduct = async (req, res) => {
@@ -27,8 +24,9 @@ export const createProduct = async (req, res) => {
         } = req.body;
 
         const slug = title
-            ? `${title.toLowerCase().trim().replace(/\s+/g, "-")}-${Date.now()}`
-            : "";
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, "-");
 
         // Cloudinary image URL
         const imagespath = req.files

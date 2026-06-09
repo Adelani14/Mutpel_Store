@@ -1,13 +1,50 @@
 
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Helpcenter from '../components/Helpcenter';
 const Admindashboard = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    // const [dashboardStats, setDashboardStats] = useState({});
 
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
     };
+
+    const token = localStorage.getItem("accessToken");
+
+    const [stats, setStats] = useState({
+        totalUsers: 0,
+        totalProducts: 0,
+        totalCategories: 0,
+        totalOrders: 0,
+    });
+
+    useEffect(() => {
+        const fetchDashboardStats = async () => {
+            try {
+                const response = await fetch(
+                    "http://localhost:4350/api/dashboardstats/stats",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                const data = await response.json();
+
+                console.log(data);
+
+                setStats(data);
+
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchDashboardStats();
+    }, []);
+    
     return (
         <>
             <header className="bg-white shadow-sm sticky-top" style={{ zIndex: 1100 }}>
@@ -27,7 +64,7 @@ const Admindashboard = () => {
                         </div>
                         <div className="d-flex align-items-center gap-3">
                             <button className="btn btn-outline-secondary btn-sm">Filter</button>
-                            <button className="btn btn-primary btn-sm">New Product</button>
+                            <button className="btn btn-primary btn-sm"><a href="/NewProduct" className="text-white text-decoration-none">New Product</a></button>
                         </div>
                     </div>
                 </div>
@@ -78,28 +115,28 @@ const Admindashboard = () => {
                                 <div className="col-md-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Total Revenue</p>
-                                        <h2 className="h4 mb-0">₦12,450,200</h2>
+                                        <h2 className="h4 mb-0">₦{stats.totalRevenue?.toLocaleString()}</h2>
                                         <p className="text-success small mb-0">+12.4% vs last month</p>
                                     </div>
                                 </div>
                                 <div className="col-md-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Active Orders</p>
-                                        <h2 className="h4 mb-0">156</h2>
+                                        <h2 className="h4 mb-0">{stats.totalOrders}</h2>
                                         <p className="text-success small mb-0">+8.7% from yesterday</p>
                                     </div>
                                 </div>
                                 <div className="col-md-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Active Products</p>
-                                        <h2 className="h4 mb-0">1,248</h2>
+                                        <h2 className="h4 mb-0">{stats.totalProducts}</h2>
                                         <p className="text-danger small mb-0">-2.3% this week</p>
                                     </div>
                                 </div>
                                 <div className="col-md-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Total Customers</p>
-                                        <h2 className="h4 mb-0">342</h2>
+                                        <h2 className="h4 mb-0">{stats.totalUsers}</h2>
                                         <p className="text-success small mb-0">+4.5% growth</p>
                                     </div>
                                 </div>

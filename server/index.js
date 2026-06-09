@@ -10,6 +10,7 @@ import "./connection.js";
 import userRoutes from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
+import dashboardRoutes from "./routes/dashboardRoutes.js";
 // import orderRoutes from "./routes/orderRoutes.js";
 // import cartRoutes from "./routes/cartRoutes.js";
 
@@ -40,6 +41,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 
 app.use("/api/categories", categoryRoutes);
+app.use("/api/dashboardstats", dashboardRoutes);
 
 // app.use("/api/orders", orderRoutes);
 

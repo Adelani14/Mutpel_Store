@@ -48,7 +48,7 @@ const productSchema = new mongoose.Schema(
         stockCount: {
             type: Number,
             required: true,
-            default: 0,
+            default: 1,
         },
 
         sku: {
@@ -98,6 +98,7 @@ const productSchema = new mongoose.Schema(
     }
 );
 
-const Product = mongoose.model("Product", productSchema);
+// const Product = mongoose.model("Product", productSchema);
 
-export default Product;
+// export default Product;
+export default mongoose.model("Product", productSchema);
