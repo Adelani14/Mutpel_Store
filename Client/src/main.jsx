@@ -18,7 +18,7 @@ import Productdetail from './pages/Productdetail.jsx'
 import Cart from './pages/Cart.jsx'
 import Checkout from './pages/Checkout.jsx'
 import Newproduct from './pages/Newproduct.jsx'
-import Newcategory from './pages/Newcategory.jsx'
+import Newcategory from './pages/NewCategory.jsx'
 
 const router = createBrowserRouter([
   { path: '/', element: <Landing />},
