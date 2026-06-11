@@ -33,32 +33,13 @@ const Productlisting = () => {
     };
 
     if (loading) {
-        return <h3>Loading products...</h3>;
+        return (
+            <div className="d-flex flex-column align-items-center justify-content-center vh-100">
+                <span className="spinner-border spinner-border-lg "></span>
+                <h3>Loading products...</h3>
+            </div>
+        );
     }
-
-    // return (
-    //     <div className="container py-5">
-    //         <div className="row">
-    //             {products.map((product) => (
-    //                 <div
-    //                     className="col-md-4 col-lg-3 mb-4"
-    //                     key={product._id}
-    //                 >
-    //                     <ProductCard product={product} />
-    //                 </div>
-    //             ))}
-    //         </div>
-    //     </div>
-    // );
-
-    // export default Products;
-
-
-
-
-
-
-
 
     return (
         <>
@@ -107,7 +88,7 @@ const Productlisting = () => {
                                 </div>
                             </div>
 
-                            <div className="row g-3">
+                            <div className="row g-2">
                                 {products.map((product) => (
                                     <ProductCard key={product._id}
                                         title={product.title}
@@ -118,6 +99,7 @@ const Productlisting = () => {
                                         previousPrice={product.previousPrice}
                                         stockCount={product.stockCount}
                                         discountPercentage={product.discountPercentage}
+
 
                                     />
                                 ))}

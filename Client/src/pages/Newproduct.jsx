@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-// import axios from "../utils/axiosinstance.js";
+import axios from "../utils/axiosinstance.js";
 import Helpcenter from "../components/Helpcenter.jsx";
 import Header from "../components/Header.jsx";
-
+import { Link } from "react-router-dom";
 const Newproduct = () => {
 
     const token = localStorage.getItem("accessToken") || null;
@@ -24,6 +24,7 @@ const Newproduct = () => {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
+
                     }
                 );
 
@@ -42,6 +43,9 @@ const Newproduct = () => {
         fetchCategories();
 
     }, []);
+
+
+
 
     const [formData, setFormData] = useState({
         title: "",
@@ -102,8 +106,21 @@ const Newproduct = () => {
 
     const saveProduct = async () => {
 
+        const errorMessage = document.getElementById("errorMessage3");
+
+        if (!formData.title || !formData.description || !formData.stockCount || !formData.category  || !formData.previousPrice || imagespath.length === 0) {
+
+            errorMessage.style.display = "block";
+            setTimeout(() => {
+                errorMessage.style.display = "none";
+            }, 2000);
+            return;
+        }
+
 
         try {
+
+
             setLoading(true);
 
             const data = new FormData();
@@ -120,17 +137,27 @@ const Newproduct = () => {
             data.append("price", price);
             data.append("discountPercentage", discountPercentage);
 
-
-
-            const response = await fetch(
+            const addproduct = await fetch(
                 'http://localhost:4350/api/products/createNewProduct',
                 {
                     method: "POST",
-                    body: data
+
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: data,
                 }
             );
 
-            const result = await response.json();
+
+
+
+
+            const result = await addproduct.json();
+            if (!addproduct.ok) {
+                alert(result.message);
+                return;
+            }
             alert("Product created successfully!");
 
             console.log(result);
@@ -197,9 +224,9 @@ const Newproduct = () => {
                                     <h1 className="h4 mb-0">Add New Product</h1>
                                 </div>
                                 <div className="d-flex gap-2 flex-wrap">
-                                    <button className="btn btn-outline-secondary btn-sm" href="Admindashboard">
+                                    <Link className="btn btn-outline-secondary btn-sm" to="/Admindashboard">
                                         Cancel
-                                    </button>
+                                    </Link>
                                     <button
                                         className="btn btn-primary btn-sm"
                                         onClick={saveProduct}
@@ -224,6 +251,9 @@ const Newproduct = () => {
 
                             <div className="row g-4">
                                 <div className="col-lg-8">
+                                    <div className="alert alert-danger" role="alert" id="errorMessage3" style={{ display: "none" }}>
+                                        Please fill in all required fields.
+                                    </div>
                                     <div className="card rounded-4 shadow-sm border-0 p-4 mb-4">
                                         <h2 className="h6 text-uppercase text-muted mb-3">General Information</h2>
                                         <div className="mb-4">
@@ -376,10 +406,10 @@ const Newproduct = () => {
                                                 <label className="form-label fw-semibold">Stock</label>
                                                 <input type="number" placeholder="1" className="form-control" id="stockCount" value={formData.stockCount} onChange={handleChange} />
                                             </div>
-                                            <div className="col-6">
+                                            {/* <div className="col-6">
                                                 <label className="form-label fw-semibold">SKU</label>
                                                 <input type="text" className="form-control" id="sku" value={formData.sku} onChange={handleChange} />
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
 
