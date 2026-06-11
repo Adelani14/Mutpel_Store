@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "../utils/axiosinstance.js";
 import Helpcenter from "../components/Helpcenter.jsx";
 import Header from "../components/Header.jsx";
 import { Link } from "react-router-dom";
