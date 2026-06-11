@@ -2,6 +2,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Helpcenter from '../components/Helpcenter';
+import Productlisting from './Productlisting';
 const Admindashboard = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     // const [dashboardStats, setDashboardStats] = useState({});
@@ -10,8 +11,8 @@ const Admindashboard = () => {
         setSidebarOpen(!sidebarOpen);
     };
 
-    const token = localStorage.getItem("accessToken");
-    
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const token = storedUser?.token;
 
     const [stats, setStats] = useState({
         totalUsers: 0,
@@ -19,6 +20,16 @@ const Admindashboard = () => {
         totalCategories: 0,
         totalOrders: 0,
     });
+
+    // const [editproduct, setEditProduct] = useState({
+    //     Product: '',
+    //     Category: '',
+    //     Price: '',
+    //     Stock: '',
+    //     Action: '',
+    //     Remove: '',
+    // });
+
 
     useEffect(() => {
         const fetchDashboardStats = async () => {
@@ -44,8 +55,50 @@ const Admindashboard = () => {
         };
 
         fetchDashboardStats();
+        fetchProducts();
     }, []);
-    
+
+
+
+
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+
+
+    const fetchProducts = async () => {
+        try {
+            const response = await fetch(
+                "http://localhost:4350/api/products",
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            const data = await response.json();
+
+            setProducts(data);
+
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (loading) {
+        return (
+            <div className="d-flex flex-column align-items-center justify-content-center vh-100">
+                <span className="spinner-border spinner-border-lg "></span>
+                <h3>Loading products...</h3>
+            </div>
+        );
+    }
+
+
+
     return (
         <>
             <header className="bg-white shadow-sm sticky-top" style={{ zIndex: 1100 }}>
@@ -55,11 +108,11 @@ const Admindashboard = () => {
                         <div className="d-flex align-items-center gap-2">
                             {/* <div className="brand-icon rounded-3 d-flex align-items-center justify-content-center bg-primary text-white" style={{ width: '44px', height: '44px' }}><i className="bi bi-basket-fill fs-5"></i></div> */}
                             <div
-                                class="brand-icon rounded-3 d-flex align-items-center justify-content-center bg-primary text-white"
+                                className="brand-icon rounded-3 d-flex align-items-center justify-content-center bg-primary text-white"
                                 style={{ width: '44px', height: '44px', cursor: 'pointer' }}
                                 onClick={toggleSidebar}
                             >
-                                <i class="bi bi-basket-fill fs-5"></i>
+                                <i className="bi bi-basket-fill fs-5"></i>
                             </div>
                             <div><h1 className="h5 mb-0 text-primary">Mutpel Admin</h1></div>
                         </div>
@@ -75,20 +128,8 @@ const Admindashboard = () => {
 
             <main className="py-5 bg-light">
                 <div className="container-fluid px-3">
-                    {/* <div className="row g-4"> */}
                     <div className="d-flex">
-                        {/* <div className="col-xl-2">
-                                <div className="card rounded-4 shadow-sm border-0 p-3 h-100">
-                                    <div className="nav flex-column nav-pills" aria-orientation="vertical">
-                                        <a className="nav-link active rounded-4 mb-2" href="#"><i className="bi bi-speedometer2 me-2"></i>Dashboard</a>
-                                        <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-box-seam me-2"></i>Products</a>
-                                        <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-basket2 me-2"></i>Orders</a>
-                                        <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-people me-2"></i>Users</a>
-                                        <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-graph-up me-2"></i>Reports</a>
-                                        <a className="nav-link rounded-4" href="#"><i className="bi bi-gear me-2"></i>Settings</a>
-                                    </div>
-                                </div>
-                            </div> */}
+
                         <div className={`sidebar ${sidebarOpen ? 'open' : ''} `}>
                             <div className="card rounded-4 shadow-sm border-0 p-3 h-100">
                                 <div className="nav flex-column nav-pills " aria-orientation="vertical">
@@ -97,7 +138,8 @@ const Admindashboard = () => {
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-basket2 me-2"></i>Orders</a>
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-people me-2"></i>Users</a>
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-graph-up me-2"></i>Reports</a>
-                                    <a className="nav-link rounded-4" href="#"><i className="bi bi-gear me-2"></i>Settings</a>
+                                    <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-gear me-2"></i>Settings</a>
+                                    <a className="nav-link rounded-4 mt-2" href="/Productlisting"><i className="bi bi-shop me-2"></i>Check Store</a>
                                     <a className="nav-link rounded-4 mt-5 text-danger" href="#"><i className="bi bi-box-arrow-right me-2"></i>Sign Out</a>
                                 </div>
                             </div>
@@ -262,12 +304,21 @@ const Admindashboard = () => {
                                                 <th>Remove</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr><td>Premium Wireless Headset</td><td>Electronics</td><td>₦62,000</td><td>24 units</td><td><button className="btn btn-outline-secondary btn-sm">Edit</button></td><td><button className="btn btn-sm"><i className="bi bi-trash" ></i></button></td></tr>
-                                            <tr><td>Smart Kitchen Blender Pro</td><td>Kitchen</td><td>₦35,900</td><td>18 units</td><td><button className="btn btn-outline-secondary btn-sm">Edit</button></td><td><button className="btn btn-sm"><i className="bi bi-trash" ></i></button></td></tr>
-                                            <tr><td>Leather Formal Shoes</td><td>Fashion</td><td>₦28,500</td><td>12 units</td><td><button className="btn btn-outline-secondary btn-sm">Edit</button></td><td><button className="btn btn-sm"><i className="bi bi-trash" ></i></button></td></tr>
-                                            <tr><td>Ergonomic Desk Chair</td><td>Home</td><td>₦24,500</td><td>10 units</td><td><button className="btn btn-outline-secondary btn-sm">Edit</button></td><td><button className="btn btn-sm"><i className="bi bi-trash" ></i></button></td></tr>
-                                            <tr><td>Organic Cotton Baby Tee</td><td>Baby & Kids</td><td>₦7,500</td><td>42 units</td><td><button className="btn btn-outline-secondary btn-sm">Edit</button></td><td><button className="btn btn-sm"><i className="bi bi-trash" ></i></button></td ></tr>
+                                        <tbody>{products.map((product) => (
+                                            <tr key={product._id} style={{ cursor: 'pointer', }} onClick={() => window.location.href = `/product/${product._id}`}>
+                                                < td > {product.title}</td>
+                                                <td>{product.category.title}</td>
+                                                <td>{product.price}</td>
+                                                <td>{product.stockCount} units</td>
+                                                <td>
+                                                    <button className="btn btn-outline-secondary btn-sm">Edit</button>
+                                                </td>
+                                                <td>
+                                                    <button className="btn btn-sm"><i className="bi bi-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        ))}
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -287,7 +338,7 @@ const Admindashboard = () => {
                                     </div> */}
                     </div>
                 </div>
-            </main>
+            </main >
             <footer className="mt-5 text-center text-muted small py-4">
                 © 2026 Mutpel. All rights reserved.
             </footer>

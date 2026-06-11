@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import axios from "../utils/axiosinstance.js";
+import Axios from "../utils/axiosinstance.js";
 
 import Helpcenter from '../components/Helpcenter.jsx';
 
@@ -88,7 +88,7 @@ const Signup = () => {
 
 
           const information = { email, password, firstname, lastname }
-          axios.post(endpoint, information)
+          Axios.post(endpoint, information)
             .then((result) => {
               // console.log(result);
               if (result.status === 201) {

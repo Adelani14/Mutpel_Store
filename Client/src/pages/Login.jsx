@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import Helpcenter from '../components/Helpcenter.jsx';
-import axios from "../utils/axiosinstance.js";
+import Axios from "../utils/axiosinstance.js";
 
 const Login = () => {
   const [email, setemail] = useState('')
@@ -43,22 +43,33 @@ const Login = () => {
 
         try {
           const information = { email, password }
-          const result = await axios.post(
+          const result = await Axios.post(
             endpoint,
             information,
             { withCredentials: true }
           )
 
           if (result.status === 200) {
+            console.log(result.data);
 
             // SAVE TOKEN
-            localStorage.setItem("accessToken", result.data.accessToken)
+            // localStorage.setItem("accessToken", result.data.accessToken,);
+            // localStorage.setItem("role", result.data.role,);
+            localStorage.setItem(
+              "user",
+              JSON.stringify({
+                role: result.data.user.role,
+                token: result.data.accessToken
+              })
+            );
+
+            const role = result.data.user.role;
 
             const signupbtn = document.getElementById('loginbtn')
             signupbtn.innerHTML = `<span class="spinner-border spinner-border-sm"></span> Logging in...`
 
             setTimeout(() => {
-              if (result.data.user.role === "admin") {
+              if (role === "admin") {
                 window.location.href = "/admindashboard"
               } else {
                 window.location.href = "/productlisting"

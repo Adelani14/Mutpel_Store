@@ -19,7 +19,7 @@ router.put(
     updateProduct
 ); router.delete("/:id", isAuth, deleteProduct);
 
-router.get("/", getProducts);
-router.get("/:id", getProductById);
+router.get("/", isAuth, getProducts);
+router.get("/:id", isAuth, getProductById);
 
 export default router;

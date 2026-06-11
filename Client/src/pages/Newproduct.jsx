@@ -4,8 +4,8 @@ import Header from "../components/Header.jsx";
 import { Link } from "react-router-dom";
 const Newproduct = () => {
 
-    const token = localStorage.getItem("accessToken") || null;
-
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const token = storedUser?.token;
 
     // Fetch categories for dropdown
     const [categories, setCategories] = useState([]);
@@ -107,7 +107,7 @@ const Newproduct = () => {
 
         const errorMessage = document.getElementById("errorMessage3");
 
-        if (!formData.title || !formData.description || !formData.stockCount || !formData.category  || !formData.previousPrice || imagespath.length === 0) {
+        if (!formData.title || !formData.description || !formData.stockCount || !formData.category || !formData.previousPrice || imagespath.length === 0) {
 
             errorMessage.style.display = "block";
             setTimeout(() => {

@@ -7,6 +7,8 @@ import ProductCard from "../components/ProductCard";
 
 const Productlisting = () => {
 
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const token = storedUser?.token;
 
 
     const [products, setProducts] = useState([]);
@@ -19,7 +21,12 @@ const Productlisting = () => {
     const fetchProducts = async () => {
         try {
             const response = await fetch(
-                "http://localhost:4350/api/products"
+                "http://localhost:4350/api/products",
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             );
 
             const data = await response.json();
