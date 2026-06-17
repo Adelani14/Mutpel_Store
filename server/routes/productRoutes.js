@@ -2,7 +2,8 @@ import express from "express";
 import upload from "../middleware/multer.js";
 import isAuth from "../middleware/isAuth.js";
 
-import { createProduct, getProducts, getProductById, deleteProduct, updateProduct } from "../controllers/productController.js";
+import { createProduct, getProducts, getProductById, deleteProduct, updateProduct, getSingleProduct, getRelatedProducts } from "../controllers/productController.js";
+
 
 const router = express.Router();
 
@@ -18,6 +19,14 @@ router.put(
     upload.array("images", 8),
     updateProduct
 ); router.delete("/:id", isAuth, deleteProduct);
+
+router.get("/getSingleProduct/:id", isAuth, getSingleProduct);
+
+router.get(
+    "/relatedproducts/:categoryId/:productId",
+    isAuth,
+    getRelatedProducts
+);
 
 router.get("/", isAuth, getProducts);
 router.get("/:id", isAuth, getProductById);

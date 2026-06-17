@@ -1,7 +1,5 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-// import { createBrowserRouter } from 'react-router'
-// import { RouterProvider } from 'react-router-dom'
 import { Routes, Route } from "react-router-dom";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -23,39 +21,12 @@ import Checkout from './pages/Checkout.jsx'
 import Newproduct from './pages/Newproduct.jsx'
 import Newcategory from './pages/NewCategory.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx';
-
-
-
-
-// const router = createBrowserRouter([
-//   { path: '/', element: <Landing /> },
-//   { path: '/landing', element: <Landing /> },
-//   { path: '/login', element: <Login /> },
-//   { path: '/signup', element: <Signup /> },
-//   <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-//     <Route path="/admindashboard" element={<Admindashboard />} />
-//   </Route>,
-//   <Route element={<ProtectedRoute allowedRoles={["user", "admin"]} />}>
-//     <Route path="/productlisting" element={<Productlisting />} />
-//   </Route>,
-//   { path: '/productdetail', element: <Productdetail /> },
-//   { path: '/cart', element: <Cart /> },
-//   { path: '/checkout', element: <Checkout /> },
-//   <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-//     <Route path="/newproduct" element={<Newproduct />} />
-//   </Route>,
-//   <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-//     <Route path="/newcategory" element={<Newcategory />} />
-//   </Route>
-// ])
-
-
+import AllProduct from './pages/AllProduct.jsx';
 
 
 
 const router = createBrowserRouter([
   { path: "/", element: <Landing /> },
-  { path: "/landing", element: <Landing /> },
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
 
@@ -65,6 +36,7 @@ const router = createBrowserRouter([
       { path: "/admindashboard", element: <Admindashboard /> },
       { path: "/newproduct", element: <Newproduct /> },
       { path: "/newcategory", element: <Newcategory /> },
+      { path: "/allproducts", element: <AllProduct /> },
     ],
   },
 
@@ -72,12 +44,13 @@ const router = createBrowserRouter([
     element: <ProtectedRoute allowedRoles={["user", "admin"]} />,
     children: [
       { path: "/productlisting", element: <Productlisting /> },
+      { path: "/productdetail/:id", element: <Productdetail /> },
+      { path: "/cart", element: <Cart /> },
+      { path: "/checkout", element: <Checkout /> },
     ],
   },
 
-  { path: "/productdetail", element: <Productdetail /> },
-  { path: "/cart", element: <Cart /> },
-  { path: "/checkout", element: <Checkout /> },
+
 ]);
 
 

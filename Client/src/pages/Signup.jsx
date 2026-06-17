@@ -121,12 +121,12 @@ const Signup = () => {
       < div className="container min-vh-100 d-flex flex-column justify-content-center align-items-center" >
 
         <div className="card shadow-lg p-4 mt-3" style={{ maxWidth: "480px", width: "100%", borderRadius: "20px" }}>
-          <div class="text-center mb-4">
-            <div class="brand-icon rounded-4 d-inline-flex align-items-center justify-content-center bg-primary text-white mb-3" style={{ width: '60px', height: '60px' }}>
-              <i class="bi bi-basket-fill fs-4"></i>
+          <div className="text-center mb-4">
+            <div className="brand-icon rounded-4 d-inline-flex align-items-center justify-content-center bg-primary text-white mb-3" style={{ width: '60px', height: '60px' }}>
+              <i className="bi bi-basket-fill fs-4"></i>
             </div>
-            <h1 class="h4">Create your account</h1>
-            <p class="text-muted mb-0">Join Mutpel today for exclusive deals and quality goods.</p>
+            <h1 className="h4">Create your account</h1>
+            <p className="text-muted mb-0">Join Mutpel today for exclusive deals and quality goods.</p>
           </div>
 
           <form>
@@ -199,10 +199,10 @@ const Signup = () => {
 
             <div className="text-center">
 
-              <div class="text-center text-muted my-1">OR CONTINUE WITH</div>
-              <div class="d-flex gap-2">
-                <button class="btn btn-outline-secondary w-100"><i class="bi bi-google me-2"></i>Google</button>
-                <button class="btn btn-outline-secondary w-100"><i class="bi bi-facebook me-2"></i>Facebook</button>
+              <div className="text-center text-muted my-1">OR CONTINUE WITH</div>
+              <div className="d-flex gap-2">
+                <button className="btn btn-outline-secondary w-100"><i className="bi bi-google me-2"></i>Google</button>
+                <button className="btn btn-outline-secondary w-100"><i className="bi bi-facebook me-2"></i>Facebook</button>
               </div>
               <small className="text-muted text-uppercase fw-bold" style={{ fontSize: "10px", letterSpacing: "1px" }}>Already have an account?</small>
               <button type="button" className="btn btn-outline-primary w-100 mt-2 py-2 fw-bold"><a href="/login" className="text-decoration-none text-dark">Sign In</a></button>
@@ -212,10 +212,10 @@ const Signup = () => {
 
       </div>
       <div className="mt-2 small text-muted">
-        <p class="text-center auth-form-footer">By continuing, you agree to our <a href="#">Terms of Service</a> and <a
+        <p className="text-center auth-form-footer">By continuing, you agree to our <a href="#">Terms of Service</a> and <a
           href="#">Privacy Policy</a>.</p>
       </div>
-      <div class="text-center text-muted small mt-2">Premium Shopping</div>
+      <div className="text-center text-muted small mt-2">Premium Shopping</div>
 
 
 

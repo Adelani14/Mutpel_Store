@@ -23,6 +23,15 @@ export const createProduct = async (req, res) => {
             featured
         } = req.body;
 
+
+        const sizes = req.body.sizes
+            ? req.body.sizes.split(",").map(size => size.trim())
+            : [];
+
+        const colors = req.body.colors
+            ? req.body.colors.split(",").map(color => color.trim())
+            : [];
+
         const slug = title
             .toLowerCase()
             .trim()
@@ -38,6 +47,8 @@ export const createProduct = async (req, res) => {
             title,
             slug,
             price,
+            sizes,
+            colors,
             description,
             imagespath,
             category,
@@ -73,8 +84,17 @@ export const createProduct = async (req, res) => {
 
 // GET ALL PRODUCTS
 export const getProducts = async (req, res) => {
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const skip = (page - 1) * limit;
     try {
-        const products = await Product.find().populate("category");
+        const products = await Product.find()
+            .populate("category")
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit);
+
         res.json(products);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -91,6 +111,57 @@ export const getProductById = async (req, res) => {
         res.json(product);
     } catch (error) {
         res.status(500).json({ message: error.message });
+    }
+};
+
+
+
+// GET SINGLE PRODUCT by id
+export const getSingleProduct = async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id)
+            .populate("category");
+
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            product,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
+
+
+// GET PRODUCTS BY CATEGORY
+export const getRelatedProducts = async (req, res) => {
+    try {
+        const { categoryId, productId } = req.params;
+
+        const products = await Product.find({
+            category: categoryId,
+            _id: { $ne: productId },
+        }).limit(8);
+
+        res.status(200).json({
+            success: true,
+            products,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
     }
 };
 

@@ -9,6 +9,9 @@ const Newproduct = () => {
 
     // Fetch categories for dropdown
     const [categories, setCategories] = useState([]);
+    const [hasSizes, setHasSizes] = useState("none");
+    const [sizes, setSizes] = useState([]);
+    const [colors, setColors] = useState([]);
 
     useEffect(() => {
 
@@ -51,6 +54,8 @@ const Newproduct = () => {
         description: "",
         stockCount: "",
         sku: "",
+        sizes: [],
+        colors: [],
         category: "",
         brand: "",
         previousPrice: "",
@@ -79,6 +84,35 @@ const Newproduct = () => {
 
 
 
+
+
+    const handleSizesChange = (e) => {
+        const sizeArray = e.target.value
+            .split(",")
+            .map(size => size.trim())
+            .filter(Boolean);
+
+        setSizes(sizeArray);
+
+        setFormData({
+            ...formData,
+            sizes: sizeArray
+        });
+    };
+
+    const handleColorsChange = (e) => {
+        const colorArray = e.target.value
+            .split(",")
+            .map(color => color.trim())
+            .filter(Boolean);
+
+        setColors(colorArray);
+
+        setFormData({
+            ...formData,
+            colors: colorArray
+        });
+    };
 
     const handleImages = (e) => {
 
@@ -206,12 +240,24 @@ const Newproduct = () => {
                         <div className="col-xl-2">
                             <div className="card rounded-4 shadow-sm border-0 p-3 h-100">
                                 <div className="nav flex-column nav-pills" aria-orientation="vertical">
-                                    <a className="nav-link active rounded-4 mb-2" href="#"><i className="bi bi-box-seam me-2"></i>New Product</a>
-                                    <a className="nav-link rounded-4 mb-2" href="admin-dashboard.html"><i className="bi bi-speedometer2 me-2"></i>Dashboard</a>
-                                    <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-folder-plus me-2"></i>New Category</a>
-                                    <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-basket2 me-2"></i>Orders</a>
-                                    <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-box-seam me-2"></i>Products</a>
-                                    <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-gear me-2"></i>Settings</a>
+                                    <Link to="/Newproduct" className="nav-link active rounded-4 mb-2">
+                                        <i className="bi bi-box-seam me-2"></i>New Product
+                                    </Link>
+                                    <Link to="/Admindashboard" className="nav-link rounded-4 mb-2">
+                                        <i className="bi bi-speedometer2 me-2"></i>Dashboard
+                                    </Link>
+                                    <Link to="/Newcategory" className="nav-link rounded-4 mb-2">
+                                        <i className="bi bi-folder-plus me-2"></i>New Category
+                                    </Link>
+                                    <Link to="/Orders" className="nav-link rounded-4 mb-2">
+                                        <i className="bi bi-basket2 me-2"></i>Orders
+                                    </Link>
+                                    <Link to="/Products" className="nav-link rounded-4 mb-2">
+                                        <i className="bi bi-box-seam me-2"></i>Products
+                                    </Link>
+                                    <Link to="/Settings" className="nav-link rounded-4 mb-2">
+                                        <i className="bi bi-gear me-2"></i>Settings
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -265,6 +311,29 @@ const Newproduct = () => {
                                             <label className="form-label fw-semibold">Description</label>
                                             <textarea className="form-control" rows="7" placeholder="Craft a compelling story for this product..." id="description" value={formData.description} onChange={handleChange}></textarea>
                                         </div>
+                                        <div className="form-check form-switch mt-3">
+                                            <label className="form-check-label fw-semibold" htmlFor="sizesSwitch">Does this product have sizes?</label>
+                                            <input className="form-check-input" type="checkbox" id="sizesSwitch" checked={hasSizes === "block"} onChange={(e) => setHasSizes(e.target.checked ? "block" : "none")} />
+                                        </div>
+                                        <div className="mb-4 mt-3" style={{ display: hasSizes }}>
+                                            <label className="form-label fw-semibold">Sizes (comma-separated)</label>
+                                            <input
+                                                className="form-control"
+                                                placeholder="S,M,L,XL"
+                                                onChange={handleSizesChange}
+                                            />
+                                        </div>
+                                        <div className="mb-4" style={{ display: hasSizes }}>
+                                            <label className="form-label fw-semibold">Colors (comma-separated)</label>
+                                            <input
+                                                className="form-control"
+                                                placeholder="Red,Blue,Green"
+                                                onChange={handleColorsChange}
+                                            />
+                                        </div>
+
+
+
                                     </div>
 
                                     <div className="card rounded-4 shadow-sm border-0 p-4">

@@ -2,7 +2,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Helpcenter from '../components/Helpcenter';
-import Productlisting from './Productlisting';
 const Admindashboard = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     // const [dashboardStats, setDashboardStats] = useState({});
@@ -21,14 +20,6 @@ const Admindashboard = () => {
         totalOrders: 0,
     });
 
-    // const [editproduct, setEditProduct] = useState({
-    //     Product: '',
-    //     Category: '',
-    //     Price: '',
-    //     Stock: '',
-    //     Action: '',
-    //     Remove: '',
-    // });
 
 
     useEffect(() => {
@@ -45,7 +36,7 @@ const Admindashboard = () => {
 
                 const data = await response.json();
 
-                console.log(data);
+                // console.log(data);
 
                 setStats(data);
 
@@ -55,21 +46,21 @@ const Admindashboard = () => {
         };
 
         fetchDashboardStats();
-        fetchProducts();
+        fetchProducts(page);
     }, []);
-
-
-
 
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [page, setPage] = useState(1);
+    const limit = 5;
 
 
 
-    const fetchProducts = async () => {
+    const fetchProducts = async (currentPage) => {
         try {
             const response = await fetch(
-                "http://localhost:4350/api/products",
+                `http://localhost:4350/api/products?page=${currentPage}&limit=${limit}`,
+
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -88,11 +79,12 @@ const Admindashboard = () => {
         }
     };
 
+
     if (loading) {
         return (
             <div className="d-flex flex-column align-items-center justify-content-center vh-100">
                 <span className="spinner-border spinner-border-lg "></span>
-                <h3>Loading products...</h3>
+                <i>Dashboard Overview..</i>
             </div>
         );
     }
@@ -106,7 +98,6 @@ const Admindashboard = () => {
                 <div className="container-fluid py-3">
                     <div className="d-flex align-items-center justify-content-between gap-3 flex-wrap">
                         <div className="d-flex align-items-center gap-2">
-                            {/* <div className="brand-icon rounded-3 d-flex align-items-center justify-content-center bg-primary text-white" style={{ width: '44px', height: '44px' }}><i className="bi bi-basket-fill fs-5"></i></div> */}
                             <div
                                 className="brand-icon rounded-3 d-flex align-items-center justify-content-center bg-primary text-white"
                                 style={{ width: '44px', height: '44px', cursor: 'pointer' }}
@@ -128,13 +119,13 @@ const Admindashboard = () => {
 
             <main className="py-5 bg-light">
                 <div className="container-fluid px-3">
-                    <div className="d-flex">
+                    <div className="d-flex ">
 
                         <div className={`sidebar ${sidebarOpen ? 'open' : ''} `}>
                             <div className="card rounded-4 shadow-sm border-0 p-3 h-100">
-                                <div className="nav flex-column nav-pills " aria-orientation="vertical">
+                                <div className="nav  flex-column nav-pills " aria-orientation="vertical">
                                     <a className="nav-link active rounded-4 mb-2" href="#"><i className="bi bi-speedometer2 me-2"></i>Dashboard</a>
-                                    <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-box-seam me-2"></i>Products</a>
+                                    <a className="nav-link rounded-4 mb-2" href="/Allproducts"><i className="bi bi-box-seam me-2"></i>Products</a>
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-basket2 me-2"></i>Orders</a>
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-people me-2"></i>Users</a>
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-graph-up me-2"></i>Reports</a>
@@ -154,29 +145,29 @@ const Admindashboard = () => {
                                 </div>
 
                             </div>
-                            <div className="row g-3 mb-4">
-                                <div className="col-md-3">
+                            <div className="row g-3 mb-4 ">
+                                <div className="col-md-3 product-card">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Total Revenue</p>
                                         <h2 className="h4 mb-0">₦{stats.totalRevenue?.toLocaleString()}</h2>
                                         <p className="text-success small mb-0">+12.4% vs last month</p>
                                     </div>
                                 </div>
-                                <div className="col-md-3">
+                                <div className="col-md-3 product-card">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Active Orders</p>
                                         <h2 className="h4 mb-0">{stats.totalOrders}</h2>
                                         <p className="text-success small mb-0">+8.7% from yesterday</p>
                                     </div>
                                 </div>
-                                <div className="col-md-3">
+                                <div className="col-md-3 product-card">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Active Products</p>
                                         <h2 className="h4 mb-0">{stats.totalProducts}</h2>
                                         <p className="text-danger small mb-0">-2.3% this week</p>
                                     </div>
                                 </div>
-                                <div className="col-md-3">
+                                <div className="col-md-3 product-card">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Total Customers</p>
                                         <h2 className="h4 mb-0">{stats.totalUsers}</h2>
@@ -289,11 +280,11 @@ const Admindashboard = () => {
 
                                 <div className='d-flex justify-content-between'>
                                     <h2 className="h6 mb-4">Product Management</h2>
-                                    <div > <a href="#" className="text-primary" >View All products</a></div>
+                                    <div > <a href="/AllProducts" className="text-primary" >View All products</a></div>
 
                                 </div>
                                 <div className="table-responsive">
-                                    <table className="table align-middle mb-0">
+                                    <table className="table table-hover align-middle mb-0">
                                         <thead className="table-secondary">
                                             <tr>
                                                 <th>Product</th>

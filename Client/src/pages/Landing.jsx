@@ -13,7 +13,7 @@ const Landing = () => {
                                 <i className="bi bi-basket-fill fs-5"></i>
                             </div>
                             <div>
-                                <h1 className="h5 mb-0 text-primary">Mutpel</h1>
+                                <h1 className="h5 mb-0 text-primary">Mutpel Household</h1>
                             </div>
                         </div>
                         <form className="flex-grow-1 mx-3 d-none d-md-flex" style={{ minWidth: '300px' }}>
@@ -27,10 +27,10 @@ const Landing = () => {
                             <button className="btn btn-link text-secondary text-decoration-none d-flex align-items-center gap-2">
                                 <i className="bi bi-heart"></i>
                             </button>
-                            <button className="btn btn-link text-secondary position-relative">
+                            {/* <button className="btn btn-link text-secondary position-relative">
                                 <i className="bi bi-cart4"></i>
                                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
-                            </button>
+                            </button> */}
                             <button className="btn btn-link text-secondary"><i className="bi bi-bell"></i></button>
                             <div className="vr d-none d-lg-block"></div>
                             <Link to="/login" className="text-secondary text-decoration-none">Login</Link>

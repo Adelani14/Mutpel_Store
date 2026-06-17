@@ -51,6 +51,14 @@ const productSchema = new mongoose.Schema(
             default: 1,
         },
 
+        sizes: [{
+            type: String,
+        }],
+
+        colors: [{
+            type: String,
+        }],
+
         sku: {
             type: String,
             default: "",
@@ -98,7 +106,5 @@ const productSchema = new mongoose.Schema(
     }
 );
 
-// const Product = mongoose.model("Product", productSchema);
 
-// export default Product;
 export default mongoose.model("Product", productSchema);

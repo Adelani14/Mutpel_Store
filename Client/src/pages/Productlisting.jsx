@@ -13,15 +13,17 @@ const Productlisting = () => {
 
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [page, setPage] = useState(1);
+    const limit = 10;
 
     useEffect(() => {
-        fetchProducts();
-    }, []);
+        fetchProducts(page);
+    }, [page]);
 
-    const fetchProducts = async () => {
+    const fetchProducts = async (currentPage) => {
         try {
             const response = await fetch(
-                "http://localhost:4350/api/products",
+                `http://localhost:4350/api/products?page=${currentPage}&limit=${limit}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -97,29 +99,41 @@ const Productlisting = () => {
 
                             <div className="row g-2">
                                 {products.map((product) => (
-                                    <ProductCard key={product._id}
+                                    <ProductCard
+                                        key={product._id}
+                                        id={product._id}
                                         title={product.title}
-                                        imgsrc={product.imagespath[0]} // Assuming the first image is the main one
+                                        imgsrc={product.imagespath[0]}
                                         description={product.description}
                                         shortDescription={product.shortDescription}
                                         price={product.price}
                                         previousPrice={product.previousPrice}
                                         stockCount={product.stockCount}
                                         discountPercentage={product.discountPercentage}
-
-
                                     />
                                 ))}
                             </div>
 
                             <nav className="mt-5" aria-label="Page navigation">
-                                <ul className="pagination justify-content-center">
-                                    <li className="page-item disabled"><a className="page-link">Previous</a></li>
-                                    <li className="page-item active"><a className="page-link" href="#">1</a></li>
-                                    <li className="page-item"><a className="page-link" href="#">2</a></li>
-                                    <li className="page-item"><a className="page-link" href="#">3</a></li>
-                                    <li className="page-item"><a className="page-link" href="#">Next</a></li>
-                                </ul>
+
+                                <div className="d-flex justify-content-between mt-3">
+                                    <button
+                                        className="btn btn-secondary"
+                                        disabled={page === 1}
+                                        onClick={() => setPage((prev) => prev - 1)}
+                                    >
+                                        Previous
+                                    </button>
+
+                                    <span>Page {page}</span>
+
+                                    <button
+                                        className="btn btn-primary"
+                                        onClick={() => setPage((prev) => prev + 1)}
+                                    >
+                                        Next
+                                    </button>
+                                </div>
                             </nav>
 
                             <div className="card rounded-4 shadow-sm bg-primary text-white mt-5 border-0">

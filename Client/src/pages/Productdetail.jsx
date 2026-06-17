@@ -1,79 +1,342 @@
 
 import Helpcenter from "../components/Helpcenter.jsx";
-import Header from "../components/Header.jsx";
+// import Header from "../components/Header.jsx";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+
 
 const Productdetail = () => {
+
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const token = storedUser?.token;
+
+  const { id } = useParams();
+
+  const [product, setProduct] = useState([]);
+  const [relatedProducts, setRelatedProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [cartSuccess, setCartSuccess] = useState(false);
+  const [cartMessage, setCartMessage] = useState("");
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+  
+
+
+  const [quantity, setQuantity] = useState(1);
+  const increaseQuantity = () => {
+    setQuantity(prev => prev + 1);
+  };
+  const decreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(prev => prev - 1);
+    }
+  };
+
+
+
+    const fetchCartCount = async () => {
+    try {
+      const res = await fetch("http://localhost:4350/api/cart/getCartCount", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await res.json();
+    setCartCount(data.count || 0);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProduct();
+    fetchCartCount();
+  }, []);
+
+  const fetchProduct = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:4350/api/products/getSingleProduct/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      setProduct(data.product);
+
+      // console.log("Product:", data.product);
+      // console.log("Category:", data.product.category);
+
+      // const categoryId = data.product.category._id;
+      const categoryId = data.product.category._id;
+      const relatedResponse = await fetch(
+        `http://localhost:4350/api/products/relatedproducts/${categoryId}/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const relatedData = await relatedResponse.json();
+
+      setRelatedProducts(relatedData.products || []);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
+
+
+  if (!product) {
+    return (
+      <>
+        <div className="d-flex flex-column align-items-center justify-content-center vh-100">
+          <span className="spinner-border spinner-border-lg "></span>
+          <h3>Loading..</h3>
+        </div>  
+      </>
+    )
+  }
+
+  const addToCart = async () => {
+    try {
+      if (product.sizes?.length > 0 && !selectedSize) {
+        setCartMessage("Please select a size");
+        setCartSuccess(true);
+        return;
+      }
+
+      if (product.colors?.length > 0 && !selectedColor) {
+        setCartMessage("Please select a color");
+        setCartSuccess(true);
+        return;
+      }
+
+      if (!token) {
+        setCartMessage("Please login first");
+        setCartSuccess(true);
+        return;
+      }
+
+      const response = await fetch(
+        "http://localhost:4350/api/cart/addToCart",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            productId: product._id,
+            quantity,
+            size: selectedSize,
+            color: selectedColor,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setCartMessage(data.message || "Failed to add to cart");
+        setCartSuccess(true);
+        return;
+      }
+
+      setCartMessage("Product added successfully to cart");
+      setCartSuccess(true);
+      setIsAddedToCart(true)
+      fetchCartCount();
+
+      setQuantity(1);
+      setSelectedSize("");
+      setSelectedColor("");
+
+      setTimeout(() => {
+        setCartSuccess(false);
+        setCartMessage("");
+      }, 3000);
+
+    } catch (error) {
+      console.log(error);
+      setCartMessage("Something went wrong");
+      setCartSuccess(true);
+    }
+  };
+
+
+
+
+
+  
+
+
+
   return (
     <>
       <Helpcenter />
-      <Header />
+      <header className="bg-white shadow-sm sticky-top" style={{ zIndex: 1020 }}>
 
-      <main className="container-fluid py-5 bg-light">
-        <section className="py-4 bg-body">
+        <div className="container-fluid py-3">
+          <div className="d-flex align-items-center justify-content-between gap-3 flex-wrap">
+            <div className="d-flex align-items-center gap-2">
+              {/* <a href="/  " className="text-decoration-none d-flex align-items-center gap-2"> */}
+              <div className="brand-icon rounded-3 d-flex align-items-center justify-content-center bg-primary text-white" style={{ width: "44px", height: "44px" }}><i className="bi bi-basket-fill fs-5"></i></div>
+              <div><h1 className="h5 mb-0 text-primary">Motpel Household</h1></div>
+            </div>
+            <form className="flex-grow-1 mx-3 d-none d-md-flex" style={{ minWidth: "300px" }}>
+              <div className="input-group shadow-sm rounded-pill overflow-hidden border border-1 border-secondary-subtle">
+                <span className="input-group-text bg-white border-0"><i className="bi bi-search"></i></span>
+                <input type="search" className="form-control border-0" placeholder="Search accessories, kitchen, shoes..." />
+                <button className="btn btn-primary rounded-end" type="submit">Search</button>
+              </div>
+            </form>
+            <div className="d-flex align-items-center gap-3">
+              <a href="/cart" className="btn btn-link text-secondary position-relative p-0"><i className="bi bi-cart4 fs-5"></i><span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{cartCount}</span></a>
+              <a href="login.html" className="btn btn-outline-primary btn-sm"><i className="bi bi-person"></i></a>
+            </div>
+          </div>
+        </div>
+        {cartSuccess && (
+          <div className="position-fixed top-0 start-50 translate-middle-x mt-2 shadow-lg px-4 py-2 bg-success text-white rounded-3 z-3">
+            {cartMessage}
+          </div>
+        )}
+      </header>
+
+
+
+      <main className="container-fluid py-2 bg-light">
+        <section className="py-4 bg-body border-bottom">
           <div className="container">
             <div className="d-flex flex-column flex-md-row align-items-start justify-content-between gap-3 mb-4">
               <div>
-                <p className="text-muted mb-1">Home / Kitchen / Premium Kitchen Master</p>
-                <h1 className="h4 mb-0">Premium Kitchen Master Pro Chef Knife</h1>
+                <h6 className="text-muted mb-1"><Link to="/productlisting">Home</Link> / {product.category.title} / {product.title}</h6>
+                {/* <h1 className="h4 mb-0">{product.title}</h1> */}
               </div>
               <div className="text-muted">In Stock</div>
             </div>
 
-            <div className="row g-4">
-              <div className="col-lg-6">
+            <div className="row g-4" >
+              <div className="col-lg-4 shadow-lg rounded-4 border-0 p-4">
                 <div className="card rounded-4 shadow-sm overflow-hidden border-0">
-                  <img src="https://images.unsplash.com/photo-1717126763826-77696b14d5ca?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fEVyZ29ub21pYyUyMENoZWYncyUyMEtuaWZlfGVufDB8fDB8fHww" className="img-fluid" alt="Chef Knife" />
+                  <img src={product.imagespath[0]} className="img-fluid" alt={product.title} style={{ height: "260px" }} />
                 </div>
                 <div className="d-flex align-items-center gap-3 mt-3 overflow-auto">
-                  <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="img-fluid rounded-2" style={{ width: "80px", height: "80px" }}></img>
-                  <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="img-fluid rounded-2" style={{ width: "80px", height: "80px" }}></img>
-                  <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="img-fluid rounded-2" style={{ width: "80px", height: "80px" }}></img>
-                  <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="img-fluid rounded-2" style={{ width: "80px", height: "80px" }}></img>
+                  <a href={product.imagespath[1]} target="_blank" rel="noopener noreferrer">
+                    <img src={product.imagespath[1]} className="img-fluid rounded-2" style={{ width: "80px", height: "80px" }} alt={product.title} />
+                  </a>
+                  <a href={product.imagespath[2]} target="_blank" rel="noopener noreferrer">
+                    <img src={product.imagespath[2]} className="img-fluid rounded-2" style={{ width: "80px", height: "80px" }} />
+                  </a>
+                  <a href={product.imagespath[3]} target="_blank" rel="noopener noreferrer">
+                    <img src={product.imagespath[3]} className="img-fluid rounded-2" style={{ width: "80px", height: "80px" }} alt="" />
+                  </a>
                 </div>
               </div>
-              <div className="col-lg-6">
-                <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
-                  <div className="d-flex align-items-center gap-3 mb-3">
+              <div className="col-lg-4 ">
+                <div className="card rounded-4 shadow-lg border-0 p-4 h-100">
+                  {/* <div className="d-flex align-items-center gap-3 mb-3">
                     <span className="badge bg-primary text-white">New Arrival</span>
                     <span className="text-muted">SKU: MK-2024</span>
-                  </div>
-                  <h2 className="h4">Premium Kitchen Master Pro Chef Knife</h2>
+                  </div> */}
+                  <h2 className="h4">{product.title}</h2>
                   <div className="d-flex align-items-center gap-2 mb-3">
                     <div className="text-warning small">
                       <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star"></i>
                     </div>
-                    <span className="text-muted">124 reviews</span>
+                    <span className="text-muted">{product.ratings}</span>
                   </div>
                   <div className="mb-4">
-                    <span className="fs-3 fw-bold">₦45,000</span>
-                    <span className="text-decoration-line-through text-muted ms-3">₦55,000</span>
+                    <span className="fs-3 fw-bold">₦{product.price}</span>
+                    {product.previousPrice > 0 && (
+                      <span className="text-decoration-line-through text-muted fs-5 ms-3">₦{product.previousPrice}</span>
+                    )}
                   </div>
-                  <div className="mb-4">
-                    <p className="mb-2 fw-semibold">Select Size</p>
-                    <div className="btn-group" role="group">
-                      <button className="btn btn-outline-secondary active">8 inch</button>
-                      <button className="btn btn-outline-secondary">10 inch</button>
-                      <button className="btn btn-outline-secondary">12 inch</button>
+                  {product.sizes?.length > 0 && (
+                    <div>
+                      <div className="mt-2">
+                        <p className="mb-2">Select Size</p>
+
+                        <div className="d-flex flex-wrap gap-2">
+                          {product.sizes?.map((size, index) => (
+                            <button
+                              key={index}
+                              type="button"
+                              onClick={() => setSelectedSize(size)}
+                              className={`btn btn-sm ${selectedSize === size
+                                ? "btn-primary"
+                                : "btn-outline-primary"
+                                }`}
+                            >
+                              {size}
+                            </button>
+                          ))}
+                        </div>
+
+                        {selectedSize && (
+                          <small className="text-muted">
+                            Selected: {selectedSize}
+                          </small>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  <div className="mb-4">
-                    <p className="mb-2 fw-semibold">Choose Handle</p>
-                    <div className="d-flex gap-2">
-                      <button className="btn btn-outline-dark rounded-circle p-3"></button>
-                      <button className="btn btn-outline-dark rounded-circle p-3"></button>
-                      <button className="btn btn-outline-dark rounded-circle p-3"></button>
+                  )}
+
+                  {product.colors?.length > 0 && (
+                    <div className="mt-3 mb-4">
+                      <p>Select Color</p>
+                      <div className="d-flex align-items-center gap-2">
+                        {product.colors.map(color => (
+                          <button
+                            key={color}
+                            type="button"
+                            onClick={() => setSelectedColor(color)}
+                            className={`btn rounded-circle p-3 ${selectedColor === color
+                              ? "border border-3 border-primary"
+                              : "border"
+                              }`}
+                            style={{
+                              backgroundColor: color,
+                              width: "40px",
+                              height: "40px",
+                            }}
+                          ></button>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
                   <div className="d-flex flex-column flex-sm-row align-items-sm-center gap-3 mb-4">
                     <div className="input-group w-100 w-sm-auto">
-                      <button className="btn btn-outline-secondary" type="button"><i className="bi bi-dash"></i></button>
-                      <input type="text" className="form-control text-center" defaultValue="1" aria-label="Quantity" />
-                      <button className="btn btn-outline-secondary" type="button"><i className="bi bi-plus"></i></button>
+                      <button onClick={decreaseQuantity} disabled={isAddedToCart}
+                        className="btn btn-outline-secondary" type="button"><i className="bi bi-dash"></i></button>
+                      <input type="text" className="form-control text-center" value={quantity} readOnly aria-label="Quantity" />
+                      <button onClick={increaseQuantity} disabled={isAddedToCart}
+                        className="btn btn-outline-secondary" type="button"><i className="bi bi-plus"></i></button>
                     </div>
-                    <a href="#" className="btn btn-primary btn-lg w-100 w-sm-auto">Add to Cart</a>
-                  </div>
+                    <button
+                      onClick={addToCart}
+                      disabled={isAddedToCart}
+                      className={`btn btn-primary btn-lg w-100 w-sm-auto ${isAddedToCart ? "d-none" : ""
+                        }`}
+                    >
+                      Add to Cart
+                    </button>                </div>
                   <div className="list-group list-group-flush rounded-4 bg-light p-3">
                     <div className="list-group-item bg-transparent border-0 px-0 py-2 d-flex align-items-center gap-2"><i className="bi bi-check-circle-fill text-primary"></i> Free delivery on orders over ₦100k</div>
                     <div className="list-group-item bg-transparent border-0 px-0 py-2 d-flex align-items-center gap-2"><i className="bi bi-check-circle-fill text-primary"></i> 30-day hassle-free return</div>
@@ -82,6 +345,7 @@ const Productdetail = () => {
                 </div>
               </div>
             </div>
+
 
             <div className="card rounded-4 shadow-sm border-0 mt-5">
               <div className="card-body p-4">
@@ -92,8 +356,7 @@ const Productdetail = () => {
                 </ul>
                 <div className="tab-content">
                   <div className="tab-pane fade show active" id="description">
-                    <p className="mb-0 text-muted">Designed for both professional chefs and home cooks, the Mutpel Master Pro Chef Knife delivers precise cuts and exceptional balance. Its premium steel blade and ergonomic handle are engineered to last. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui, nam. Doloremque perferendis veritatis quibusdam minima repellat eveniet ullam neque laudantium vero, illo ducimus totam ipsa culpa! Voluptates veniam ducimus praesentium?
-                    Accusamus ut delectus dolor odio quasi quo animi ipsum nesciunt nulla recusandae assumenda esse amet, at aperiam magni facilis! Saepe beatae sequi modi alias corporis architecto doloremque repudiandae odio perspiciatis?</p>
+                    <p className="mb-0 text-muted">{product.description}</p>
                   </div>
                   <div className="tab-pane fade" id="specs">
                     <ul className="list-unstyled text-muted mb-0">
@@ -104,7 +367,7 @@ const Productdetail = () => {
                     </ul>
                   </div>
                   <div className="tab-pane fade" id="reviews">
-                    <p className="mb-0 text-muted">Excellent edge retention, comfortable grip, and perfect balance. Customers love the durability and handle finish.</p>
+                    <p className="mb-0 text-muted">{product.reviews}</p>
                   </div>
                 </div>
               </div>
@@ -115,52 +378,71 @@ const Productdetail = () => {
                 <h2 className="h5 mb-0">You Might Also Like</h2>
                 <a href="/product-listing" className="text-primary text-decoration-none">Explore More</a>
               </div>
-              <div className="row g-4">
-                <div className="col-6 col-sm-4 col-xl-3">
-                  <div className="card rounded-4 shadow-sm border-0 h-100">
-                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
-                    <div className="card-body">
-                      <h3 className="h6">Samsung Galaxy Watch</h3>
-                      <p className="text-muted mb-2">₦82,000</p>
-                      <a href="/product-details" className="btn btn-primary btn-sm">view</a>
+              <div className="row g-3">
+                {relatedProducts.map((relatedProduct) => (
+                  <div className=" product-card col-6 col-sm-4 col-xl-3" key={relatedProduct._id}>
+                    <div className="card rounded-4 shadow-sm border-0 h-100">
+                      <img src={relatedProduct.imagespath[0]} className="card-img-top rounded-top-4" alt={relatedProduct.title} style={{ height: 160 }} />
+                      <div className="card-body">
+                        <h3 className="h6">{relatedProduct.title}</h3>
+                        <p className="text-muted mb-2">₦{relatedProduct.price}</p>
+                        <a href={`/productdetail/${relatedProduct._id}`} className="btn btn-primary btn-sm">View</a>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="col-6 col-sm-4 col-xl-3">
-                  <div className="card rounded-4 shadow-sm border-0 h-100">
-                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
-                    <div className="card-body">
-                      <h3 className="h6">Samsung Galaxy Watch</h3>
-                      <p className="text-muted mb-2">₦82,000</p>
-                      <a href="/product-details" className="btn btn-primary btn-sm">view</a>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-6 col-sm-4 col-xl-3">
-                  <div className="card rounded-4 shadow-sm border-0 h-100">
-                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
-                    <div className="card-body">
-                      <h3 className="h6">Samsung Galaxy Watch</h3>
-                      <p className="text-muted mb-2">₦82,000</p>
-                      <a href="/product-details" className="btn btn-primary btn-sm">view</a>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-6 col-sm-4 col-xl-3">
-                  <div className="card rounded-4 shadow-sm border-0 h-100">
-                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
-                    <div className="card-body">
-                      <h3 className="h6">Samsung Galaxy Watch</h3>
-                      <p className="text-muted mb-2">₦82,000</p>
-                      <a href="/product-details" className="btn btn-primary btn-sm">view</a>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
+
+              {/* <div className="row g-4">
+                <div className="col-6 col-sm-4 col-xl-3">
+                  <div className="card rounded-4 shadow-sm border-0 h-100">
+                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
+                    <div className="card-body">
+                      <h3 className="h6">Samsung Galaxy Watch</h3>
+                      <p className="text-muted mb-2">₦82,000</p>
+                      <a href="/product-details" className="btn btn-primary btn-sm">view</a>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-6 col-sm-4 col-xl-3">
+                  <div className="card rounded-4 shadow-sm border-0 h-100">
+                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
+                    <div className="card-body">
+                      <h3 className="h6">Samsung Galaxy Watch</h3>
+                      <p className="text-muted mb-2">₦82,000</p>
+                      <a href="/product-details" className="btn btn-primary btn-sm">view</a>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-6 col-sm-4 col-xl-3">
+                  <div className="card rounded-4 shadow-sm border-0 h-100">
+                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
+                    <div className="card-body">
+                      <h3 className="h6">Samsung Galaxy Watch</h3>
+                      <p className="text-muted mb-2">₦82,000</p>
+                      <a href="/product-details" className="btn btn-primary btn-sm">view</a>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-6 col-sm-4 col-xl-3">
+                  <div className="card rounded-4 shadow-sm border-0 h-100">
+                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
+                    <div className="card-body">
+                      <h3 className="h6">Samsung Galaxy Watch</h3>
+                      <p className="text-muted mb-2">₦82,000</p>
+                      <a href="/product-details" className="btn btn-primary btn-sm">view</a>
+                    </div>
+                  </div>
+                </div>
+              </div> */}
             </div>
           </div>
-        </section>
-      </main>
+        </section >
+      </main >
+
+
+
+
 
       <Footer />
 
