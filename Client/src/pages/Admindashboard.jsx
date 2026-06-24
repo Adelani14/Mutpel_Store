@@ -18,6 +18,8 @@ const Admindashboard = () => {
         totalProducts: 0,
         totalCategories: 0,
         totalOrders: 0,
+        totalOrders: 0,
+        totalRevenue: 0,
     });
 
 

@@ -23,7 +23,7 @@ const Productdetail = () => {
   const [cartMessage, setCartMessage] = useState("");
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const [cartCount, setCartCount] = useState(0);
-  
+
 
 
   const [quantity, setQuantity] = useState(1);
@@ -38,7 +38,7 @@ const Productdetail = () => {
 
 
 
-    const fetchCartCount = async () => {
+  const fetchCartCount = async () => {
     try {
       const res = await fetch("http://localhost:4350/api/cart/getCartCount", {
         headers: {
@@ -47,7 +47,7 @@ const Productdetail = () => {
       });
 
       const data = await res.json();
-    setCartCount(data.count || 0);
+      setCartCount(data.count || 0);
     } catch (error) {
       console.log(error);
     }
@@ -108,7 +108,7 @@ const Productdetail = () => {
         <div className="d-flex flex-column align-items-center justify-content-center vh-100">
           <span className="spinner-border spinner-border-lg "></span>
           <h3>Loading..</h3>
-        </div>  
+        </div>
       </>
     )
   }
@@ -176,6 +176,11 @@ const Productdetail = () => {
       console.log(error);
       setCartMessage("Something went wrong");
       setCartSuccess(true);
+
+      setTimeout(() => {
+        setCartSuccess(false);
+        setCartMessage("");
+      }, 3000);
     }
   };
 
@@ -183,7 +188,7 @@ const Productdetail = () => {
 
 
 
-  
+
 
 
 
@@ -234,7 +239,7 @@ const Productdetail = () => {
 
             <div className="row g-4" >
               <div className="col-lg-4 shadow-lg rounded-4 border-0 p-4">
-                <div className="card rounded-4 shadow-sm overflow-hidden border-0">
+                <div className="card rounded overflow-hidden border-0">
                   <img src={product.imagespath[0]} className="img-fluid" alt={product.title} style={{ height: "260px" }} />
                 </div>
                 <div className="d-flex align-items-center gap-3 mt-3 overflow-auto">
@@ -250,23 +255,70 @@ const Productdetail = () => {
                 </div>
               </div>
               <div className="col-lg-4 ">
-                <div className="card rounded-4 shadow-lg border-0 p-4 h-100">
+                <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                   {/* <div className="d-flex align-items-center gap-3 mb-3">
                     <span className="badge bg-primary text-white">New Arrival</span>
                     <span className="text-muted">SKU: MK-2024</span>
                   </div> */}
                   <h2 className="h4">{product.title}</h2>
                   <div className="d-flex align-items-center gap-2 mb-3">
-                    <div className="text-warning small">
-                      <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star"></i>
-                    </div>
-                    <span className="text-muted">{product.ratings}</span>
+                    {product.ratings >= 0 && product.ratings <= 9 && (
+
+                      <div className="text-warning small">
+                        <i className="bi bi-star-fill"></i><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i>
+                      </div>
+                    )}
+                    {product.ratings >= 10 && product.ratings <= 19 && (
+
+                      <div className="text-warning small">
+                        <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i></i>
+                      </div>
+                    )}
+                    {product.ratings >= 20 && (
+
+                      <div className="text-warning small">
+                        <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star"></i><i className="bi bi-star"></i>
+                      </div>
+                    )}
+                    {/* <span className="text-muted">{product.ratings}</span> */}
                   </div>
                   <div className="mb-4">
-                    <span className="fs-3 fw-bold">₦{product.price}</span>
-                    {product.previousPrice > 0 && (
-                      <span className="text-decoration-line-through text-muted fs-5 ms-3">₦{product.previousPrice}</span>
-                    )}
+                    <div>
+                      <span className="fs-3 fw-bold">₦{product.price}</span>
+                      {product.previousPrice > 0 && (
+                        <span className="text-decoration-line-through text-muted fs-5 ms-3">₦{product.previousPrice}</span>
+                      )}
+                      {product.discountPercentage > 0 && (
+                        <span className="badge bg-primary  text-white ms-3">{product.discountPercentage}% OFF</span>
+                      )}
+                    </div>
+
+                    <span className="">{product.stockCount} items left</span>
+                    <div>
+                      {product.stockCount >= 1 && product.stockCount <= 5 && (
+
+                        <div className="bg-secondary rounded" style={{ width: "90%", height: "7px" }}>
+                          <div className="bg-danger rounded" style={{ width: "5%", height: "7px" }}></div>
+                        </div>
+                      )}
+                      {product.stockCount >= 6 && product.stockCount <= 9 && (
+
+                        <div className="bg-secondary rounded" style={{ width: "90%", height: "7px" }}>
+                          <div className="bg-primary rounded" style={{ width: "20%", height: "7px" }}></div>
+                        </div>
+                      )}
+                      {product.stockCount >= 10 && product.stockCount <= 19 && (
+                        <div className="bg-secondary rounded" style={{ width: "90%", height: "7px" }}>
+                          <div className="bg-primary rounded" style={{ width: "40%", height: "7px" }}></div>
+                        </div>
+                      )}
+                      {product.stockCount >= 20 && (
+                        <div className="bg-secondary rounded" style={{ width: "90%", height: "7px" }}>
+                          <div className="bg-primary rounded" style={{ width: "70%", height: "7px" }}></div>
+                        </div>
+                      )}
+
+                    </div>
                   </div>
                   {product.sizes?.length > 0 && (
                     <div>
@@ -322,13 +374,13 @@ const Productdetail = () => {
                     </div>
                   )}
                   <div className="d-flex flex-column flex-sm-row align-items-sm-center gap-3 mb-4">
-                    <div className="input-group w-100 w-sm-auto">
+                    {/* <div className="input-group w-100 w-sm-auto">
                       <button onClick={decreaseQuantity} disabled={isAddedToCart}
                         className="btn btn-outline-secondary" type="button"><i className="bi bi-dash"></i></button>
                       <input type="text" className="form-control text-center" value={quantity} readOnly aria-label="Quantity" />
                       <button onClick={increaseQuantity} disabled={isAddedToCart}
                         className="btn btn-outline-secondary" type="button"><i className="bi bi-plus"></i></button>
-                    </div>
+                    </div> */}
                     <button
                       onClick={addToCart}
                       disabled={isAddedToCart}
@@ -343,6 +395,52 @@ const Productdetail = () => {
                     <div className="list-group-item bg-transparent border-0 px-0 py-2 d-flex align-items-center gap-2"><i className="bi bi-check-circle-fill text-primary"></i> Safe & encrypted payments</div>
                   </div>
                 </div>
+
+              </div>
+              <div className="col-lg-4 shadow-lg rounded-4 border-0 p-4">
+                <div className="border-1 border-bottom">
+                  <h5 className="">Delivery & Returns</h5>
+                </div>
+                <div className="mt-2">
+                  <h6>Choose your location</h6>
+                </div>
+                <div className="mt-3">
+                  <select className=" w-100" style={{ height: "50px" }}>
+                    <option value="">Osun</option>
+                    <option value="">Lagos</option>
+                    <option value="">Ogun</option>
+                    <option value="">Oyo</option>
+                    <option value="">Kwara</option>
+                  </select>
+                </div>
+                <div className="mt-2">
+                  <select className=" w-100" style={{ height: "50px" }}>
+                    <option value="">Iwo</option>
+                    <option value="">Lekki</option>
+                    <option value="">Abekuta</option>
+                    <option value="">Ibadan</option>
+                    <option value="">Offa</option>
+                  </select>
+                </div>
+
+                <div className="mt-4">
+
+                  <div className="d-flex w-100 gap-2 mt-2 border-1 pb-2 border-bottom">
+                    <div className="">
+
+                      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40" fill="currentColor" class="bi bi-arrow-repeat  border-dark border p-2 rounded " viewBox="0 0 16 16">
+                        <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9" />
+                        <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z" />
+                      </svg>
+
+                    </div>
+                    <div className="">
+                      <h6>Return Policy</h6>
+                      <div>Free return within 7 days for ALL eligible items</div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
 
@@ -352,7 +450,7 @@ const Productdetail = () => {
                 <ul className="nav nav-pills mb-4" role="tablist">
                   <li className="nav-item" role="presentation"><button className="nav-link active" data-bs-toggle="pill" data-bs-target="#description" type="button">Description</button></li>
                   <li className="nav-item" role="presentation"><button className="nav-link" data-bs-toggle="pill" data-bs-target="#specs" type="button">Specifications</button></li>
-                  <li className="nav-item" role="presentation"><button className="nav-link" data-bs-toggle="pill" data-bs-target="#reviews" type="button">Reviews (120)</button></li>
+                  <li className="nav-item" role="presentation"><button className="nav-link" data-bs-toggle="pill" data-bs-target="#reviews" type="button">Reviews ({product.numReviews})</button></li>
                 </ul>
                 <div className="tab-content">
                   <div className="tab-pane fade show active" id="description">

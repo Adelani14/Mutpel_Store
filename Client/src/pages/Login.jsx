@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import Helpcenter from '../components/Helpcenter.jsx';
-import Axios from "../utils/axiosinstance.js";
+import Axios from "../utils/axiosInstance.js";
 
 const Login = () => {
   const [email, setemail] = useState('')

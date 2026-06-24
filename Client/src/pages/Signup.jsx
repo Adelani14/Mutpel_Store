@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import Axios from "../utils/axiosinstance.js";
+import Axios from "../utils/axiosInstance.js";
 
 import Helpcenter from '../components/Helpcenter.jsx';
 

@@ -27,10 +27,6 @@ const Landing = () => {
                             <button className="btn btn-link text-secondary text-decoration-none d-flex align-items-center gap-2">
                                 <i className="bi bi-heart"></i>
                             </button>
-                            {/* <button className="btn btn-link text-secondary position-relative">
-                                <i className="bi bi-cart4"></i>
-                                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
-                            </button> */}
                             <button className="btn btn-link text-secondary"><i className="bi bi-bell"></i></button>
                             <div className="vr d-none d-lg-block"></div>
                             <Link to="/login" className="text-secondary text-decoration-none">Login</Link>
@@ -511,7 +507,7 @@ const Landing = () => {
 
             </main>
 
-            <Footer />  
+            <Footer />
         </>
 
         // <div classNameName="text-rose-300 bg-green-700">hello this is landing page</div>
