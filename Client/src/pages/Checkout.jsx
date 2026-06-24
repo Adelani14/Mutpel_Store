@@ -98,7 +98,7 @@ const Checkout = () => {
                                 <h2 className="h6 text-uppercase text-primary mb-4">1 Shipping Information</h2>
                                 <div className="row g-3">
                                     <div className="col-md-6"><label className="form-label">Full Name</label><input className="form-control" type="text" placeholder="Julianne Moore" /></div>
-                                    <div className="col-md-6"><label className="form-label">Phone Number</label><input className="form-control" type="tel" placeholder="+234 800 000 0000" /></div>
+                                    <div className="col-md-6"><label className="form-label">Phone Number</label><input className="form-control" type="number" placeholder="08000000000" /></div>
                                     <div className="col-md-4">
                                         <label className="form-label">State</label>
                                         <select
@@ -156,10 +156,10 @@ const Checkout = () => {
                                         </div>
                                     )}
                                     {deliveryMethod === "home" && (
-                                        <div className="form-control">
+                                        <div >
                                             <input
                                                 type="text"
-                                                className="mt-2"
+                                                className="mt-2 form-control"
                                                 placeholder="Enter Home Address"
                                             />
                                         </div>
