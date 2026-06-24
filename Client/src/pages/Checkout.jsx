@@ -26,8 +26,11 @@ const Checkout = () => {
     const fetchStates = async () => {
         try {
             const response = await fetch(
-                "https://mutpel-store.onrender.com/api/allState/states"
-            );
+                "https://mutpel-store.onrender.com/api/allState/states", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
 
             const data = await response.json();
 
@@ -46,8 +49,12 @@ const Checkout = () => {
 
         try {
             const response = await fetch(
-                `https://mutpel-store.onrender.com/api/allState/lgas/${state}`
-            );
+                `https://mutpel-store.onrender.com/api/allState/lgas/${state}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
 
             const data = await response.json();
 
