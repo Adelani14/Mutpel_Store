@@ -133,12 +133,13 @@ const Checkout = () => {
                                         </select>
                                     </div>
                                     {isIwo && (
-                                        <div className="mt-2">
+                                        <div className="mt-2 ">
                                             <label className="me-3">
                                                 <input
                                                     type="radio"
                                                     value="pickup"
                                                     name="deliveryMethod"
+                                                    className="form-control"
                                                     onChange={(e) => setDeliveryMethod(e.target.value)}
                                                 />
                                                 Pick Up From Store
@@ -149,6 +150,7 @@ const Checkout = () => {
                                                     type="radio"
                                                     value="home"
                                                     name="deliveryMethod"
+                                                    className="form-control"
                                                     onChange={(e) => setDeliveryMethod(e.target.value)}
                                                 />
                                                 Home Delivery (+ ₦1000)
@@ -156,7 +158,7 @@ const Checkout = () => {
                                         </div>
                                     )}
                                     {deliveryMethod === "home" && (
-                                        <div>
+                                        <div className="form-control">
                                             <input
                                                 type="text"
                                                 className="form-control mt-2"
