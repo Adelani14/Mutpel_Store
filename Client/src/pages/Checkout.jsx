@@ -1,5 +1,5 @@
 import Helpcenter from "../components/Helpcenter.jsx";
-import Header from "../components/Header.jsx"; 
+import Header from "../components/Header.jsx";
 import { useState, useEffect } from "react";
 
 
@@ -31,7 +31,7 @@ const Checkout = () => {
 
             const data = await response.json();
 
-            setStates(data.states);
+            setStates(data.lgas || []);
         } catch (error) {
             console.log(error);
         }
@@ -51,7 +51,7 @@ const Checkout = () => {
 
             const data = await response.json();
 
-            setLgas(data.lgas);
+            setLgas(data.lgas || []);
         } catch (error) {
             console.log(error);
         }
