@@ -70,7 +70,12 @@ export const getCart = async (req, res) => {
         const userId = req.user.userID;
 
         const cart = await Cart.findOne({ user: userId })
-            .populate("items.product");
+            .populate({
+                path: "items.product",
+                populate: {
+                    path: "category"
+                }
+            });
 
         res.json({
             success: true,

@@ -13,7 +13,7 @@ import categoryRoutes from "./routes/categoryRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
 // import orderRoutes from "./routes/orderRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
-
+import naijastateRoutes from "./routes/naijastateRoutes.js"
 
 // MIDDLEWARErs
 // GLOBAL MIDDLEWARE
@@ -21,7 +21,7 @@ app.use(cors({
     origin: [
         "http://localhost:5173",
         "http://localhost:5174",
-        // "https://mutpel-store.onrender.com",
+        "https://mutpel-store.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
 
@@ -47,9 +47,12 @@ app.use("/api/dashboardstats", dashboardRoutes);
 // app.use("/api/orders", orderRoutes);
 
 app.use("/api/cart", cartRoutes);
+app.use("/api/allState", naijastateRoutes);
 
 
+// const states = naijaStates.states();
 
+// console.log(states);
 
 // SERVER
 app.listen(PORT, () => {
