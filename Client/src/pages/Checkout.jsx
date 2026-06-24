@@ -34,7 +34,7 @@ const Checkout = () => {
 
             const data = await response.json();
 
-            setStates(data.lgas || []);
+            setStates(data.states || []);
         } catch (error) {
             console.log(error);
         }
@@ -97,7 +97,6 @@ const Checkout = () => {
                                 <div className="row g-3">
                                     <div className="col-md-6"><label className="form-label">Full Name</label><input className="form-control" type="text" placeholder="Julianne Moore" /></div>
                                     <div className="col-md-6"><label className="form-label">Phone Number</label><input className="form-control" type="tel" placeholder="+234 800 000 0000" /></div>
-                                    <div className="col-12"><label className="form-label">Street Address</label><input className="form-control" type="text" placeholder="128 Editorial Way, Victoria Island" /></div>
                                     <div className="col-md-4">
                                         <label className="form-label">State</label>
                                         <select
