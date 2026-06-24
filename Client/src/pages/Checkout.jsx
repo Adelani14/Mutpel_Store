@@ -58,9 +58,9 @@ const Checkout = () => {
 
             const data = await response.json();
 
-            console.log("LGA Response:", data);
+            // console.log("LGA Response:", data);
 
-            setLgas(data.lgas.state || []);
+            setLgas(data.lgas?.lgas || []);
         } catch (error) {
             console.log(error);
         }
