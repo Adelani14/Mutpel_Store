@@ -20,6 +20,17 @@ const Productdetail = () => {
   const [cartMessage, setCartMessage] = useState("");
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const [states, setStates] = useState([]);
+  const [lgas, setLgas] = useState([]);
+
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedLga, setSelectedLga] = useState("");
+
+  const [deliveryMethod, setDeliveryMethod] = useState("");
+
+  const isIwo =
+    selectedState === "Osun" &&
+    selectedLga === "Iwo";
 
 
 
@@ -53,6 +64,7 @@ const Productdetail = () => {
   useEffect(() => {
     fetchProduct();
     fetchCartCount();
+    fetchStates();
   }, []);
 
   const fetchProduct = async () => {
@@ -177,6 +189,42 @@ const Productdetail = () => {
       }, 3000);
     }
   };
+
+  const fetchStates = async () => {
+    try {
+      const response = await fetch(
+        "https://mutpel-store.onrender.com/api/allState/states"
+      );
+
+      const data = await response.json();
+
+      setStates(data.states);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  const handleStateChange = async (e) => {
+    const state = e.target.value;
+
+    setSelectedState(state);
+    setSelectedLga("");
+
+    try {
+      const response = await fetch(
+        `https://mutpel-store.onrender.com/api/allState/lgas/${state}`
+      );
+
+      const data = await response.json();
+
+      setLgas(data.lgas);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
 
 
 
@@ -399,23 +447,71 @@ const Productdetail = () => {
                   <h6>Choose your location</h6>
                 </div>
                 <div className="mt-3">
-                  <select className=" w-100" style={{ height: "50px" }}>
-                    <option value="">Osun</option>
-                    <option value="">Lagos</option>
-                    <option value="">Ogun</option>
-                    <option value="">Oyo</option>
-                    <option value="">Kwara</option>
+
+                  <select
+                    className="w-100"
+                    style={{ height: "50px" }}
+                    value={selectedState}
+                    onChange={handleStateChange}
+                  >
+                    <option value="">Select State</option>
+
+                    {states.map((state) => (
+                      <option key={state} value={state}>
+                        {state}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div className="mt-2">
-                  <select className=" w-100" style={{ height: "50px" }}>
-                    <option value="">Iwo</option>
-                    <option value="">Lekki</option>
-                    <option value="">Abekuta</option>
-                    <option value="">Ibadan</option>
-                    <option value="">Offa</option>
+                  <select
+                    className="w-100"
+                    style={{ height: "50px" }}
+                    value={selectedLga}
+                    onChange={(e) => setSelectedLga(e.target.value)}
+                  >
+                    <option value="">Select LGA</option>
+
+                    {lgas.map((lga) => (
+                      <option key={lga} value={lga}>
+                        {lga}
+                      </option>
+                    ))}
                   </select>
                 </div>
+                {isIwo && (
+                  <div className="mt-2">
+                    <label className="me-3">
+                      <input
+                        type="radio"
+                        value="pickup"
+                        name="deliveryMethod"
+                        onChange={(e) => setDeliveryMethod(e.target.value)}
+                      />
+                      Pick Up From Store
+                    </label>
+
+                    <label>
+                      <input
+                        type="radio"
+                        value="home"
+                        name="deliveryMethod"
+                        onChange={(e) => setDeliveryMethod(e.target.value)}
+                      />
+                      Home Delivery (+ ₦1000)
+                    </label>
+                  </div>
+                )}
+
+                {deliveryMethod === "home" && (
+                  <div>
+                    <input
+                      type="text"
+                      className="form-control mt-2"
+                      placeholder="Enter Home Address"
+                    />
+                  </div>
+                )}
 
                 <div className="mt-4">
 
