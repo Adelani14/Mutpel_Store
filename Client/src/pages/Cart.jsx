@@ -20,7 +20,7 @@ const Cart = () => {
     const fetchCart = async () => {
         try {
             const response = await fetch(
-                "http://localhost:4350/api/cart/getCart",
+                "https://mutpel-store.onrender.com/api/cart/getCart",
                 {
 
                     headers: {
@@ -48,7 +48,7 @@ const Cart = () => {
 
     const increaseQuantity = async (item) => {
         try {
-            await fetch("http://localhost:4350/api/cart/updateCartItem", {
+            await fetch("https://mutpel-store.onrender.com/api/cart/updateCartItem", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -72,7 +72,7 @@ const Cart = () => {
         if (item.quantity <= 1) return;
 
         try {
-            await fetch("http://localhost:4350/api/cart/updateCartItem", {
+            await fetch("https://mutpel-store.onrender.com/api/cart/updateCartItem", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -99,7 +99,7 @@ const Cart = () => {
 
         if (!isConfirmed) return;
         try {
-            await fetch("http://localhost:4350/api/cart/removeFromCart", {
+            await fetch("https://mutpel-store.onrender.com/api/cart/removeFromCart", {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -127,7 +127,7 @@ const Cart = () => {
 
         if (!isConfirmed) return;
         try {
-            const res = await fetch("http://localhost:4350/api/cart/clearCart", {
+            const res = await fetch("https://mutpel-store.onrender.com/api/cart/clearCart", {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`,

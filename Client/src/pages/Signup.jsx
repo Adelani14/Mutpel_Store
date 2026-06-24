@@ -12,7 +12,7 @@ const Signup = () => {
   const [firstname, setfirstname] = useState('')
   const [lastname, setlastname] = useState('')
 
-  const endpoint = 'http://localhost:4350/api/users/signup'
+  const endpoint = 'https://mutpel-store.onrender.com/api/users/signup'
   const submitDetails = () => {
 
 

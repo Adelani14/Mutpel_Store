@@ -8,7 +8,7 @@ const Header = () => {
   const [cartCount, setCartCount] = useState(0);
   const fetchCartCount = async () => {
     try {
-      const res = await fetch("http://localhost:4350/api/cart/getCartCount", {
+      const res = await fetch("https://mutpel-store.onrender.com/api/cart/getCartCount", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

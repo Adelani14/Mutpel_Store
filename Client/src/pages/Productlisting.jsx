@@ -23,7 +23,7 @@ const Productlisting = () => {
     const fetchProducts = async (currentPage) => {
         try {
             const response = await fetch(
-                `http://localhost:4350/api/products?page=${currentPage}&limit=${limit}`,
+                `https://mutpel-store.onrender.com/api/products?page=${currentPage}&limit=${limit}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

@@ -61,7 +61,7 @@ const NewCategory = () => {
 
 
             const response = await fetch(
-                'http://localhost:4350/api/categories/createCategory',
+                'https://mutpel-store.onrender.com/api/categories/createCategory',
                 {
                     method: "POST",
                     body: data

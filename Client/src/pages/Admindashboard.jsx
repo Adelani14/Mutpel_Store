@@ -28,7 +28,7 @@ const Admindashboard = () => {
         const fetchDashboardStats = async () => {
             try {
                 const response = await fetch(
-                    "http://localhost:4350/api/dashboardstats/stats",
+                    "https://mutpel-store.onrender.com/api/dashboardstats/stats",
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -56,12 +56,10 @@ const Admindashboard = () => {
     const [page, setPage] = useState(1);
     const limit = 5;
 
-
-
     const fetchProducts = async (currentPage) => {
         try {
             const response = await fetch(
-                `http://localhost:4350/api/products?page=${currentPage}&limit=${limit}`,
+                `https://mutpel-store.onrender.com/api/products?page=${currentPage}&limit=${limit}`,
 
                 {
                     headers: {

@@ -19,8 +19,6 @@ import naijastateRoutes from "./routes/naijastateRoutes.js"
 // GLOBAL MIDDLEWARE
 app.use(cors({
     origin: [
-        "http://localhost:5173",
-        "http://localhost:5174",
         "https://mutpel-store.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],

@@ -1,11 +1,8 @@
-
 import Helpcenter from "../components/Helpcenter.jsx";
-// import Header from "../components/Header.jsx";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-
 
 const Productdetail = () => {
 
@@ -40,7 +37,7 @@ const Productdetail = () => {
 
   const fetchCartCount = async () => {
     try {
-      const res = await fetch("http://localhost:4350/api/cart/getCartCount", {
+      const res = await fetch("https://mutpel-store.onrender.com/api/cart/getCartCount", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -61,7 +58,7 @@ const Productdetail = () => {
   const fetchProduct = async () => {
     try {
       const response = await fetch(
-        `http://localhost:4350/api/products/getSingleProduct/${id}`,
+        `https://mutpel-store.onrender.com/api/products/getSingleProduct/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -73,13 +70,10 @@ const Productdetail = () => {
 
       setProduct(data.product);
 
-      // console.log("Product:", data.product);
-      // console.log("Category:", data.product.category);
 
-      // const categoryId = data.product.category._id;
       const categoryId = data.product.category._id;
       const relatedResponse = await fetch(
-        `http://localhost:4350/api/products/relatedproducts/${categoryId}/${id}`,
+        `https://mutpel-store.onrender.com/api/products/relatedproducts/${categoryId}/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -134,7 +128,7 @@ const Productdetail = () => {
       }
 
       const response = await fetch(
-        "http://localhost:4350/api/cart/addToCart",
+        "https://mutpel-store.onrender.com/api/cart/addToCart",
         {
           method: "POST",
           headers: {

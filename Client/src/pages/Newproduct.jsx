@@ -20,7 +20,7 @@ const Newproduct = () => {
             try {
 
                 const response = await fetch(
-                    "http://localhost:4350/api/categories/fetchCategories",
+                    "https://mutpel-store.onrender.com/api/categories/fetchCategories",
                     {
                         method: "GET",
                         headers: {
@@ -171,7 +171,7 @@ const Newproduct = () => {
             data.append("discountPercentage", discountPercentage);
 
             const addproduct = await fetch(
-                'http://localhost:4350/api/products/createNewProduct',
+                'https://mutpel-store.onrender.com/api/products/createNewProduct',
                 {
                     method: "POST",
 

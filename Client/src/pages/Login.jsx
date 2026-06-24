@@ -7,7 +7,7 @@ const Login = () => {
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
 
-  const endpoint = 'http://localhost:4350/api/users/login'
+  const endpoint = 'https://mutpel-store.onrender.com/api/users/login'
 
   const submitDetails = async () => {
 
