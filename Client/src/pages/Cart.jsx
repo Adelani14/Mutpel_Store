@@ -283,7 +283,8 @@ const Cart = () => {
                                     <div className="d-flex justify-content-between mb-4"><span className="text-muted">Shipping</span><span className="text-success fw-semibold">₦1000</span></div>
                                     <div className="d-flex justify-content-between align-items-center fw-semibold fs-5"><span>Total</span><span>₦{totalPrice + 1000}</span></div>
                                 </div>
-                                <a href="checkout2.html" className="btn btn-primary btn-lg w-100 mt-4">Proceed to Checkout</a>
+                                {/* <a href="checkout2.html" className="btn btn-primary btn-lg w-100 mt-4">Proceed to Checkout</a> */}
+                                <Link to="/checkout" className="btn btn-primary btn-lg w-100 mt-4">Proceed to Checkout</Link>
                             </div>
                         </div>
                     </div>

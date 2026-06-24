@@ -3,6 +3,65 @@ import Header from "../components/Header.jsx";
 
 
 const Checkout = () => {
+
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const token = storedUser?.token;
+
+
+
+    const [states, setStates] = useState([]);
+    const [lgas, setLgas] = useState([]);
+
+    const [selectedState, setSelectedState] = useState("");
+    const [selectedLga, setSelectedLga] = useState("");
+
+    const [deliveryMethod, setDeliveryMethod] = useState("");
+
+    const isIwo =
+        selectedState === "Osun" &&
+        selectedLga === "Iwo";
+
+
+    const fetchStates = async () => {
+        try {
+            const response = await fetch(
+                "https://mutpel-store.onrender.com/api/allState/states"
+            );
+
+            const data = await response.json();
+
+            setStates(data.states);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
+    const handleStateChange = async (e) => {
+        const state = e.target.value;
+
+        setSelectedState(state);
+        setSelectedLga("");
+
+        try {
+            const response = await fetch(
+                `https://mutpel-store.onrender.com/api/allState/lgas/${state}`
+            );
+
+            const data = await response.json();
+
+            setLgas(data.lgas);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
+
+
+    useEffect(() => {
+        fetchStates();
+    }, []);
     return (
         <>
             <Helpcenter />
@@ -31,9 +90,71 @@ const Checkout = () => {
                                     <div className="col-md-6"><label className="form-label">Full Name</label><input className="form-control" type="text" placeholder="Julianne Moore" /></div>
                                     <div className="col-md-6"><label className="form-label">Phone Number</label><input className="form-control" type="tel" placeholder="+234 800 000 0000" /></div>
                                     <div className="col-12"><label className="form-label">Street Address</label><input className="form-control" type="text" placeholder="128 Editorial Way, Victoria Island" /></div>
-                                    <div className="col-md-4"><label className="form-label">City</label><input className="form-control" type="text" placeholder="Lagos" /></div>
-                                    <div className="col-md-4"><label className="form-label">State</label><select className="form-select"><option selected>Lagos State</option><option>Rivers State</option><option>Abuja</option></select></div>
-                                    {/* <div className="col-md-4"><label className="form-label">Postal Code</label><input className="form-control" type="text" placeholder="100001" /></div> */}
+                                    <div className="col-md-4">
+                                        <label className="form-label">State</label>
+                                        <select
+                                            className="w-100"
+                                            style={{ height: "50px" }}
+                                            value={selectedState}
+                                            onChange={handleStateChange}
+                                        >
+                                            <option value="">Select State</option>
+
+                                            {states.map((state) => (
+                                                <option key={state} value={state}>
+                                                    {state}
+                                                </option>
+                                            ))}
+                                        </select>                                    </div>
+                                    <div className="col-md-4">
+                                        <label className="form-label">City</label>
+                                        <select
+                                            className="w-100"
+                                            style={{ height: "50px" }}
+                                            value={selectedLga}
+                                            onChange={(e) => setSelectedLga(e.target.value)}
+                                        >
+                                            <option value="">Select LGA</option>
+
+                                            {lgas.map((lga) => (
+                                                <option key={lga} value={lga}>
+                                                    {lga}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    {isIwo && (
+                                        <div className="mt-2">
+                                            <label className="me-3">
+                                                <input
+                                                    type="radio"
+                                                    value="pickup"
+                                                    name="deliveryMethod"
+                                                    onChange={(e) => setDeliveryMethod(e.target.value)}
+                                                />
+                                                Pick Up From Store
+                                            </label>
+
+                                            <label>
+                                                <input
+                                                    type="radio"
+                                                    value="home"
+                                                    name="deliveryMethod"
+                                                    onChange={(e) => setDeliveryMethod(e.target.value)}
+                                                />
+                                                Home Delivery (+ ₦1000)
+                                            </label>
+                                        </div>
+                                    )}
+                                    {deliveryMethod === "home" && (
+                                        <div>
+                                            <input
+                                                type="text"
+                                                className="form-control mt-2"
+                                                placeholder="Enter Home Address"
+                                            />
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 
