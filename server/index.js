@@ -20,7 +20,7 @@ import naijastateRoutes from "./routes/naijastateRoutes.js"
 app.use(cors({
     origin: [
         "https://mutpel-store.vercel.app",
-        "http://localhost:5173/",
+        "http://localhost:5173",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
 
