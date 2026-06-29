@@ -8,6 +8,8 @@ const Cart = () => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const token = storedUser?.token;
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
 
 
 
@@ -38,6 +40,9 @@ const Cart = () => {
         catch (error) {
             console.log(error)
         }
+        finally {
+            setLoading(false)
+        }
 
 
     }
@@ -47,6 +52,7 @@ const Cart = () => {
     }, 0);
 
     const increaseQuantity = async (item) => {
+        setLoading(true)
         try {
             await fetch("https://mutpel-store.onrender.com/api/cart/updateCartItem", {
                 method: "PUT",
@@ -66,10 +72,14 @@ const Cart = () => {
         } catch (error) {
             console.log(error);
         }
+        finally {
+            setLoading(false)
+        }
     };
 
     const decreaseQuantity = async (item) => {
         if (item.quantity <= 1) return;
+        setLoading(true)
 
         try {
             await fetch("https://mutpel-store.onrender.com/api/cart/updateCartItem", {
@@ -90,6 +100,9 @@ const Cart = () => {
         } catch (error) {
             console.log(error);
         }
+        finally {
+            setLoading(false)
+        }
     };
 
     const removeFromCart = async (item) => {
@@ -98,6 +111,7 @@ const Cart = () => {
         );
 
         if (!isConfirmed) return;
+        setLoading(true)
         try {
             await fetch("https://mutpel-store.onrender.com/api/cart/removeFromCart", {
                 method: "DELETE",
@@ -126,6 +140,7 @@ const Cart = () => {
         );
 
         if (!isConfirmed) return;
+        setLoading(true)
         try {
             const res = await fetch("https://mutpel-store.onrender.com/api/cart/clearCart", {
                 method: "DELETE",
@@ -148,8 +163,32 @@ const Cart = () => {
 
 
 
+
+
+
+
+
     return (
         <>
+
+            {loading && (
+                <div
+                    className="position-fixed top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+                    style={{
+                        backgroundColor: "rgba(0, 0, 0, 0.25)",
+                        backdropFilter: "blur(6px)",
+                        WebkitBackdropFilter: "blur(5px)",
+                        zIndex: 9999,
+                    }}
+                >
+                    <div className="spinner-border text-primary" style={{ width: "4rem", height: "4rem" }}></div>
+
+                    {/* <h5 className="mt-3 fw-semibold text-dark">
+                        Loading products...
+                    </h5> */}
+                </div>
+            )}
+
             <Helpcenter />
             <Header />
 
@@ -278,10 +317,10 @@ const Cart = () => {
                                         <p className="fw-semibold mt-2 mb-0">$370.00</p>
                                     </div>
                                 </div> */}
-                                <div className="border-top pt-3 mt-3">
-                                    <div className="d-flex justify-content-between mb-2"><span className="text-muted">Subtotal</span><span>₦{totalPrice}</span></div>
-                                    <div className="d-flex justify-content-between mb-4"><span className="text-muted">Shipping</span><span className="text-success fw-semibold">₦1000</span></div>
-                                    <div className="d-flex justify-content-between align-items-center fw-semibold fs-5"><span>Total</span><span>₦{totalPrice + 1000}</span></div>
+                                <div className=" pt-3 mt-3">
+                                    {/* <div className="d-flex justify-content-between mb-2"><span className="text-muted">Subtotal</span><span>₦{totalPrice}</span></div> */}
+                                    {/* <div className="d-flex justify-content-between mb-4"><span className="text-muted">Shipping</span><span className="text-success fw-semibold">₦1000</span></div> */}
+                                    <div className="d-flex justify-content-between align-items-center fw-semibold fs-5"><span>Total</span><span>₦{totalPrice}</span></div>
                                 </div>
                                 {/* <a href="checkout2.html" className="btn btn-primary btn-lg w-100 mt-4">Proceed to Checkout</a> */}
                                 <Link to="/checkout" className="btn btn-primary btn-lg w-100 mt-4">Proceed to Checkout</Link>

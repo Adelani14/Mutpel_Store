@@ -41,17 +41,36 @@ const Productlisting = () => {
         }
     };
 
-    if (loading) {
-        return (
-            <div className="d-flex flex-column align-items-center justify-content-center vh-100">
-                <span className="spinner-border spinner-border-lg "></span>
-                <h3>Loading products...</h3>
-            </div>
-        );
-    }
+    // if (loading) {
+    //     return (
+    //         <div className="d-flex flex-column align-items-center justify-content-center vh-100">
+    //             <span className="spinner-border spinner-border-lg "></span>
+    //             <h3>Loading products...</h3>
+    //         </div>
+    //     );
+    // }
 
     return (
         <>
+
+            {loading && (
+                <div
+                    className="position-fixed top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+                    style={{
+                        backgroundColor: "rgba(0, 0, 0, 0.25)",
+                        backdropFilter: "blur(6px)",
+                        WebkitBackdropFilter: "blur(5px)",
+                        zIndex: 9999,
+                    }}
+
+                >
+                    <div className="spinner-border text-primary" style={{ width: "4rem", height: "4rem" }}></div>
+
+                    <h5 className="mt-3 fw-semibold text-dark">
+                        Loading products...
+                    </h5>
+                </div>
+            )}
             <Helpcenter />
             <Header />
 

@@ -1,6 +1,3 @@
-// const jwt = require("jsonwebtoken");
-// import e from "cors";
-// import cors from "cors";
 import jwt from "jsonwebtoken";
 
 const isAuth = (req, res, next) => {

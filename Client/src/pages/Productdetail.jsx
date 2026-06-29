@@ -11,7 +11,7 @@ const Productdetail = () => {
 
   const { id } = useParams();
 
-  const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedSize, setSelectedSize] = useState("");
@@ -89,21 +89,56 @@ const Productdetail = () => {
     }
   };
 
-  if (loading) {
-    return <h2>Loading...</h2>;
-  }
+  // if (loading) {
+  //   return (
+  //     <>
+  //       <div
+  //         className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+  //         style={{
+  //           background: "rgba(255,255,255,.35)",
+  //           backdropFilter: "blur(4px)",
+  //           WebkitBackdropFilter: "blur(4px)",
+  //           zIndex: 99999,
+  //         }}
+  //       >
+  //         <div className="text-center">
+  //           <div
+  //             className="spinner-border text-primary"
+  //             style={{ width: "4rem", height: "4rem" }}
+  //           ></div>
+
+  //           <h5 className="mt-3">Loading...</h5>
+  //         </div>
+  //       </div>
+  //     </>
+  //   );
+  // }
 
 
-  if (!product) {
-    return (
-      <>
-        <div className="d-flex flex-column align-items-center justify-content-center vh-100">
-          <span className="spinner-border spinner-border-lg "></span>
-          <h3>Loading..</h3>
-        </div>
-      </>
-    )
-  }
+  // if (!product) {
+  //   return (
+  //     <>
+  //       <div
+  //         className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+  //         style={{
+  //           background: "rgba(255,255,255,.35)",
+  //           backdropFilter: "blur(4px)",
+  //           WebkitBackdropFilter: "blur(4px)",
+  //           zIndex: 99999,
+  //         }}
+  //       >
+  //         <div className="text-center">
+  //           <div
+  //             className="spinner-border text-primary"
+  //             style={{ width: "4rem", height: "4rem" }}
+  //           ></div>
+
+  //           <h5 className="mt-3">Loading...</h5>
+  //         </div>
+  //       </div>
+  //     </>
+  //   )
+  // }
 
   const addToCart = async () => {
     try {
@@ -189,6 +224,24 @@ const Productdetail = () => {
 
   return (
     <>
+
+      {loading && (
+        <div
+          className="position-fixed top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+          style={{
+            backgroundColor: "rgba(0, 0, 0, 0.25)",
+            backdropFilter: "blur(6px)",
+            WebkitBackdropFilter: "blur(5px)",
+            zIndex: 9999,
+          }}
+        >
+          <div className="spinner-border text-primary" style={{ width: "4rem", height: "4rem" }}></div>
+
+          <h5 className="mt-3 fw-semibold text-dark">
+            Loading...
+          </h5>
+        </div>
+      )}
       <Helpcenter />
       <header className="bg-white shadow-sm sticky-top" style={{ zIndex: 1020 }}>
 
@@ -213,8 +266,13 @@ const Productdetail = () => {
           </div>
         </div>
         {cartSuccess && (
-          <div className="position-fixed top-0 start-50 translate-middle-x mt-2 shadow-lg px-4 py-2 bg-success text-white rounded-3 z-3">
-            {cartMessage}
+          <div
+            className="position-fixed top-0 start-0 w-100 mt-2 px-3 z-3"
+            style={{ zIndex: 9999 }}
+          >
+            <div className="shadow-lg py-3 bg-success text-white text-center rounded-3">
+              {cartMessage}
+            </div>
           </div>
         )}
       </header>
@@ -226,8 +284,11 @@ const Productdetail = () => {
           <div className="container">
             <div className="d-flex flex-column flex-md-row align-items-start justify-content-between gap-3 mb-4">
               <div>
-                <h6 className="text-muted mb-1"><Link to="/productlisting">Home</Link> / {product.category.title} / {product.title}</h6>
-                {/* <h1 className="h4 mb-0">{product.title}</h1> */}
+                <h6 className="text-muted mb-1">
+                  <Link to="/productlisting">Home</Link> /
+                  {product?.category?.title} /
+                  {product?.title}
+                </h6>                {/* <h1 className="h4 mb-0">{product.title}</h1> */}
               </div>
               <div className="text-muted">In Stock</div>
             </div>
@@ -235,17 +296,17 @@ const Productdetail = () => {
             <div className="row g-4" >
               <div className="col-lg-4 shadow-lg rounded-4 border-0 p-4">
                 <div className="card rounded overflow-hidden border-0">
-                  <img src={product.imagespath[0]} className="img-fluid" alt={product.title} style={{ height: "260px" }} />
+                  <img src={product?.imagespath?.[0]} className="img-fluid" alt={product?.title} style={{ height: "260px" }} />
                 </div>
                 <div className="d-flex align-items-center gap-3 mt-3 overflow-auto">
-                  <a href={product.imagespath[1]} target="_blank" rel="noopener noreferrer">
-                    <img src={product.imagespath[1]} className="img-fluid rounded-2" style={{ width: "80px", height: "80px" }} alt={product.title} />
+                  <a href={product?.imagespath?.[1]} target="_blank" rel="noopener noreferrer">
+                    <img src={product?.imagespath?.[1]} className="img-fluid rounded-2" style={{ width: "80px", height: "80px" }} alt={product?.title} />
                   </a>
-                  <a href={product.imagespath[2]} target="_blank" rel="noopener noreferrer">
-                    <img src={product.imagespath[2]} className="img-fluid rounded-2" style={{ width: "80px", height: "80px" }} />
+                  <a href={product?.imagespath?.[2]} target="_blank" rel="noopener noreferrer">
+                    <img src={product?.imagespath?.[2]} className="img-fluid rounded-2" style={{ width: "80px", height: "80px" }} />
                   </a>
-                  <a href={product.imagespath[3]} target="_blank" rel="noopener noreferrer">
-                    <img src={product.imagespath[3]} className="img-fluid rounded-2" style={{ width: "80px", height: "80px" }} alt="" />
+                  <a href={product?.imagespath?.[3]} target="_blank" rel="noopener noreferrer">
+                    <img src={product?.imagespath?.[3]} className="img-fluid rounded-2" style={{ width: "80px", height: "80px" }} alt="" />
                   </a>
                 </div>
               </div>
@@ -255,21 +316,21 @@ const Productdetail = () => {
                     <span className="badge bg-primary text-white">New Arrival</span>
                     <span className="text-muted">SKU: MK-2024</span>
                   </div> */}
-                  <h2 className="h4">{product.title}</h2>
+                  <h2 className="h4">{product?.title}</h2>
                   <div className="d-flex align-items-center gap-2 mb-3">
-                    {product.ratings >= 0 && product.ratings <= 9 && (
+                    {product?.ratings >= 0 && product?.ratings <= 9 && (
 
                       <div className="text-warning small">
                         <i className="bi bi-star-fill"></i><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i>
                       </div>
                     )}
-                    {product.ratings >= 10 && product.ratings <= 19 && (
+                    {product?.ratings >= 10 && product?.ratings <= 19 && (
 
                       <div className="text-warning small">
                         <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i></i>
                       </div>
                     )}
-                    {product.ratings >= 20 && (
+                    {product?.ratings >= 20 && (
 
                       <div className="text-warning small">
                         <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star"></i><i className="bi bi-star"></i>
@@ -279,35 +340,35 @@ const Productdetail = () => {
                   </div>
                   <div className="mb-4">
                     <div>
-                      <span className="fs-3 fw-bold">₦{product.price}</span>
-                      {product.previousPrice > 0 && (
+                      <span className="fs-3 fw-bold">₦{product?.price}</span>
+                      {product?.previousPrice > 0 && (
                         <span className="text-decoration-line-through text-muted fs-5 ms-3">₦{product.previousPrice}</span>
                       )}
-                      {product.discountPercentage > 0 && (
-                        <span className="badge bg-primary  text-white ms-3">{product.discountPercentage}% OFF</span>
+                      {product?.discountPercentage > 0 && (
+                        <span className="badge bg-primary  text-white ms-3">{product?.discountPercentage}% OFF</span>
                       )}
                     </div>
 
-                    <span className="">{product.stockCount} items left</span>
+                    <span className="">{product?.stockCount} items left</span>
                     <div>
-                      {product.stockCount >= 1 && product.stockCount <= 5 && (
+                      {product?.stockCount >= 1 && product?.stockCount <= 5 && (
 
                         <div className="bg-secondary rounded" style={{ width: "90%", height: "7px" }}>
                           <div className="bg-danger rounded" style={{ width: "5%", height: "7px" }}></div>
                         </div>
                       )}
-                      {product.stockCount >= 6 && product.stockCount <= 9 && (
+                      {product?.stockCount >= 6 && product?.stockCount <= 9 && (
 
                         <div className="bg-secondary rounded" style={{ width: "90%", height: "7px" }}>
                           <div className="bg-primary rounded" style={{ width: "20%", height: "7px" }}></div>
                         </div>
                       )}
-                      {product.stockCount >= 10 && product.stockCount <= 19 && (
+                      {product?.stockCount >= 10 && product?.stockCount <= 19 && (
                         <div className="bg-secondary rounded" style={{ width: "90%", height: "7px" }}>
                           <div className="bg-primary rounded" style={{ width: "40%", height: "7px" }}></div>
                         </div>
                       )}
-                      {product.stockCount >= 20 && (
+                      {product?.stockCount >= 20 && (
                         <div className="bg-secondary rounded" style={{ width: "90%", height: "7px" }}>
                           <div className="bg-primary rounded" style={{ width: "70%", height: "7px" }}></div>
                         </div>
@@ -315,13 +376,13 @@ const Productdetail = () => {
 
                     </div>
                   </div>
-                  {product.sizes?.length > 0 && (
+                  {product?.sizes?.length > 0 && (
                     <div>
                       <div className="mt-2">
                         <p className="mb-2">Select Size</p>
 
                         <div className="d-flex flex-wrap gap-2">
-                          {product.sizes?.map((size, index) => (
+                          {product?.sizes?.map((size, index) => (
                             <button
                               key={index}
                               type="button"
@@ -345,7 +406,7 @@ const Productdetail = () => {
                     </div>
                   )}
 
-                  {product.colors?.length > 0 && (
+                  {product?.colors?.length > 0 && (
                     <div className="mt-3 mb-4">
                       <p>Select Color</p>
                       <div className="d-flex align-items-center gap-2">
@@ -392,7 +453,7 @@ const Productdetail = () => {
                 </div>
 
               </div>
-              <div className="col-lg-4 shadow-lg rounded-4 border-0 p-4">
+              {/* <div className="col-lg-4 shadow-lg rounded-4 border-0 p-4">
                 <div className="border-1 border-bottom">
                   <h5 className="">Delivery & Returns</h5>
                 </div>
@@ -428,7 +489,7 @@ const Productdetail = () => {
                   </div>
                 </div>
 
-              </div>
+              </div> */}
             </div>
 
 
@@ -437,11 +498,11 @@ const Productdetail = () => {
                 <ul className="nav nav-pills mb-4" role="tablist">
                   <li className="nav-item" role="presentation"><button className="nav-link active" data-bs-toggle="pill" data-bs-target="#description" type="button">Description</button></li>
                   <li className="nav-item" role="presentation"><button className="nav-link" data-bs-toggle="pill" data-bs-target="#specs" type="button">Specifications</button></li>
-                  <li className="nav-item" role="presentation"><button className="nav-link" data-bs-toggle="pill" data-bs-target="#reviews" type="button">Reviews ({product.numReviews})</button></li>
+                  <li className="nav-item" role="presentation"><button className="nav-link" data-bs-toggle="pill" data-bs-target="#reviews" type="button">Reviews ({product?.numReviews})</button></li>
                 </ul>
                 <div className="tab-content">
                   <div className="tab-pane fade show active" id="description">
-                    <p className="mb-0 text-muted">{product.description}</p>
+                    <p className="mb-0 text-muted">{product?.description}</p>
                   </div>
                   <div className="tab-pane fade" id="specs">
                     <ul className="list-unstyled text-muted mb-0">
@@ -452,7 +513,7 @@ const Productdetail = () => {
                     </ul>
                   </div>
                   <div className="tab-pane fade" id="reviews">
-                    <p className="mb-0 text-muted">{product.reviews}</p>
+                    <p className="mb-0 text-muted">{product?.reviews}</p>
                   </div>
                 </div>
               </div>
@@ -467,10 +528,10 @@ const Productdetail = () => {
                 {relatedProducts.map((relatedProduct) => (
                   <div className=" product-card col-6 col-sm-4 col-xl-3" key={relatedProduct._id}>
                     <div className="card rounded-4 shadow-sm border-0 h-100">
-                      <img src={relatedProduct.imagespath[0]} className="card-img-top rounded-top-4" alt={relatedProduct.title} style={{ height: 160 }} />
+                      <img src={relatedProduct?.imagespath[0]} className="card-img-top rounded-top-4" alt={relatedProduct?.title} style={{ height: 160 }} />
                       <div className="card-body">
-                        <h3 className="h6">{relatedProduct.title}</h3>
-                        <p className="text-muted mb-2">₦{relatedProduct.price}</p>
+                        <h3 className="h6">{relatedProduct?.title}</h3>
+                        <p className="text-muted mb-2">₦{relatedProduct?.price}</p>
                         <a href={`/productdetail/${relatedProduct._id}`} className="btn btn-primary btn-sm">View</a>
                       </div>
                     </div>

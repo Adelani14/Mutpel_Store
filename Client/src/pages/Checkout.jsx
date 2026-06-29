@@ -9,7 +9,9 @@ const Checkout = () => {
     const token = storedUser?.token;
 
 
+    const [products, setProducts] = useState([]);
 
+    const [fullName, setfullName] = useState(null);
     const [states, setStates] = useState([]);
     const [lgas, setLgas] = useState([]);
 
@@ -68,10 +70,87 @@ const Checkout = () => {
 
 
 
-
     useEffect(() => {
         fetchStates();
+        getUsername();
+        fetchCart();
     }, []);
+
+
+
+    const getUsername = async () => {
+        try {
+            const res = await fetch(
+                "http://localhost:4350/api/users/Username",
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            const data = await res.json();
+
+            console.log(data);
+
+            setfullName(data.userName);
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
+
+
+    // useEffect(() => {
+    //     fetchCart();
+    // }, []);
+
+    const fetchCart = async () => {
+        try {
+            const response = await fetch(
+                "https://mutpel-store.onrender.com/api/cart/getCart",
+                {
+
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            const data = await response.json();
+
+            setProducts(data.cart?.items || []);
+
+
+
+        }
+        catch (error) {
+            console.log(error)
+        }
+        finally {
+            setLoading(false)
+        }
+
+
+    }
+
+    const totalPrice = products.reduce((total, item) => {
+        return total + item.product.price * item.quantity;
+    }, 0);
+
+    const shippingFee = (() => {
+        // Iwo customers
+        if (selectedState === "Osun" && selectedLga === "Iwo") {
+            return deliveryMethod === "home" ? 1000 : 0;
+        }
+
+        // Every other location
+        return 0; // Change this later if you decide to charge interstate delivery
+    })();
+
+    const grandTotal = totalPrice + shippingFee;
+
     return (
         <>
             <Helpcenter />
@@ -97,7 +176,7 @@ const Checkout = () => {
                             <div className="card rounded-4 border-0 shadow-sm p-4 mb-4">
                                 <h2 className="h6 text-uppercase text-primary mb-4">1 Shipping Information</h2>
                                 <div className="row g-3">
-                                    <div className="col-md-6"><label className="form-label">Full Name</label><input className="form-control" type="text" placeholder="Julianne Moore" /></div>
+                                    <div className="col-md-6"><label className="form-label">Full Name</label><input className="form-control" type="text" value={fullName} /></div>
                                     <div className="col-md-6"><label className="form-label">Phone Number</label><input className="form-control" type="number" placeholder="08000000000" /></div>
                                     <div className="col-md-4">
                                         <label className="form-label">State</label>
@@ -114,7 +193,8 @@ const Checkout = () => {
                                                     {state}
                                                 </option>
                                             ))}
-                                        </select>                                    </div>
+                                        </select>
+                                    </div>
                                     <div className="col-md-4">
                                         <label className="form-label">City</label>
                                         <select
@@ -172,8 +252,8 @@ const Checkout = () => {
                                 <div className="payment-method-card active mb-3 p-3 rounded-4 d-flex align-items-center justify-content-between">
                                     <div>
                                         <div className="form-check mb-2">
-                                            <input className="form-check-input" type="radio" name="paymentMethod" id="paystack" checked />
-                                            <label className="form-check-label fw-semibold" for="paystack">Paystack</label>
+                                            <input className="form-check-input" type="radio" name="paymentMethod" id="paystack" defaultChecked />
+                                            <label className="form-check-label fw-semibold" htmlFor="paystack">PayStack</label>
                                         </div>
                                         <p className="text-muted small mb-0">Pay securely with Cards, Bank Transfer, or USSD</p>
                                     </div>
@@ -183,7 +263,7 @@ const Checkout = () => {
                                     <div>
                                         <div className="form-check mb-2">
                                             <input className="form-check-input" type="radio" name="paymentMethod" id="paypal" disabled />
-                                            <label className="form-check-label fw-semibold" for="paypal">PayPal</label>
+                                            <label className="form-check-label fw-semibold" htmlFor="paypal">PayPal</label>
                                         </div>
                                         <p className="text-muted small mb-0">International payments (Coming soon)</p>
                                     </div>
@@ -195,27 +275,21 @@ const Checkout = () => {
                         <div className="col-lg-5">
                             <div className="card rounded-4 border-0 shadow-sm p-4 h-100">
                                 <h2 className="h6 mb-4">Order Summary</h2>
-                                <div className="order-summary-line d-flex align-items-center gap-3 mb-3">
-                                    <div className="summary-thumb bg-secondary-subtle rounded-4"></div>
-                                    <div>
-                                        <h3 className="h6 mb-1">The Archivist Tote</h3>
-                                        <p className="text-muted small mb-0">Natural Linen / Large</p>
+                                {products.map((item) => (
+                                    <div key={item._id} className="order-summary-line d-flex align-items-center gap-3 mb-3">
+                                        <div className="summary-thumb bg-secondary-subtle rounded-4"></div>
+                                        <div>
+                                            <h3 className="h6 mb-1">{item.product?.title}</h3>
+                                            {/* <p className="text-muted small mb-0">Natural Linen / Large</p> */}
+                                        </div>
+                                        <div className="ms-auto fw-semibold">₦{item.product?.price}</div>
                                     </div>
-                                    <div className="ms-auto fw-semibold">₦45,000.00</div>
-                                </div>
-                                <div className="order-summary-line d-flex align-items-center gap-3 mb-4">
-                                    <div className="summary-thumb bg-secondary-subtle rounded-4"></div>
-                                    <div>
-                                        <h3 className="h6 mb-1">Curator’s Journal Set</h3>
-                                        <p className="text-muted small mb-0">Hand-bound / 3-Pack</p>
-                                    </div>
-                                    <div className="ms-auto fw-semibold">₦18,500.00</div>
-                                </div>
+                                ))}
+
                                 <div className="border-top pt-3 mt-3">
-                                    <div className="d-flex justify-content-between mb-2"><span>Subtotal</span><span>₦63,500.00</span></div>
-                                    <div className="d-flex justify-content-between mb-2"><span>Shipping</span><span>₦2,500.00</span></div>
-                                    <div className="d-flex justify-content-between mb-3"><span>Tax (VAT)</span><span>₦4,762.50</span></div>
-                                    <div className="d-flex justify-content-between align-items-center fw-semibold fs-5"><span>Total</span><span>₦70,762.50</span></div>
+                                    <div className="d-flex justify-content-between text-muted mb-2"><span>Subtotal</span><span>₦{totalPrice}</span></div>
+                                    <div className="d-flex justify-content-between text-muted mb-2"><span>Shipping</span><span className="text-success fw-semibold">₦{shippingFee}</span></div>
+                                    <div className="d-flex justify-content-between align-items-center fw-semibold fs-5"><span>Total</span><span>₦{grandTotal}</span></div>
                                 </div>
                                 <button className="btn btn-primary btn-lg w-100 mt-4">Place Order via Paystack</button>
                                 <p className="text-muted small mt-3">By placing your order, you agree to our Terms of Service and Privacy Policy. Secure 256-bit SSL encrypted payment.</p>
