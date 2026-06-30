@@ -276,7 +276,7 @@ const Checkout = () => {
                             <div className="card rounded-4 border-0 shadow-sm p-4 h-100">
                                 <h2 className="h6 mb-4">Order Summary</h2>
                                 {products.map((item) => (
-                                    <div key={item._id} className="order-summary-line d-flex align-items-center gap-3 mb-3">
+                                    <div key={item._id} className="order-summary-line d-flex align-items-center gap-3 mb-3 border-1 border-bottom">
                                         <div className="summary-thumb bg-secondary-subtle rounded-4"></div>
                                         <div>
                                             <h3 className="h6 mb-1">{item.product?.title}</h3>
@@ -286,9 +286,12 @@ const Checkout = () => {
                                     </div>
                                 ))}
 
-                                <div className="border-top pt-3 mt-3">
+                                <div className=" pt-3 mt-3">
                                     <div className="d-flex justify-content-between text-muted mb-2"><span>Subtotal</span><span>₦{totalPrice}</span></div>
-                                    <div className="d-flex justify-content-between text-muted mb-2"><span>Shipping</span><span className="text-success fw-semibold">₦{shippingFee}</span></div>
+                                    {shippingFee > 0 && (
+
+                                        <div className="d-flex justify-content-between text-muted mb-2"><span>Shipping</span><span className="text-success fw-semibold">₦{shippingFee}</span></div>
+                                    )}
                                     <div className="d-flex justify-content-between align-items-center fw-semibold fs-5"><span>Total</span><span>₦{grandTotal}</span></div>
                                 </div>
                                 <button className="btn btn-primary btn-lg w-100 mt-4">Place Order via Paystack</button>
