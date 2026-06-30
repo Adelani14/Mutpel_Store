@@ -5,6 +5,21 @@ const axiosInstance = axios.create({
     withCredentials: true,
 });
 
+// Attach access token
+axiosInstance.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem("accessToken");
+
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+
+        return config;
+    },
+    (error) => Promise.reject(error)
+);
+
+// Refresh expired token
 axiosInstance.interceptors.response.use(
     (response) => response,
 
@@ -18,14 +33,23 @@ axiosInstance.interceptors.response.use(
             originalRequest._retry = true;
 
             try {
-                // Refresh access token
-                await axiosInstance.post("/api/users/refresh-token");
+                const res = await axiosInstance.post(
+                    "/api/users/refresh-token"
+                );
 
-                // Retry the original request
+                localStorage.setItem(
+                    "accessToken",
+                    res.data.accessToken
+                );
+
                 return axiosInstance(originalRequest);
 
             } catch (err) {
+                localStorage.removeItem("accessToken");
+                localStorage.removeItem("user");
+
                 window.location.href = "/login";
+
                 return Promise.reject(err);
             }
         }
