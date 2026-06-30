@@ -11,7 +11,7 @@ const Checkout = () => {
 
     const [products, setProducts] = useState([]);
 
-    const [fullName, setfullName] = useState(null);
+    const [fullName, setfullName] = useState("");
     const [states, setStates] = useState([]);
     const [lgas, setLgas] = useState([]);
 
@@ -19,6 +19,7 @@ const Checkout = () => {
     const [selectedLga, setSelectedLga] = useState("");
 
     const [deliveryMethod, setDeliveryMethod] = useState("");
+    const [loading, setLoading] = useState(true);
 
     const isIwo =
         selectedState === "Osun" &&
@@ -26,6 +27,7 @@ const Checkout = () => {
 
 
     const fetchStates = async () => {
+        setLoading(true)
         try {
             const response = await fetch(
                 "https://mutpel-store.onrender.com/api/allState/states", {
@@ -39,6 +41,9 @@ const Checkout = () => {
             setStates(data.states || []);
         } catch (error) {
             console.log(error);
+        }
+        finally {
+            setLoading(false)
         }
     };
 
@@ -81,7 +86,7 @@ const Checkout = () => {
     const getUsername = async () => {
         try {
             const res = await fetch(
-                "http://localhost:4350/api/users/Username",
+                "https://mutpel-store.onrender.com/api/users/Username",
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -91,7 +96,7 @@ const Checkout = () => {
 
             const data = await res.json();
 
-            console.log(data);
+            // console.log(data);
 
             setfullName(data.userName);
 
@@ -108,6 +113,7 @@ const Checkout = () => {
     // }, []);
 
     const fetchCart = async () => {
+        setLoading(true)
         try {
             const response = await fetch(
                 "https://mutpel-store.onrender.com/api/cart/getCart",
@@ -153,6 +159,23 @@ const Checkout = () => {
 
     return (
         <>
+            {loading && (
+                <div
+                    className="position-fixed top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+                    style={{
+                        backgroundColor: "rgba(0, 0, 0, 0.25)",
+                        backdropFilter: "blur(6px)",
+                        WebkitBackdropFilter: "blur(5px)",
+                        zIndex: 9999,
+                    }}
+                >
+                    <div className="spinner-border text-primary" style={{ width: "4rem", height: "4rem" }}></div>
+
+                    {/* <h5 className="mt-3 fw-semibold text-dark">
+                        Loading products...
+                    </h5> */}
+                </div>
+            )}
             <Helpcenter />
             <Header />
 
@@ -176,7 +199,7 @@ const Checkout = () => {
                             <div className="card rounded-4 border-0 shadow-sm p-4 mb-4">
                                 <h2 className="h6 text-uppercase text-primary mb-4">1 Shipping Information</h2>
                                 <div className="row g-3">
-                                    <div className="col-md-6"><label className="form-label">Full Name</label><input className="form-control" type="text" value={fullName} /></div>
+                                    <div className="col-md-6"><label className="form-label">Full Name</label><input className="form-control" type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} /></div>
                                     <div className="col-md-6"><label className="form-label">Phone Number</label><input className="form-control" type="number" placeholder="08000000000" /></div>
                                     <div className="col-md-4">
                                         <label className="form-label">State</label>
@@ -282,7 +305,7 @@ const Checkout = () => {
                                             <h3 className="h6 mb-1">{item.product?.title}</h3>
                                             {/* <p className="text-muted small mb-0">Natural Linen / Large</p> */}
                                         </div>
-                                        <div className="ms-auto fw-semibold">₦{item.product?.price}</div>
+                                        <div className="ms-auto fw-semibold text-danger">₦{item.product.price * item.quantity}</div>
                                     </div>
                                 ))}
 
