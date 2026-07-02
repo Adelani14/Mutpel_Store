@@ -104,8 +104,8 @@ export const loginUser = async (req, res) => {
             httpOnly: true,
             secure: true,
             sameSite: "none",
+            path: "/",
         });
-
 
 
         res.status(200).json({
@@ -151,6 +151,7 @@ export const logoutUser = async (req, res) => {
             httpOnly: true,
             secure: true,
             sameSite: "none",
+            path: "/",
         });
 
         res.status(200).json({
@@ -172,9 +173,11 @@ export const refreshToken = async (req, res) => {
 
     console.log("Cookies:", req.cookies);
 
+
     const token = req.cookies.refreshtoken;
 
     console.log("Token:", token);
+
 
     try {
 
