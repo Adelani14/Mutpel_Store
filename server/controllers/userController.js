@@ -169,16 +169,14 @@ export const logoutUser = async (req, res) => {
 
 // REFRESH TOKEN
 export const refreshToken = async (req, res) => {
+
+    console.log("Cookies:", req.cookies);
+
+    const token = req.cookies.refreshtoken;
+
+    console.log("Token:", token);
+
     try {
-        const token = req.cookies.refreshtoken;
-
-        console.log("Cookie Token:", token);
-
-        if (!token) {
-            return res.status(401).json({
-                message: "No cookie token"
-            });
-        }
 
         const payload = jwt.verify(
             token,
@@ -194,20 +192,10 @@ export const refreshToken = async (req, res) => {
 
         console.log("User:", user);
 
-        if (!user) {
-            return res.status(401).json({
-                message: "User not found or token mismatch"
-            });
-        }
-
-
     } catch (err) {
         console.log(err);
-        return res.status(401).json({
-            message: "Unauthorized"
-        });
     }
-}
+};
 
 
 
