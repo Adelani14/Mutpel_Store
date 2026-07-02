@@ -2,13 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Helpcenter from '../components/Helpcenter.jsx';
+import Axios from "../utils/axiosInstance.js"
 
 const AllProduct = () => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    const token = storedUser?.token;
-
-
-
+ 
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
@@ -26,19 +23,11 @@ const AllProduct = () => {
     const fetchProducts = async (currentPage) => {
         setLoading(true);
         try {
-            const response = await fetch(
-                `https://mutpel-store.onrender.com/api/products?page=${currentPage}&limit=${limit}`,
+            const response = await Axios.get(`/api/products?page=${currentPage}&limit=${limit}`)
 
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            // const data = await response.json();
 
-            const data = await response.json();
-
-            setProducts(data);
+            setProducts(response.data);
 
         } catch (error) {
             console.log(error);

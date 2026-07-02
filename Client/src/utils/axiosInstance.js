@@ -24,18 +24,23 @@ axiosInstance.interceptors.response.use(
     (response) => response,
 
     async (error) => {
+        console.log("401 detected:", error.response?.status);
+
         const originalRequest = error.config;
 
         if (
             error.response?.status === 401 &&
-            !originalRequest._retry
+            !originalRequest._retry &&
+            originalRequest.url !== "/api/users/refresh-token"
         ) {
+            console.log("Trying to refresh token...");
+
             originalRequest._retry = true;
 
             try {
-                const res = await axiosInstance.post(
-                    "/api/users/refresh-token"
-                );
+                const res = await axiosInstance.post("/api/users/refresh-token");
+
+                console.log("Refresh successful", res.data);
 
                 localStorage.setItem(
                     "accessToken",
@@ -45,12 +50,12 @@ axiosInstance.interceptors.response.use(
                 return axiosInstance(originalRequest);
 
             } catch (err) {
+                console.log("Refresh failed", err.response?.data);
+
                 localStorage.removeItem("accessToken");
                 localStorage.removeItem("user");
 
                 window.location.href = "/login";
-
-                return Promise.reject(err);
             }
         }
 

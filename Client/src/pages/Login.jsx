@@ -6,9 +6,6 @@ import Axios from "../utils/axiosInstance.js";
 const Login = () => {
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
-
-  const endpoint = 'https://mutpel-store.onrender.com/api/users/login'
-
   const submitDetails = async () => {
 
 
@@ -44,23 +41,22 @@ const Login = () => {
         try {
           const information = { email, password }
           const result = await Axios.post(
-            endpoint,
-            information,
-            { withCredentials: true }
-          )
+            "/api/users/login",
+            information
+          );
 
           if (result.status === 200) {
             console.log(result.data);
+            console.log(result);
+            console.log(result.status);
+            localStorage.setItem(
+              "accessToken",
+              result.data.accessToken
+            );
 
-            // SAVE TOKEN
-            // localStorage.setItem("accessToken", result.data.accessToken,);
-            // localStorage.setItem("role", result.data.role,);
             localStorage.setItem(
               "user",
-              JSON.stringify({
-                role: result.data.user.role,
-                token: result.data.accessToken
-              })
+              JSON.stringify(result.data.user)
             );
 
             const role = result.data.user.role;

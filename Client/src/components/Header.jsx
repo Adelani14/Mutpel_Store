@@ -1,21 +1,16 @@
 import { useState, useEffect } from "react";
+import Axios from "../utils/axiosInstance.js";
 
 const Header = () => {
 
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  const token = storedUser?.token;
+
 
   const [cartCount, setCartCount] = useState(0);
   const fetchCartCount = async () => {
     try {
-      const res = await fetch("https://mutpel-store.onrender.com/api/cart/getCartCount", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await Axios.get("/api/cart/getCartCount")
 
-      const data = await res.json();
-      setCartCount(data.count || 0);
+      setCartCount(res.data?.count || 0);
     } catch (error) {
       console.log(error);
     }

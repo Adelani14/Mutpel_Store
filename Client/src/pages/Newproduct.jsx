@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import Helpcenter from "../components/Helpcenter.jsx";
 import Header from "../components/Header.jsx";
 import { Link } from "react-router-dom";
+import Axios from "../utils/axiosInstance.js";
 const Newproduct = () => {
-
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    const token = storedUser?.token;
 
     // Fetch categories for dropdown
     const [categories, setCategories] = useState([]);
@@ -19,20 +17,10 @@ const Newproduct = () => {
 
             try {
 
-                const response = await fetch(
-                    "https://mutpel-store.onrender.com/api/categories/fetchCategories",
-                    {
-                        method: "GET",
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
+                const response = await Axios.get("/api/categories/fetchCategories")
 
-                    }
-                );
 
-                const data = await response.json();
-
-                setCategories(data);
+                setCategories(response.data);
 
             } catch (error) {
 
@@ -170,27 +158,10 @@ const Newproduct = () => {
             data.append("price", price);
             data.append("discountPercentage", discountPercentage);
 
-            const addproduct = await fetch(
-                'https://mutpel-store.onrender.com/api/products/createNewProduct',
-                {
-                    method: "POST",
+            const addproduct = await Axios.post('/api/products/createNewProduct')
 
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: data,
-                }
-            );
+            const result = addproduct.data
 
-
-
-
-
-            const result = await addproduct.json();
-            if (!addproduct.ok) {
-                alert(result.message);
-                return;
-            }
             alert("Product created successfully!");
 
             console.log(result);

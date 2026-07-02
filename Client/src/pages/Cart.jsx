@@ -2,17 +2,13 @@ import Helpcenter from "../components/Helpcenter.jsx";
 import Header from "../components/Header.jsx";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Axios from "../utils/axiosInstance.js";
 
 const Cart = () => {
 
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    const token = storedUser?.token;
+
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-
-
-
-
 
 
     useEffect(() => {
@@ -21,18 +17,9 @@ const Cart = () => {
 
     const fetchCart = async () => {
         try {
-            const response = await fetch(
-                "https://mutpel-store.onrender.com/api/cart/getCart",
-                {
+            const response = await Axios.get("/api/cart/getCart");
 
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            const data = await response.json();
-
-            setProducts(data.cart?.items || []);
+            setProducts(response.data.cart?.items || []);
 
 
 
@@ -54,21 +41,15 @@ const Cart = () => {
     const increaseQuantity = async (item) => {
         setLoading(true)
         try {
-            await fetch("https://mutpel-store.onrender.com/api/cart/updateCartItem", {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                    productId: item.product._id,
-                    quantity: item.quantity + 1,
-                    size: item.size,
-                    color: item.color,
-                }),
+            await Axios.put("/api/cart/updateCartItem", {
+                productId: item.product._id,
+                quantity: item.quantity + 1,
+                size: item.size,
+                color: item.color,
             });
 
-            fetchCart();
+            await fetchCart();
+
         } catch (error) {
             console.log(error);
         }
@@ -82,21 +63,14 @@ const Cart = () => {
         setLoading(true)
 
         try {
-            await fetch("https://mutpel-store.onrender.com/api/cart/updateCartItem", {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                    productId: item.product._id,
-                    quantity: item.quantity - 1,
-                    size: item.size,
-                    color: item.color,
-                }),
+            await Axios.put("/api/cart/updateCartItem", {
+                productId: item.product._id,
+                quantity: item.quantity - 1,
+                size: item.size,
+                color: item.color,
             });
 
-            fetchCart();
+            await fetchCart();
         } catch (error) {
             console.log(error);
         }
@@ -113,19 +87,13 @@ const Cart = () => {
         if (!isConfirmed) return;
         setLoading(true)
         try {
-            await fetch("https://mutpel-store.onrender.com/api/cart/removeFromCart", {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({
+            await Axios.delete("/api/cart/removeFromCart", {
+                data: {
                     productId: item.product._id,
                     size: item.size,
                     color: item.color,
-                }),
+                },
             });
-
             fetchCart(); // refresh cart
         } catch (error) {
             console.log(error);
@@ -142,15 +110,7 @@ const Cart = () => {
         if (!isConfirmed) return;
         setLoading(true)
         try {
-            const res = await fetch("https://mutpel-store.onrender.com/api/cart/clearCart", {
-                method: "DELETE",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            const data = await res.json();
-            console.log(data);
+            await Axios.delete("/api/cart/clearCart");
 
             setProducts([]);
         } catch (error) {
@@ -158,13 +118,6 @@ const Cart = () => {
         }
 
     };
-
-
-
-
-
-
-
 
 
 

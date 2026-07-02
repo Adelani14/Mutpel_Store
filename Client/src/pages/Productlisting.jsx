@@ -3,52 +3,44 @@ import Header from "../components/Header.jsx";
 import Footer from "../components/Footer";
 import { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
+import Axios from "../utils/axiosInstance.js";
 
 
 const Productlisting = () => {
-
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    const token = storedUser?.token;
-
 
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const limit = 10;
 
+
+
     useEffect(() => {
-        fetchProducts(page);
+        const loadData = async () => {
+            setLoading(true);
+
+            try {
+                await Promise.all([
+                    fetchProducts(page)
+                ]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadData();
     }, [page]);
 
     const fetchProducts = async (currentPage) => {
         try {
-            const response = await fetch(
-                `https://mutpel-store.onrender.com/api/products?page=${currentPage}&limit=${limit}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-
-            const data = await response.json();
-
-            setProducts(data);
+            const response = await Axios.get(`/api/products?page=${currentPage}&limit=${limit}`)
+            setProducts(response.data);
         } catch (error) {
             console.log(error);
-        } finally {
-            setLoading(false);
         }
     };
 
-    // if (loading) {
-    //     return (
-    //         <div className="d-flex flex-column align-items-center justify-content-center vh-100">
-    //             <span className="spinner-border spinner-border-lg "></span>
-    //             <h3>Loading products...</h3>
-    //         </div>
-    //     );
-    // }
+
 
     return (
         <>
@@ -117,7 +109,7 @@ const Productlisting = () => {
                             </div>
 
                             <div className="row g-2">
-                                {products.map((product) => (
+                                {products?.map((product) => (
                                     <ProductCard
                                         key={product._id}
                                         id={product._id}

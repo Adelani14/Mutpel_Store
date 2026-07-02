@@ -2,6 +2,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Helpcenter from '../components/Helpcenter';
+import Axios from "../utils/axiosInstance.js";
 const Admindashboard = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     // const [dashboardStats, setDashboardStats] = useState({});
@@ -10,8 +11,6 @@ const Admindashboard = () => {
         setSidebarOpen(!sidebarOpen);
     };
 
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    const token = storedUser?.token;
 
     const [stats, setStats] = useState({
         totalUsers: 0,
@@ -24,32 +23,24 @@ const Admindashboard = () => {
 
 
 
-    useEffect(() => {
-        const fetchDashboardStats = async () => {
-            try {
-                const response = await fetch(
-                    "https://mutpel-store.onrender.com/api/dashboardstats/stats",
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
-                );
 
-                const data = await response.json();
+    const fetchDashboardStats = async () => {
+        try {
+            const response = await Axios.get("/api/dashboardstats/stats")
 
-                // console.log(data);
+            // const data = await response.json();
 
-                setStats(data);
+            // console.log(data);
 
-            } catch (error) {
-                console.error(error);
-            }
-        };
+            setStats(response.data);
 
-        fetchDashboardStats();
-        fetchProducts(page);
-    }, []);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
+
 
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -58,41 +49,68 @@ const Admindashboard = () => {
 
     const fetchProducts = async (currentPage) => {
         try {
-            const response = await fetch(
-                `https://mutpel-store.onrender.com/api/products?page=${currentPage}&limit=${limit}`,
+            const response = await Axios.get(`/api/products?page=${currentPage}&limit=${limit}`)
 
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            // const data = await response.json();
 
-            const data = await response.json();
-
-            setProducts(data);
+            setProducts(response.data);
 
         } catch (error) {
             console.log(error);
-        } finally {
-            setLoading(false);
         }
     };
 
 
-    if (loading) {
-        return (
-            <div className="d-flex flex-column align-items-center justify-content-center vh-100">
-                <span className="spinner-border spinner-border-lg "></span>
-                <i>Dashboard Overview..</i>
-            </div>
-        );
-    }
+
+    useEffect(() => {
+        const loadData = async () => {
+            setLoading(true);
+
+            try {
+                await Promise.all([
+                    fetchDashboardStats(),
+                    fetchProducts(page),
+                ]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadData();
+    }, []);
+
+
+    // if (loading) {
+    //     return (
+    //         <div className="d-flex flex-column align-items-center justify-content-center vh-100">
+    //             <span className="spinner-border spinner-border-lg "></span>
+    //             <i>Dashboard Overview..</i>
+    //         </div>
+    //     );
+    // }
 
 
 
     return (
         <>
+            {loading && (
+                <div
+                    className="position-fixed top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+                    style={{
+                        backgroundColor: "rgba(0, 0, 0, 0.25)",
+                        backdropFilter: "blur(6px)",
+                        WebkitBackdropFilter: "blur(5px)",
+                        zIndex: 9999,
+                    }}
+
+                >
+                    <div className="spinner-border text-primary" style={{ width: "4rem", height: "4rem" }}></div>
+
+                    <h5 className="mt-3 fw-semibold text-dark">
+                        Loading products...
+                    </h5>
+                </div>
+            )}
             <header className="bg-white shadow-sm sticky-top" style={{ zIndex: 1100 }}>
                 <Helpcenter />
                 <div className="container-fluid py-3">

@@ -1,17 +1,14 @@
 import Helpcenter from "../components/Helpcenter.jsx";
 import Header from "../components/Header.jsx";
 import { useState, useEffect } from "react";
+import Axios from "../utils/axiosInstance.js";
 
 
 const Checkout = () => {
 
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    const token = storedUser?.token;
-
-
     const [products, setProducts] = useState([]);
 
-    const [fullName, setfullName] = useState("");
+    const [fullName, setFullName] = useState("");
     const [states, setStates] = useState([]);
     const [lgas, setLgas] = useState([]);
 
@@ -27,23 +24,12 @@ const Checkout = () => {
 
 
     const fetchStates = async () => {
-        setLoading(true)
         try {
-            const response = await fetch(
-                "https://mutpel-store.onrender.com/api/allState/states", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const response = await Axios.get("/api/allState/states");
 
-            const data = await response.json();
-
-            setStates(data.states || []);
+            setStates(response.data?.states || []);
         } catch (error) {
             console.log(error);
-        }
-        finally {
-            setLoading(false)
         }
     };
 
@@ -55,50 +41,20 @@ const Checkout = () => {
         setSelectedLga("");
 
         try {
-            const response = await fetch(
-                `https://mutpel-store.onrender.com/api/allState/lgas/${state}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const response = await Axios.get(`/api/allState/lgas/${state}`)
 
-
-            const data = await response.json();
-
-            // console.log("LGA Response:", data);
-
-            setLgas(data.lgas?.lgas || []);
+            setLgas(response.data?.lgas?.lgas || []);
         } catch (error) {
             console.log(error);
         }
     };
-
-
-
-    useEffect(() => {
-        fetchStates();
-        getUsername();
-        fetchCart();
-    }, []);
-
 
 
     const getUsername = async () => {
         try {
-            const res = await fetch(
-                "https://mutpel-store.onrender.com/api/users/Username",
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            const res = await Axios.get("/api/users/Username");
 
-            const data = await res.json();
-
-            // console.log(data);
-
-            setfullName(data.userName);
+            setFullName(res.data?.userName || "");
 
         } catch (error) {
             console.log(error);
@@ -107,38 +63,16 @@ const Checkout = () => {
 
 
 
-
-    // useEffect(() => {
-    //     fetchCart();
-    // }, []);
-
     const fetchCart = async () => {
-        setLoading(true)
         try {
-            const response = await fetch(
-                "https://mutpel-store.onrender.com/api/cart/getCart",
-                {
+            const response = await Axios.get("/api/cart/getCart");
 
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            const data = await response.json();
-
-            setProducts(data.cart?.items || []);
-
-
+            setProducts(response.data?.cart?.items || []);
 
         }
         catch (error) {
             console.log(error)
         }
-        finally {
-            setLoading(false)
-        }
-
-
     }
 
     const totalPrice = products.reduce((total, item) => {
@@ -150,12 +84,29 @@ const Checkout = () => {
         if (selectedState === "Osun" && selectedLga === "Iwo") {
             return deliveryMethod === "home" ? 1000 : 0;
         }
-
-        // Every other location
-        return 0; // Change this later if you decide to charge interstate delivery
+        return 0;
     })();
 
     const grandTotal = totalPrice + shippingFee;
+
+
+    useEffect(() => {
+        const loadData = async () => {
+            setLoading(true);
+
+            try {
+                await Promise.all([
+                    fetchStates(),
+                    getUsername(),
+                    fetchCart(),
+                ]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadData();
+    }, []);
 
     return (
         <>
@@ -303,7 +254,8 @@ const Checkout = () => {
                                         <div className="summary-thumb bg-secondary-subtle rounded-4"></div>
                                         <div>
                                             <h3 className="h6 mb-1">{item.product?.title}</h3>
-                                            {/* <p className="text-muted small mb-0">Natural Linen / Large</p> */}
+                                            <p className="text-muted small mb-1">Quatity:<b>{item?.quantity}</b></p>
+                                            <p className="text-muted small mb-0">{item.color} / {item.size}</p>
                                         </div>
                                         <div className="ms-auto fw-semibold text-danger">₦{item.product.price * item.quantity}</div>
                                     </div>

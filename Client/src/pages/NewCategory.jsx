@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Helpcenter from "../components/Helpcenter.jsx";
 import Header from "../components/Header.jsx";
 import { Link } from "react-router-dom";
+import Axios from "../utils/axiosInstance.js";
 
 const NewCategory = () => {
     const [formData, setFormData] = useState({
@@ -60,23 +61,13 @@ const NewCategory = () => {
 
 
 
-            const response = await fetch(
-                'https://mutpel-store.onrender.com/api/categories/createCategory',
-                {
-                    method: "POST",
-                    body: data
-                }
-            );
+            const response = await Axios.post('/api/categories/createCategory')
 
-            const result = await response.json();
-
-            if (!response.ok) {
-                throw new Error(result.message);
-            }
+            const result = response.data
 
             alert("Category created successfully!");
 
-            console.log(result);
+            // console.log(result);
 
             setFormData({
                 title: "",

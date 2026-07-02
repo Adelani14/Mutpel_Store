@@ -3,11 +3,10 @@ import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Axios from "../utils/axiosInstance.js";
 
 const Productdetail = () => {
 
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  const token = storedUser?.token;
 
   const { id } = useParams();
 
@@ -35,110 +34,34 @@ const Productdetail = () => {
 
   const fetchCartCount = async () => {
     try {
-      const res = await fetch("https://mutpel-store.onrender.com/api/cart/getCartCount", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await Axios.get("/api/cart/getCartCount")
 
-      const data = await res.json();
-      setCartCount(data.count || 0);
+      setCartCount(res.data?.count || 0);
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    fetchProduct();
-    fetchCartCount();
-  }, []);
+
 
   const fetchProduct = async () => {
     try {
-      const response = await fetch(
-        `https://mutpel-store.onrender.com/api/products/getSingleProduct/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await Axios.get(`/api/products/getSingleProduct/${id}`)
 
-      const data = await response.json();
-
-      setProduct(data.product);
+      setProduct(response.data?.product);
 
 
-      const categoryId = data.product.category._id;
-      const relatedResponse = await fetch(
-        `https://mutpel-store.onrender.com/api/products/relatedproducts/${categoryId}/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const categoryId = response.data.product.category._id;
+      const relatedResponse = await Axios.get(`/api/products/relatedproducts/${categoryId}/${id}`)
 
-      const relatedData = await relatedResponse.json();
-
-      setRelatedProducts(relatedData.products || []);
+      setRelatedProducts(relatedResponse.data.products || []);
     } catch (error) {
       console.log(error);
-    } finally {
-      setLoading(false);
+      setCartMessage(
+        error.response?.data?.message || "Something went wrong"
+      );
     }
   };
-
-  // if (loading) {
-  //   return (
-  //     <>
-  //       <div
-  //         className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
-  //         style={{
-  //           background: "rgba(255,255,255,.35)",
-  //           backdropFilter: "blur(4px)",
-  //           WebkitBackdropFilter: "blur(4px)",
-  //           zIndex: 99999,
-  //         }}
-  //       >
-  //         <div className="text-center">
-  //           <div
-  //             className="spinner-border text-primary"
-  //             style={{ width: "4rem", height: "4rem" }}
-  //           ></div>
-
-  //           <h5 className="mt-3">Loading...</h5>
-  //         </div>
-  //       </div>
-  //     </>
-  //   );
-  // }
-
-
-  // if (!product) {
-  //   return (
-  //     <>
-  //       <div
-  //         className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
-  //         style={{
-  //           background: "rgba(255,255,255,.35)",
-  //           backdropFilter: "blur(4px)",
-  //           WebkitBackdropFilter: "blur(4px)",
-  //           zIndex: 99999,
-  //         }}
-  //       >
-  //         <div className="text-center">
-  //           <div
-  //             className="spinner-border text-primary"
-  //             style={{ width: "4rem", height: "4rem" }}
-  //           ></div>
-
-  //           <h5 className="mt-3">Loading...</h5>
-  //         </div>
-  //       </div>
-  //     </>
-  //   )
-  // }
 
   const addToCart = async () => {
     try {
@@ -154,36 +77,14 @@ const Productdetail = () => {
         return;
       }
 
-      if (!token) {
-        setCartMessage("Please login first");
-        setCartSuccess(true);
-        return;
-      }
+      const response = await Axios.post("/api/cart/addToCart", {
+        productId: product._id,
+        quantity,
+        size: selectedSize,
+        color: selectedColor,
+      });
 
-      const response = await fetch(
-        "https://mutpel-store.onrender.com/api/cart/addToCart",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            productId: product._id,
-            quantity,
-            size: selectedSize,
-            color: selectedColor,
-          }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setCartMessage(data.message || "Failed to add to cart");
-        setCartSuccess(true);
-        return;
-      }
+      const data = response.data;
 
       setCartMessage("Product added successfully to cart");
       setCartSuccess(true);
@@ -201,7 +102,9 @@ const Productdetail = () => {
 
     } catch (error) {
       console.log(error);
-      setCartMessage("Something went wrong");
+      setCartMessage(
+        error.response?.data?.message || "Something went wrong"
+      );
       setCartSuccess(true);
 
       setTimeout(() => {
@@ -213,7 +116,22 @@ const Productdetail = () => {
 
 
 
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true);
 
+      try {
+        await Promise.all([
+          fetchProduct(),
+          fetchCartCount(),
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
 
 
 
