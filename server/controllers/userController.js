@@ -169,15 +169,22 @@ export const logoutUser = async (req, res) => {
 
 
 // REFRESH TOKEN
+// REFRESH TOKEN
 export const refreshToken = async (req, res) => {
 
-    console.log("Cookies:", req.cookies);
-
+    console.log("====================");
+    console.log("Cookie header:", req.headers.cookie);
+    console.log("Parsed cookies:", req.cookies);
 
     const token = req.cookies.refreshtoken;
 
     console.log("Token:", token);
 
+    if (!token) {
+        return res.status(401).json({
+            message: "No refresh token"
+        });
+    }
 
     try {
 
@@ -195,10 +202,18 @@ export const refreshToken = async (req, res) => {
 
         console.log("User:", user);
 
+        return res.status(200).json({
+            message: "Refresh route reached"
+        });
+
     } catch (err) {
         console.log(err);
+
+        return res.status(401).json({
+            message: "Invalid refresh token"
+        });
     }
-};
+}
 
 
 
