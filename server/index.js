@@ -36,7 +36,6 @@ app.use(express.urlencoded({ extended: true }));
 // ROUTES
 app.use("/api/users", userRoutes);
 
-// app.use("/api/users", userRoutes);
 
 app.use("/api/products", productRoutes);
 
@@ -49,9 +48,6 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/allState", naijastateRoutes);
 
 
-// const states = naijaStates.states();
-
-// console.log(states);
 
 // SERVER
 app.listen(PORT, () => {
