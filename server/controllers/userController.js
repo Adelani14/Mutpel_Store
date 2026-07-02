@@ -102,8 +102,8 @@ export const loginUser = async (req, res) => {
 
         res.cookie("refreshtoken", refreshToken, {
             httpOnly: true,
-            sameSite: "lax",
-            secure: false,
+            secure: true,
+            sameSite: "none",
         });
 
 
@@ -138,10 +138,20 @@ export const logoutUser = async (req, res) => {
 
     try {
 
+        const token = req.cookies.refreshtoken;
+
+        if (token) {
+            const payload = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
+
+            await User.findByIdAndUpdate(payload.userID, {
+                refreshToken: "",
+            });
+        }
+
         res.clearCookie("refreshtoken");
 
         res.status(200).json({
-            message: "Logout successful"
+            message: "Logout successful",
         });
 
     } catch (error) {
