@@ -135,31 +135,32 @@ export const loginUser = async (req, res) => {
 
 // LOGOUT
 export const logoutUser = async (req, res) => {
-
     try {
-
         const token = req.cookies.refreshtoken;
 
         if (token) {
-            const payload = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
+            const user = await User.findOne({ refreshToken: token });
 
-            await User.findByIdAndUpdate(payload.userID, {
-                refreshToken: "",
-            });
+            if (user) {
+                user.refreshToken = null;
+                await user.save();
+            }
         }
 
-        res.clearCookie("refreshtoken");
+        res.clearCookie("refreshtoken", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+        });
 
         res.status(200).json({
             message: "Logout successful",
         });
 
     } catch (error) {
-
         res.status(500).json({
-            message: "Server error"
+            message: "Server error",
         });
-
     }
 };
 
@@ -228,8 +229,8 @@ export const refreshToken = async (req, res) => {
 
         res.cookie("refreshtoken", newRefreshToken, {
             httpOnly: true,
-            sameSite: "lax",
-            secure: false,
+            secure: true,
+            sameSite: "none",
         });
 
 
