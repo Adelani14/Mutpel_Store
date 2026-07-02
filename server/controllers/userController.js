@@ -169,84 +169,45 @@ export const logoutUser = async (req, res) => {
 
 // REFRESH TOKEN
 export const refreshToken = async (req, res) => {
-
     try {
-
         const token = req.cookies.refreshtoken;
+
+        console.log("Cookie Token:", token);
 
         if (!token) {
             return res.status(401).json({
-                message: "Unauthorized"
+                message: "No cookie token"
             });
         }
-
-
 
         const payload = jwt.verify(
             token,
             process.env.REFRESH_TOKEN_SECRET
         );
 
+        console.log("Payload:", payload);
 
+        const user = await User.findOne({
+            _id: payload.userID,
+            refreshToken: token,
+        });
 
-        const user = await User.findById(
-            payload.userID
-        );
+        console.log("User:", user);
 
         if (!user) {
             return res.status(401).json({
-                message: "Unauthorized"
+                message: "User not found or token mismatch"
             });
         }
 
 
-
-        if (user.refreshToken !== token) {
-            return res.status(401).json({
-                message: "Unauthorized"
-            });
-        }
-
-
-
-        const newAccessToken = CreateAccessToken(
-            user._id,
-            user.role
-        );
-
-        const newRefreshToken = CreateRefreshToken(
-            user._id,
-            user.role
-        );
-
-
-
-        user.refreshToken = newRefreshToken;
-
-        await user.save();
-
-
-
-        res.cookie("refreshtoken", newRefreshToken, {
-            httpOnly: true,
-            secure: true,
-            sameSite: "none",
-        });
-
-
-
-        res.status(200).json({
-            accessToken: newAccessToken
-        });
-
-    } catch (error) {
-
-        res.status(401).json({
+    } catch (err) {
+        console.log(err);
+        return res.status(401).json({
             message: "Unauthorized"
         });
-
     }
-};
+}
 
 
 
