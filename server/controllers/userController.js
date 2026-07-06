@@ -169,51 +169,61 @@ export const logoutUser = async (req, res) => {
 
 
 // REFRESH TOKEN
-// REFRESH TOKEN
 export const refreshToken = async (req, res) => {
-
-    console.log("====================");
-    console.log("Cookie header:", req.headers.cookie);
-    console.log("Parsed cookies:", req.cookies);
-
-    const token = req.cookies.refreshtoken;
-
-    console.log("Token:", token);
-
-    if (!token) {
-        return res.status(401).json({
-            message: "No refresh token"
-        });
-    }
-
     try {
+        const token = req.cookies.refreshtoken;
+
+        if (!token) {
+            return res.status(401).json({
+                message: "No refresh token",
+            });
+        }
 
         const payload = jwt.verify(
             token,
             process.env.REFRESH_TOKEN_SECRET
         );
 
-        console.log("Payload:", payload);
-
         const user = await User.findOne({
             _id: payload.userID,
             refreshToken: token,
         });
 
-        console.log("User:", user);
+        if (!user) {
+            return res.status(401).json({
+                message: "Invalid refresh token",
+            });
+        }
+
+        // Generate NEW access token
+        const accessToken = CreateAccessToken(
+            user._id,
+            user.role
+        );
+
+        // (Optional) Rotate refresh token for better security
+        // const newRefreshToken = CreateRefreshToken(user._id, user.role);
+        // user.refreshToken = newRefreshToken;
+        // await user.save();
+        // res.cookie("refreshtoken", newRefreshToken, {
+        //     httpOnly: true,
+        //     secure: true,
+        //     sameSite: "none",
+        //     path: "/",
+        // });
 
         return res.status(200).json({
-            message: "Refresh route reached"
+            accessToken,
         });
 
     } catch (err) {
         console.log(err);
 
         return res.status(401).json({
-            message: "Invalid refresh token"
+            message: "Invalid refresh token",
         });
     }
-}
+};
 
 
 
