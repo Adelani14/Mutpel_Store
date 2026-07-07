@@ -105,6 +105,7 @@ export const loginUser = async (req, res) => {
             secure: true,
             sameSite: "none",
             path: "/",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
 
@@ -152,6 +153,7 @@ export const logoutUser = async (req, res) => {
             secure: true,
             sameSite: "none",
             path: "/",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
         res.status(200).json({
@@ -171,7 +173,6 @@ export const logoutUser = async (req, res) => {
 // REFRESH TOKEN
 export const refreshToken = async (req, res) => {
 
-    console.log("========== REFRESH ENDPOINT HIT ==========");
 
     try {
         const token = req.cookies.refreshtoken;
@@ -189,7 +190,6 @@ export const refreshToken = async (req, res) => {
             process.env.REFRESH_TOKEN_SECRET
         );
 
-        console.log("JWT verified");
 
         const user = await User.findOne({
             _id: payload.userID,
@@ -197,14 +197,12 @@ export const refreshToken = async (req, res) => {
         });
 
         if (!user) {
-            console.log("User not found");
 
             return res.status(401).json({
                 message: "Invalid refresh token",
             });
         }
 
-        console.log("Generating new access token");
 
         const accessToken = CreateAccessToken(
             user._id,

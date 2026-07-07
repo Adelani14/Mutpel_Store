@@ -158,7 +158,8 @@ const Newproduct = () => {
             data.append("price", price);
             data.append("discountPercentage", discountPercentage);
 
-            const addproduct = await Axios.post('/api/products/createNewProduct')
+            const addproduct = await Axios.post('/api/products/createNewProduct',
+                data)
 
             const result = addproduct.data
 
