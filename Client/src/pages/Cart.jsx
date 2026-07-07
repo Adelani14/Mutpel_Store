@@ -35,10 +35,13 @@ const Cart = () => {
     }
 
     const totalPrice = products.reduce((total, item) => {
+        if (!item.product) return total;
+
         return total + item.product.price * item.quantity;
     }, 0);
 
     const increaseQuantity = async (item) => {
+        if (!item.product) return;
         setLoading(true)
         try {
             await Axios.put("/api/cart/updateCartItem", {
@@ -59,7 +62,7 @@ const Cart = () => {
     };
 
     const decreaseQuantity = async (item) => {
-        if (item.quantity <= 1) return;
+        if (!item.product) return;
         setLoading(true)
 
         try {
@@ -87,6 +90,8 @@ const Cart = () => {
         if (!isConfirmed) return;
         setLoading(true)
         try {
+            if (!item.product) return;
+
             await Axios.delete("/api/cart/removeFromCart", {
                 data: {
                     productId: item.product._id,
@@ -174,45 +179,47 @@ const Cart = () => {
                         <div className="col-lg-8">
 
                             <div className="card rounded-4 border-0 shadow-lg p-4">
-                                {products.map((item) => (
+                                {products
+                                    .filter(item => item.product)
+                                    .map((item) => (
 
-                                    <div key={item._id} className="cart-item-card p-2 rounded-4 mb-2 border-2 border-bottom">
-                                        <div className="row g-3 align-items-center " >
-                                            <div className="col-sm-4">
-                                                <Link to={`/productdetail/${item.product._id}`}>
+                                        <div key={item._id} className="cart-item-card p-2 rounded-4 mb-2 border-2 border-bottom">
+                                            <div className="row g-3 align-items-center " >
+                                                <div className="col-sm-4">
+                                                    <Link to={`/productdetail/${item.product._id}`}>
 
-                                                    <img src={item.product?.imagespath[0]} className="img-fluid rounded-4" alt={item.product?.title} />
-                                                </Link>
-                                            </div>
-                                            <div className="col-sm-5">
-                                                <span className="badge bg-primary-subtle text-primary mb-2">{item.product?.category.title}</span>
+                                                        <img src={item.product?.imagespath[0]} className="img-fluid rounded-4" alt={item.product?.title} />
+                                                    </Link>
+                                                </div>
+                                                <div className="col-sm-5">
+                                                    <span className="badge bg-primary-subtle text-primary mb-2">{item.product?.category.title}</span>
 
-                                                <Link to={`/productdetail/${item.product._id}`}>
-                                                    <h2 className="h5 mb-2">{item.product?.title}</h2>
-                                                </Link>
+                                                    <Link to={`/productdetail/${item.product._id}`}>
+                                                        <h2 className="h5 mb-2">{item.product?.title}</h2>
+                                                    </Link>
 
-                                                <a className="text-danger small fw-semibold" onClick={() => removeFromCart(item)}><i className="bi bi-trash me-1"></i>Remove Item</a>
-                                            </div>
-                                            <div className="col-sm-3 text-sm-end">
-                                                {/* <div className="quantity-control d-inline-flex align-items-center rounded-pill border border-secondary-subtle px-2 py-1">
+                                                    <a className="text-danger small fw-semibold" onClick={() => removeFromCart(item)}><i className="bi bi-trash me-1"></i>Remove Item</a>
+                                                </div>
+                                                <div className="col-sm-3 text-sm-end">
+                                                    {/* <div className="quantity-control d-inline-flex align-items-center rounded-pill border border-secondary-subtle px-2 py-1">
                                                     <button className="btn btn-sm btn-outline-secondary"><i className="bi bi-dash"></i></button>
                                                     <span className="px-3 fw-semibold">{item.quantity}</span>
                                                     <button className="btn btn-sm btn-outline-secondary"><i className="bi bi-plus"></i></button>
                                                 </div> */}
 
-                                                <div className="input-group w-100 w-sm-auto">
-                                                    <button onClick={() => decreaseQuantity(item)} className="btn btn-outline-secondary" type="button"><i className="bi bi-dash"></i></button>
-                                                    <input type="text" className="form-control text-center" value={item.quantity} readOnly aria-label="Quantity" />
-                                                    <button onClick={() => increaseQuantity(item)}
-                                                        className="btn btn-outline-secondary" type="button"><i className="bi bi-plus"></i></button>
+                                                    <div className="input-group w-100 w-sm-auto">
+                                                        <button onClick={() => decreaseQuantity(item)} className="btn btn-outline-secondary" type="button"><i className="bi bi-dash"></i></button>
+                                                        <input type="text" className="form-control text-center" value={item.quantity} readOnly aria-label="Quantity" />
+                                                        <button onClick={() => increaseQuantity(item)}
+                                                            className="btn btn-outline-secondary" type="button"><i className="bi bi-plus"></i></button>
+                                                    </div>
+                                                    <p className="h5 fs-4 fw-bold text-primary mt-3 mb-0">₦{item.product?.price}</p>
                                                 </div>
-                                                <p className="h5 fs-4 fw-bold text-primary mt-3 mb-0">₦{item.product?.price}</p>
                                             </div>
+
                                         </div>
 
-                                    </div>
-
-                                ))}
+                                    ))}
 
                                 <div><button onClick={clearCart} className="btn btn-danger btn-sm">
                                     Clear Cart
@@ -237,31 +244,33 @@ const Cart = () => {
                         <div className="col-lg-4">
                             <div className="card rounded-4 border-0 shadow-lg p-4 h-100">
                                 <h2 className="h6 mb-4">Order Summary</h2>
-                                {products.map((item) => (
+                                {products
+                                    .filter(item => item.product)
+                                    .map((item) => (
 
-                                    <div key={item._id} className="d-flex border-1 border-bottom align-items-center gap-3 mb-4">
-                                        <div className="summary-thumb bg-secondary-subtle rounded-4"></div>
-                                        <div className="">
-                                            <h3 className="h6 mb-1">{item.product?.title}</h3>
-                                            <div>
-                                                {item.size?.length > 0 && (
-                                                    <small className="text-muted mb-0">Size: <b>{item.size}</b></small>
-                                                )}
-                                            </div>
-                                            <div>
-                                                {item.color?.length > 0 && (
-                                                    <small className="text-muted mb-0">Color: <b>{item.color}</b></small>
-                                                )}
-                                            </div>
-                                            <div>
-                                                <small className="text-muted mb-0">Quantity: <b>{item.quantity}</b></small>
-                                            </div>
+                                        <div key={item._id} className="d-flex border-1 border-bottom align-items-center gap-3 mb-4">
+                                            <div className="summary-thumb bg-secondary-subtle rounded-4"></div>
+                                            <div className="">
+                                                <h3 className="h6 mb-1">{item.product?.title}</h3>
+                                                <div>
+                                                    {item.size?.length > 0 && (
+                                                        <small className="text-muted mb-0">Size: <b>{item.size}</b></small>
+                                                    )}
+                                                </div>
+                                                <div>
+                                                    {item.color?.length > 0 && (
+                                                        <small className="text-muted mb-0">Color: <b>{item.color}</b></small>
+                                                    )}
+                                                </div>
+                                                <div>
+                                                    <small className="text-muted mb-0">Quantity: <b>{item.quantity}</b></small>
+                                                </div>
 
-                                            <p className="fw-semibold text-danger mt-2 mb-0">₦{item.product.price * item.quantity}</p>
+                                                <p className="fw-semibold text-danger mt-2 mb-0">₦{item.product.price * item.quantity}</p>
 
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))}
                                 {/* <div className="d-flex align-items-center gap-3 mb-4">
                                     <div className="summary-thumb bg-secondary-subtle rounded-4"></div>
                                     <div>

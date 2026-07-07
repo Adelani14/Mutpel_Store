@@ -77,6 +77,20 @@ export const getCart = async (req, res) => {
                 }
             });
 
+        if (!cart) {
+            return res.status(200).json({
+                cart: { items: [] },
+            });
+        }
+
+        const originalLength = cart.items.length;
+
+        cart.items = cart.items.filter(item => item.product);
+
+        if (cart.items.length !== originalLength) {
+            await cart.save();
+        }
+
         res.json({
             success: true,
             cart
