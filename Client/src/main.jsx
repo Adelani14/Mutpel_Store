@@ -22,6 +22,7 @@ import Newproduct from './pages/Newproduct.jsx'
 import Newcategory from './pages/NewCategory.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import AllProduct from './pages/AllProduct.jsx';
+import Profile from './pages/Profile.jsx';
 
 
 
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
   { path: "/", element: <Landing /> },
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
+  { path: "/profile", element: <Profile /> },
 
   {
     element: <ProtectedRoute allowedRoles={["admin"]} />,

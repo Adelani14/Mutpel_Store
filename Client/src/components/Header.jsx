@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Axios from "../utils/axiosInstance.js";
+import { Link } from "react-router-dom";
 
 const Header = () => {
 
@@ -40,8 +41,8 @@ const Header = () => {
               </div>
             </form>
             <div className="d-flex align-items-center gap-3">
-              <a href="/cart" className="btn btn-link text-secondary position-relative p-0"><i className="bi bi-cart4 fs-5"></i><span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{cartCount}</span></a>
-              <a href="login.html" className="btn btn-outline-primary btn-sm"><i className="bi bi-person"></i></a>
+              <Link to="/cart" className="btn btn-link text-secondary position-relative p-0"><i className="bi bi-cart4 fs-5"></i><span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{cartCount}</span></Link>
+              <Link to="/profile" className="btn btn-outline-primary btn-sm"><i className="bi bi-person"></i></Link>
             </div>
           </div>
         </div>

@@ -152,7 +152,7 @@ const Admindashboard = () => {
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-graph-up me-2"></i>Reports</a>
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-gear me-2"></i>Settings</a>
                                     <a className="nav-link rounded-4 mt-2" href="/Productlisting"><i className="bi bi-shop me-2"></i>Check Store</a>
-                                    <a className="nav-link rounded-4 mt-5 text-danger" href="#" onClick={logout}><i className="bi bi-box-arrow-right me-2"></i>Sign Out</a>
+                                    <button className="nav-link rounded-4 mt-5 text-danger" onClick={logout}><i className="bi bi-box-arrow-right me-2"></i>Sign Out</button>
                                 </div>
                             </div>
                         </div>
