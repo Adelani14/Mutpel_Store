@@ -79,6 +79,14 @@ const Productlisting = () => {
                                     <a href="#" className="list-group-item list-group-item-action rounded-4">Footwear</a>
                                     <a href="#" className="list-group-item list-group-item-action rounded-4">Home</a>
                                     <a href="#" className="list-group-item list-group-item-action rounded-4">Accessories</a>
+                                    <button
+                                        onClick={async () => {
+                                            const res = await Axios.post("/api/users/refresh-token");
+                                            console.log(res.data);
+                                        }}
+                                    >
+                                        Test Refresh
+                                    </button>
                                 </div>
                                 <div className="mt-5">
                                     <h2 className="h6 mb-3">Price Range</h2>

@@ -13,7 +13,6 @@ const Cart = () => {
 
     useEffect(() => {
         fetchCart();
-        <Header />;
     }, []);
 
     const fetchCart = async () => {

@@ -170,10 +170,15 @@ export const logoutUser = async (req, res) => {
 
 // REFRESH TOKEN
 export const refreshToken = async (req, res) => {
+
+    console.log("========== REFRESH ENDPOINT HIT ==========");
+
     try {
         const token = req.cookies.refreshtoken;
 
         if (!token) {
+            console.log("No refresh token cookie received");
+
             return res.status(401).json({
                 message: "No refresh token",
             });
@@ -184,40 +189,35 @@ export const refreshToken = async (req, res) => {
             process.env.REFRESH_TOKEN_SECRET
         );
 
+        console.log("JWT verified");
+
         const user = await User.findOne({
             _id: payload.userID,
             refreshToken: token,
         });
 
         if (!user) {
+            console.log("User not found");
+
             return res.status(401).json({
                 message: "Invalid refresh token",
             });
         }
 
-        // Generate NEW access token
+        console.log("Generating new access token");
+
         const accessToken = CreateAccessToken(
             user._id,
             user.role
         );
-
-        // (Optional) Rotate refresh token for better security
-        // const newRefreshToken = CreateRefreshToken(user._id, user.role);
-        // user.refreshToken = newRefreshToken;
-        // await user.save();
-        // res.cookie("refreshtoken", newRefreshToken, {
-        //     httpOnly: true,
-        //     secure: true,
-        //     sameSite: "none",
-        //     path: "/",
-        // });
 
         return res.status(200).json({
             accessToken,
         });
 
     } catch (err) {
-        console.log(err);
+
+        console.log("Refresh Error:", err);
 
         return res.status(401).json({
             message: "Invalid refresh token",
