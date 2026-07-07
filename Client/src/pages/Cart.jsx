@@ -35,14 +35,14 @@ const Cart = () => {
     }
 
     const totalPrice = products.reduce((total, item) => {
-        return total + item.product.price * item.quantity;
+        return total + item.product?.price * item?.quantity;
     }, 0);
 
     const increaseQuantity = async (item) => {
         setLoading(true)
         try {
             await Axios.put("/api/cart/updateCartItem", {
-                productId: item.product._id,
+                productId: item.product?._id,
                 quantity: item.quantity + 1,
                 size: item.size,
                 color: item.color,
@@ -64,7 +64,7 @@ const Cart = () => {
 
         try {
             await Axios.put("/api/cart/updateCartItem", {
-                productId: item.product._id,
+                productId: item.product?._id,
                 quantity: item.quantity - 1,
                 size: item.size,
                 color: item.color,
