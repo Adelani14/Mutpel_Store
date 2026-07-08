@@ -86,7 +86,7 @@ const Productlisting = () => {
             <main className="py-3 bg-body">
                 <div className="container">
                     <div className="row g-4">
-                        <div className="col-lg-3 d-sm-none">
+                        <div className="col-lg-3 d-none d-md-block">
                             <div className="card rounded-4 shadow-sm border-0 p-4">
                                 <h2 className="h6 mb-4">Categories</h2>
                                 <div className="list-group list-group-flush">

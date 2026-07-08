@@ -39,7 +39,7 @@ const Header = () => {
                 <button className="btn btn-primary rounded-end" type="submit">Search</button>
               </div>
             </form>
-            <div className="d-flex align-items-center gap-3 d-sm-none">
+            <div className="d-flex align-items-center gap-3 d-none d-md-flex">
               <Link to="/cart" className="btn btn-link text-secondary position-relative p-0"><i className="bi bi-cart4 fs-5"></i><span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{cartCount}</span></Link>
               <Link to="/profile" className="btn btn-outline-primary btn-sm"><i className="bi bi-person"></i></Link>
             </div>
