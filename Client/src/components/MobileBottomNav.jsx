@@ -42,10 +42,20 @@ function MobileBottomNav() {
                 </NavLink>
 
 
-                <NavLink to="/cart" className={({ isActive }) =>
-                    `nav-item ${isActive ? "active" : ""}`
-                } style={{ position: "relative", paddding: "0", margin: "0"  }}>
-                    <i className="bi bi-cart4 fs-5"><span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{cartCount}</span></i>
+                <NavLink
+                    to="/cart"
+                    className={({ isActive }) =>
+                        `nav-item ${isActive ? "active" : ""}`
+                    }
+                >
+                    <div className="cart-icon">
+                        <i className="bi bi-cart4 fs-5"></i>
+
+                        <span className="cart-badge">
+                            {cartCount}
+                        </span>
+                    </div>
+
                     <small>Cart</small>
                 </NavLink>
 
