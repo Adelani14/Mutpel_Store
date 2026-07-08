@@ -1,4 +1,5 @@
 import Axios from "../utils/axiosInstance.js";
+import { useState, useEffect } from "react";
 const Footer = () => {
     const [email, setEmail] = useState("");
 
