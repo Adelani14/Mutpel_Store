@@ -1,4 +1,8 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import Axios from "../utils/axiosInstance.js";
+import Header from "../components/Header.jsx";
+import Footer from "../components/Footer.jsx";
 
 const Profile = () => {
     return (
