@@ -44,7 +44,7 @@ const ProductCard = ({
                         <p className="fw-bold mb-0">
                             ₦{price}
                         </p>
-                        {previousPrice >= 1 && (
+                        {previousPrice > price && (
                             <p className="text-decoration-line-through text-muted mb-1">
                                 ₦{previousPrice}
                             </p>
