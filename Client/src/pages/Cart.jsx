@@ -155,9 +155,8 @@ const Cart = () => {
             <main className="py-5">
                 <div className="container">
                     <div className="d-flex flex-column flex-md-row align-items-start justify-content-between gap-3 mb-4">
-                        <div>
+                        <div className="d-none d-md-block">
                             <h6 className="text-muted mb-1"><Link to="/productlisting">Home</Link> </h6>
-                            {/* <h1 className="h4 mb-0">{product.title}</h1> */}
                         </div>
                     </div>
                     <div className="row g-4 align-items-center mb-4">
@@ -195,11 +194,11 @@ const Cart = () => {
                                                 <div className="col-sm-5">
                                                     <span className="badge bg-primary-subtle text-primary mb-2">{item.product?.category.title}</span>
 
-                                                    <Link to={`/productdetail/${item.product._id}`}>
+                                                    <Link to={`/productdetail/${item.product._id}`} className="text-decoration-none text-dark">
                                                         <h2 className="h5 mb-2">{item.product?.title}</h2>
                                                     </Link>
 
-                                                    <a className="text-danger small fw-semibold" onClick={() => removeFromCart(item)}><i className="bi bi-trash me-1"></i>Remove Item</a>
+                                                    <a className="text-danger small fw-semibold text-decoration-none" onClick={() => removeFromCart(item)}><i className="bi bi-trash me-1"></i>Remove Item</a>
                                                 </div>
                                                 <div className="col-sm-3 text-sm-end">
                                                     {/* <div className="quantity-control d-inline-flex align-items-center rounded-pill border border-secondary-subtle px-2 py-1">
@@ -208,8 +207,8 @@ const Cart = () => {
                                                     <button className="btn btn-sm btn-outline-secondary"><i className="bi bi-plus"></i></button>
                                                 </div> */}
 
-                                                    <div className="input-group w-100 w-sm-auto">
-                                                        <button onClick={() => decreaseQuantity(item)} className="btn btn-outline-secondary" type="button"><i className="bi bi-dash"></i></button>
+                                                    <div className="input-group w-100 w-sm-50 d-inline-flex align-items-center rounded-pill border border-secondary-subtle px-2 py-1">
+                                                        <button onClick={() => decreaseQuantity(item)} className="btn btn-outline-secondary bg-primary" type="button"><i className="bi bi-dash"></i></button>
                                                         <input type="text" className="form-control text-center" value={item.quantity} readOnly aria-label="Quantity" />
                                                         <button onClick={() => increaseQuantity(item)}
                                                             className="btn btn-outline-secondary" type="button"><i className="bi bi-plus"></i></button>
@@ -222,7 +221,7 @@ const Cart = () => {
 
                                     ))}
 
-                                <div><button onClick={clearCart} className="btn btn-danger btn-sm">
+                                <div><button onClick={clearCart} className="btn btn-danger btn-sm mt-3"><i className="bi bi-trash me-1"></i>
                                     Clear Cart
                                 </button>
                                 </div>
