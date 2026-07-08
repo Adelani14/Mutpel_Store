@@ -61,7 +61,11 @@ const NewCategory = () => {
 
 
 
-            const response = await Axios.post('/api/categories/createCategory')
+            const response = await Axios.post('/api/categories/createCategory', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
 
             const result = response.data
 

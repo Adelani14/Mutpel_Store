@@ -4,14 +4,17 @@ import Footer from "../components/Footer";
 import { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import Axios from "../utils/axiosInstance.js";
-
+import MobileBottomNav from "../components/MobileBottomNav.jsx";
 
 const Productlisting = () => {
 
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
-    const limit = 10;
+    const limit = 20;
+    const [email, setEmail] = useState("");
+    const [fullName, setFullName] = useState("");
+
 
 
 
@@ -35,6 +38,20 @@ const Productlisting = () => {
         try {
             const response = await Axios.get(`/api/products?page=${currentPage}&limit=${limit}`)
             setProducts(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
+
+    const getUsername = async () => {
+        try {
+            const res = await Axios.get("/api/users/Username");
+
+            setFullName(res.data?.userName || "");
+            setEmail(res.data?.email || "");
+
         } catch (error) {
             console.log(error);
         }
@@ -156,7 +173,7 @@ const Productlisting = () => {
                                     </div>
                                     <div className="col-md-4">
                                         <form className="d-flex gap-2">
-                                            <input type="email" className="form-control bg-white bg-opacity-10 border-white text-white" placeholder="Enter email address" />
+                                            <input type="email" className="form-control bg-white bg-opacity-10 border-white text-white" placeholder="Enter email address" readOnly value={email} />
                                             <button className="btn btn-light">Subscribe</button>
                                         </form>
                                     </div>
@@ -166,7 +183,7 @@ const Productlisting = () => {
                     </div>
                 </div>
             </main>
-
+            <MobileBottomNav />
             <Footer />
         </>
 
