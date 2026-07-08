@@ -240,8 +240,12 @@ export const getUsername = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            userName: `${user.firstname} ${user.lastname}`,
-            email: user.email,
+            user: {
+                firstname: user.firstname,
+                lastname: user.lastname,
+                email: user.email,
+                fullName: `${user.firstname} ${user.lastname}`,
+            },
         });
 
     } catch (error) {

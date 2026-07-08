@@ -152,7 +152,7 @@ const Cart = () => {
             <Header />
 
 
-            <main className="py-5">
+            <main className="py-3 bg-body">
                 <div className="container">
                     <div className="d-flex flex-column flex-md-row align-items-start justify-content-between gap-3 mb-4">
                         <div className="d-none d-md-block">
@@ -207,11 +207,11 @@ const Cart = () => {
                                                     <button className="btn btn-sm btn-outline-secondary"><i className="bi bi-plus"></i></button>
                                                 </div> */}
 
-                                                    <div className="input-group w-100 w-sm-50 d-inline-flex align-items-center rounded-pill border border-secondary-subtle px-2 py-1">
-                                                        <button onClick={() => decreaseQuantity(item)} className="btn btn-outline-secondary bg-primary" type="button"><i className="bi bi-dash"></i></button>
+                                                    <div className="input-group w-100 w-sm-50 d-inline-flex align-items-center px-2 py-1">
+                                                        <button onClick={() => decreaseQuantity(item)} className="btn btn-outline-secondary text-light bg-primary" type="button"><i className="bi bi-dash"></i></button>
                                                         <input type="text" className="form-control text-center" value={item.quantity} readOnly aria-label="Quantity" />
                                                         <button onClick={() => increaseQuantity(item)}
-                                                            className="btn btn-outline-secondary" type="button"><i className="bi bi-plus"></i></button>
+                                                            className="btn btn-outline-secondary text-light bg-primary" type="button"><i className="bi bi-plus"></i></button>
                                                     </div>
                                                     <p className="h5 fs-4 fw-bold text-primary mt-3 mb-0">₦{item.product?.price}</p>
                                                 </div>

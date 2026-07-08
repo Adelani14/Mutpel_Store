@@ -173,7 +173,7 @@ const Productlisting = () => {
                                     </div>
                                     <div className="col-md-4">
                                         <form className="d-flex gap-2">
-                                            <input type="email" className="form-control bg-white bg-opacity-10 border-white text-white" placeholder="Enter email address" readOnly value={email} />
+                                    <div className="col-md-6"><label className="form-label">Email Address</label><input className="form-control" type="email" value={email} onChange={(e) => setEmail(e.target.value)} /></div>
                                             <button className="btn btn-light">Subscribe</button>
                                         </form>
                                     </div>

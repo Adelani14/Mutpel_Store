@@ -28,14 +28,14 @@ const Header = () => {
 
         <div className="container-fluid py-3">
           <div className="d-flex align-items-center justify-content-between gap-3 flex-wrap">
-            <div className="d-flex align-items-center gap-2">
+            <div className="d-none d-md-flex align-items-center gap-2">
               <div className="brand-icon rounded-3 d-flex align-items-center justify-content-center bg-primary text-white" style={{ width: "44px", height: "44px" }}><i className="bi bi-basket-fill fs-5"></i></div>
               <div><h1 className="h5 mb-0 text-primary">Motpel Household</h1></div>
             </div>
             <form className="flex-grow-1 mx-3  d-flex" style={{ minWidth: "300px" }}>
               <div className="input-group shadow-sm rounded-pill overflow-hidden border border-1 border-secondary-subtle">
                 <span className="input-group-text bg-white border-0"><i className="bi bi-search"></i></span>
-                <input type="search" className="form-control border-0" placeholder="Search accessories, kitchen, shoes..." />
+                <input type="search" className="form-control border-0" placeholder="Search Products..." />
                 <button className="btn btn-primary rounded-end" type="submit">Search</button>
               </div>
             </form>
