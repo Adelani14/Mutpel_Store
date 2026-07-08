@@ -5,6 +5,20 @@ import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 
 const Profile = () => {
+
+    const logout = async () => {
+        try {
+            await Axios.post("/api/users/logout");
+
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("user");
+
+            window.location.href = "/login";
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <div className="container my-5">
             <div className="row g-4">
@@ -71,6 +85,9 @@ const Profile = () => {
                                 </div>
                             </div>
                         </div>
+
+                        <button className="nav-link rounded-4 mt-5 text-danger" onClick={logout}><i className="bi bi-box-arrow-right me-2"></i>Sign Out</button>
+
                     </div>
                 </main>
             </div>

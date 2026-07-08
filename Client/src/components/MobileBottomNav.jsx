@@ -25,6 +25,10 @@ function MobileBottomNav() {
         fetchCartCount();
     }, []);
 
+
+
+    
+
     return (
         <>
             <nav className="mobile-bottom-nav d-md-none">
