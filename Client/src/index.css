@@ -418,3 +418,11 @@
 .container .profile-title {
   letter-spacing: 0.2px;
 }
+
+
+.product_detail_dropdown:hover .thedropdown {
+  display: block;
+
+  /* Show the dropdown when hovering over the parent */
+
+}

@@ -165,24 +165,35 @@ const Productdetail = () => {
 
         <div className="container-fluid py-3">
           <div className="d-flex align-items-center justify-content-between gap-3 flex-wrap">
-            <div className="d-flex align-items-center gap-2">
-              {/* <a href="/  " className="text-decoration-none d-flex align-items-center gap-2"> */}
+            <div className="d-none d-md-flex align-items-center gap-2">
               <div className="brand-icon rounded-3 d-flex align-items-center justify-content-center bg-primary text-white" style={{ width: "44px", height: "44px" }}><i className="bi bi-basket-fill fs-5"></i></div>
               <div><h1 className="h5 mb-0 text-primary">Motpel Household</h1></div>
             </div>
-            <form className="flex-grow-1 mx-3 d-none d-md-flex" style={{ minWidth: "300px" }}>
+            <form className="flex-grow-1 mx-3  d-flex" style={{ minWidth: "300px" }}>
               <div className="input-group shadow-sm rounded-pill overflow-hidden border border-1 border-secondary-subtle">
                 <span className="input-group-text bg-white border-0"><i className="bi bi-search"></i></span>
-                <input type="search" className="form-control border-0" placeholder="Search accessories, kitchen, shoes..." />
+                <input type="search" className="form-control border-0" placeholder="Search Products..." />
                 <button className="btn btn-primary rounded-end" type="submit">Search</button>
               </div>
             </form>
-            <div className="d-flex align-items-center gap-3">
-              <a href="/cart" className="btn btn-link text-secondary position-relative p-0"><i className="bi bi-cart4 fs-5"></i><span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{cartCount}</span></a>
-              <a href="login.html" className="btn btn-outline-primary btn-sm"><i className="bi bi-person"></i></a>
+            <div className="d-flex align-items-center gap-3 d-flex">
+              <Link to="/cart" className="btn btn-link text-secondary position-relative p-0"><i className="bi bi-cart4 fs-5"></i><span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{cartCount}</span></Link>
+              <div className="product_detail_dropdown position-relative">...</div>
             </div>
           </div>
         </div>
+
+
+        <div className="d-none position-absolute bg-white text-dark thedropdown">
+          <Link to="/productlisting"><i className="bi bi-house"></i>Home</Link>
+          <Link to="/categories"><i className="bi bi-list"></i>Categories</Link>
+          <Link to="/wishlist"><i className="bi bi-heart"></i>Wishlist</Link>
+          <Link to="/profile"><i className="bi bi-person"></i>Account</Link>
+
+
+        </div>
+
+
         {cartSuccess && (
           <div
             className="position-fixed top-0 start-0 w-100 mt-2 px-3 z-3"
@@ -206,7 +217,7 @@ const Productdetail = () => {
                   <Link to="/productlisting">Home</Link> /
                   {product?.category?.title} /
                   {product?.title}
-                </h6>                {/* <h1 className="h4 mb-0">{product.title}</h1> */}
+                </h6>
               </div>
               <div className="text-muted">In Stock</div>
             </div>
@@ -503,6 +514,40 @@ const Productdetail = () => {
           </div>
         </section >
       </main >
+
+      {/* <div className="input-group w-100 w-sm-auto">
+                      <button onClick={decreaseQuantity} disabled={isAddedToCart}
+                        className="btn btn-outline-secondary" type="button"><i className="bi bi-dash"></i></button>
+                      <input type="text" className="form-control text-center" value={quantity} readOnly aria-label="Quantity" />
+                      <button onClick={increaseQuantity} disabled={isAddedToCart}
+                        className="btn btn-outline-secondary" type="button"><i className="bi bi-plus"></i></button>
+                    </div> */}
+
+
+      <nav className="mobile-bottom-nav d-md-none">
+
+        <div className="d-flex gap-2 align-items-center justify-content-between">
+          <button className=" btn btn-outline-primary " href="/productlisting">
+            <i className="bi bi-house fs-5"></i>
+          </button>
+
+          <button className=" btn btn-outline-primary " href="/">
+            <i className="bi bi-phone fs-5"></i>
+          </button>
+        </div>
+
+        <div className="input-group w-100">
+          <button onClick={decreaseQuantity} disabled={isAddedToCart}
+            className="btn btn-outline-secondary text-light bg-primary" type="button"><i className="bi bi-dash"></i></button>
+          <input type="text" className="form-control text-center" value={quantity} readOnly aria-label="Quantity" />
+          <button onClick={increaseQuantity} disabled={isAddedToCart}
+            className="btn btn-outline-secondary text-light bg-primary" type="button"><i className="bi bi-plus"></i></button>
+        </div>
+
+      </nav>
+
+
+
 
 
 

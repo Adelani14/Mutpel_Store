@@ -152,7 +152,7 @@ const Cart = () => {
             <Header />
 
 
-            <main className="py-3 bg-body">
+            <main className="py-3 bg-body mb-5">
                 <div className="container">
                     <div className="d-flex flex-column flex-md-row align-items-start justify-content-between gap-3 mb-4">
                         <div className="d-none d-md-block">
