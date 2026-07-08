@@ -50,7 +50,6 @@ const Footer = () => {
                             <h3 className="h6 text-dark">Join Our Newsletter</h3>
                             <p className="text-muted small">Get the latest deals and products in your inbox.</p>
                             <form className="d-flex gap-2 flex-column flex-sm-row">
-                                <div className="col-md-6"><label className="form-label">Full Name</label><input className="form-control" type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} /></div>
 
                                 <div className="col-md-6"><label className="form-label">Email Address</label><input className="form-control" type="email" value={email} onChange={(e) => setEmail(e.target.value)} /></div>
                                 <button className="btn btn-primary">Subscribe</button>
