@@ -178,6 +178,8 @@ const Productdetail = () => {
           fetchProduct(),
           fetchCart(),
           fetchCartCount(),
+          increaseQuantity(),
+          decreaseQuantity(),
         ]);
       } finally {
         setLoading(false);
@@ -207,7 +209,7 @@ const Productdetail = () => {
             zIndex: 9999,
           }}
         >
-          <div className="spinner-border text-primary" style={{ width: "4rem", height: "4rem" }}></div>
+          <div className="spinner-border text-primary" style={{ width: "2rem", height: "2rem" }}></div>
 
           <h5 className="mt-3 fw-semibold text-dark">
             Loading...
@@ -266,14 +268,14 @@ const Productdetail = () => {
                 className="btn btn-link text-primary"
                 data-bs-toggle="dropdown"
               >
-                <i className="bi bi-person"></i>
+                <i className="bi bi-person fs-4"></i>
               </button>
 
               <ul className="dropdown-menu dropdown-menu-end">
-                <li><Link to="/profile" className="dropdown-item"><i className="bi bi-house me-2"></i>Home</Link></li>
-                <li><Link to="/profile" className="dropdown-item"><i className="bi bi-list me-2"></i>Categories</Link></li>
-                <li><Link to="/profile" className="dropdown-item"><i className="bi bi-heart me-2"></i>Wishlist</Link></li>
-                <li><Link to="/profile" className="dropdown-item"><i className="bi bi-cart me-2"></i>Cart</Link></li>
+                <li><Link to="/productlisting" className="dropdown-item"><i className="bi bi-house me-2"></i>Home</Link></li>
+                <li><Link to="/categories" className="dropdown-item"><i className="bi bi-list me-2"></i>Categories</Link></li>
+                <li><Link to="/wishlist" className="dropdown-item"><i className="bi bi-heart me-2"></i>Wishlist</Link></li>
+                <li><Link to="/cart" className="dropdown-item"><i className="bi bi-cart me-2"></i>Cart</Link></li>
                 <li><Link to="/profile" className="dropdown-item"><i className="bi bi-person me-2"></i>Account</Link></li>
               </ul>
             </div>

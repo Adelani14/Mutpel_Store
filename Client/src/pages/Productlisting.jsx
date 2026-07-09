@@ -49,8 +49,8 @@ const Productlisting = () => {
         try {
             const res = await Axios.get("/api/users/Username");
 
-            setFullName(res.data?.fullName || "");
-            setEmail(res.data?.email || "");
+            setFullName(res.data?.user?.fullName || "");
+            setEmail(res.data?.user?.email || "");
 
         } catch (error) {
             console.log(error);

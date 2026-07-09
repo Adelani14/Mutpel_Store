@@ -7,7 +7,7 @@ const Footer = () => {
         try {
             const res = await Axios.get("/api/users/Username");
 
-            setEmail(res.data?.email || "");
+            setEmail(res.data?.user?.email || "");
 
         } catch (error) {
             console.log(error);

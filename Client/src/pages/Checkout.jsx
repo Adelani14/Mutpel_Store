@@ -55,8 +55,7 @@ const Checkout = () => {
         try {
             const res = await Axios.get("/api/users/Username");
 
-            setFullName(res.data?.fullName || "");
-
+            setFullName(res.data?.user?.fullName || "");
         } catch (error) {
             console.log(error);
         }

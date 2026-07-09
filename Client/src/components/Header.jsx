@@ -79,10 +79,10 @@ const Header = () => {
               </button>
 
               <ul className="dropdown-menu dropdown-menu-end">
-                <li><Link to="/profile" className="dropdown-item"><i className="bi bi-house me-2"></i>Home</Link></li>
-                <li><Link to="/profile" className="dropdown-item"><i className="bi bi-list me-2"></i>Categories</Link></li>
-                <li><Link to="/profile" className="dropdown-item"><i className="bi bi-heart me-2"></i>Wishlist</Link></li>
-                <li><Link to="/profile" className="dropdown-item"><i className="bi bi-cart me-2"></i>Cart</Link></li>
+                <li><Link to="/productlisting" className="dropdown-item"><i className="bi bi-house me-2"></i>Home</Link></li>
+                <li><Link to="/categories" className="dropdown-item"><i className="bi bi-list me-2"></i>Categories</Link></li>
+                <li><Link to="/wishlist" className="dropdown-item"><i className="bi bi-heart me-2"></i>Wishlist</Link></li>
+                <li><Link to="/cart" className="dropdown-item"><i className="bi bi-cart me-2"></i>Cart</Link></li>
                 <li><Link to="/profile" className="dropdown-item"><i className="bi bi-person me-2"></i>Account</Link></li>
               </ul>
             </div>

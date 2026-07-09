@@ -23,76 +23,184 @@ const Profile = () => {
 
     return (
         <>
-            
+
             <div className="container my-5">
                 <div className="row g-4">
-                    <aside className="col-12 col-lg-3">
-                        <div className="sidebar-card p-3">
-                            <div className="profile-title">My Jumia Account</div>
-                            <ul className="profile-nav list-unstyled mt-3 mb-0">
-                                <li className="nav-item">Orders</li>
-                                <li className="nav-item">Inbox</li>
-                                <li className="nav-item">Pending Reviews</li>
-                                <li className="nav-item">Voucher</li>
-                                <li className="nav-item">Wishlist</li>
-                                <li className="nav-item">Followed Sellers</li>
-                                <li className="nav-item">Recently Viewed</li>
-                            </ul>
-                        </div>
-                    </aside>
+                    <ul className="list-group shadow-sm rounded-4">
+
+                        <li className="list-group-item">
+                            <i className="bi bi-box me-2"></i>
+                            Orders
+                        </li>
+
+                        <li className="list-group-item">
+                            <i className="bi bi-heart me-2"></i>
+                            Wishlist
+                        </li>
+
+                        <li className="list-group-item">
+                            <i className="bi bi-credit-card me-2"></i>
+                            Payments
+                        </li>
+
+                        <li className="list-group-item">
+                            <i className="bi bi-geo-alt me-2"></i>
+                            Addresses
+                        </li>
+
+                        <li className="list-group-item">
+                            <i className="bi bi-star me-2"></i>
+                            Reviews
+                        </li>
+
+                    </ul>
 
                     <main className="col-12 col-lg-9">
-                        <h2 className="mb-4">Account Overview</h2>
 
-                        <div className="row g-3">
+                        <div className="card border-0 shadow rounded-4 mb-4">
+                            <div className="card-body p-4 d-flex align-items-center">
+
+                                <div
+                                    className="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center"
+                                    style={{ width: 75, height: 75 }}
+                                >
+                                    <i className="bi bi-person-fill fs-2"></i>
+                                </div>
+
+                                <div className="ms-3">
+                                    <h3 className="mb-1 fw-bold">
+                                        ABDULSEMIU SODEEQ ADELANI
+                                    </h3>
+
+                                    <p className="text-muted mb-0">
+                                        princeadelani27@gmail.com
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div className="row g-4">
+
                             <div className="col-12 col-md-6">
-                                <div className="account-card">
-                                    <div className="card-title">Account Details</div>
+                                <div className="card h-100 border-0 shadow-sm rounded-4">
                                     <div className="card-body">
-                                        <div className="name">ABDULSEMIU SODEEQ ADELANI</div>
-                                        <div className="email text-muted">princeadelani27@gmail.com</div>
+
+                                        <div className="d-flex justify-content-between">
+                                            <h5>
+                                                <i className="bi bi-person me-2 text-primary"></i>
+                                                Account Details
+                                            </h5>
+
+                                            <i className="bi bi-pencil"></i>
+                                        </div>
+
+                                        <hr />
+
+                                        <h6 className="fw-bold">
+                                            ABDULSEMIU SODEEQ ADELANI
+                                        </h6>
+
+                                        <p className="text-muted mb-0">
+                                            princeadelani27@gmail.com
+                                        </p>
+
                                     </div>
                                 </div>
                             </div>
 
+
                             <div className="col-12 col-md-6">
-                                <div className="account-card">
-                                    <div className="card-title">Address Book
-                                        <span className="edit-icon" title="Edit">✎</span>
-                                    </div>
+                                <div className="card h-100 border-0 shadow-sm rounded-4">
                                     <div className="card-body">
-                                        <div className="address-label">Your default shipping address:</div>
-                                        <div className="address-line">ABDULSEMIU SODEEQ ADELANI</div>
-                                        <div className="address-line">Power line Obatedo</div>
-                                        <div className="address-line">iwo osun state</div>
-                                        <div className="address-line">Iwo, Osun</div>
-                                        <div className="address-line">+234 9160031012 / +234 8143021370</div>
+
+                                        <div className="d-flex justify-content-between">
+                                            <h5>
+                                                <i className="bi bi-geo-alt me-2 text-primary"></i>
+                                                Address Book
+                                            </h5>
+
+                                            <i className="bi bi-pencil"></i>
+                                        </div>
+
+                                        <hr />
+
+                                        <p className="mb-1">
+                                            Power Line Obatedo
+                                        </p>
+
+                                        <p className="mb-1">
+                                            Iwo, Osun State
+                                        </p>
+
+                                        <p className="mb-0">
+                                            +234 9160031012
+                                        </p>
+
                                     </div>
                                 </div>
                             </div>
 
+
                             <div className="col-12 col-md-6">
-                                <div className="account-card">
-                                    <div className="card-title">Jumia Store Credit</div>
+                                <div className="card border-0 shadow-sm rounded-4">
                                     <div className="card-body">
-                                        <div className="store-credit">Jumia store credit balance: ₦ 0</div>
+
+                                        <h5>
+                                            <i className="bi bi-wallet2 me-2 text-primary"></i>
+                                            Store Credit
+                                        </h5>
+
+                                        <hr />
+
+                                        <h3 className="text-success fw-bold">
+                                            ₦0.00
+                                        </h3>
+
                                     </div>
                                 </div>
                             </div>
 
+
                             <div className="col-12 col-md-6">
-                                <div className="account-card">
-                                    <div className="card-title">Newsletter Preferences</div>
+                                <div className="card border-0 shadow-sm rounded-4">
                                     <div className="card-body">
-                                        <div className="muted">Manage your email communications to stay updated with the latest news and offers.</div>
-                                        <div className="mt-3"><a className="edit-link" href="#">Edit Newsletter preferences</a></div>
+
+                                        <h5>
+                                            <i className="bi bi-envelope me-2 text-primary"></i>
+                                            Newsletter
+                                        </h5>
+
+                                        <hr />
+
+                                        <p className="text-muted">
+                                            Stay updated with our latest offers and discounts.
+                                        </p>
+
+                                        <button className="btn btn-outline-primary btn-sm">
+                                            Manage
+                                        </button>
+
                                     </div>
                                 </div>
                             </div>
 
-                            <button className="nav-link rounded-4 mt-5 text-danger" onClick={logout}><i className="bi bi-box-arrow-right me-2"></i>Sign Out</button>
+
+                            <div className="col-12">
+
+                                <button
+                                    onClick={logout}
+                                    className="btn btn-danger rounded-pill px-5 py-2"
+                                >
+                                    <i className="bi bi-box-arrow-right me-2"></i>
+                                    Sign Out
+                                </button>
+
+                            </div>
 
                         </div>
+
                     </main>
                 </div>
             </div>
