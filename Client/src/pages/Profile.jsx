@@ -23,11 +23,8 @@ const Profile = () => {
 
     return (
         <>
-            <Header />
 
-
-
-            <div className="container my-5">
+            <div className="container my-2">
 
                 <div className="row g-4 mb-4">
                     <div className="card h-100 border-0 shadow-sm rounded-4">
