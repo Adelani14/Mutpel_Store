@@ -18,7 +18,6 @@ const Productdetail = () => {
   const [cartSuccess, setCartSuccess] = useState(false);
   const [cartItem, setCartItem] = useState(null);
   const [cartMessage, setCartMessage] = useState("");
-  const [isAddedToCart, setIsAddedToCart] = useState(false);
   const [cartCount, setCartCount] = useState(0);
 
   const [quantity, setQuantity] = useState(1);
@@ -131,9 +130,6 @@ const Productdetail = () => {
 
       setCartMessage("Product added successfully to cart");
       setCartSuccess(true);
-      setIsAddedToCart(true)
-      setQisAdded(true)
-      setisAdded(false)
       await fetchCart();
 
       setQuantity(1);
@@ -562,7 +558,7 @@ const Productdetail = () => {
 
 
       <nav className="mobile-bottom-nav d-md-none ">
-        <div className="d-flex align-items-center gap-3 ms-2 w-100 h-100">
+        <div className="nav-item d-flex align-items-center gap-3 ms-2 w-100 h-100">
           <NavLink to="/productlisting">
             <i className="bi bi-house fs-5"></i>
           </NavLink>
@@ -576,7 +572,7 @@ const Productdetail = () => {
 
         {cartItem ? (
 
-          <div className="input-group">
+          <div className="input-group nav-item">
 
             <button
               onClick={() => decreaseQuantity(cartItem)}
@@ -604,7 +600,7 @@ const Productdetail = () => {
 
           <button
             onClick={addToCart}
-            className="btn btn-primary"
+            className="btn btn-primary nav-item"
           >
             Add to Cart
           </button>
