@@ -156,6 +156,17 @@ const Productdetail = () => {
     }
   };
 
+  const fetchCartCount = async () => {
+    try {
+      const res = await Axios.get("/api/cart/getCartCount")
+
+      setCartCount(res.data?.count || 0);
+    } catch (error) {
+      console.log(error);
+    }
+
+  };
+
 
 
   useEffect(() => {
@@ -166,6 +177,7 @@ const Productdetail = () => {
         await Promise.all([
           fetchProduct(),
           fetchCart(),
+          fetchCartCount(),
         ]);
       } finally {
         setLoading(false);
@@ -203,53 +215,67 @@ const Productdetail = () => {
         </div>
       )}
       <Helpcenter />
-      <header className="bg-white shadow-sm sticky-top" style={{ zIndex: 1020 }}>
+      <header className="container-fluid py-3">
+        <div className="d-flex align-items-center gap-2">
 
-        <div className="container-fluid py-3">
-          <div className="d-flex align-items-center justify-content-between gap-3 flex-wrap">
-            <div className="d-none d-md-flex align-items-center gap-2">
-              <div className="brand-icon rounded-3 d-flex align-items-center justify-content-center bg-primary text-white" style={{ width: "44px", height: "44px" }}><i className="bi bi-basket-fill fs-5"></i></div>
-              <div><h1 className="h5 mb-0 text-primary">Motpel Household</h1></div>
+          <div className="d-none d-md-flex align-items-center gap-2">
+            <div
+              className="brand-icon rounded-3 d-flex align-items-center justify-content-center bg-primary text-white"
+              style={{ width: "44px", height: "44px" }}
+            >
+              <i className="bi bi-basket-fill fs-5"></i>
             </div>
-            <form className="flex-grow-1 mx-3  d-flex" >
-              <div className="input-group shadow-sm rounded-pill overflow-hidden border border-1 border-secondary-subtle">
-                <span className="input-group-text bg-white border-0"><i className="bi bi-search"></i></span>
-                <input type="search" className="form-control border-0" placeholder="Search Products..." />
-                <button className="btn btn-primary rounded-end" type="submit">Search</button>
-              </div>
-            </form>
-            <div className="d-flex align-items-center gap-3 d-flex align-items-center gap-3 d-flex ">
-              <Link to="/cart" className="btn btn-link text-secondary position-relative p-0"><i className="bi bi-cart4 fs-5"></i><span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{cartCount}</span></Link>
-              <div class="dropdown">
-                <a class="btn btn-outline-primary " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i className="bi bi-person"></i>
-                </a>
 
-                <ul class="dropdown-menu">
-                  <li> <Link to="/productlisting" className="dropdown-item"><i className="bi bi-house"></i>Home</Link></li>
-                  <li> <Link to="/categories" className="dropdown-item"><i className="bi bi-list"></i>Categories</Link></li>
-                  <li> <Link to="/wishlist" className="dropdown-item"><i className="bi bi-heart"></i>Wishlist</Link></li>
-                  <li> <Link to="/profile" className="dropdown-item "><i className="bi bi-person"></i>Account</Link></li>
-                </ul>
-              </div>
+            <h1 className="h5 mb-0 text-primary">
+              Motpel Household
+            </h1>
+          </div>
+
+          <form className="flex-grow-1">
+            <div className="input-group shadow-sm rounded-pill overflow-hidden border">
+              <span className="input-group-text bg-white border-0">
+                <i className="bi bi-search"></i>
+              </span>
+
+              <input
+                type="search"
+                className="form-control border-0"
+                placeholder="Search Products..."
+              />
+
+              <button className="btn btn-primary d-none d-sm-block">
+                Search
+              </button>
+            </div>
+          </form>
+
+          <div className="d-flex align-items-center gap-2 flex-shrink-0">
+            <Link
+              to="/cart"
+              className="btn btn-link text-secondary position-relative p-0"
+            >
+              <i className="bi bi-cart4 fs-4"></i>
+
+              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {cartCount}
+              </span>
+            </Link>
+
+            <div className="dropdown">
+              <button
+                className="btn btn-outline-primary"
+                data-bs-toggle="dropdown"
+              >
+                <i className="bi bi-person"></i>
+              </button>
+
+              <ul className="dropdown-menu dropdown-menu-end">
+                ...
+              </ul>
             </div>
           </div>
+
         </div>
-
-
-
-
-
-        {cartSuccess && (
-          <div
-            className="position-fixed top-0 start-0 w-100 mt-2 px-3 z-3"
-            style={{ zIndex: 9999 }}
-          >
-            <div className="shadow-lg py-3 bg-success text-white text-center rounded-3">
-              {cartMessage}
-            </div>
-          </div>
-        )}
       </header>
 
 
@@ -508,48 +534,6 @@ const Productdetail = () => {
                 ))}
               </div>
 
-              {/* <div className="row g-4">
-                <div className="col-6 col-sm-4 col-xl-3">
-                  <div className="card rounded-4 shadow-sm border-0 h-100">
-                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
-                    <div className="card-body">
-                      <h3 className="h6">Samsung Galaxy Watch</h3>
-                      <p className="text-muted mb-2">₦82,000</p>
-                      <a href="/product-details" className="btn btn-primary btn-sm">view</a>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-6 col-sm-4 col-xl-3">
-                  <div className="card rounded-4 shadow-sm border-0 h-100">
-                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
-                    <div className="card-body">
-                      <h3 className="h6">Samsung Galaxy Watch</h3>
-                      <p className="text-muted mb-2">₦82,000</p>
-                      <a href="/product-details" className="btn btn-primary btn-sm">view</a>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-6 col-sm-4 col-xl-3">
-                  <div className="card rounded-4 shadow-sm border-0 h-100">
-                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
-                    <div className="card-body">
-                      <h3 className="h6">Samsung Galaxy Watch</h3>
-                      <p className="text-muted mb-2">₦82,000</p>
-                      <a href="/product-details" className="btn btn-primary btn-sm">view</a>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-6 col-sm-4 col-xl-3">
-                  <div className="card rounded-4 shadow-sm border-0 h-100">
-                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" className="card-img-top rounded-top-4" alt="Product" />
-                    <div className="card-body">
-                      <h3 className="h6">Samsung Galaxy Watch</h3>
-                      <p className="text-muted mb-2">₦82,000</p>
-                      <a href="/product-details" className="btn btn-primary btn-sm">view</a>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
             </div>
           </div>
         </section >
@@ -558,55 +542,56 @@ const Productdetail = () => {
 
 
 
-      <nav className="mobile-bottom-nav d-md-none ">
-        <div className="nav-item d-flex align-items-center gap-3 ms-2 w-100 h-100">
-          <NavLink to="/productlisting">
-            <i className="bi bi-house fs-5"></i>
+      <nav className="mobile2-bottom-nav d-md-none">
+
+        <div className="mobile2-nav-icons">
+          <NavLink to="/productlisting" className="mobile2-nav-icon">
+            <i className="bi bi-house-fill"></i>
           </NavLink>
 
-          <NavLink to="/cart">
-            <i className="bi bi-telephone fs-5"></i>
+          <NavLink to="/cart" className="mobile2-nav-icon position-relative">
+            <i className="bi bi-cart3"></i>
+
+            {cartCount > 0 && (
+              <span className="cart-badge">
+                {cartCount}
+              </span>
+            )}
           </NavLink>
         </div>
 
-
-
         {cartItem ? (
-
-          <div className="input-group nav-item">
+          <div className="quantity-wrapper">
 
             <button
               onClick={() => decreaseQuantity(cartItem)}
-              className="btn btn-primary"
+              className="qty-btn"
             >
-              -
+              <i className="bi bi-dash-lg"></i>
             </button>
 
-            <input
-              className="form-control text-center"
-              value={cartItem.quantity}
-              readOnly
-            />
+            <span className="qty-value">
+              {cartItem.quantity}
+            </span>
 
             <button
               onClick={() => increaseQuantity(cartItem)}
-              className="btn btn-primary"
+              className="qty-btn"
             >
-              +
+              <i className="bi bi-plus-lg"></i>
             </button>
 
           </div>
-
         ) : (
-
           <button
             onClick={addToCart}
-            className="btn btn-primary nav-item"
+            className="add-cart-btn"
           >
+            <i className="bi bi-cart-plus me-2"></i>
             Add to Cart
           </button>
-
         )}
+
       </nav>
 
 
