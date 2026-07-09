@@ -23,8 +23,39 @@ const Profile = () => {
 
     return (
         <>
+            <Header />
+
+
 
             <div className="container my-5">
+
+                <div className="row g-4 mb-4">
+                    <div className="card h-100 border-0 shadow-sm rounded-4">
+                        <div className="card-body">
+
+                            <div className="d-flex justify-content-between">
+                                <h5>
+                                    <i className="bi bi-person me-2 text-primary"></i>
+                                    Account Details
+                                </h5>
+
+                                <i className="bi bi-pencil"></i>
+                            </div>
+
+                            <hr />
+
+                            <h6 className="fw-bold">
+                                ABDULSEMIU SODEEQ ADELANI
+                            </h6>
+
+                            <p className="text-muted mb-0">
+                                princeadelani27@gmail.com
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+
                 <div className="row g-4">
                     <ul className="list-group shadow-sm rounded-4">
 
@@ -63,33 +94,6 @@ const Profile = () => {
 
 
                         <div className="row g-4">
-
-                            <div className="col-12 col-md-6">
-                                <div className="card h-100 border-0 shadow-sm rounded-4">
-                                    <div className="card-body">
-
-                                        <div className="d-flex justify-content-between">
-                                            <h5>
-                                                <i className="bi bi-person me-2 text-primary"></i>
-                                                Account Details
-                                            </h5>
-
-                                            <i className="bi bi-pencil"></i>
-                                        </div>
-
-                                        <hr />
-
-                                        <h6 className="fw-bold">
-                                            ABDULSEMIU SODEEQ ADELANI
-                                        </h6>
-
-                                        <p className="text-muted mb-0">
-                                            princeadelani27@gmail.com
-                                        </p>
-
-                                    </div>
-                                </div>
-                            </div>
 
 
                             <div className="col-12 col-md-6">
