@@ -16,8 +16,7 @@ const Productdetail = () => {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [cartSuccess, setCartSuccess] = useState(false);
-  const [isAdded, setisAdded] = useState(true);
-  const [QisAdded, setQisAdded] = useState(false);
+  const [cartItem, setCartItem] = useState(null);
   const [cartMessage, setCartMessage] = useState("");
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const [cartCount, setCartCount] = useState(0);
@@ -28,7 +27,7 @@ const Productdetail = () => {
     if (!item.product) return;
 
     try {
-      await Axios.put(`/api/cart/updateCartItem/${id}`, {
+      await Axios.put("/api/cart/updateCartItem", {
         productId: item.product._id,
         quantity: item.quantity + 1,
         size: item.size,
@@ -44,11 +43,10 @@ const Productdetail = () => {
   };
 
   const decreaseQuantity = async (item) => {
-    if (!item.product) return;
-
+    if (item.quantity <= 1) return;
 
     try {
-      await Axios.put(`/api/cart/updateCartItem/${id}`, {
+      await Axios.put("/api/cart/updateCartItem", {
         productId: item.product._id,
         quantity: item.quantity - 1,
         size: item.size,
@@ -59,7 +57,6 @@ const Productdetail = () => {
     } catch (error) {
       console.log(error);
     }
-
   };
 
 
@@ -67,9 +64,15 @@ const Productdetail = () => {
     try {
       const response = await Axios.get("/api/cart/getCart");
 
-      setProducts(response.data.cart?.items || []);
+      const items = response.data.cart?.items || [];
 
+      // setProducts(items);
 
+      const currentItem = items.find(
+        item => item.product?._id === id
+      );
+
+      setCartItem(currentItem || null);
 
     }
     catch (error) {
@@ -131,7 +134,7 @@ const Productdetail = () => {
       setIsAddedToCart(true)
       setQisAdded(true)
       setisAdded(false)
-      fetchCartCount();
+      await fetchCart();
 
       setQuantity(1);
       setSelectedSize("");
@@ -218,18 +221,18 @@ const Productdetail = () => {
                 <button className="btn btn-primary rounded-end" type="submit">Search</button>
               </div>
             </form>
-            <div className="d-flex align-items-center gap-3 d-flex align-items-center gap-3 d-none d-md-flex ">
+            <div className="d-flex align-items-center gap-3 d-flex align-items-center gap-3 d-flex ">
               <Link to="/cart" className="btn btn-link text-secondary position-relative p-0"><i className="bi bi-cart4 fs-5"></i><span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{cartCount}</span></Link>
               <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="btn btn-outline-primary " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <i className="bi bi-person"></i>
                 </a>
 
                 <ul class="dropdown-menu">
-                  <li> <Link to="/productlisting"><i className="bi bi-house"></i>Home</Link></li>
-                  <li> <Link to="/categories"><i className="bi bi-list"></i>Categories</Link></li>
-                  <li> <Link to="/wishlist"><i className="bi bi-heart"></i>Wishlist</Link></li>
-                  <li> <Link to="/profile"><i className="bi bi-person"></i>Account</Link></li>
+                  <li> <Link to="/productlisting" className="dropdown-item"><i className="bi bi-house"></i>Home</Link></li>
+                  <li> <Link to="/categories" className="dropdown-item"><i className="bi bi-list"></i>Categories</Link></li>
+                  <li> <Link to="/wishlist" className="dropdown-item"><i className="bi bi-heart"></i>Wishlist</Link></li>
+                  <li> <Link to="/profile" className="dropdown-item "><i className="bi bi-person"></i>Account</Link></li>
                 </ul>
               </div>
             </div>
@@ -559,7 +562,7 @@ const Productdetail = () => {
 
 
       <nav className="mobile-bottom-nav d-md-none ">
-        <div className="d-flex align-items-center justify-content-around w-100 h-100">
+        <div className="d-flex align-items-center gap-3 ms-2 w-100 h-100">
           <NavLink to="/productlisting">
             <i className="bi bi-house fs-5"></i>
           </NavLink>
@@ -569,30 +572,44 @@ const Productdetail = () => {
           </NavLink>
         </div>
 
-        {isAdded && (
-          <div>
+
+
+        {cartItem ? (
+
+          <div className="input-group">
+
             <button
-              onClick={addToCart}
-              disabled={isAddedToCart}
-              className={`btn btn-primary btn-lg w-100 w-sm-auto ${isAddedToCart ? "d-none" : ""
-                }`}
+              onClick={() => decreaseQuantity(cartItem)}
+              className="btn btn-primary"
             >
-              Add to Cart
+              -
             </button>
+
+            <input
+              className="form-control text-center"
+              value={cartItem.quantity}
+              readOnly
+            />
+
+            <button
+              onClick={() => increaseQuantity(cartItem)}
+              className="btn btn-primary"
+            >
+              +
+            </button>
+
           </div>
+
+        ) : (
+
+          <button
+            onClick={addToCart}
+            className="btn btn-primary"
+          >
+            Add to Cart
+          </button>
+
         )}
-
-        {QisAdded && (
-          <div className="input-group w-100 w-sm-50 d-inline-flex align-items-center px-2 py-1">
-            <button onClick={decreaseQuantity} disabled={isAddedToCart}
-              className="btn btn-outline-secondary text-light bg-primary" type="button"><i className="bi bi-dash"></i></button>
-            <input type="text" className="form-control text-center" value={quantity} readOnly aria-label="Quantity" />
-            <button onClick={increaseQuantity} disabled={isAddedToCart}
-              className="btn btn-outline-secondary text-light bg-primary" type="button"><i className="bi bi-plus"></i></button>
-          </div>
-        )}
-
-
       </nav>
 
 
