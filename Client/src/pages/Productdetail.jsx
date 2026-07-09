@@ -1,9 +1,9 @@
 import Helpcenter from "../components/Helpcenter.jsx";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Axios from "../utils/axiosInstance.js";
+import { Link, NavLink } from "react-router-dom";
 
 const Productdetail = () => {
 
