@@ -35,7 +35,7 @@ const Productdetail = () => {
         color: item.color,
       });
 
-      await fetchCartCount();
+      await fetchCart();
 
     } catch (error) {
       console.log(error);
@@ -55,7 +55,7 @@ const Productdetail = () => {
         color: item.color,
       });
 
-      await fetchCartCount();
+      await fetchCart();
     } catch (error) {
       console.log(error);
     }
@@ -63,17 +63,24 @@ const Productdetail = () => {
   };
 
 
-
-
-  const fetchCartCount = async () => {
+  const fetchCart = async () => {
     try {
-      const res = await Axios.get("/api/cart/getCartCount")
+      const response = await Axios.get("/api/cart/getCart");
 
-      setCartCount(res.data?.count || 0);
-    } catch (error) {
-      console.log(error);
+      setProducts(response.data.cart?.items || []);
+
+
+
     }
-  };
+    catch (error) {
+      console.log(error)
+    }
+    finally {
+      setLoading(false)
+    }
+
+
+  }
 
 
 
@@ -158,7 +165,7 @@ const Productdetail = () => {
       try {
         await Promise.all([
           fetchProduct(),
-          fetchCartCount(),
+          fetchCart(),
         ]);
       } finally {
         setLoading(false);
@@ -204,29 +211,33 @@ const Productdetail = () => {
               <div className="brand-icon rounded-3 d-flex align-items-center justify-content-center bg-primary text-white" style={{ width: "44px", height: "44px" }}><i className="bi bi-basket-fill fs-5"></i></div>
               <div><h1 className="h5 mb-0 text-primary">Motpel Household</h1></div>
             </div>
-            <form className="flex-grow-1 mx-3  d-flex" style={{ minWidth: "300px" }}>
+            <form className="flex-grow-1 mx-3  d-flex" >
               <div className="input-group shadow-sm rounded-pill overflow-hidden border border-1 border-secondary-subtle">
                 <span className="input-group-text bg-white border-0"><i className="bi bi-search"></i></span>
                 <input type="search" className="form-control border-0" placeholder="Search Products..." />
                 <button className="btn btn-primary rounded-end" type="submit">Search</button>
               </div>
             </form>
-            <div className="d-flex align-items-center gap-3 d-flex">
+            <div className="d-flex align-items-center gap-3 d-flex align-items-center gap-3 d-none d-md-flex ">
               <Link to="/cart" className="btn btn-link text-secondary position-relative p-0"><i className="bi bi-cart4 fs-5"></i><span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{cartCount}</span></Link>
-              <div className="product_detail_dropdown position-absolute">...</div>
+              <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i className="bi bi-person"></i>
+                </a>
+
+                <ul class="dropdown-menu">
+                  <li> <Link to="/productlisting"><i className="bi bi-house"></i>Home</Link></li>
+                  <li> <Link to="/categories"><i className="bi bi-list"></i>Categories</Link></li>
+                  <li> <Link to="/wishlist"><i className="bi bi-heart"></i>Wishlist</Link></li>
+                  <li> <Link to="/profile"><i className="bi bi-person"></i>Account</Link></li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
 
 
-        <div className="d-none position-relative bg-white text-dark thedropdown">
-          <Link to="/productlisting"><i className="bi bi-house"></i>Home</Link>
-          <Link to="/categories"><i className="bi bi-list"></i>Categories</Link>
-          <Link to="/wishlist"><i className="bi bi-heart"></i>Wishlist</Link>
-          <Link to="/profile"><i className="bi bi-person"></i>Account</Link>
 
-
-        </div>
 
 
         {cartSuccess && (
@@ -547,15 +558,16 @@ const Productdetail = () => {
 
 
 
-      <nav className="mobile-bottom-nav d-md-none">
+      <nav className="mobile-bottom-nav d-md-none ">
+        <div className="d-flex align-items-center justify-content-around w-100 h-100">
+          <NavLink to="/productlisting">
+            <i className="bi bi-house fs-5"></i>
+          </NavLink>
 
-        <NavLink to="/productlisting">
-          <i className="bi bi-house fs-5"></i>
-        </NavLink>
-
-        <NavLink to="/cart">
-          <i className="bi bi-megaphone fs-5"></i>
-        </NavLink>
+          <NavLink to="/cart">
+            <i className="bi bi-telephone fs-5"></i>
+          </NavLink>
+        </div>
 
         {isAdded && (
           <div>
@@ -571,7 +583,7 @@ const Productdetail = () => {
         )}
 
         {QisAdded && (
-          <div className="input-group w-90">
+          <div className="input-group w-100 w-sm-50 d-inline-flex align-items-center px-2 py-1">
             <button onClick={decreaseQuantity} disabled={isAddedToCart}
               className="btn btn-outline-secondary text-light bg-primary" type="button"><i className="bi bi-dash"></i></button>
             <input type="text" className="form-control text-center" value={quantity} readOnly aria-label="Quantity" />

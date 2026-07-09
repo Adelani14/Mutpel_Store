@@ -420,9 +420,3 @@
 }
 
 
-.product_detail_dropdown:hover .thedropdown {
-  display: block;
-
-  /* Show the dropdown when hovering over the parent */
-
-}
