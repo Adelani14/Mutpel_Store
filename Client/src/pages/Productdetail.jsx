@@ -25,6 +25,7 @@ const Productdetail = () => {
 
   const increaseQuantity = async (item) => {
     if (!item.product) return;
+    setLoading(true);
 
     try {
       await Axios.put("/api/cart/updateCartItem", {
@@ -39,11 +40,15 @@ const Productdetail = () => {
     } catch (error) {
       console.log(error);
     }
+     finally {
+            setLoading(false)
+        }
 
   };
 
   const decreaseQuantity = async (item) => {
     if (item.quantity <= 1) return;
+    setLoading(true);
 
     try {
       await Axios.put("/api/cart/updateCartItem", {
@@ -57,6 +62,9 @@ const Productdetail = () => {
     } catch (error) {
       console.log(error);
     }
+     finally {
+            setLoading(false)
+        }
   };
 
 
@@ -178,8 +186,8 @@ const Productdetail = () => {
           fetchProduct(),
           fetchCart(),
           fetchCartCount(),
-          increaseQuantity(cartItem),
-          decreaseQuantity(cartItem),
+          fetchCart(),
+         
         ]);
       } finally {
         setLoading(false);

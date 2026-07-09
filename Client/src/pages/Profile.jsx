@@ -29,6 +29,10 @@ const Profile = () => {
                     <ul className="list-group shadow-sm rounded-4">
 
                         <li className="list-group-item">
+                            <i className="bi bi-inbox me-2"></i>
+                            Inbox
+                        </li>
+                        <li className="list-group-item">
                             <i className="bi bi-box me-2"></i>
                             Orders
                         </li>
