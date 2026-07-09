@@ -19,6 +19,7 @@ const Productdetail = () => {
   const [cartItem, setCartItem] = useState(null);
   const [cartMessage, setCartMessage] = useState("");
   const [cartCount, setCartCount] = useState(0);
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
 
   const [quantity, setQuantity] = useState(1);
 
