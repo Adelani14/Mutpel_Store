@@ -75,7 +75,7 @@ const Header = () => {
                 className="btn btn-link text-primary"
                 data-bs-toggle="dropdown"
               >
-                <i className="bi bi-person"></i>
+                <i className="bi bi-person fs-4"></i>
               </button>
 
               <ul className="dropdown-menu dropdown-menu-end">

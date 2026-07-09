@@ -57,29 +57,6 @@ const Profile = () => {
 
                     <main className="col-12 col-lg-9">
 
-                        <div className="card border-0 shadow rounded-4 mb-4">
-                            <div className="card-body p-4 d-flex align-items-center">
-
-                                <div
-                                    className="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center"
-                                    style={{ width: 75, height: 75 }}
-                                >
-                                    <i className="bi bi-person-fill fs-2"></i>
-                                </div>
-
-                                <div className="ms-3">
-                                    <h3 className="mb-1 fw-bold">
-                                        ABDULSEMIU SODEEQ ADELANI
-                                    </h3>
-
-                                    <p className="text-muted mb-0">
-                                        princeadelani27@gmail.com
-                                    </p>
-                                </div>
-
-                            </div>
-                        </div>
-
 
                         <div className="row g-4">
 

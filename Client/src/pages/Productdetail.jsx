@@ -178,8 +178,8 @@ const Productdetail = () => {
           fetchProduct(),
           fetchCart(),
           fetchCartCount(),
-          increaseQuantity(),
-          decreaseQuantity(),
+          increaseQuantity(cartItem),
+          decreaseQuantity(cartItem),
         ]);
       } finally {
         setLoading(false);
