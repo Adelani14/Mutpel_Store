@@ -252,7 +252,7 @@ const Productdetail = () => {
           <div className="d-flex align-items-center gap-2 flex-shrink-0">
             <Link
               to="/cart"
-              className="btn btn-link text-secondary position-relative p-0"
+              className="btn btn-link text-secondary position-relative p-0 d-none d-md-block"
             >
               <i className="bi bi-cart4 fs-4"></i>
 
@@ -263,19 +263,33 @@ const Productdetail = () => {
 
             <div className="dropdown">
               <button
-                className="btn btn-outline-primary"
+                className="btn btn-link text-primary"
                 data-bs-toggle="dropdown"
               >
                 <i className="bi bi-person"></i>
               </button>
 
               <ul className="dropdown-menu dropdown-menu-end">
-                ...
+                <li><Link to="/profile" className="dropdown-item"><i className="bi bi-house me-2"></i>Home</Link></li>
+                <li><Link to="/profile" className="dropdown-item"><i className="bi bi-list me-2"></i>Categories</Link></li>
+                <li><Link to="/profile" className="dropdown-item"><i className="bi bi-heart me-2"></i>Wishlist</Link></li>
+                <li><Link to="/profile" className="dropdown-item"><i className="bi bi-cart me-2"></i>Cart</Link></li>
+                <li><Link to="/profile" className="dropdown-item"><i className="bi bi-person me-2"></i>Account</Link></li>
               </ul>
             </div>
           </div>
 
         </div>
+
+
+        {cartSuccess && (
+          <div className="position-fixed top-0 start-0 w-100 mt-2 px-3 z-3" style={{ zIndex: 9999 }} >
+            <div className="shadow-lg py-3 bg-success text-white text-center rounded-3">
+              {cartMessage}
+
+            </div>
+          </div>
+        )}
       </header>
 
 
@@ -431,14 +445,47 @@ const Productdetail = () => {
                     </div>
                   )}
                   <div className="d-none d-md-flex align-items-sm-center gap-3 mb-4">
-                    <button
+                    {/* <button
                       onClick={addToCart}
                       disabled={isAddedToCart}
                       className={`btn btn-primary btn-lg w-100 w-sm-auto ${isAddedToCart ? "d-none" : ""
                         }`}
                     >
                       Add to Cart
-                    </button>
+                    </button> */}
+
+
+                    {cartItem ? (
+                      <div className="quantity-wrapper d-flex align-items-center gap-2">
+
+                        <button
+                          onClick={() => decreaseQuantity(cartItem)}
+                          className="qty-btn"
+                        >
+                          <i className="bi bi-dash-lg"></i>
+                        </button>
+
+                        <span className="qty-value">
+                          {cartItem.quantity}
+                        </span>
+
+                        <button
+                          onClick={() => increaseQuantity(cartItem)}
+                          className="qty-btn"
+                        >
+                          <i className="bi bi-plus-lg"></i>
+                        </button>
+
+                      </div>
+                    ) : (
+                      <button
+                        onClick={addToCart}
+                        className="add-cart-btn btn btn-primary btn-lg w-100 w-sm-auto"
+                      >
+                        <i className="bi bi-cart-plus me-2"></i>
+                        Add to Cart
+                      </button>
+                    )}
                   </div>
                   <div className="list-group list-group-flush rounded-4 bg-light p-3">
                     <div className="list-group-item bg-transparent border-0 px-0 py-2 d-flex align-items-center gap-2"><i className="bi bi-check-circle-fill text-primary"></i> Free delivery on orders over ₦100k</div>
