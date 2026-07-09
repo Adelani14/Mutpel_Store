@@ -8,6 +8,22 @@ import MobileBottomNav from "../components/MobileBottomNav.jsx";
 
 const Profile = () => {
 
+
+    const [email, setEmail] = useState("");
+    const [fullName, setFullName] = useState("");
+
+    const getUsername = async () => {
+        try {
+            const res = await Axios.get("/api/users/Username");
+
+            setFullName(res.data?.user?.fullName || "");
+            setEmail(res.data?.user?.email || "");
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
     const logout = async () => {
         try {
             await Axios.post("/api/users/logout");
@@ -42,11 +58,11 @@ const Profile = () => {
                             <hr />
 
                             <h6 className="fw-bold">
-                                ABDULSEMIU SODEEQ ADELANI
+                                {fullName}
                             </h6>
 
                             <p className="text-muted mb-0">
-                                princeadelani27@gmail.com
+                                {email}
                             </p>
 
                         </div>
