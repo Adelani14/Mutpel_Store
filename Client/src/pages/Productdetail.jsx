@@ -16,19 +16,52 @@ const Productdetail = () => {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [cartSuccess, setCartSuccess] = useState(false);
+  const [isAdded, setisAdded] = useState(true);
+  const [QisAdded, setQisAdded] = useState(false);
   const [cartMessage, setCartMessage] = useState("");
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const [cartCount, setCartCount] = useState(0);
 
   const [quantity, setQuantity] = useState(1);
-  const increaseQuantity = () => {
-    setQuantity(prev => prev + 1);
-  };
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(prev => prev - 1);
+
+  const increaseQuantity = async (item) => {
+    if (!item.product) return;
+
+    try {
+      await Axios.put(`/api/cart/updateCartItem/${id}`, {
+        productId: item.product._id,
+        quantity: item.quantity + 1,
+        size: item.size,
+        color: item.color,
+      });
+
+      await fetchCartCount();
+
+    } catch (error) {
+      console.log(error);
     }
+
   };
+
+  const decreaseQuantity = async (item) => {
+    if (!item.product) return;
+
+
+    try {
+      await Axios.put(`/api/cart/updateCartItem/${id}`, {
+        productId: item.product._id,
+        quantity: item.quantity - 1,
+        size: item.size,
+        color: item.color,
+      });
+
+      await fetchCartCount();
+    } catch (error) {
+      console.log(error);
+    }
+
+  };
+
 
 
 
@@ -89,6 +122,8 @@ const Productdetail = () => {
       setCartMessage("Product added successfully to cart");
       setCartSuccess(true);
       setIsAddedToCart(true)
+      setQisAdded(true)
+      setisAdded(false)
       fetchCartCount();
 
       setQuantity(1);
@@ -178,13 +213,13 @@ const Productdetail = () => {
             </form>
             <div className="d-flex align-items-center gap-3 d-flex">
               <Link to="/cart" className="btn btn-link text-secondary position-relative p-0"><i className="bi bi-cart4 fs-5"></i><span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{cartCount}</span></Link>
-              <div className="product_detail_dropdown position-relative">...</div>
+              <div className="product_detail_dropdown position-absolute">...</div>
             </div>
           </div>
         </div>
 
 
-        <div className="d-none position-absolute bg-white text-dark thedropdown">
+        <div className="d-none position-relative bg-white text-dark thedropdown">
           <Link to="/productlisting"><i className="bi bi-house"></i>Home</Link>
           <Link to="/categories"><i className="bi bi-list"></i>Categories</Link>
           <Link to="/wishlist"><i className="bi bi-heart"></i>Wishlist</Link>
@@ -358,14 +393,7 @@ const Productdetail = () => {
                       </div>
                     </div>
                   )}
-                  <div className="d-flex flex-column flex-sm-row align-items-sm-center gap-3 mb-4">
-                    {/* <div className="input-group w-100 w-sm-auto">
-                      <button onClick={decreaseQuantity} disabled={isAddedToCart}
-                        className="btn btn-outline-secondary" type="button"><i className="bi bi-dash"></i></button>
-                      <input type="text" className="form-control text-center" value={quantity} readOnly aria-label="Quantity" />
-                      <button onClick={increaseQuantity} disabled={isAddedToCart}
-                        className="btn btn-outline-secondary" type="button"><i className="bi bi-plus"></i></button>
-                    </div> */}
+                  <div className="d-none d-md-flex align-items-sm-center gap-3 mb-4">
                     <button
                       onClick={addToCart}
                       disabled={isAddedToCart}
@@ -373,7 +401,8 @@ const Productdetail = () => {
                         }`}
                     >
                       Add to Cart
-                    </button>                </div>
+                    </button>
+                  </div>
                   <div className="list-group list-group-flush rounded-4 bg-light p-3">
                     <div className="list-group-item bg-transparent border-0 px-0 py-2 d-flex align-items-center gap-2"><i className="bi bi-check-circle-fill text-primary"></i> Free delivery on orders over ₦100k</div>
                     <div className="list-group-item bg-transparent border-0 px-0 py-2 d-flex align-items-center gap-2"><i className="bi bi-check-circle-fill text-primary"></i> 30-day hassle-free return</div>
@@ -515,34 +544,42 @@ const Productdetail = () => {
         </section >
       </main >
 
-      {/* <div className="input-group w-100 w-sm-auto">
-                      <button onClick={decreaseQuantity} disabled={isAddedToCart}
-                        className="btn btn-outline-secondary" type="button"><i className="bi bi-dash"></i></button>
-                      <input type="text" className="form-control text-center" value={quantity} readOnly aria-label="Quantity" />
-                      <button onClick={increaseQuantity} disabled={isAddedToCart}
-                        className="btn btn-outline-secondary" type="button"><i className="bi bi-plus"></i></button>
-                    </div> */}
+
 
 
       <nav className="mobile-bottom-nav d-md-none">
 
-        <div className="d-flex gap-2 align-items-center justify-content-between">
-          <button className=" btn btn-outline-primary " href="/productlisting">
-            <i className="bi bi-house fs-5"></i>
-          </button>
+        <NavLink to="/productlisting">
+          <i className="bi bi-house fs-5"></i>
+        </NavLink>
 
-          <button className=" btn btn-outline-primary " href="/">
-            <i className="bi bi-phone fs-5"></i>
-          </button>
-        </div>
+        <NavLink to="/cart">
+          <i className="bi bi-megaphone fs-5"></i>
+        </NavLink>
 
-        <div className="input-group w-100">
-          <button onClick={decreaseQuantity} disabled={isAddedToCart}
-            className="btn btn-outline-secondary text-light bg-primary" type="button"><i className="bi bi-dash"></i></button>
-          <input type="text" className="form-control text-center" value={quantity} readOnly aria-label="Quantity" />
-          <button onClick={increaseQuantity} disabled={isAddedToCart}
-            className="btn btn-outline-secondary text-light bg-primary" type="button"><i className="bi bi-plus"></i></button>
-        </div>
+        {isAdded && (
+          <div>
+            <button
+              onClick={addToCart}
+              disabled={isAddedToCart}
+              className={`btn btn-primary btn-lg w-100 w-sm-auto ${isAddedToCart ? "d-none" : ""
+                }`}
+            >
+              Add to Cart
+            </button>
+          </div>
+        )}
+
+        {QisAdded && (
+          <div className="input-group w-90">
+            <button onClick={decreaseQuantity} disabled={isAddedToCart}
+              className="btn btn-outline-secondary text-light bg-primary" type="button"><i className="bi bi-dash"></i></button>
+            <input type="text" className="form-control text-center" value={quantity} readOnly aria-label="Quantity" />
+            <button onClick={increaseQuantity} disabled={isAddedToCart}
+              className="btn btn-outline-secondary text-light bg-primary" type="button"><i className="bi bi-plus"></i></button>
+          </div>
+        )}
+
 
       </nav>
 

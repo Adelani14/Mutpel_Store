@@ -201,12 +201,7 @@ const Cart = () => {
                                                     <a className="text-danger small fw-semibold text-decoration-none" onClick={() => removeFromCart(item)}><i className="bi bi-trash me-1"></i>Remove Item</a>
                                                 </div>
                                                 <div className="col-sm-3 text-sm-end">
-                                                    {/* <div className="quantity-control d-inline-flex align-items-center rounded-pill border border-secondary-subtle px-2 py-1">
-                                                    <button className="btn btn-sm btn-outline-secondary"><i className="bi bi-dash"></i></button>
-                                                    <span className="px-3 fw-semibold">{item.quantity}</span>
-                                                    <button className="btn btn-sm btn-outline-secondary"><i className="bi bi-plus"></i></button>
-                                                </div> */}
-
+                                                 
                                                     <div className="input-group w-100 w-sm-50 d-inline-flex align-items-center px-2 py-1">
                                                         <button onClick={() => decreaseQuantity(item)} className="btn btn-outline-secondary text-light bg-primary" type="button"><i className="bi bi-dash"></i></button>
                                                         <input type="text" className="form-control text-center" value={item.quantity} readOnly aria-label="Quantity" />
