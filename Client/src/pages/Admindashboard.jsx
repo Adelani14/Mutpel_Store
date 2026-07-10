@@ -3,6 +3,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Helpcenter from '../components/Helpcenter';
 import Axios from "../utils/axiosInstance.js";
+import { Link, NavLink } from 'react-router-dom';
+import AdminMobileBottomNav from '../components/AdminMobileBottomNav.jsx';
 const Admindashboard = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -120,7 +122,7 @@ const Admindashboard = () => {
                     <div className="position-relative d-inline-flex justify-content-center align-items-center">
                         <i
                             className="bi bi-basket-fill text-primary"
-                            style={{ fontSize: "3.5rem" }}
+                            style={{ fontSize: "2.5rem" }}
                         ></i>
 
                         <div
@@ -370,9 +372,10 @@ const Admindashboard = () => {
                     </div>
                 </div>
             </main >
-            <footer className="mt-5 text-center text-muted small py-4">
+            <footer className="mt-5 text-center text-muted small mb-4 py-4">
                 © 2026 Mutpel. All rights reserved.
             </footer>
+            <AdminMobileBottomNav />
 
         </>
     );

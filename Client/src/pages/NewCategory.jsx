@@ -3,6 +3,7 @@ import Helpcenter from "../components/Helpcenter.jsx";
 import Header from "../components/Header.jsx";
 import { Link } from "react-router-dom";
 import Axios from "../utils/axiosInstance.js";
+import AdminMobileBottomNav from '../components/AdminMobileBottomNav.jsx';
 
 const NewCategory = () => {
     const [formData, setFormData] = useState({
@@ -135,16 +136,27 @@ const NewCategory = () => {
             <main className="py-4 bg-light">
                 <div className="container-fluid">
                     <div className="row g-4">
-                        <div className="col-xl-2">
+                        <div className="col-xl-2 d-none d-md-block">
                             <div className="card rounded-4 shadow-sm border-0 p-3 h-100">
-
                                 <div className="nav flex-column nav-pills" aria-orientation="vertical">
-                                    <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-speedometer2 me-2"></i>Dashboard</a>
-                                    <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-box-seam me-2"></i>Products</a>
-                                    <a className="nav-link active rounded-4 mb-2" href="#"><i className="bi bi-folder-plus me-2"></i>New Category</a>
-                                    <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-basket2 me-2"></i>Orders</a>
-                                    <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-people me-2"></i>Customers</a>
-                                    <a className="nav-link rounded-4" href="#"><i className="bi bi-gear me-2"></i>Settings</a>
+                                    <Link to="/Newproduct" className="nav-link active rounded-4 mb-2">
+                                        <i className="bi bi-box-seam me-2"></i>New Product
+                                    </Link>
+                                    <Link to="/Admindashboard" className="nav-link rounded-4 mb-2">
+                                        <i className="bi bi-speedometer2 me-2"></i>Dashboard
+                                    </Link>
+                                    <Link to="/Newproduct" className="nav-link rounded-4 mb-2">
+                                        <i className="bi bi-folder-plus me-2"></i>New Product
+                                    </Link>
+                                    <Link to="/Orders" className="nav-link rounded-4 mb-2">
+                                        <i className="bi bi-basket2 me-2"></i>Orders
+                                    </Link>
+                                    <Link to="/Products" className="nav-link rounded-4 mb-2">
+                                        <i className="bi bi-box-seam me-2"></i>Products
+                                    </Link>
+                                    <Link to="/Settings" className="nav-link rounded-4 mb-2">
+                                        <i className="bi bi-gear me-2"></i>Settings
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -156,31 +168,11 @@ const NewCategory = () => {
                                         <p className="text-muted mb-1">Products / Category</p>
                                         <h1 className="h4 mb-0">Create New Category</h1>
                                     </div>
-                                    <div className="d-flex gap-2 flex-wrap">
-
-                                        <Link to="/admindashboard" className="btn btn-outline-secondary btn-sm">
-                                            Cancel
+                                    <div className="d-flex gap-2 d-none d-md-block">
+                                        <Link to="/Newproduct" className="nav-link rounded-4 mb-2">
+                                            <i className="bi bi-box-seam me-2"></i>New Product
                                         </Link>
-                                        <button
-                                            className="btn btn-primary btn-sm"
-                                            onClick={saveCategory}
-                                            disabled={loading}
-                                        >
-                                            {
-                                                loading ? (
-                                                    <>
-                                                        <span
-                                                            className="spinner-border spinner-border-sm me-2"
-                                                            role="status"
-                                                        ></span>
-
-                                                        Saving...
-                                                    </>
-                                                ) : (
-                                                    "Save Category"
-                                                )
-                                            }
-                                        </button>                                    </div>
+                                    </div>
                                 </div>
 
                                 <div className="card rounded-4 border-0 p-4 mb-4 bg-white shadow-sm">
@@ -238,6 +230,32 @@ const NewCategory = () => {
                                         )}
                                     </div>
                                 </div>
+                                <div className="d-flex d-md-none gap-2 justify-content-end mt-4">
+
+                                    <Link to="/admindashboard" className="btn btn-outline-secondary btn-sm">
+                                        Cancel
+                                    </Link>
+                                    <button
+                                        className="btn btn-primary btn-sm"
+                                        onClick={saveCategory}
+                                        disabled={loading}
+                                    >
+                                        {
+                                            loading ? (
+                                                <>
+                                                    <span
+                                                        className="spinner-border spinner-border-sm me-2"
+                                                        role="status"
+                                                    ></span>
+
+                                                    Saving...
+                                                </>
+                                            ) : (
+                                                "Save Category"
+                                            )
+                                        }
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -268,7 +286,7 @@ const NewCategory = () => {
                                         <option>Low Priority</option>
                                     </select>
                                 </div>
-                                <div className="card rounded-4 border-0 bg-light p-3 text-center">
+                                <div className="card rounded-4 border-0 bg-light p-3 mb-3 text-center">
                                     <div className="small text-uppercase text-muted mb-2">Live preview</div>
                                     <div className="rounded-4 overflow-hidden mb-3" style={{ minHeight: "180px", background: "#f3f4f7" }}>
                                         {bannerPreview ? (
@@ -288,6 +306,7 @@ const NewCategory = () => {
                     </div>
                 </div>
             </main>
+            <AdminMobileBottomNav />
         </>
     );
 };

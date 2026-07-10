@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Helpcenter from "../components/Helpcenter.jsx";
 import Header from "../components/Header.jsx";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Axios from "../utils/axiosInstance.js";
+import AdminMobileBottomNav from "../components/AdminMobileBottomNav.jsx";
 const Newproduct = () => {
 
     // Fetch categories for dropdown
@@ -236,7 +237,7 @@ const Newproduct = () => {
             <main className="py-5 bg-light">
                 <div className="container-fluid">
                     <div className="row g-3">
-                        <div className="col-xl-2">
+                        <div className="col-xl-2 d-none d-md-block">
                             <div className="card rounded-4 shadow-sm border-0 p-3 h-100">
                                 <div className="nav flex-column nav-pills" aria-orientation="vertical">
                                     <Link to="/Newproduct" className="nav-link active rounded-4 mb-2">
@@ -267,30 +268,17 @@ const Newproduct = () => {
                                     <p className="text-muted mb-1">Products / Inventory Creation</p>
                                     <h1 className="h4 mb-0">Add New Product</h1>
                                 </div>
-                                <div className="d-flex gap-2 flex-wrap">
-                                    <Link className="btn btn-outline-secondary btn-sm" to="/Admindashboard">
-                                        Cancel
-                                    </Link>
-                                    <button
-                                        className="btn btn-primary btn-sm"
-                                        onClick={saveProduct}
-                                        disabled={loading}
-                                    >
-                                        {
-                                            loading ? (
-                                                <>
-                                                    <span
-                                                        className="spinner-border spinner-border-sm me-2"
-                                                        role="status"
-                                                    ></span>
 
-                                                    Saving...
-                                                </>
-                                            ) : (
-                                                "Save Product"
-                                            )
-                                        }
-                                    </button>                                </div>
+                                <div className="d-flex d-md-none gap-2">
+                                    <Link to="/Newcategory" className="nav-link rounded-4 mb-2">
+                                        <i className="bi bi-folder-plus me-2"></i>New Category
+                                    </Link>
+                                </div>
+                            </div>
+                            <div>
+                                <Link to="/Newcategory" className="nav-link rounded-4 mb-2">
+                                    <i className="bi bi-folder-plus me-2"></i>New Category
+                                </Link>
                             </div>
 
                             <div className="row g-4">
@@ -479,8 +467,33 @@ const Newproduct = () => {
                                             </div> */}
                                         </div>
                                     </div>
+                                    <div className="d-flex gap-2 justify-content-end">
+                                        <Link className="btn btn-outline-secondary btn-sm" to="/Admindashboard">
+                                            Cancel
+                                        </Link>
+                                        <button
+                                            className="btn btn-primary btn-sm"
+                                            onClick={saveProduct}
+                                            disabled={loading}
+                                        >
+                                            {
+                                                loading ? (
+                                                    <>
+                                                        <span
+                                                            className="spinner-border spinner-border-sm me-2"
+                                                            role="status"
+                                                        ></span>
 
-                                    <div className="card rounded-4 shadow-sm border-0 p-4 editor-tip">
+                                                        Saving...
+                                                    </>
+                                                ) : (
+                                                    "Save Product"
+                                                )
+                                            }
+                                        </button>
+                                    </div>
+
+                                    <div className="card rounded-4 shadow-sm border-0 mb-4 p-4 editor-tip">
                                         <div className="d-flex align-items-start gap-3">
                                             <div className="text-warning fs-4"><i className="bi bi-lightbulb"></i></div>
                                             <div>
@@ -495,6 +508,8 @@ const Newproduct = () => {
                     </div>
                 </div>
             </main>
+
+            <AdminMobileBottomNav />
 
 
         </>

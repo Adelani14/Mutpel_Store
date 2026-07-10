@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Helpcenter from '../components/Helpcenter.jsx';
 import Axios from "../utils/axiosInstance.js"
+import AdminMobileBottomNav from '../components/AdminMobileBottomNav.jsx';
 
 const AllProduct = () => {
 
@@ -130,6 +131,7 @@ const AllProduct = () => {
                     </div>
                 </div>
             </div >
+            <AdminMobileBottomNav />
         </>
     );
 };
