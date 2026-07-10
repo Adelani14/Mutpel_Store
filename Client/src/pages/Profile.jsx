@@ -37,6 +37,10 @@ const Profile = () => {
         }
     };
 
+     useEffect(() => {
+        getUsername();
+     },[])
+
     return (
         <>
 

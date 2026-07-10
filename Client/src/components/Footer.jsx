@@ -13,6 +13,9 @@ const Footer = () => {
             console.log(error);
         }
     };
+     useEffect(() => {
+            getUsername();
+         },[])
     return (
 
         <>
