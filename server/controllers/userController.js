@@ -230,7 +230,7 @@ export const refreshToken = async (req, res) => {
 export const getUsername = async (req, res) => {
     try {
         const user = await User.findById(req.user.userID)
-            .select("firstname lastname email");
+            .select("firstname lastname email role");
 
         if (!user) {
             return res.status(404).json({
@@ -244,6 +244,7 @@ export const getUsername = async (req, res) => {
                 firstname: user.firstname,
                 lastname: user.lastname,
                 email: user.email,
+                role: user.role,
                 fullName: `${user.firstname} ${user.lastname}`,
             },
         });
