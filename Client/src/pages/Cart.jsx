@@ -132,19 +132,28 @@ const Cart = () => {
 
             {loading && (
                 <div
-                    className="position-fixed top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+                    className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
                     style={{
                         backgroundColor: "rgba(0, 0, 0, 0.25)",
                         backdropFilter: "blur(6px)",
-                        WebkitBackdropFilter: "blur(5px)",
+                        WebkitBackdropFilter: "blur(6px)",
                         zIndex: 9999,
                     }}
                 >
-                    <div className="spinner-border text-primary" style={{ width: "2rem", height: "2rem" }}></div>
+                    <div className="position-relative d-inline-flex justify-content-center align-items-center">
+                        <i
+                            className="bi bi-basket-fill text-primary"
+                            style={{ fontSize: "3.5rem" }}
+                        ></i>
 
-                    {/* <h5 className="mt-3 fw-semibold text-dark">
-                        Loading products...
-                    </h5> */}
+                        <div
+                            className="spinner-border spinner-border-sm text-light position-absolute"
+                            style={{
+                                width: "1.3rem",
+                                height: "1.3rem",
+                            }}
+                        ></div>
+                    </div>
                 </div>
             )}
 
@@ -201,7 +210,7 @@ const Cart = () => {
                                                     <a className="text-danger small fw-semibold text-decoration-none" onClick={() => removeFromCart(item)}><i className="bi bi-trash me-1"></i>Remove Item</a>
                                                 </div>
                                                 <div className="col-sm-3 text-sm-end">
-                                                 
+
                                                     <div className="input-group w-100 w-sm-50 d-inline-flex align-items-center px-2 py-1">
                                                         <button onClick={() => decreaseQuantity(item)} className="btn btn-outline-secondary text-light bg-primary" type="button"><i className="bi bi-dash"></i></button>
                                                         <input type="text" className="form-control text-center" value={item.quantity} readOnly aria-label="Quantity" />

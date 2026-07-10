@@ -237,7 +237,7 @@
 
 /* mobile bottom nav */
 
-.mobile-bottom-nav {
+/* .mobile-bottom-nav {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -252,7 +252,9 @@
   box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
   z-index: 1050;
   padding-bottom: env(safe-area-inset-bottom);
-}
+ 
+  
+} */
 
 .mobile-bottom-nav .nav-item {
   flex: 1;
@@ -314,7 +316,8 @@
 
 /* mobile2 navigation */
 
-.mobile2-bottom-nav {
+.mobile2-bottom-nav,
+.mobile-bottom-nav {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -429,7 +432,6 @@
 
 .card {
   transition: .25s ease;
-  border:#f5f5f5
 }
 
 .card:hover {
