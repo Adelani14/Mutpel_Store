@@ -263,19 +263,23 @@ const Newproduct = () => {
                         </div>
 
                         <div className="col-xl-10">
-                            <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 mb-4">
+                            <div className="d-flex align-items-center justify-content-between gap-3 mb-4">
                                 <div>
                                     <p className="text-muted mb-1">Products / Inventory Creation</p>
                                     <h1 className="h4 mb-0">Add New Product</h1>
                                 </div>
 
-                                <div className="d-block d-md-none gap-2">
-                                    <Link to="/Newcategory" className="nav-link rounded-4 mb-2 btn btn-outline-primary btn-sm">
-                                        <i className="bi bi-folder-plus me-2"></i>New Category
+                                <div>
+                                    <Link
+                                        to="/Newcategory"
+                                        className="nav-link rounded-4 btn btn-primary btn-sm"
+                                    >
+                                        <i className="bi bi-folder-plus me-2"></i>
+                                        New Category
                                     </Link>
                                 </div>
                             </div>
-                            
+
 
                             <div className="row g-4">
                                 <div className="col-lg-8">
