@@ -216,7 +216,7 @@ const Newproduct = () => {
                     <div className="position-relative d-inline-flex justify-content-center align-items-center">
                         <i
                             className="bi bi-basket-fill text-primary"
-                            style={{ fontSize: "3.5rem" }}
+                            style={{ fontSize: "2.5rem" }}
                         ></i>
 
                         <div

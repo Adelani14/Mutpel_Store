@@ -30,14 +30,14 @@ function MobileBottomNav() {
                 <NavLink to="/productlisting" className={({ isActive }) =>
                     `nav-item ${isActive ? "active" : ""}`
                 }>
-                    <i className="bi bi-house fs-5"></i>
+                    <i className="bi bi-house "></i>
                     <small>Home</small>
                 </NavLink>
 
                 <NavLink to="/categories" className={({ isActive }) =>
                     `nav-item ${isActive ? "active" : ""}`
                 }>
-                    <i className="bi bi-grid fs-5"></i>
+                    <i className="bi bi-grid "></i>
                     <small>Categories</small>
                 </NavLink>
 
@@ -49,7 +49,7 @@ function MobileBottomNav() {
                     }
                 >
                     <div className="cart-icon">
-                        <i className="bi bi-cart4 fs-5"></i>
+                        <i className="bi bi-cart4 "></i>
 
                         <span className="cart-badge">
                             {cartCount}
@@ -62,13 +62,13 @@ function MobileBottomNav() {
                 <NavLink to="/wishlist" className={({ isActive }) =>
                     `nav-item ${isActive ? "active" : ""}`
                 }>
-                    <i className="bi bi-heart fs-5"></i>
+                    <i className="bi bi-heart "></i>
                     <small>Wishlist</small>
                 </NavLink>
                 <NavLink to="/profile" className={({ isActive }) =>
                     `nav-item ${isActive ? "active" : ""}`
                 }>
-                    <i className="bi bi-person fs-5"></i>
+                    <i className="bi bi-person "></i>
                     <small>Account</small>
                 </NavLink>
 
