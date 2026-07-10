@@ -166,7 +166,7 @@ const NewCategory = () => {
                                 <div className="d-flex align-items-center justify-content-between gap-3 mb-4">
                                     <div>
                                         <p className="text-muted mb-1">Products / Category</p>
-                                        <h1 className="h4 mb-0">Create New Category</h1>
+                                        <h1 className="h4 mb-0">Create Category</h1>
                                     </div>
                                     <div className="d-flex gap-2 d-block d-md-none">
                                         <Link to="/Newproduct" className="btn btn-primary btn-sm">

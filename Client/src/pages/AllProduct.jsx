@@ -79,7 +79,7 @@ const AllProduct = () => {
 
                 <div className='d-flex justify-content-between'>
                     <h2 className="h6 mb-4">Product Management</h2>
-                    <div className=" gap-2 mb-4 d-flex d-md-none">
+                    <div className=" gap-2 mb-4 d-none d-md-flex">
                         <Link to="/newproduct" className="btn btn-primary btn-sm">New Product</Link>
                         <Link to="/admindashboard" className="btn btn-outline-secondary btn-sm ms-2">Dashboard</Link>
                     </div>
