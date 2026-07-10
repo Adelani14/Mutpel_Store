@@ -4,6 +4,7 @@ import Axios from "../utils/axiosInstance.js";
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 import MobileBottomNav from "../components/MobileBottomNav.jsx";
+import { Link } from "react-router-dom";
 
 
 const Profile = () => {
@@ -12,6 +13,7 @@ const Profile = () => {
     const [email, setEmail] = useState("");
     const [fullName, setFullName] = useState("");
     const [loading, setLoading] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const getUsername = async () => {
         try {
@@ -19,6 +21,9 @@ const Profile = () => {
 
             setFullName(res.data?.user?.fullName || "");
             setEmail(res.data?.user?.email || "");
+            if (res.data.user.role === "admin") {
+                setIsAdmin(true);
+            }
         } catch (error) {
             console.log(error);
         }
@@ -106,7 +111,13 @@ const Profile = () => {
 
                 <div className="row g-4">
                     <ul className="list-group shadow-sm rounded-4">
-
+                        {isAdmin && (
+                            <li className="list-group-item"><Link to="/admindashboard" className="text-decoration-none text-dark">
+                                <i className="bi bi-house me-2"></i>
+                                Admin Dashboard
+                            </Link>
+                            </li>
+                        )}
                         <li className="list-group-item">
                             <i className="bi bi-inbox me-2"></i>
                             Inbox
@@ -236,7 +247,7 @@ const Profile = () => {
 
                     </main>
                 </div>
-            </div>
+            </div >
             <MobileBottomNav />
         </>
     );

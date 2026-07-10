@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Helpcenter from '../components/Helpcenter.jsx';
 import Axios from "../utils/axiosInstance.js"
 import AdminMobileBottomNav from '../components/AdminMobileBottomNav.jsx';
+import Header from '../components/Header.jsx';
 
 const AllProduct = () => {
 
@@ -73,11 +74,12 @@ const AllProduct = () => {
                 </div>
             )}
             <Helpcenter />
-            <div className="admin-card  mx-5 mt-5" style={{ minWidth: 0 }}>
+            <Header />
+            <div className="admin-card mb-5 mx-5 mt-5" style={{ minWidth: 0 }}>
 
                 <div className='d-flex justify-content-between'>
                     <h2 className="h6 mb-4">Product Management</h2>
-                    <div className="d-flex gap-2 mb-4">
+                    <div className=" gap-2 mb-4 d-flex d-md-none">
                         <Link to="/newproduct" className="btn btn-primary btn-sm">New Product</Link>
                         <Link to="/admindashboard" className="btn btn-outline-secondary btn-sm ms-2">Dashboard</Link>
                     </div>

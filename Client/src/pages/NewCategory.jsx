@@ -139,8 +139,8 @@ const NewCategory = () => {
                         <div className="col-xl-2 d-none d-md-block">
                             <div className="card rounded-4 shadow-sm border-0 p-3 h-100">
                                 <div className="nav flex-column nav-pills" aria-orientation="vertical">
-                                    <Link to="/Newproduct" className="nav-link active rounded-4 mb-2">
-                                        <i className="bi bi-box-seam me-2"></i>New Product
+                                    <Link to="/Newcategory" className="nav-link active rounded-4 mb-2">
+                                        <i className="bi bi-box-seam me-2"></i>New Categories
                                     </Link>
                                     <Link to="/Admindashboard" className="nav-link rounded-4 mb-2">
                                         <i className="bi bi-speedometer2 me-2"></i>Dashboard
@@ -169,7 +169,7 @@ const NewCategory = () => {
                                         <h1 className="h4 mb-0">Create New Category</h1>
                                     </div>
                                     <div className="d-flex gap-2 d-block d-md-none">
-                                        <Link to="/Newproduct" className="nav-link rounded-4 mb-2 btn btn-primary btn-sm">
+                                        <Link to="/Newproduct" className="btn btn-primary btn-sm">
                                             <i className="bi bi-box-seam me-2"></i>New Product
                                         </Link>
                                     </div>

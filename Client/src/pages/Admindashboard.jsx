@@ -147,11 +147,28 @@ const Admindashboard = () => {
                             >
                                 <i className="bi bi-basket-fill fs-5"></i>
                             </div>
-                            <div><h1 className="h5 mb-0 text-primary">Mutpel Admin</h1></div>
+                            <div><h1 className="h5 mb-0 text-primary">Mutpel Household</h1></div>
                         </div>
-                        <div className="d-flex align-items-center gap-3">
+                        <div className="d-flex align-items-center gap-3 d-none d-md-flex">
                             <button className="btn btn-outline-secondary btn-sm">Filter</button>
                             <button className="btn btn-primary btn-sm"><a href="/NewProduct" className="text-white text-decoration-none">New Product</a></button>
+                        </div>
+
+                        <div className="dropdown">
+                            <button
+                                className="btn btn-link text-primary"
+                                data-bs-toggle="dropdown"
+                            >
+                                <i className="bi bi-person fs-4"></i>
+                            </button>
+
+                            <ul className="dropdown-menu dropdown-menu-end">
+                                <li><Link to="/productlisting" className="dropdown-item"><i className="bi bi-house me-2"></i>Home</Link></li>
+                                <li><Link to="/categories" className="dropdown-item"><i className="bi bi-list me-2"></i>Categories</Link></li>
+                                <li><Link to="/wishlist" className="dropdown-item"><i className="bi bi-heart me-2"></i>Wishlist</Link></li>
+                                <li><Link to="/cart" className="dropdown-item"><i className="bi bi-cart me-2"></i>Cart</Link></li>
+                                <li><Link to="/profile" className="dropdown-item"><i className="bi bi-person me-2"></i>Account</Link></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -163,7 +180,7 @@ const Admindashboard = () => {
                 <div className="container-fluid px-3">
                     <div className="d-flex ">
 
-                        <div className={`sidebar ${sidebarOpen ? 'open' : ''} `}>
+                        <div className={`sidebar ${sidebarOpen ? 'open' : ''}  d-none d-md-block col-xl-2`}>
                             <div className="card rounded-4 shadow-sm border-0 p-3 h-100">
                                 <div className="nav  flex-column nav-pills " aria-orientation="vertical">
                                     <a className="nav-link active rounded-4 mb-2" href="#"><i className="bi bi-speedometer2 me-2"></i>Dashboard</a>

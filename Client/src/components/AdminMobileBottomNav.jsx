@@ -62,11 +62,11 @@ function AdminMobileBottomNav() {
                     <small>Store</small>
                 </NavLink>
 
-                <NavLink to="/profile" className={({ isActive }) =>
+                <NavLink to="/allproducts" className={({ isActive }) =>
                     `nav-item ${isActive ? "active" : ""}`
                 }>
-                    <i className="bi bi-person fs-5"></i>
-                    <small>Account</small>
+                    <i className="bi bi-box-seam fs-5"></i>
+                    <small>Products</small>
                 </NavLink>
 
             </nav>

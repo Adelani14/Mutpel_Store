@@ -269,10 +269,10 @@ const Newproduct = () => {
                                     <h1 className="h4 mb-0">Add New Product</h1>
                                 </div>
 
-                                <div>
+                                <div className="d-flex gap-2 d-block d-md-none">
                                     <Link
                                         to="/Newcategory"
-                                        className="nav-link rounded-4 btn btn-primary btn-sm"
+                                        className="btn btn-primary btn-sm"
                                     >
                                         <i className="bi bi-folder-plus me-2"></i>
                                         New Category
