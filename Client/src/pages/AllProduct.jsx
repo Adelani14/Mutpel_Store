@@ -75,7 +75,7 @@ const AllProduct = () => {
             )}
             <Helpcenter />
             <Header />
-            <div className="admin-card mb-5 mx-5 mt-5" style={{ minWidth: 0 }}>
+            <div className="admin-card mb-5 mx-5 mt-2" style={{ minWidth: 0 }}>
 
                 <div className='d-flex justify-content-between'>
                     <h2 className="h6 mb-4">Product Management</h2>
@@ -85,7 +85,7 @@ const AllProduct = () => {
                     </div>
                 </div>
                 <div className="table-responsive">
-                    <table className="table table-hover align-middle mb-0">
+                    <table className="table table-hover mb-0">
                         <thead className="table-secondary">
                             <tr>
                                 <th>Product</th>
@@ -113,7 +113,7 @@ const AllProduct = () => {
 
                         </tbody>
                     </table>
-                    <div className="d-flex justify-content-between mt-4 mx-5 mb-5">
+                    <div className="d-flex justify-content-between mt-4 mx-2 mb-4">
                         <button
                             className="btn btn-secondary"
                             disabled={page === 1}

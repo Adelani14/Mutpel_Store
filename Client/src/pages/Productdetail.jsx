@@ -20,6 +20,8 @@ const Productdetail = () => {
   const [cartMessage, setCartMessage] = useState("");
   const [cartCount, setCartCount] = useState(0);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
+  const [currentImage, setCurrentImage] = useState(0);
+  const [showGallery, setShowGallery] = useState(false);
 
   const [quantity, setQuantity] = useState(1);
 
@@ -175,6 +177,18 @@ const Productdetail = () => {
 
   };
 
+  const nextImage = () => {
+    setCurrentImage((prev) =>
+      prev === product.imagespath.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const previousImage = () => {
+    setCurrentImage((prev) =>
+      prev === 0 ? product.imagespath.length - 1 : prev - 1
+    );
+  };
+
 
 
   useEffect(() => {
@@ -196,6 +210,23 @@ const Productdetail = () => {
 
     loadData();
   }, []);
+
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!showGallery) return;
+
+      if (e.key === "ArrowRight") nextImage();
+
+      if (e.key === "ArrowLeft") previousImage();
+
+      if (e.key === "Escape") setShowGallery(false);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showGallery, product]);
 
 
 
@@ -329,18 +360,51 @@ const Productdetail = () => {
             <div className="row g-4" >
               <div className="col-lg-4 shadow-lg rounded-4 border-0 p-4">
                 <div className="card rounded overflow-hidden border-0">
-                  <img src={product?.imagespath?.[0]} className="img-fluid" alt={product?.title} style={{ height: "260px" }} />
+                  <img
+                    src={product?.imagespath?.[currentImage]}
+                    className="img-fluid rounded-4"
+                    style={{
+                      width: "100%",
+                      height: "420px",
+                      objectFit: "contain",
+                      cursor: "zoom-in",
+                    }}
+                    onClick={() => setShowGallery(true)}
+                  />
+                  <span>
+                    {currentImage + 1} / {product?.imagespath?.length}
+                  </span>
                 </div>
-                <div className="d-flex align-items-center gap-3 mt-3 overflow-auto">
-                  <a href={product?.imagespath?.[1]} target="_blank" rel="noopener noreferrer">
-                    <img src={product?.imagespath?.[1]} className="img-fluid rounded-2" style={{ width: "80px", height: "80px" }} alt={product?.title} />
-                  </a>
-                  <a href={product?.imagespath?.[2]} target="_blank" rel="noopener noreferrer">
-                    <img src={product?.imagespath?.[2]} className="img-fluid rounded-2" style={{ width: "80px", height: "80px" }} />
-                  </a>
-                  <a href={product?.imagespath?.[3]} target="_blank" rel="noopener noreferrer">
-                    <img src={product?.imagespath?.[3]} className="img-fluid rounded-2" style={{ width: "80px", height: "80px" }} alt="" />
-                  </a>
+                <div className="d-flex gap-2 mt-3 overflow-auto">
+                  <button
+                    className="btn btn-light rounded-circle shadow-sm"
+                    onClick={previousImage}
+                  >
+                    <i className="bi bi-chevron-left"></i>
+                  </button>
+                  {product?.imagespath?.map((image, index) => (
+                    <img
+                      key={index}
+                      src={image}
+                      onClick={() => { setCurrentImage(index); setShowGallery(true); }}
+                      className={`rounded-3 ${currentImage === index
+                        ? "border border-3 border-primary"
+                        : "border"
+                        }`}
+                      style={{
+                        width: 75,
+                        height: 75,
+                        cursor: "pointer",
+                        objectFit: "cover",
+                      }}
+                    />
+                  ))}
+                  <button
+                    className="btn btn-light rounded-circle shadow-sm"
+                    onClick={nextImage}
+                  >
+                    <i className="bi bi-chevron-right"></i>
+                  </button>
                 </div>
               </div>
               <div className="col-lg-4 ">
@@ -662,9 +726,86 @@ const Productdetail = () => {
 
 
 
+      {showGallery && (
+        <div
+          className="modal fade show d-block"
+          style={{
+            background: "rgba(0,0,0,.9)",
+            zIndex: 99999,
+          }}
+          onClick={() => setShowGallery(false)}
+        >
+          <div
+            className="modal-dialog modal-fullscreen"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="modal-content bg-dark border-0">
 
+              <div className="modal-header border-0">
+                <button
+                  className="btn-close btn-close-white"
+                  onClick={() => setShowGallery(false)}
+                />
+              </div>
 
+              <div className="modal-body d-flex flex-column justify-content-center align-items-center">
 
+                <div className="position-relative">
+
+                  <button
+                    className="btn btn-light position-absolute top-50 start-0 translate-middle-y"
+                    onClick={previousImage}
+                  >
+                    <i className="bi bi-chevron-left"></i>
+                  </button>
+
+                  <img
+                    src={product.imagespath[currentImage]}
+                    className="img-fluid"
+                    style={{
+                      maxHeight: "70vh",
+                      objectFit: "contain",
+                    }}
+                  />
+
+                  <button
+                    className="btn btn-light position-absolute top-50 end-0 translate-middle-y"
+                    onClick={nextImage}
+                  >
+                    <i className="bi bi-chevron-right"></i>
+                  </button>
+
+                </div>
+
+                <div className="text-white mt-3">
+                  {currentImage + 1} / {product.imagespath.length}
+                </div>
+
+                <div className="d-flex gap-2 mt-4 flex-wrap justify-content-center">
+                  {product.imagespath.map((img, index) => (
+                    <img
+                      key={index}
+                      src={img}
+                      onClick={() => setCurrentImage(index)}
+                      className={`rounded ${currentImage === index
+                        ? "border border-3 border-primary"
+                        : ""
+                        }`}
+                      style={{
+                        width: 70,
+                        height: 70,
+                        objectFit: "cover",
+                        cursor: "pointer",
+                      }}
+                    />
+                  ))}
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
 
