@@ -470,3 +470,9 @@
     width: 100%;
   }
 }
+
+.product-card img {
+
+  transition: opacity .5s ease;
+
+}

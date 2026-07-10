@@ -22,6 +22,7 @@ const Productdetail = () => {
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
   const [showGallery, setShowGallery] = useState(false);
+  const [currentIndexes, setCurrentIndexes] = useState({});
 
   const [quantity, setQuantity] = useState(1);
 
@@ -188,6 +189,39 @@ const Productdetail = () => {
       prev === 0 ? product.imagespath.length - 1 : prev - 1
     );
   };
+
+
+
+  useEffect(() => {
+
+    if (!relatedProducts.length) return;
+
+    const interval = setInterval(() => {
+
+      setCurrentIndexes(prev => {
+
+        const updated = { ...prev };
+
+        relatedProducts.forEach(product => {
+
+          const current = updated[product._id] || 0;
+
+          updated[product._id] =
+            current === product.imagespath.length - 1
+              ? 0
+              : current + 1;
+
+        });
+
+        return updated;
+
+      });
+
+    }, 2500);
+
+    return () => clearInterval(interval);
+
+  }, [relatedProducts]);
 
 
 
@@ -650,16 +684,61 @@ const Productdetail = () => {
               </div>
               <div className="row g-3">
                 {relatedProducts.map((relatedProduct) => (
-                  <div className=" product-card col-6 col-sm-4 col-xl-3" key={relatedProduct._id}>
-                    <div className="card rounded-4 shadow-sm border-0 h-100">
-                      <img src={relatedProduct?.imagespath[0]} className="card-img-top rounded-top-4" alt={relatedProduct?.title} style={{ height: 160 }} />
-                      <div className="card-body">
-                        <h3 className="h6">{relatedProduct?.title}</h3>
-                        <p className="text-muted mb-2">₦{relatedProduct?.price}</p>
-                        <a href={`/productdetail/${relatedProduct._id}`} className="btn btn-primary btn-sm">View</a>
+                  <Link
+                    to={`/productdetail/${relatedProduct._id}`}
+                    className="text-decoration-none text-dark"
+                  >
+                    <div className="card border-0 rounded-4 shadow-sm h-100 overflow-hidden product-card">
+
+                      <div className="position-relative">
+
+                        <img
+                          src={relatedProduct?.imagespath[currentIndexes[relatedProduct._id] || 0]}
+                          className="card-img-top"
+                          style={{
+                            height: 220,
+                            objectFit: "cover"
+                          }}
+                        />
+
+                        {relatedProduct.discountPercentage > 0 && (
+                          <span className="badge bg-danger position-absolute top-0 start-0 m-2">
+                            -{relatedProduct.discountPercentage}%
+                          </span>
+                        )}
+
+                        <button
+                          className="btn btn-light rounded-circle position-absolute top-0 end-0 m-2"
+                        >
+                          <i className="bi bi-heart"></i>
+                        </button>
+
                       </div>
+
+                      <div className="card-body">
+
+                        <h6 className="fw-semibold">
+                          {relatedProduct.title}
+                        </h6>
+
+                        <div className="text-warning small mb-2">
+                          ★★★★☆
+                        </div>
+
+                        <div className="fw-bold fs-5">
+                          ₦{relatedProduct.price}
+                        </div>
+
+                        {relatedProduct.previousPrice > 0 && (
+                          <small className="text-decoration-line-through text-muted">
+                            ₦{relatedProduct.previousPrice}
+                          </small>
+                        )}
+
+                      </div>
+
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
 
