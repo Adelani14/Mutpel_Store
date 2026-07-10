@@ -68,7 +68,7 @@ const Profile = () => {
                 </div>
             )}
 
-            <div className="container py-4">
+            <div className="container mt-2 mb-5">
 
                 <div className="row g-4 mb-4">
                     <div className="card h-100 border-0 shadow-sm rounded-4">

@@ -5,8 +5,8 @@ const Landing = () => {
     return (
         <>
 
+            <Helpcenter />
             <header className="container-fluid py-3">
-                <Helpcenter />
                 <div className="d-flex align-items-center gap-2">
 
                     <div className="d-flex align-items-center gap-2">

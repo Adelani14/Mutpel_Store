@@ -429,6 +429,7 @@
 
 .card {
   transition: .25s ease;
+  border:#f5f5f5
 }
 
 .card:hover {

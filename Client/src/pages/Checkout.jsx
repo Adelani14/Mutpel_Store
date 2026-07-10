@@ -288,7 +288,7 @@ const Checkout = () => {
                 </div>
             </main>
 
-            <Link to="/productlisting"> <i className="bi bi-arrow-left"></i> Go back & continue shopping</Link>
+            <Link to="/productlisting"> <i className="bi bi-arrow-left mb-3"></i> Go back & continue shopping</Link>
 
 
         </>

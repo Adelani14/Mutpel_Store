@@ -76,7 +76,7 @@ const Admindashboard = () => {
         try {
             const res = await Axios.get("/api/users/Username");
 
-            setFirstName(res.data?.user?.firstName || "");
+            setFirstName(res.data?.user?.firstname || "");
         } catch (error) {
             console.log(error);
         }
@@ -125,8 +125,8 @@ const Admindashboard = () => {
                     </h5>
                 </div>
             )}
+            <Helpcenter />
             <header className="bg-white shadow-sm sticky-top" style={{ zIndex: 1100 }}>
-                <Helpcenter />
                 <div className="container-fluid py-3">
                     <div className="d-flex align-items-center justify-content-between gap-3 flex-wrap">
                         <div className="d-flex align-items-center gap-2">
