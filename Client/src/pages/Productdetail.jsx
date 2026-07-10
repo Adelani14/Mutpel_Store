@@ -226,24 +226,32 @@ const Productdetail = () => {
 
 
   useEffect(() => {
+
     const loadData = async () => {
+
       setLoading(true);
 
       try {
+
         await Promise.all([
           fetchProduct(),
           fetchCart(),
-          fetchCartCount(),
-          fetchCart(),
-
+          fetchCartCount()
         ]);
+
+        setCurrentImage(0);
+
       } finally {
+
         setLoading(false);
+
       }
+
     };
 
     loadData();
-  }, []);
+
+  }, [id]);
 
 
   useEffect(() => {
@@ -682,63 +690,69 @@ const Productdetail = () => {
                 <h2 className="h5 mb-0">You Might Also Like</h2>
                 <a href="/product-listing" className="text-primary text-decoration-none">Explore More</a>
               </div>
+
               <div className="row g-3">
 
                 {relatedProducts.map((relatedProduct) => (
 
+                  <div
+                    key={relatedProduct._id}
+                    className="col-6 col-md-4 col-lg-3"
+                  >
 
-                  <div className="card border-0 rounded-4 shadow-sm h-100 overflow-hidden product-card">
-                    <Link
-                      to={`/productdetail/${relatedProduct._id}`}
-                      className="text-decoration-none text-dark"
-                    >
-                      <div className="position-relative">
+                    <div className="card border-0 rounded-4 shadow-sm h-100 overflow-hidden product-card">
+                      <Link
+                        to={`/productdetail/${relatedProduct._id}`}
+                        className="text-decoration-none text-dark"
+                      >
+                        <div className="position-relative">
 
-                        <img
-                          src={relatedProduct?.imagespath[currentIndexes[relatedProduct._id] || 0]}
-                          className="card-img-top"
-                          style={{
-                            height: 220,
-                            objectFit: "cover"
-                          }}
-                        />
+                          <img
+                            src={relatedProduct?.imagespath[currentIndexes[relatedProduct._id] || 0]}
+                            className="card-img-top"
+                            style={{
+                              height: 220,
+                              objectFit: "cover"
+                            }}
+                          />
 
-                        {relatedProduct.discountPercentage > 0 && (
-                          <span className="badge bg-danger position-absolute top-0 start-0 m-2">
-                            -{relatedProduct.discountPercentage}%
-                          </span>
-                        )}
+                          {relatedProduct.discountPercentage > 0 && (
+                            <span className="badge bg-danger position-absolute top-0 start-0 m-2">
+                              -{relatedProduct.discountPercentage}%
+                            </span>
+                          )}
 
-                        <button
-                          className="btn btn-light rounded-circle position-absolute top-0 end-0 m-2"
-                        >
-                          <i className="bi bi-heart"></i>
-                        </button>
+                          <button
+                            className="btn btn-light rounded-circle position-absolute top-0 end-0 m-2"
+                          >
+                            <i className="bi bi-heart"></i>
+                          </button>
 
-                      </div>
-
-                      <div className="card-body">
-
-                        <h6 className="fw-semibold">
-                          {relatedProduct.title}
-                        </h6>
-
-                        <div className="text-warning small mb-2">
-                          ★★★★☆
                         </div>
 
-                        <div className="fw-bold fs-5">
-                          ₦{relatedProduct.price}
+                        <div className="card-body">
+
+                          <h6 className="fw-semibold">
+                            {relatedProduct.title}
+                          </h6>
+
+                          <div className="text-warning small mb-2">
+                            ★★★★☆
+                          </div>
+
+                          <div className="fw-bold fs-5">
+                            ₦{relatedProduct.price}
+                          </div>
+
+                          {relatedProduct.previousPrice > 0 && (
+                            <small className="text-decoration-line-through text-muted">
+                              ₦{relatedProduct.previousPrice}
+                            </small>
+                          )}
+
                         </div>
-
-                        {relatedProduct.previousPrice > 0 && (
-                          <small className="text-decoration-line-through text-muted">
-                            ₦{relatedProduct.previousPrice}
-                          </small>
-                        )}
-
-                      </div>
-                    </Link>
+                      </Link>
+                    </div>
                   </div>
                 ))}
 
