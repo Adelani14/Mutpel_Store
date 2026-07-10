@@ -71,6 +71,16 @@ const Admindashboard = () => {
             console.error(error);
         }
     };
+    const [firstName, setFirstName] = useState("");
+    const getUsername = async () => {
+        try {
+            const res = await Axios.get("/api/users/Username");
+
+            setFirstName(res.data?.user?.firstName || "");
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
 
 
@@ -81,6 +91,7 @@ const Admindashboard = () => {
             try {
                 await Promise.all([
                     fetchDashboardStats(),
+                    getUsername(),
                     fetchProducts(page),
                 ]);
             } finally {
@@ -107,10 +118,10 @@ const Admindashboard = () => {
                     }}
 
                 >
-                    <div className="spinner-border text-primary" style={{ width: "4rem", height: "4rem" }}></div>
+                    <div className="spinner-border text-primary" style={{ width: "2rem", height: "2rem" }}></div>
 
                     <h5 className="mt-3 fw-semibold text-dark">
-                        Loading products...
+                        Dashboard Overview...
                     </h5>
                 </div>
             )}
@@ -162,7 +173,7 @@ const Admindashboard = () => {
                             <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 mb-4">
                                 <div>
                                     <h1 className="h4 mb-1">Dashboard Overview</h1>
-                                    <p className="text-muted mb-0">Welcome back, Administrator. Here’s what’s happening with Mutpel today.</p>
+                                    <p className="text-muted mb-0">Welcome back, {firstName}. Here’s what’s happening with Mutpel today.</p>
                                 </div>
 
                             </div>

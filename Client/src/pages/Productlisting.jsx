@@ -74,7 +74,7 @@ const Productlisting = () => {
                     }}
 
                 >
-                    <div className="spinner-border text-primary" style={{ width: "4rem", height: "4rem" }}></div>
+                    <div className="spinner-border text-primary" style={{ width: "2rem", height: "2rem" }}></div>
 
                     <h5 className="mt-3 fw-semibold text-dark">
                         Loading products...

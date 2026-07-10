@@ -5,7 +5,7 @@ import Helpcenter from '../components/Helpcenter.jsx';
 import Axios from "../utils/axiosInstance.js"
 
 const AllProduct = () => {
- 
+
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
@@ -36,14 +36,7 @@ const AllProduct = () => {
         }
     };
 
-    if (loading) {
-        return (
-            <div className="d-flex flex-column align-items-center justify-content-center vh-100">
-                <span className="spinner-border spinner-border-lg "></span>
-                <i>Fetching products...</i>
-            </div>
-        );
-    }
+
 
 
 
@@ -52,6 +45,24 @@ const AllProduct = () => {
 
     return (
         <>
+            {loading && (
+                <div
+                    className="position-fixed top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+                    style={{
+                        backgroundColor: "rgba(0, 0, 0, 0.25)",
+                        backdropFilter: "blur(6px)",
+                        WebkitBackdropFilter: "blur(5px)",
+                        zIndex: 9999,
+                    }}
+
+                >
+                    <div className="spinner-border text-primary" style={{ width: "2rem", height: "2rem" }}></div>
+
+                    <h5 className="mt-3 fw-semibold text-dark">
+                        Loading products...
+                    </h5>
+                </div>
+            )}
             <Helpcenter />
             <div className="admin-card  mx-5 mt-5" style={{ minWidth: 0 }}>
 

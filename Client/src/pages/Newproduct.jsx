@@ -10,6 +10,7 @@ const Newproduct = () => {
     const [hasSizes, setHasSizes] = useState("none");
     const [sizes, setSizes] = useState([]);
     const [colors, setColors] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
 
@@ -122,7 +123,6 @@ const Newproduct = () => {
     };
 
 
-    const [loading, setLoading] = useState(false);
 
 
     const saveProduct = async () => {
@@ -202,6 +202,25 @@ const Newproduct = () => {
 
     return (
         <>
+
+            {loading && (
+                <div
+                    className="position-fixed top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+                    style={{
+                        backgroundColor: "rgba(0, 0, 0, 0.25)",
+                        backdropFilter: "blur(6px)",
+                        WebkitBackdropFilter: "blur(5px)",
+                        zIndex: 9999,
+                    }}
+
+                >
+                    <div className="spinner-border text-primary" style={{ width: "2rem", height: "2rem" }}></div>
+
+                    <h5 className="mt-3 fw-semibold text-dark">
+                        Saving...
+                    </h5>
+                </div>
+            )}
             <Helpcenter />
             <Header />
 

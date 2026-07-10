@@ -11,6 +11,7 @@ const Profile = () => {
 
     const [email, setEmail] = useState("");
     const [fullName, setFullName] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const getUsername = async () => {
         try {
@@ -25,6 +26,7 @@ const Profile = () => {
 
 
     const logout = async () => {
+        setLoading(true);
         try {
             await Axios.post("/api/users/logout");
 
@@ -35,16 +37,38 @@ const Profile = () => {
         } catch (error) {
             console.error(error);
         }
+        finally {
+            setLoading(false);
+        }
     };
 
-     useEffect(() => {
+    useEffect(() => {
         getUsername();
-     },[])
+    }, [])
 
     return (
         <>
 
-            <div className="container my-2">
+            {loading && (
+                <div
+                    className="position-fixed top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+                    style={{
+                        backgroundColor: "rgba(0, 0, 0, 0.25)",
+                        backdropFilter: "blur(6px)",
+                        WebkitBackdropFilter: "blur(5px)",
+                        zIndex: 9999,
+                    }}
+
+                >
+                    <div className="spinner-border text-primary" style={{ width: "2rem", height: "2rem" }}></div>
+
+                    <h5 className="mt-3 fw-semibold text-dark">
+                        Signing out...
+                    </h5>
+                </div>
+            )}
+
+            <div className="container py-4">
 
                 <div className="row g-4 mb-4">
                     <div className="card h-100 border-0 shadow-sm rounded-4">
