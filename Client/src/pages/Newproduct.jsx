@@ -269,17 +269,13 @@ const Newproduct = () => {
                                     <h1 className="h4 mb-0">Add New Product</h1>
                                 </div>
 
-                                <div className="d-flex d-md-none gap-2">
-                                    <Link to="/Newcategory" className="nav-link rounded-4 mb-2">
+                                <div className="d-block d-md-none gap-2">
+                                    <Link to="/Newcategory" className="nav-link rounded-4 mb-2 btn btn-outline-primary btn-sm">
                                         <i className="bi bi-folder-plus me-2"></i>New Category
                                     </Link>
                                 </div>
                             </div>
-                            <div>
-                                <Link to="/Newcategory" className="nav-link rounded-4 mb-2">
-                                    <i className="bi bi-folder-plus me-2"></i>New Category
-                                </Link>
-                            </div>
+                            
 
                             <div className="row g-4">
                                 <div className="col-lg-8">
@@ -467,7 +463,7 @@ const Newproduct = () => {
                                             </div> */}
                                         </div>
                                     </div>
-                                    <div className="d-flex gap-2 justify-content-end">
+                                    <div className="d-flex gap-2 mb-3 justify-content-end">
                                         <Link className="btn btn-outline-secondary btn-sm" to="/Admindashboard">
                                             Cancel
                                         </Link>

@@ -168,8 +168,8 @@ const NewCategory = () => {
                                         <p className="text-muted mb-1">Products / Category</p>
                                         <h1 className="h4 mb-0">Create New Category</h1>
                                     </div>
-                                    <div className="d-flex gap-2 d-none d-md-block">
-                                        <Link to="/Newproduct" className="nav-link rounded-4 mb-2">
+                                    <div className="d-flex gap-2 d-block d-md-none">
+                                        <Link to="/Newproduct" className="nav-link rounded-4 mb-2 btn btn-outline-primary btn-sm">
                                             <i className="bi bi-box-seam me-2"></i>New Product
                                         </Link>
                                     </div>
@@ -230,7 +230,7 @@ const NewCategory = () => {
                                         )}
                                     </div>
                                 </div>
-                                <div className="d-flex d-md-none gap-2 justify-content-end mt-4">
+                                <div className="d-flex gap-2 mb-3 justify-content-end mt-4">
 
                                     <Link to="/admindashboard" className="btn btn-outline-secondary btn-sm">
                                         Cancel
