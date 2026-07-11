@@ -3,7 +3,7 @@ import Axios from "../utils/axiosInstance.js";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const Header = ({ search, setSearch }) => {
+const Header = () => {
 
   const [search, setSearch] = useState("");
 
