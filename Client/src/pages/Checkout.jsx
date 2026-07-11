@@ -264,15 +264,18 @@ const Checkout = () => {
                                         <div>
                                             <h3 className="h6 mb-1">{item.product?.title}</h3>
 
+
+                                            <small className="text-muted mb-0">Quantity: <b>{item.quantity}</b></small>
                                             <div>
-                                                <small className="text-muted mb-0">Quantity: <b>{item.quantity}</b></small>
+                                                {item.size?.length > 0 && (
+                                                    <small className="text-muted mb-0">Size: <b>{item.size}</b></small>
+                                                )}
                                             </div>
-                                            {item.size?.length > 0 && (
-                                                <small className="text-muted mb-0">Size: <b>{item.size}</b></small>
-                                            )}
-                                            {item.color?.length > 0 && (
-                                                <small className="text-muted mb-0">Color: <b>{item.color}</b></small>
-                                            )}
+                                            <div>
+                                                {item.color?.length > 0 && (
+                                                    <small className="text-muted mb-0">Color: <b>{item.color}</b></small>
+                                                )}
+                                            </div>
                                         </div>
 
                                         <div className="ms-auto fw-semibold text-danger">₦{item.product.price * item.quantity}</div>

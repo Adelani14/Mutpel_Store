@@ -23,6 +23,7 @@ import Newcategory from './pages/NewCategory.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import AllProduct from './pages/AllProduct.jsx';
 import Profile from './pages/Profile.jsx';
+import Search from './pages/Search.jsx';
 
 
 
@@ -49,6 +50,7 @@ const router = createBrowserRouter([
       { path: "/productdetail/:id", element: <Productdetail /> },
       { path: "/cart", element: <Cart /> },
       { path: "/checkout", element: <Checkout /> },
+      { path: "/search", element: <Search /> },
     ],
   },
 

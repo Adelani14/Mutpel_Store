@@ -75,7 +75,7 @@ const AllProduct = () => {
             )}
             <Helpcenter />
             <Header />
-            <div className="admin-card mb-5 mx-5 mt-2" style={{ minWidth: 0 }}>
+            <div className="admin-card mb-5 mt-2" style={{ minWidth: 0 }}>
 
                 <div className='d-flex justify-content-between'>
                     <h2 className="h6 mb-4">Product Management</h2>

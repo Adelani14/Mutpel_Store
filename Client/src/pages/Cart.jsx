@@ -199,7 +199,7 @@ const Cart = () => {
 
                         <div className="mt-4">
                             <Link
-                                to="/shop"
+                                to="/productlisting"
                                 className="btn btn-primary btn-lg rounded-pill px-5"
                             >
                                 <i className="bi bi-bag-fill me-2"></i>

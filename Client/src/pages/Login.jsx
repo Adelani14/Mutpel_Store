@@ -99,7 +99,9 @@ const Login = () => {
 
         <div className="card shadow-lg p-4 mt-3" style={{ maxWidth: "480px", width: "100%", borderRadius: "20px" }}>
           <div className="text-center mb-4">
-            <div className="brand-icon rounded-4 d-inline-flex align-items-center justify-content-center bg-primary text-white mb-3" style={{ width: '60px', height: '60px' }}><i className="bi bi-basket-fill fs-4"></i></div>
+            <div className="brand-icon rounded-4 d-inline-flex align-items-center justify-content-center bg-primary text-white mb-3" style={{ width: '60px', height: '60px' }}><i className="bi bi-basket-fill fs-4"></i>
+            <img src="/public/icons/icon-192.png" alt="Mutpel Logo" className="img-fluid" style={{ maxHeight: "40px" }} />
+            </div>
             <h1 className="h4">Welcome Back</h1>
             <p className="text-muted mb-0">Enter your credentials to access your Mutpel account.</p>
           </div>

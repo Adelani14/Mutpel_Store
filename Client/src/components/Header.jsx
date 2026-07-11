@@ -1,10 +1,21 @@
 import { useState, useEffect } from "react";
 import Axios from "../utils/axiosInstance.js";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ search, setSearch }) => {
 
+  const [search, setSearch] = useState("");
 
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    if (!search.trim()) return;
+
+    navigate(`/search?q=${encodeURIComponent(search)}`);
+  };
 
   const [cartCount, setCartCount] = useState(0);
   const fetchCartCount = async () => {
@@ -48,11 +59,16 @@ const Header = () => {
 
               <input
                 type="search"
-                className="form-control border-0"
-                placeholder="Search Products..."
+                className="form-control"
+                placeholder="Search products..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
 
-              <button className="btn btn-primary d-none d-sm-block">
+              <button
+                className="btn btn-primary"
+                type="submit"
+              >
                 Search
               </button>
             </div>
