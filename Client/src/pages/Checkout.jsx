@@ -270,13 +270,11 @@ const Checkout = () => {
                                             {item.size?.length > 0 && (
                                                 <small className="text-muted mb-0">Size: <b>{item.size}</b></small>
                                             )}
-                                        </div>
-                                        <div>
                                             {item.color?.length > 0 && (
                                                 <small className="text-muted mb-0">Color: <b>{item.color}</b></small>
                                             )}
-
                                         </div>
+
                                         <div className="ms-auto fw-semibold text-danger">₦{item.product.price * item.quantity}</div>
                                     </div>
                                 ))}
