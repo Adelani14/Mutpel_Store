@@ -51,7 +51,7 @@ const Header = () => {
             </h1>
           </div>
 
-          <form className="flex-grow-1">
+          <form onSubmit={handleSearch} className="flex-grow-1">
             <div className="input-group shadow-sm rounded-pill overflow-hidden border">
               <span className="input-group-text bg-white border-0">
                 <i className="bi bi-search"></i>

@@ -24,6 +24,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import AllProduct from './pages/AllProduct.jsx';
 import Profile from './pages/Profile.jsx';
 import Search from './pages/Search.jsx';
+import Categories from './pages/Categories.jsx';
 
 
 
@@ -51,6 +52,7 @@ const router = createBrowserRouter([
       { path: "/cart", element: <Cart /> },
       { path: "/checkout", element: <Checkout /> },
       { path: "/search", element: <Search /> },
+      { path: "/categories", element: <Categories /> },
     ],
   },
 
