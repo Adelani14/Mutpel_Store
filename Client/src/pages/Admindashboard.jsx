@@ -83,6 +83,35 @@ const Admindashboard = () => {
             console.log(error);
         }
     };
+    
+    
+    const handleDelete = async (id) => {
+
+        const confirmDelete = window.confirm(
+            "Are you sure you want to delete this product?"
+        );
+
+        if (!confirmDelete) return;
+
+        try {
+
+            await Axios.delete(`/api/products/${id}`);
+
+            setProducts(prev =>
+                prev.filter(product => product._id !== id)
+            );
+
+            alert("Product deleted successfully.");
+
+        } catch (error) {
+
+            console.log(error);
+
+            alert("Failed to delete product.");
+
+        }
+
+    };
 
 
 
@@ -364,10 +393,19 @@ const Admindashboard = () => {
                                                 <td>{product.price}</td>
                                                 <td>{product.stockCount} units</td>
                                                 <td>
-                                                    <button className="btn btn-outline-secondary btn-sm">Edit</button>
+<Link
+                                    to={`/editProduct/${product._id}`}
+                                    className="btn btn-warning flex-fill"
+                                >
+                                    Edit
+                                </Link>
                                                 </td>
                                                 <td>
-                                                    <button className="btn btn-sm"><i className="bi bi-trash"></i></button>
+                                                    <button className="btn btn-danger flex-fill"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDelete(product._id);
+                                    }}><i className="bi bi-trash"></i></button>
                                                 </td>
                                             </tr>
                                         ))}
