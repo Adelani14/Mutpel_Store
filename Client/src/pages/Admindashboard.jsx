@@ -393,7 +393,7 @@ const Admindashboard = () => {
                                                 <td>{product.price}</td>
                                                 <td>{product.stockCount} units</td>
                                                 <td>
-<Link
+
                                    <Link to={`/editProduct/${product._id}`}
                                     className="btn btn-warning flex-fill"
                                 >
