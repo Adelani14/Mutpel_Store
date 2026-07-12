@@ -435,7 +435,7 @@ const Productdetail = () => {
                   >
                     <i className="bi bi-chevron-left"></i>
                   </button>
-                  {product?.imagespath?.map((image, index) => (
+                  {product?.imagespath?.url?.map((image, index) => (
                     <img
                       key={index}
                       src={image}
