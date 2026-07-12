@@ -19,7 +19,7 @@ const Newproduct = () => {
 
             try {
 
-                const response = await Axios.get("/api/categories/fetchCategories")
+                const response = await Axios.get("/api/categories")
 
 
                 setCategories(response.data);
