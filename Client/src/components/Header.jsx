@@ -35,7 +35,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="container-fluid py-3 sticky-top">
+      <header className="container-fluid py-3 bg-white shadow-sm sticky-top">
         <div className="d-flex align-items-center gap-2">
 
           <div className="d-none d-md-flex align-items-center gap-2">

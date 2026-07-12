@@ -386,7 +386,7 @@ const Productdetail = () => {
 
       <Header />
       {cartSuccess && (
-        <div className="position-fixed sticky-top top-0 start-0 w-100 mt-2 px-3 z-3" style={{ zIndex: 9999 }} >
+        <div className="position-fixed top-0 start-0 w-100 mt-2 px-3 z-3" style={{ zIndex: 9999 }} >
           <div className="shadow-lg py-3 bg-success text-white text-center rounded-3">
             {cartMessage}
 
@@ -461,7 +461,7 @@ const Productdetail = () => {
                 </div>
               </div>
               <div className="col-lg-4 ">
-                <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
+                <div className=" rounded-4 shadow-sm border-0 p-4 h-100">
                   {/* <div className="d-flex align-items-center gap-3 mb-3">
                     <span className="badge bg-primary text-white">New Arrival</span>
                     <span className="text-muted">SKU: MK-2024</span>

@@ -5,6 +5,7 @@ import Helpcenter from '../components/Helpcenter.jsx';
 import Axios from "../utils/axiosInstance.js"
 import AdminMobileBottomNav from '../components/AdminMobileBottomNav.jsx';
 import Header from '../components/Header.jsx';
+import ProductCard from '../components/ProductCard.jsx';
 
 const AllProduct = () => {
 
@@ -38,6 +39,34 @@ const AllProduct = () => {
         }
     };
 
+
+    const handleDelete = async (id) => {
+
+        const confirmDelete = window.confirm(
+            "Are you sure you want to delete this product?"
+        );
+
+        if (!confirmDelete) return;
+
+        try {
+
+            await Axios.delete(`/api/products/${id}`);
+
+            setProducts(prev =>
+                prev.filter(product => product._id !== id)
+            );
+
+            alert("Product deleted successfully.");
+
+        } catch (error) {
+
+            console.log(error);
+
+            alert("Failed to delete product.");
+
+        }
+
+    };
 
 
 
@@ -84,35 +113,64 @@ const AllProduct = () => {
                         <Link to="/admindashboard" className="btn btn-outline-secondary btn-sm ms-2">Dashboard</Link>
                     </div>
                 </div>
-                <div className="table-responsive">
-                    <table className="table table-hover mb-0">
-                        <thead className="table-secondary">
-                            <tr>
-                                <th>Product</th>
-                                <th>Category</th>
-                                <th>Price</th>
-                                <th>Stock</th>
-                                <th>Actions</th>
-                                <th>Remove</th>
-                            </tr>
-                        </thead>
-                        <tbody>{products.map((product) => (
-                            <tr key={product._id} style={{ cursor: 'pointer', }} onClick={() => window.location.href = `/product/${product._id}`}>
-                                < td > {product.title}</td>
-                                <td>{product.category.title}</td>
-                                <td>{product.price}</td>
-                                <td>{product.stockCount} units</td>
-                                <td>
-                                    <button className="btn btn-outline-secondary btn-sm">Edit</button>
-                                </td>
-                                <td>
-                                    <button className="btn btn-sm"><i className="bi bi-trash"></i></button>
-                                </td>
-                            </tr>
-                        ))}
+                <div className="row g-2">
+                    {products?.map((product) => (
+                        <div key={product._id} className="card border-0 rounded-4 shadow-sm h-100">
 
-                        </tbody>
-                    </table>
+                            <Link
+                                to={`/editProduct/${product._id}`}
+                                className="text-decoration-none text-dark"
+                            >
+                                <img
+                                    src={product.imagespath[0]}
+                                    className="card-img-top"
+                                    style={{
+                                        height: 220,
+                                        objectFit: "cover"
+                                    }}
+                                />
+
+                                <div className="card-body">
+
+                                    <h6>{product.title}</h6>
+
+                                    <div className="fw-bold">
+                                        ₦{product.price}
+                                    </div>
+
+                                    {product.previousPrice > 0 && (
+                                        <small className="text-decoration-line-through text-muted">
+                                            ₦{product.previousPrice}
+                                        </small>
+                                    )}
+
+                                </div>
+                            </Link>
+
+                            <div className="card-footer bg-white border-0 d-flex gap-2">
+
+                                <Link
+                                    to={`/editProduct/${product._id}`}
+                                    className="btn btn-warning flex-fill"
+                                >
+                                    Edit
+                                </Link>
+
+                                <button
+                                    className="btn btn-danger flex-fill"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDelete(product._id);
+                                    }}
+                                >
+                                    Delete
+                                </button>
+
+                            </div>
+
+                        </div>
+                    ))}
+
                     <div className="d-flex justify-content-between mt-4 mx-2 mb-4">
                         <button
                             className="btn btn-secondary"
@@ -132,6 +190,8 @@ const AllProduct = () => {
                         </button>
                     </div>
                 </div>
+
+
             </div >
             <AdminMobileBottomNav />
         </>
