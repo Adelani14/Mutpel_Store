@@ -414,7 +414,7 @@ const Productdetail = () => {
               <div className="col-lg-4 shadow-lg rounded-4 border-0 p-4">
                 <div className="card rounded overflow-hidden border-0">
                   <img
-                    src={product?.imagespath?.[currentImage]?.url}
+                    src={product?.imagespath?.[currentImage]}
                     className="img-fluid rounded-4"
                     style={{
                       width: "100%",
@@ -435,7 +435,7 @@ const Productdetail = () => {
                   >
                     <i className="bi bi-chevron-left"></i>
                   </button>
-                  {product?.imagespath?.url.map((image, index) => (
+                  {product?.imagespath?.map((image, index) => (
                     <img
                       key={index}
                       src={image}
