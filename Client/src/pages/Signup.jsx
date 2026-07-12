@@ -126,7 +126,7 @@ const Signup = () => {
               <img
                 src="/icons/logo.png"
                 alt="Mutpel Logo"
-                style={{ width: "40px", height: "40px", objectFit: "contain" }}
+                style={{ width: "44px", height: "44px", objectFit: "contain" }}
               />
             </div>
             <h1 className="h4">Create your account</h1>
