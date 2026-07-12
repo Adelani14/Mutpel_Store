@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Axios from "../utils/axiosInstance.js";
 import { Link, NavLink } from "react-router-dom";
+import Header from "../components/Header.jsx";
 
 const Productdetail = () => {
 
@@ -306,7 +307,7 @@ const Productdetail = () => {
         </div>
       )}
       <Helpcenter />
-      <header className="container-fluid py-3">
+      {/* <header className="container-fluid py-3">
         <div className="d-flex align-items-center gap-2">
 
           <div className="d-none d-md-flex align-items-center gap-2">
@@ -381,7 +382,9 @@ const Productdetail = () => {
             </div>
           </div>
         )}
-      </header>
+      </header> */}
+
+      <Header />
 
 
 

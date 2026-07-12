@@ -142,11 +142,14 @@ const Admindashboard = () => {
                         <div className="d-flex align-items-center gap-2">
                             <div
                                 className="brand-icon rounded-3 d-flex align-items-center justify-content-center bg-primary text-white"
-                                style={{ width: '44px', height: '44px', cursor: 'pointer' }}
                                 onClick={toggleSidebar}
                             >
-                                <i className="bi bi-basket-fill fs-5"></i>
-                            </div>
+                                <img
+                                    src="/icons/icon-192.png"
+                                    alt="Mutpel Logo"
+                                    className="img-fluid"
+                                    style={{ width: "40px", height: "40px", objectFit: "contain" }}
+                                />                            </div>
                             <div><h1 className="h5 mb-0 text-primary">Mutpel Household</h1></div>
                         </div>
                         <div className="d-flex align-items-center gap-3 d-none d-md-flex">

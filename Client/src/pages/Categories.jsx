@@ -3,6 +3,7 @@ import Helpcenter from "../components/Helpcenter";
 import { useState, useEffect } from "react";
 import Axios from "../utils/axiosInstance.js";
 import { Link, NavLink } from "react-router-dom";
+import MobileBottomNav from "../components/MobileBottomNav.jsx";
 
 const Categories = () => {
 
@@ -235,6 +236,7 @@ const Categories = () => {
                         </>
                     )}
             </main>
+            <MobileBottomNav />
         </>
     )
 }

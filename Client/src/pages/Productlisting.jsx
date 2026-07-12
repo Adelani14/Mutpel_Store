@@ -15,13 +15,12 @@ const Productlisting = () => {
     const [email, setEmail] = useState("");
     const [fullName, setFullName] = useState("");
 
-    const [search, setSearch] = useState("");
 
-    const filteredProducts = products.filter(product =>
-        product.title.toLowerCase().includes(search.toLowerCase()) ||
-        product.brand?.toLowerCase().includes(search.toLowerCase()) ||
-        product.shortDescription?.toLowerCase().includes(search.toLowerCase())
-    );
+    // const filteredProducts = products.filter(product =>
+    //     product.title.toLowerCase().includes(search.toLowerCase()) ||
+    //     product.brand?.toLowerCase().includes(search.toLowerCase()) ||
+    //     product.shortDescription?.toLowerCase().includes(search.toLowerCase())
+    // );
 
 
 
@@ -98,8 +97,7 @@ const Productlisting = () => {
                 </div>
             )}
             <Helpcenter />
-            <Header search={search}
-                setSearch={setSearch} />
+            <Header />
 
             <main className="py-3 bg-body">
                 <div className="container">
