@@ -119,7 +119,7 @@ const Productdetail = () => {
   };
 
   const addToCart = async () => {
-    setLoading(true);
+    
     try {
       if (product.sizes?.length > 0 && !selectedSize) {
         setCartMessage("Please select a size");
@@ -132,7 +132,7 @@ const Productdetail = () => {
         setCartSuccess(true);
         return;
       }
-
+setLoading(true)
       const response = await Axios.post("/api/cart/addToCart", {
         productId: product._id,
         quantity,
@@ -141,7 +141,7 @@ const Productdetail = () => {
       });
 
       const data = response.data;
-      setLoading(false);
+      setLoading(false)
 
       setCartMessage("Product added successfully to cart");
       setCartSuccess(true);
@@ -386,16 +386,18 @@ const Productdetail = () => {
           </div>
         )}
       </header> */}
-
+<div 
+  className="position-fixed top-0 start-0 w-100   >
       <Header />
       {cartSuccess && (
-        <div className="position-fixed top-0 start-0 w-100 mt-2 px-3 z-3" style={{ zIndex: 9999 }} >
+        <div className="position-fixed start-0 w-100 mt-2 px-3 z-3" style={{ zIndex: 9999 }} >
           <div className="shadow-lg py-3 bg-success text-white text-center rounded-3">
             {cartMessage}
 
           </div>
         </div>
       )}
+      </div>
 
 
 
