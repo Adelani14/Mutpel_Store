@@ -145,9 +145,8 @@ const Admindashboard = () => {
                                 onClick={toggleSidebar}
                             >
                                 <img
-                                    src="/icons/icon-192.png"
+                                    src="/icons/logo.png"
                                     alt="Mutpel Logo"
-                                    className="img-fluid"
                                     style={{ width: "40px", height: "40px", objectFit: "contain" }}
                                 />                            </div>
                             <div><h1 className="h5 mb-0 text-primary">Mutpel Household</h1></div>

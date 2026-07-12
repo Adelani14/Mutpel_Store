@@ -13,9 +13,9 @@ const Footer = () => {
             console.log(error);
         }
     };
-     useEffect(() => {
-            getUsername();
-         },[])
+    useEffect(() => {
+        getUsername();
+    }, [])
     return (
 
         <>
@@ -25,8 +25,11 @@ const Footer = () => {
                         <div className="col-md-4">
                             <div className="d-flex align-items-center gap-3 mb-3">
                                 <div className="brand-icon rounded-3 d-flex align-items-center justify-content-center bg-primary text-white" style={{ width: '44px', height: '44px' }}>
-                                    <i className="bi bi-basket-fill"></i>
-                                </div>
+                                    <img
+                                        src="/icons/logo.png"
+                                        alt="Mutpel Logo"
+                                        style={{ width: "40px", height: "40px", objectFit: "contain" }}
+                                    />                                </div>
                                 <h2 className="h5 mb-0 text-primary">Mutpel</h2>
                             </div>
                             <p className="text-muted">Your premium multi-category store delivering quality accessories, kitchenware, and apparel across Nigeria.</p>

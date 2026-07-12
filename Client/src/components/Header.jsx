@@ -43,7 +43,7 @@ const Header = () => {
               className="brand-icon rounded-3 d-flex align-items-center justify-content-center bg-primary text-white"
             >
               <img
-                src="/icons/icon-192.png"
+                src="/icons/logo.png"
                 alt="Mutpel Logo"
                 className="img-fluid"
                 style={{ width: "40px", height: "40px", objectFit: "contain" }}

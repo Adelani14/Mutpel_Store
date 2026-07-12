@@ -122,13 +122,13 @@ const Signup = () => {
 
         <div className="card shadow-lg p-4 mt-3" style={{ maxWidth: "480px", width: "100%", borderRadius: "20px" }}>
           <div className="text-center mb-4">
-            <div className="brand-icon rounded-4 d-inline-flex align-items-center justify-content-center bg-primary text-white mb-3">
+            <div className="brand-icon rounded-4 d-inline-flex align-items-center justify-content-center bg-primary text-white mb-3" style={{ width: '60px', height: '60px' }}>
               <img
-                src="/icons/icon-192.png"
+                src="/icons/logo.png"
                 alt="Mutpel Logo"
-                className="img-fluid"
                 style={{ width: "40px", height: "40px", objectFit: "contain" }}
-              />            </div>
+              />
+            </div>
             <h1 className="h4">Create your account</h1>
             <p className="text-muted mb-0">Join Mutpel today for exclusive deals and quality goods.</p>
           </div>

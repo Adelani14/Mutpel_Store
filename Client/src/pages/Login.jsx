@@ -103,9 +103,8 @@ const Login = () => {
             style={{ width: "60px", height: "60px" }}
           >
             <img
-              src="/icons/icon-192.png"
+              src="/icons/logo.png"
               alt="Mutpel Logo"
-              className="img-fluid"
               style={{ width: "40px", height: "40px", objectFit: "contain" }}
             />
           </div>
