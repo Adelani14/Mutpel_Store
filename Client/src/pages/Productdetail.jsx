@@ -435,10 +435,10 @@ const Productdetail = () => {
                   >
                     <i className="bi bi-chevron-left"></i>
                   </button>
-                  {product?.imagespath?.url?.map((image, index) => (
+                  {product?.imagespath?.map((image, index) => (
                     <img
                       key={index}
-                      src={image}
+                      src={image.url}
                       onClick={() => { setCurrentImage(index); setShowGallery(true); }}
                       className={`rounded-3 ${currentImage === index
                         ? "border border-3 border-primary"
