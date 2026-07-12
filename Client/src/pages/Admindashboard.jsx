@@ -148,7 +148,8 @@ const Admindashboard = () => {
                                     src="/icons/logo.png"
                                     alt="Mutpel Logo"
                                     style={{ width: "40px", height: "40px", objectFit: "contain" }}
-                                />                            </div>
+                                />
+                            </div>
                             <div><h1 className="h5 mb-0 text-primary">Mutpel Household</h1></div>
                         </div>
                         <div className="d-flex align-items-center gap-3 d-none d-md-flex">
@@ -156,7 +157,7 @@ const Admindashboard = () => {
                             <button className="btn btn-primary btn-sm"><a href="/NewProduct" className="text-white text-decoration-none">New Product</a></button>
                         </div>
 
-                        <div className="dropdown">
+                        <div className="dropdown d-block d-md-none">
                             <button
                                 className="btn btn-link text-primary"
                                 data-bs-toggle="dropdown"

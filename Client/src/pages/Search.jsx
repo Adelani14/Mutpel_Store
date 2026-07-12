@@ -53,7 +53,7 @@ const Search = () => {
             <Helpcenter />
             <Header />
 
-            <main className="container py-5">
+            <main className="container mb-4 mt-2">
 
                 <div className="mb-4">
 
@@ -117,8 +117,8 @@ const Search = () => {
             </main>
 
 
-            <MobileBottomNav />
             <Footer />
+            <MobileBottomNav />
         </>
     );
 };
