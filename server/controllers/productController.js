@@ -143,6 +143,44 @@ export const getSingleProduct = async (req, res) => {
 
 
 
+
+export const searchProducts = async (req, res) => {
+    try {
+
+        const { q } = req.query;
+
+        if (!q) {
+            return res.json({
+                success: true,
+                products: [],
+            });
+        }
+
+        const products = await Product.find({
+            $or: [
+                { title: { $regex: q, $options: "i" } },
+                { brand: { $regex: q, $options: "i" } },
+                { shortDescription: { $regex: q, $options: "i" } },
+                { description: { $regex: q, $options: "i" } },
+                { sku: { $regex: q, $options: "i" } },
+            ],
+        }).populate("category");
+
+        res.status(200).json({
+            success: true,
+            products,
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+
+    }
+};
+
 // GET PRODUCTS BY CATEGORY
 export const getRelatedProducts = async (req, res) => {
     try {
@@ -162,6 +200,35 @@ export const getRelatedProducts = async (req, res) => {
             success: false,
             message: error.message,
         });
+    }
+};
+
+
+// GET PRODUCTS BY CATEGORY
+export const getProductsByCategory = async (req, res) => {
+    try {
+
+        const { categoryId } = req.params;
+
+        const products = await Product.find({
+            category: categoryId
+        })
+            .populate("category")
+            .sort({ createdAt: -1 });
+
+        res.status(200).json({
+            success: true,
+            count: products.length,
+            products
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
     }
 };
 

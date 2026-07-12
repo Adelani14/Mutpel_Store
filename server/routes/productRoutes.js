@@ -2,7 +2,7 @@ import express from "express";
 import upload from "../middleware/multer.js";
 import isAuth from "../middleware/isAuth.js";
 
-import { createProduct, getProducts, getProductById, deleteProduct, updateProduct, getSingleProduct, getRelatedProducts } from "../controllers/productController.js";
+import { createProduct, getProducts, getProductById, deleteProduct, searchProducts , updateProduct, getSingleProduct, getRelatedProducts, getProductsByCategory } from "../controllers/productController.js";
 
 
 const router = express.Router();
@@ -27,6 +27,14 @@ router.get(
     isAuth,
     getRelatedProducts
 );
+
+router.get(
+    "/category/:categoryId",
+    isAuth,
+    getProductsByCategory
+);
+
+router.get("/search", searchProducts )
 
 router.get("/", isAuth, getProducts);
 router.get("/:id", isAuth, getProductById);

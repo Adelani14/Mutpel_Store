@@ -81,8 +81,8 @@ export const getCategoryById = async (req, res) => {
 // UPDATE CATEGORY
 export const updateCategory = async (req, res) => {
     try {
-        const { title, slug, imagespath, description, isFeatured } = req.body;
-        const category = await Category.findByIdAndUpdate(req.params.id, { title, slug, imagespath, description, isFeatured }, { new: true });
+        const { title, slug, imagespath, description, featured } = req.body;
+        const category = await Category.findByIdAndUpdate(req.params.id, { title, slug, imagespath, description, featured }, { new: true });
         if (!category) {
             return res.status(404).json({ message: "Category not found" });
         }
@@ -107,10 +107,20 @@ export const deleteCategory = async (req, res) => {
 // GET FEATURED CATEGORIES
 export const getFeaturedCategories = async (req, res) => {
     try {
-        const categories = await Category.find({ isFeatured: true });
+
+        const categories = await Category.find({
+            featured: true
+        });
+
         res.json(categories);
+
     } catch (error) {
-        res.status(500).json({ message: error.message });
+
+        res.status(500).json({
+            message: error.message
+        });
+
     }
+
 };
 
