@@ -92,6 +92,7 @@ const Admindashboard = () => {
         );
 
         if (!confirmDelete) return;
+        setLoading(true)
 
         try {
 
@@ -109,6 +110,8 @@ const Admindashboard = () => {
 
             alert("Failed to delete product.");
 
+        }finally {
+            setLoading(false);
         }
 
     };
