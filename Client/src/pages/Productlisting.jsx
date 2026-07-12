@@ -148,7 +148,7 @@ const Productlisting = () => {
                                         key={product._id}
                                         id={product._id}
                                         title={product.title}
-                                        imgsrc={product.imagespath[0]}
+                                        imgsrc={product.imagespath[0]?.url}
                                         description={product.description}
                                         shortDescription={product.shortDescription}
                                         price={product.price}

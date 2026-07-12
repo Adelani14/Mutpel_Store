@@ -71,8 +71,9 @@ const productSchema = new mongoose.Schema(
 
         imagespath: [
             {
-                type: String,
-            },
+                url: String,
+                public_id: String,
+            }
         ],
 
         category: {

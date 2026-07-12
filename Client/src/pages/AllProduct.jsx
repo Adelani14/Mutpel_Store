@@ -115,14 +115,14 @@ const AllProduct = () => {
                 </div>
                 <div className="row g-2">
                     {products?.map((product) => (
-                        <div key={product._id} className="card border-0 rounded-4 shadow-sm h-100">
+                        <div key={product._id} className=" col-6 col-md-4 col-lg-3 card border-0 rounded-4 shadow-sm h-100">
 
                             <Link
                                 to={`/editProduct/${product._id}`}
                                 className="text-decoration-none text-dark"
                             >
                                 <img
-                                    src={product.imagespath[0]}
+                                    src={product.imagespath[0]?.url}
                                     className="card-img-top"
                                     style={{
                                         height: 220,

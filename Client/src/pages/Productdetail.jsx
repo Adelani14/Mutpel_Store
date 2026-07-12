@@ -414,7 +414,7 @@ const Productdetail = () => {
               <div className="col-lg-4 shadow-lg rounded-4 border-0 p-4">
                 <div className="card rounded overflow-hidden border-0">
                   <img
-                    src={product?.imagespath?.[currentImage]}
+                    src={product?.imagespath?.[currentImage]?.url}
                     className="img-fluid rounded-4"
                     style={{
                       width: "100%",
@@ -435,7 +435,7 @@ const Productdetail = () => {
                   >
                     <i className="bi bi-chevron-left"></i>
                   </button>
-                  {product?.imagespath?.map((image, index) => (
+                  {product?.imagespath?.url.map((image, index) => (
                     <img
                       key={index}
                       src={image}
@@ -719,7 +719,7 @@ const Productdetail = () => {
                         <div className="position-relative">
 
                           <img
-                            src={relatedProduct?.imagespath[currentIndexes[relatedProduct._id] || 0]}
+                            src={relatedProduct?.imagespath[currentIndexes[relatedProduct._id]?.url || 0]}
                             className="card-img-top"
                             style={{
                               height: 220,
@@ -867,7 +867,7 @@ const Productdetail = () => {
                     </button>
 
                     <img
-                      src={product.imagespath[currentImage]}
+                      src={product.imagespath[currentImage]?.url}
                       className="img-fluid"
                       style={{
                         maxHeight: "70vh",
@@ -889,7 +889,7 @@ const Productdetail = () => {
                   </div>
 
                   <div className="d-flex gap-2 mt-4 flex-wrap justify-content-center">
-                    {product.imagespath.map((img, index) => (
+                    {product.imagespath?.url.map((img, index) => (
                       <img
                         key={index}
                         src={img}
