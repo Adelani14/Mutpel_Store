@@ -889,10 +889,10 @@ const Productdetail = () => {
                   </div>
 
                   <div className="d-flex gap-2 mt-4 flex-wrap justify-content-center">
-                    {product.imagespath?.url.map((img, index) => (
+                    {product.imagespath?.map((img, index) => (
                       <img
                         key={index}
-                        src={img}
+                        src={img.url}
                         onClick={() => setCurrentImage(index)}
                         className={`rounded ${currentImage === index
                           ? "border border-3 border-primary"
