@@ -122,7 +122,7 @@ const AllProduct = () => {
                                 className="text-decoration-none text-dark"
                             >
                                 <img
-                                    src={product.imagespath?.[0]?.url || product.imagespath?.[0]}
+                                    src={product.imagespath?.[0]?.url}
                                     className="card-img-top"
                                     style={{
                                         height: 220,

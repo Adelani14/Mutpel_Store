@@ -25,7 +25,7 @@ import AllProduct from './pages/AllProduct.jsx';
 import Profile from './pages/Profile.jsx';
 import Search from './pages/Search.jsx';
 import Categories from './pages/Categories.jsx';
-import EditProduct from './pages/EditProduct.jsx'
+import EditProduct from "./pages/EditProduct";
 import ProductForm from './components/ProductForm.jsx'
 
 
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
       { path: "/newproduct", element: <Newproduct /> },
       { path: "/newcategory", element: <Newcategory /> },
       { path: "/allproducts", element: <AllProduct /> },
-      { path: "/editProduct", element: <EditProduct /> },
+      { path: "/editProduct/:id", element: <EditProduct /> },
       { path: "/productForm", element: <ProductForm /> },
     ],
   },
