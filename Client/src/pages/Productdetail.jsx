@@ -119,6 +119,7 @@ const Productdetail = () => {
   };
 
   const addToCart = async () => {
+    setLoading(true);
     try {
       if (product.sizes?.length > 0 && !selectedSize) {
         setCartMessage("Please select a size");
@@ -140,6 +141,7 @@ const Productdetail = () => {
       });
 
       const data = response.data;
+      setLoading(false);
 
       setCartMessage("Product added successfully to cart");
       setCartSuccess(true);
@@ -160,6 +162,7 @@ const Productdetail = () => {
         error.response?.data?.message || "Something went wrong"
       );
       setCartSuccess(true);
+      
 
       setTimeout(() => {
         setCartSuccess(false);
