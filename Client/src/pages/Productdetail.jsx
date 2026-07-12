@@ -385,6 +385,14 @@ const Productdetail = () => {
       </header> */}
 
       <Header />
+      {cartSuccess && (
+        <div className="position-fixed sticky-top top-0 start-0 w-100 mt-2 px-3 z-3" style={{ zIndex: 9999 }} >
+          <div className="shadow-lg py-3 bg-success text-white text-center rounded-3">
+            {cartMessage}
+
+          </div>
+        </div>
+      )}
 
 
 
