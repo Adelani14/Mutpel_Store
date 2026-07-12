@@ -192,7 +192,7 @@ const Categories = () => {
                                             <div className="card border-0 shadow-sm rounded-4 h-100">
 
                                                 <img
-                                                    src={product.imagespath[0]?.url}
+                                                    src={product.imagespath?.[0]?.url || product.imagespath?.[0]}
                                                     className="card-img-top"
                                                     style={{
                                                         height: 220,

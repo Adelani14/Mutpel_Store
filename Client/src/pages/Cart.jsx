@@ -247,7 +247,7 @@ const Cart = () => {
                                                     <div className="col-sm-4">
                                                         <Link to={`/productdetail/${item.product._id}`}>
 
-                                                            <img src={item.product?.imagespath[0]?.url} className="img-fluid rounded-4" alt={item.product?.title} />
+                                                            <img src={item.product?.imagespath[0]?.url || item.product?.imagespath[0]} className="img-fluid rounded-4" alt={item.product?.title} />
                                                         </Link>
                                                     </div>
                                                     <div className="col-sm-5">

@@ -104,7 +104,7 @@ const AllProduct = () => {
             )}
             <Helpcenter />
             <Header />
-            <div className="admin-card mb-5 mt-2" style={{ minWidth: 0 }}>
+            <div className=" container-fluid admin-card mb-5 mt-2" style={{ minWidth: 0 }}>
 
                 <div className='d-flex justify-content-between'>
                     <h2 className="h6 mb-4">Product Management</h2>
@@ -122,7 +122,7 @@ const AllProduct = () => {
                                 className="text-decoration-none text-dark"
                             >
                                 <img
-                                    src={product.imagespath[0]?.url}
+                                    src={product.imagespath?.[0]?.url || product.imagespath?.[0]}
                                     className="card-img-top"
                                     style={{
                                         height: 220,
