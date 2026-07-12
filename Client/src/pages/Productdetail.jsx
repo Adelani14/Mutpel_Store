@@ -386,18 +386,21 @@ setLoading(true)
           </div>
         )}
       </header> */}
-<div 
-  className="position-fixed top-0 start-0 w-100   >
-      <Header />
-      {cartSuccess && (
-        <div className="position-fixed start-0 w-100 mt-2 px-3 z-3" style={{ zIndex: 9999 }} >
-          <div className="shadow-lg py-3 bg-success text-white text-center rounded-3">
-            {cartMessage}
+<Header />
 
-          </div>
-        </div>
-      )}
-      </div>
+{cartSuccess && (
+  <div
+    className="position-fixed start-0 w-100 px-3"
+    style={{
+      top: "70px",
+      zIndex: 9999,
+    }}
+  >
+    <div className="shadow-lg py-3 bg-success text-white text-center rounded-3">
+      {cartMessage}
+    </div>
+  </div>
+)}
 
 
 
