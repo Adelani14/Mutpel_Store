@@ -15,6 +15,7 @@ const ProductForm = ({ mode, initialData = null }) => {
         title: "",
         description: "",
         stockCount: "",
+        shortDescription: "",
         sku: "",
         sizes: [],
         colors: [],
@@ -128,6 +129,7 @@ const ProductForm = ({ mode, initialData = null }) => {
             setFormData({
                 title: initialData.title,
                 description: initialData.description,
+                shortDescription: initialData.shortDescription,
                 stockCount: initialData.stockCount,
                 sku: initialData.sku,
                 category: initialData.category._id,
@@ -215,6 +217,7 @@ const ProductForm = ({ mode, initialData = null }) => {
                 setFormData({
                     title: "",
                     description: "",
+                    shortDescription: "",
                     stockCount: "",
                     sku: "",
                     category: "",
@@ -357,7 +360,7 @@ const ProductForm = ({ mode, initialData = null }) => {
                                         </div>
                                          <div>
                                             <label className="form-label fw-semibold"> Short Description</label>
-                                            <textarea className="form-control" rows="7" placeholder="Craft a short story for this product..." id="description" value={formData.description} onChange={handleChange}></textarea>
+                                            <textarea className="form-control" rows="4" placeholder="Craft a short story for this product..." id="description" value={formData.shortDescription} onChange={handleChange}></textarea>
                                         </div>
                                         
                                         <div>
