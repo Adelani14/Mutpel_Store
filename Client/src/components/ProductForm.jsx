@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef  } from "react";
 
 import { Link, NavLink } from "react-router-dom";
 import Axios from "../utils/axiosInstance.js";
-import { useRef } from "react";
 
-const fileInputRef = useRef(null);
+
+
 
 const ProductForm = ({ mode, initialData = null }) => {
-
+const fileInputRef = useRef(null);
     const [categories, setCategories] = useState([]);
     const [hasSizes, setHasSizes] = useState("none");
     const [sizes, setSizes] = useState([]);
@@ -207,11 +207,7 @@ const ProductForm = ({ mode, initialData = null }) => {
 
             console.log(response.data);
 
-            alert(
-                mode === "create"
-                    ? "Product created successfully!"
-                    : "Product updated successfully!"
-            );
+        
             
 
  alert(
@@ -239,12 +235,18 @@ if (mode === "create") {
     setSizes([]);
     setColors([]);
     setHasSizes("none");
+    
+    if (fileInputRef.current) {
+    fileInputRef.current.value = "";
+}
 }
 
 
         } catch (error) {
 
-            console.log(error);
+              console.log(error);
+    console.log(error.response?.data);
+
 
         }
         finally {
