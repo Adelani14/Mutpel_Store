@@ -540,7 +540,7 @@ const Productdetail = () => {
                   </div>
                   <div className="mb-4">
                     <div>
-                      <h3 className="fs-3 fw-bold">₦{product?.price}</h3>
+                      <span className="fs-3 fw-bold">₦{product?.price}</span>
                       {product?.previousPrice > 0 && (
                         <span className="text-decoration-line-through text-muted fs-5 ms-3">₦{product.previousPrice}</span>
                       )}
