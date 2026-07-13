@@ -395,14 +395,15 @@ const Admindashboard = () => {
                                                 <td>{product.category.title}</td>
                                                 <td>{product.price}</td>
                                                 <td>{product.stockCount} units</td>
-                                                <td>
-
-                                   <Link to={`/editProduct/${product._id}`}
-                                    className="btn btn-warning flex-fill"
-                                >
-                                    Edit
-                                </Link>
-                                                </td>
+                                               <td>
+    <Link
+        to={`/editProduct/${product._id}`}
+        className="btn btn-warning flex-fill"
+        onClick={(e) => e.stopPropagation()}
+    >
+        Edit
+    </Link>
+</td>
                                                 <td>
                                                     <button className="btn btn-danger flex-fill"
                                     onClick={(e) => {
