@@ -36,6 +36,7 @@ const Productlisting = () => {
                 await Promise.all([
                     fetchProducts(page),
                     getUsername(),
+                    fetchCategories(),
                 ]);
             } finally {
                 setLoading(false);
