@@ -264,11 +264,12 @@ const Cart = () => {
                                                         <Link to={`/productdetail/${item.product._id}`} className="text-decoration-none text-dark">
                                                             <h2 className="h5 mb-2">{item.product?.title}</h2>
                                                         </Link>
-
-                                                        <small>{item.product?.shortDescription}</small>
-
-
-                                                        <a className="text-danger small fw-semibold text-decoration-none" onClick={() => removeFromCart(item)}><i className="bi bi-trash me-1"></i>Remove Item</a>
+                                                        <div>
+                                                            <small>{item.product?.shortDescription}</small>
+                                                        </div>
+                                                        <div>
+                                                            <a className="text-danger small fw-semibold text-decoration-none" onClick={() => removeFromCart(item)}><i className="bi bi-trash me-1"></i>Remove Item</a>
+                                                        </div>
                                                     </div>
                                                     <div className="col-sm-3 text-sm-end">
 
@@ -293,14 +294,125 @@ const Cart = () => {
 
 
 
-                                    <div className="promo-card rounded-4 overflow-hidden mt-3">
-                                        <div className="row g-0">
-                                            <div className="col-md-7 p-4 bg-primary text-white">
-                                                <h3 className="h5 mb-3">Complete the Look</h3>
-                                                <p className="mb-4 opacity-75">Our curators recommend the ‘Monolith’ incense burner to accompany your glass vessel.</p>
-                                                <button className="btn btn-warning btn-sm">Add for $85</button>
+                                    <div className="card border-0 rounded-4 shadow-sm mt-4">
+                                        <div className="card-body p-4">
+
+                                            <div className="d-flex align-items-center mb-4">
+                                                <div
+                                                    className="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-3"
+                                                    style={{
+                                                        width: "55px",
+                                                        height: "55px",
+                                                    }}
+                                                >
+                                                    <i className="bi bi-shield-check fs-4"></i>
+                                                </div>
+
+                                                <div>
+                                                    <h3 className="h5 fw-bold mb-1">
+                                                        Why Shop With Mutpel?
+                                                    </h3>
+
+                                                    <p className="text-muted mb-0 small">
+                                                        We are committed to providing quality household products,
+                                                        secure shopping, and reliable delivery across Nigeria.
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div className="col-md-5 promo-visual"></div>
+
+                                            <div className="row g-4">
+
+                                                <div className="col-md-6">
+                                                    <div className="d-flex">
+                                                        <i className="bi bi-patch-check-fill text-success fs-3 me-3"></i>
+
+                                                        <div>
+                                                            <h6 className="fw-semibold mb-1">
+                                                                Genuine Products
+                                                            </h6>
+
+                                                            <small className="text-muted">
+                                                                Carefully selected household essentials from trusted
+                                                                brands to ensure lasting quality and performance.
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="col-md-6">
+                                                    <div className="d-flex">
+                                                        <i className="bi bi-truck text-primary fs-3 me-3"></i>
+
+                                                        <div>
+                                                            <h6 className="fw-semibold mb-1">
+                                                                Fast Nationwide Delivery
+                                                            </h6>
+
+                                                            <small className="text-muted">
+                                                                We deliver your orders quickly and safely to your
+                                                                doorstep anywhere in Nigeria.
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="col-md-6">
+                                                    <div className="d-flex">
+                                                        <i className="bi bi-credit-card-2-front-fill text-warning fs-3 me-3"></i>
+
+                                                        <div>
+                                                            <h6 className="fw-semibold mb-1">
+                                                                Secure Payments
+                                                            </h6>
+
+                                                            <small className="text-muted">
+                                                                Shop with confidence using our safe and encrypted
+                                                                payment system.
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="col-md-6">
+                                                    <div className="d-flex">
+                                                        <i className="bi bi-headset text-info fs-3 me-3"></i>
+
+                                                        <div>
+                                                            <h6 className="fw-semibold mb-1">
+                                                                Dedicated Customer Support
+                                                            </h6>
+
+                                                            <small className="text-muted">
+                                                                Our support team is always available to help with
+                                                                your questions before and after your purchase.
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <hr className="my-4" />
+
+                                            <div className="d-flex flex-wrap justify-content-between gap-3 text-muted small">
+
+                                                <span>
+                                                    <i className="bi bi-shield-lock-fill text-success me-1"></i>
+                                                    Safe & Secure Checkout
+                                                </span>
+
+                                                <span>
+                                                    <i className="bi bi-arrow-repeat text-primary me-1"></i>
+                                                    Easy Returns
+                                                </span>
+
+                                                <span>
+                                                    <i className="bi bi-star-fill text-warning me-1"></i>
+                                                    Trusted by Customers
+                                                </span>
+
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
