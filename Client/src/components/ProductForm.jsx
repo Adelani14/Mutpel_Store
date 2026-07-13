@@ -360,7 +360,7 @@ const ProductForm = ({ mode, initialData = null }) => {
                                         </div>
                                          <div>
                                             <label className="form-label fw-semibold"> Short Description</label>
-                                            <textarea className="form-control" rows="4" placeholder="Craft a short story for this product..." id="description" value={formData.shortDescription} onChange={handleChange}></textarea>
+                                            <textarea className="form-control" rows="4" placeholder="Craft a short story for this product..." id="shortDescription" value={formData.shortDescription} onChange={handleChange}></textarea>
                                         </div>
                                         
                                         <div>
