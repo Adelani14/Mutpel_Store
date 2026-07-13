@@ -76,6 +76,7 @@ const Categories = () => {
     return (
         <>
             <Helpcenter />
+            <Header />
 
 
             <main className="container py-4">
@@ -114,8 +115,8 @@ const Categories = () => {
                             <button
                                 onClick={() => loadProducts(category._id)}
                                 className={`card shadow-sm rounded-4 h-100 border-0 overflow-hidden w-100 ${selectedCategory === category._id
-                                        ? "border border-3 border-primary"
-                                        : ""
+                                    ? "border border-3 border-primary"
+                                    : ""
                                     }`}
                             >
                                 <img

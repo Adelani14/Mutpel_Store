@@ -174,26 +174,9 @@ const Wishlist = () => {
                                 <h6 className="text-muted mb-1"><Link to="/productlisting">Home</Link> </h6>
                             </div>
                         </div>
-                        <div className="row g-4 align-items-center mb-4">
-                            <div className="col-lg-8">
-                                <div className="page-hero p-4 rounded-4 bg-white shadow-lg">
-                                    <h1 className="h3 mb-2">Your Selection</h1>
-                                    <p className="text-muted mb-0">Review your curated items before moving to checkout.</p>
-                                </div>
-                            </div>
-                            {/* <div className="col-lg-4 text-lg-end">
-                            <a href="checkout2.html" className="btn btn-primary btn-lg">Proceed to Checkout</a>
-                        </div> */}
-                        </div>
+
 
                         <div className="row g-4">
-
-
-
-
-
-
-
 
                             <div className="row g-2">
 

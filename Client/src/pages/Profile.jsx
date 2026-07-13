@@ -112,10 +112,11 @@ const Profile = () => {
                 <div className="row g-4">
                     <ul className="list-group shadow-sm rounded-4">
                         {isAdmin && (
-                            <li className="list-group-item"><Link to="/admindashboard" className="text-decoration-none text-dark">
-                                <i className="bi bi-house me-2"></i>
-                                Admin Dashboard
-                            </Link>
+                            <li className="list-group-item">
+                                <Link to="/admindashboard" className="text-decoration-none text-dark">
+                                    <i className="bi bi-house me-2"></i>
+                                    Admin Dashboard
+                                </Link>
                             </li>
                         )}
                         <li className="list-group-item">
@@ -128,8 +129,11 @@ const Profile = () => {
                         </li>
 
                         <li className="list-group-item">
-                            <i className="bi bi-heart me-2"></i>
-                            Wishlist
+                            <Link to="/wishlist" className="text-decoration-none text-dark">
+
+                                <i className="bi bi-heart me-2"></i>
+                                Wishlist
+                            </Link>
                         </li>
 
                         <li className="list-group-item">
