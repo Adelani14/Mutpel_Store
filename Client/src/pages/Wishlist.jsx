@@ -50,20 +50,20 @@ const Wishlist = () => {
             await Axios.delete("/api/wishlist/removeFromWishlist", {
                 data: {
                     productId: item.product._id,
-                    
+
                 },
             });
             fetchWishlist(); // refresh wishlist
         } catch (error) {
             console.log(error);
 
-        }finally{
+        } finally {
             setLoading(false)
         }
     };
 
 
-    const clearWishlist = async () => {
+    const clearWishlist = async (item) => {
         const isConfirmed = window.confirm(
             "Are you sure you want to clear all wishlist!?"
         );
@@ -74,6 +74,7 @@ const Wishlist = () => {
             await Axios.delete("/api/wishlist/clearWishlist");
 
             setProducts([]);
+            fetchWishlist();
         } catch (error) {
             console.log(error);
         } finally {
@@ -200,57 +201,61 @@ const Wishlist = () => {
                                     .filter(item => item.product)
                                     .map((item) => (
 
-                                        <div key={item._id}
-                                            className=" col-6 col-md-3 col-lg-2 card border-0 rounded-4 shadow-sm h-100"
+                                        <div
+                                            key={item._id}
+                                            className="col-6 col-md-4 col-lg-3"
                                         >
-
-                                            <div className="position-relative">
-
-                                                <Link to={`/productdetail/${item.product._id}`}>
-
-                                                    <img src={item.product?.imagespath[0]?.url}
-                                                        className="card-img-top"
-                                                        style={{
-                                                            height: 220,
-                                                            objectFit: "cover",
-                                                        }} alt={item.product?.title} />
-                                                </Link>
-
-                                                {item.product?.discountPercentage > 0 && (
-                                                    <span className="badge bg-danger position-absolute top-0 start-0 m-2">
-                                                        -{item.product?.discountPercentage}%
-                                                    </span>
-                                                )}
-
-                                                <button onClick={removeFromWishlist}
-                                                    className="btn btn-light rounded-circle position-absolute top-0 end-0 m-2"
-                                                >
-                                                    <i className="bi bi-heart-fill"></i>
-                                                </button>
-
-                                            </div>
-
-                                            <div className="card-body">
-
-                                                <Link to={`/productdetail/${item.product._id}`} className="text-decoration-none text-dark">
-                                                    <h2 className="h5 mb-2">{item.product?.title}</h2>
-                                                </Link>
+                                            <div className="card border-0 rounded-4 shadow-sm h-100 overflow-hidden">
 
 
+                                                <div className="position-relative">
 
-                                                <div className="fw-bold fs-5">
-                                                    ₦{item.product?.price}
+                                                    <Link to={`/productdetail/${item.product._id}`}>
+
+                                                        <img src={item.product?.imagespath?.[0]?.url}
+                                                            className="card-img-top"
+                                                            style={{
+                                                                height: 220,
+                                                                objectFit: "cover",
+                                                            }} alt={item.product?.title} />
+                                                    </Link>
+
+                                                    {item.product?.discountPercentage > 0 && (
+                                                        <span className="badge bg-danger position-absolute top-0 start-0 m-2">
+                                                            -{item.product?.discountPercentage}%
+                                                        </span>
+                                                    )}
+
+                                                    <button
+                                                        onClick={() => removeFromWishlist(item)}
+                                                        className="btn btn-light rounded-circle position-absolute top-0 end-0 m-2"
+                                                    >
+                                                        <i className="bi bi-heart-fill text-danger"></i>
+                                                    </button>
+
                                                 </div>
 
-                                                {item.product?.previousPrice > 0 && (
-                                                    <small className="text-decoration-line-through text-muted">
-                                                        ₦{item.product?.previousPrice}
-                                                    </small>
-                                                )}
+                                                <div className="card-body">
+
+                                                    <Link to={`/productdetail/${item.product._id}`} className="text-decoration-none text-dark">
+                                                        <h2 className="h5 mb-2">{item.product?.title}</h2>
+                                                    </Link>
+
+
+
+                                                    <div className="fw-bold fs-5">
+                                                        ₦{item.product?.price}
+                                                    </div>
+
+                                                    {item.product?.previousPrice > 0 && (
+                                                        <small className="text-decoration-line-through text-muted">
+                                                            ₦{item.product?.previousPrice}
+                                                        </small>
+                                                    )}
+
+                                                </div>
 
                                             </div>
-
-
                                         </div>
                                     ))}
 
