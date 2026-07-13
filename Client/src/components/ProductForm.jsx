@@ -211,7 +211,7 @@ const ProductForm = ({ mode, initialData = null }) => {
             );
             console.log(result);
 
-
+ useEffect(() => {
             if (mode === "create") {
 
                 setFormData({
@@ -230,7 +230,7 @@ const ProductForm = ({ mode, initialData = null }) => {
 
             }
 
-
+}, [mode, initialData]);
 
 
         } catch (error) {
