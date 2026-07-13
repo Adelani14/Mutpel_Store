@@ -13,6 +13,7 @@ import categoryRoutes from "./routes/categoryRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
 // import orderRoutes from "./routes/orderRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
+import wishlistRoutes from "./routes/wishlistRoutes.js";
 import naijastateRoutes from "./routes/naijastateRoutes.js"
 
 // MIDDLEWARErs
@@ -46,6 +47,7 @@ app.use("/api/dashboardstats", dashboardRoutes);
 // app.use("/api/orders", orderRoutes);
 
 app.use("/api/cart", cartRoutes);
+app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/allState", naijastateRoutes);
 
 
