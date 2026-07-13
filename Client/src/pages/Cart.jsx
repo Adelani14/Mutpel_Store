@@ -267,7 +267,7 @@ const Cart = () => {
                                                         <div>
                                                             <small>{item.product?.shortDescription}</small>
                                                         </div>
-                                                        <div>
+                                                        <div className="mt-2">
                                                             <a className="text-danger small fw-semibold text-decoration-none" onClick={() => removeFromCart(item)}><i className="bi bi-trash me-1"></i>Remove Item</a>
                                                         </div>
                                                     </div>

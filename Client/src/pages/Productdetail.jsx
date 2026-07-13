@@ -539,7 +539,7 @@ const Productdetail = () => {
                     {/* <span className="text-muted">{product.ratings}</span> */}
                   </div>
                   <div className="mb-4">
-                    <div className="d-flex gap-2">
+                    <div>
                       <p className="fs-3 fw-bold">₦{product?.price}</p>
                       {product?.previousPrice > 0 && (
                         <span className="text-decoration-line-through text-muted fs-5 ms-3">₦{product.previousPrice}</span>
