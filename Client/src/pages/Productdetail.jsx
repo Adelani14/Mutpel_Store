@@ -475,6 +475,7 @@ setLoading(true)
                     <span className="text-muted">SKU: MK-2024</span>
                   </div> */}
                   <h2 className="h4">{product?.title}</h2>
+                  <small>{product?.shortDescription}</small
                   <div className="d-flex align-items-center gap-2 mb-3">
                     {product?.ratings >= 0 && product?.ratings <= 9 && (
 
