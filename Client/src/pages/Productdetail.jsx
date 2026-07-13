@@ -24,6 +24,7 @@ const Productdetail = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [showGallery, setShowGallery] = useState(false);
   const [currentIndexes, setCurrentIndexes] = useState({});
+  const [wishlist, setWishlist] = useState([]);
 
   const [quantity, setQuantity] = useState(1);
 
@@ -171,42 +172,19 @@ const Productdetail = () => {
     }
   };
 
-  const addToWishlist = async () => {
-
+  const addToWishlist = async (productId) => {
     try {
-
-      setLoading(true)
-      const response = await Axios.post("/api/wishlist/addToWishlist", {
-        productId: product._id,
-
+      await Axios.post("/api/wishlist/addToWishlist", {
+        productId,
       });
 
-      const data = response.data;
-      setLoading(false)
+      await fetchWishlist();
 
       setCartMessage("Product added successfully to Wishlist");
       setCartSuccess(true);
 
-
-
-
-      setTimeout(() => {
-        setCartSuccess(false);
-        setCartMessage("");
-      }, 3000);
-
     } catch (error) {
       console.log(error);
-      setCartMessage(
-        error.response?.data?.message || "Something went wrong"
-      );
-      setCartSuccess(true);
-
-
-      setTimeout(() => {
-        setCartSuccess(false);
-        setCartMessage("");
-      }, 3000);
     }
   };
 
@@ -279,7 +257,8 @@ const Productdetail = () => {
         await Promise.all([
           fetchProduct(),
           fetchCart(),
-          fetchCartCount()
+          fetchCartCount(),
+          fetchWishlist(),
         ]);
 
         setCurrentImage(0);
@@ -716,72 +695,88 @@ const Productdetail = () => {
 
               <div className="row g-3">
 
-                {relatedProducts.map((relatedProduct) => (
+                {relatedProducts.map((relatedProduct) => {
 
-                  <div
-                    key={relatedProduct._id}
-                    className="col-6 col-md-4 col-lg-3"
-                  >
-
-                    <div className="card border-0 rounded-4 shadow-sm h-100 overflow-hidden product-card">
-                      <Link
-                        to={`/productdetail/${relatedProduct._id}`}
-                        className="text-decoration-none text-dark"
+                  const isInWishlist = wishlist.some(
+                    item => item.product?._id === relatedProduct._id
+                  );
+                  return (
+                    <>
+                      <div
+                        key={relatedProduct._id}
+                        className="col-6 col-md-4 col-lg-3"
                       >
-                        <div className="position-relative">
 
-                          <img
-                            src={
-                              relatedProduct?.imagespath?.[
-                                currentIndexes[relatedProduct._id] || 0
-                              ]?.url
-                            }
-                            className="card-img-top"
-                            style={{
-                              height: 220,
-                              objectFit: "cover",
-                            }}
-                          />
-
-                          {relatedProduct.discountPercentage > 0 && (
-                            <span className="badge bg-danger position-absolute top-0 start-0 m-2">
-                              -{relatedProduct.discountPercentage}%
-                            </span>
-                          )}
-
-                          <button onClick={addToWishlist}
-                            className=" btn btn-light rounded-circle position-absolute top-0 end-0 m-2"
+                        <div className="card border-0 rounded-4 shadow-sm h-100 overflow-hidden product-card">
+                          <Link
+                            to={`/productdetail/${relatedProduct._id}`}
+                            className="text-decoration-none text-dark"
                           >
-                            <i className="bi bi-heart"></i>
-                          </button>
+                            <div className="position-relative">
 
+                              <img
+                                src={
+                                  relatedProduct?.imagespath?.[
+                                    currentIndexes[relatedProduct._id] || 0
+                                  ]?.url
+                                }
+                                className="card-img-top"
+                                style={{
+                                  height: 220,
+                                  objectFit: "cover",
+                                }}
+                              />
+
+                              {relatedProduct.discountPercentage > 0 && (
+                                <span className="badge bg-danger position-absolute top-0 start-0 m-2">
+                                  -{relatedProduct.discountPercentage}%
+                                </span>
+                              )}
+
+                              <button
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  addToWishlist(relatedProduct._id);
+                                }}
+                                className="btn btn-light rounded-circle position-absolute top-0 end-0 m-2"
+                              >
+                                <i
+                                  className={`bi ${isInWishlist
+                                      ? "bi-heart-fill text-danger"
+                                      : "bi-heart"
+                                    }`}
+                                ></i>
+                              </button>
+
+                            </div>
+
+                            <div className="card-body">
+
+                              <h6 className="fw-semibold">
+                                {relatedProduct.title}
+                              </h6>
+
+                              <div className="text-warning small mb-2">
+                                ★★★★☆
+                              </div>
+
+                              <div className="fw-bold fs-5">
+                                ₦{relatedProduct.price}
+                              </div>
+
+                              {relatedProduct.previousPrice > 0 && (
+                                <small className="text-decoration-line-through text-muted">
+                                  ₦{relatedProduct.previousPrice}
+                                </small>
+                              )}
+
+                            </div>
+                          </Link>
                         </div>
-
-                        <div className="card-body">
-
-                          <h6 className="fw-semibold">
-                            {relatedProduct.title}
-                          </h6>
-
-                          <div className="text-warning small mb-2">
-                            ★★★★☆
-                          </div>
-
-                          <div className="fw-bold fs-5">
-                            ₦{relatedProduct.price}
-                          </div>
-
-                          {relatedProduct.previousPrice > 0 && (
-                            <small className="text-decoration-line-through text-muted">
-                              ₦{relatedProduct.previousPrice}
-                            </small>
-                          )}
-
-                        </div>
-                      </Link>
-                    </div>
-                  </div>
-                ))}
+                      </div>
+                    </>
+                  );
+                })}
 
               </div>
 

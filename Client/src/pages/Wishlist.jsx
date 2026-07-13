@@ -221,7 +221,7 @@ const Wishlist = () => {
                                                     </span>
                                                 )}
 
-                                                <button
+                                                <button onClick={removeFromWishlist}
                                                     className="btn btn-light rounded-circle position-absolute top-0 end-0 m-2"
                                                 >
                                                     <i className="bi bi-heart"></i>
