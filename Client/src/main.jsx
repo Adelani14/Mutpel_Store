@@ -17,6 +17,7 @@ import Admindashboard from './pages/Admindashboard.jsx'
 import Productlisting from './pages/Productlisting.jsx'
 import Productdetail from './pages/Productdetail.jsx'
 import Cart from './pages/Cart.jsx'
+import Wishlist from './pages/Wishlist.jsx'
 import Checkout from './pages/Checkout.jsx'
 import Newproduct from './pages/Newproduct.jsx'
 import Newcategory from './pages/NewCategory.jsx'
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
       { path: "/productlisting", element: <Productlisting /> },
       { path: "/productdetail/:id", element: <Productdetail /> },
       { path: "/cart", element: <Cart /> },
+      { path: "/wishlist", element: <Wishlist /> },
       { path: "/checkout", element: <Checkout /> },
       { path: "/search", element: <Search /> },
       { path: "/categories/:id", element: <Categories /> },
