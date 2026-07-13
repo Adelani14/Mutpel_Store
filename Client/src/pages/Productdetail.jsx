@@ -456,7 +456,13 @@ const Productdetail = () => {
 
             <div className="row g-4" >
               <div className="col-lg-4 shadow-sm rounded-4 border-0 p-4">
-                <div className="card rounded overflow-hidden border-0">
+                <div
+                  className="card rounded-4 border-0 d-flex justify-content-center align-items-center"
+                  style={{
+                    height: "450px",
+                    backgroundColor: "#fff",
+                  }}
+                >
                   <img
                     src={product?.imagespath?.[currentImage]?.url}
                     className="img-fluid rounded-4"
@@ -489,11 +495,10 @@ const Productdetail = () => {
                         : "border"
                         }`}
                       style={{
-                        width: "100%",
-                        height: "180px",
-                        cursor: "pointer",
+                        width: 75,
+                        height: 75,
                         objectFit: "cover",
-
+                        cursor:"pointer",
                       }}
                     />
                   ))}
