@@ -6,7 +6,6 @@ const ProductCard = ({
     id,
     title,
     imgsrc,
-    shortDescription,
     price,
     previousPrice,
     stockCount,
@@ -79,9 +78,8 @@ const ProductCard = ({
 
                         </div>
 
-                        <p className="text-muted mb-0">
-                            {shortDescription}
-                        </p>
+                      
+
                     </div>
 
                 </div>
