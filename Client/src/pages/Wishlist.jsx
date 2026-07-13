@@ -134,7 +134,7 @@ const Wishlist = () => {
                             }}
                         >
                             <i
-                                className="bi bi-heart-x text-primary"
+                                className="bi bi-cart-x text-primary"
                                 style={{ fontSize: "4rem" }}
                             ></i>
                         </div>

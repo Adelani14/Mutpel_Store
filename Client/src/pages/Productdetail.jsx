@@ -171,6 +171,45 @@ const Productdetail = () => {
     }
   };
 
+  const addToWishlist = async () => {
+
+    try {
+
+      setLoading(true)
+      const response = await Axios.post("/api/wishlist/addToWishlist", {
+        productId: product._id,
+
+      });
+
+      const data = response.data;
+      setLoading(false)
+
+      setCartMessage("Product added successfully to Wishlist");
+      setCartSuccess(true);
+
+
+
+
+      setTimeout(() => {
+        setCartSuccess(false);
+        setCartMessage("");
+      }, 3000);
+
+    } catch (error) {
+      console.log(error);
+      setCartMessage(
+        error.response?.data?.message || "Something went wrong"
+      );
+      setCartSuccess(true);
+
+
+      setTimeout(() => {
+        setCartSuccess(false);
+        setCartMessage("");
+      }, 3000);
+    }
+  };
+
   const fetchCartCount = async () => {
     try {
       const res = await Axios.get("/api/cart/getCartCount")
@@ -639,43 +678,7 @@ const Productdetail = () => {
                 </div>
 
               </div>
-              {/* <div className="col-lg-4 shadow-lg rounded-4 border-0 p-4">
-                <div className="border-1 border-bottom">
-                  <h5 className="">Delivery & Returns</h5>
-                </div>
-                <div className="mt-2">
-                  <h6>Choose your location</h6>
-                </div>
-                <div className="mt-3">
 
-                  <select>
-                    <option value="">gold</option>
-                  </select>
-                </div>
-                
-              
-
-                
-
-                <div className="mt-4">
-
-                  <div className="d-flex w-100 gap-2 mt-2 border-1 pb-2 border-bottom">
-                    <div className="">
-
-                      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40" fill="currentColor" class="bi bi-arrow-repeat  border-dark border p-2 rounded " viewBox="0 0 16 16">
-                        <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9" />
-                        <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z" />
-                      </svg>
-
-                    </div>
-                    <div className="">
-                      <h6>Return Policy</h6>
-                      <div>Free return within 7 days for ALL eligible items</div>
-                    </div>
-                  </div>
-                </div>
-
-              </div> */}
             </div>
 
 
@@ -746,8 +749,8 @@ const Productdetail = () => {
                             </span>
                           )}
 
-                          <button
-                            className="btn btn-light rounded-circle position-absolute top-0 end-0 m-2"
+                          <button onClick={addToWishlist}
+                            className=" btn btn-light rounded-circle position-absolute top-0 end-0 m-2"
                           >
                             <i className="bi bi-heart"></i>
                           </button>
