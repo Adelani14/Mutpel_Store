@@ -147,7 +147,7 @@ const Productlisting = () => {
                                     {categories.map((category) => (
                                         <Link
                                             key={category._id}
-                                            to={`/categories/${category.title._id}`}
+                                            to={`/categories/${category.title}`}
                                             className="list-group-item list-group-item-action rounded-4"
                                         >
                                             {category.title}
