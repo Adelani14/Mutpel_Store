@@ -14,6 +14,8 @@ const Productlisting = () => {
     const limit = 20;
     const [email, setEmail] = useState("");
     const [fullName, setFullName] = useState("");
+    const [categories, setCategories] = useState([]);
+
 
 
     // const filteredProducts = products.filter(product =>
@@ -66,6 +68,32 @@ const Productlisting = () => {
     };
 
 
+    const fetchCategories = async () => {
+
+
+        try {
+
+            const res = await Axios.get("/api/categories");
+
+            setCategories(res.data);
+
+            // if (res.data.length > 0) {
+
+            // loadProducts(res.data[0]._id);
+
+            // setSelectedCategory(res.data[0]._id);
+
+            // }
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+
+    };
+
+
 
     return (
         <>
@@ -105,14 +133,24 @@ const Productlisting = () => {
                         <div className="col-lg-3 d-none d-md-block">
                             <div className="card rounded-4 shadow-sm border-0 p-4">
                                 <h2 className="h6 mb-4">Categories</h2>
-                                <div className="list-group list-group-flush">
-                                    <a href="#" className="list-group-item list-group-item-action rounded-4 active">All Categories</a>
-                                    <a href="#" className="list-group-item list-group-item-action rounded-4">Kitchen</a>
-                                    <a href="#" className="list-group-item list-group-item-action rounded-4">Electronics</a>
-                                    <a href="#" className="list-group-item list-group-item-action rounded-4">Footwear</a>
-                                    <a href="#" className="list-group-item list-group-item-action rounded-4">Home</a>
-                                    <a href="#" className="list-group-item list-group-item-action rounded-4">Accessories</a>
 
+                                <div className="list-group list-group-flush">
+                                    <Link
+                                        to="/categories"
+                                        className="list-group-item list-group-item-action rounded-4 active"
+                                    >
+                                        All Categories
+                                    </Link>
+
+                                    {categories.map((category) => (
+                                        <Link
+                                            key={category._id}
+                                            to={`/categories/${category._id}`}
+                                            className="list-group-item list-group-item-action rounded-4"
+                                        >
+                                            {category.title}
+                                        </Link>
+                                    ))}
                                 </div>
                                 <div className="mt-5">
                                     <h2 className="h6 mb-3">Price Range</h2>

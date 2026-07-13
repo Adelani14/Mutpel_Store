@@ -24,6 +24,7 @@ const Categories = () => {
     );
 
     const fetchCategories = async () => {
+        
 
         try {
 

@@ -83,8 +83,8 @@ const Admindashboard = () => {
             console.log(error);
         }
     };
-    
-    
+
+
     const handleDelete = async (id) => {
 
         const confirmDelete = window.confirm(
@@ -110,7 +110,7 @@ const Admindashboard = () => {
 
             alert("Failed to delete product.");
 
-        }finally {
+        } finally {
             setLoading(false);
         }
 
@@ -390,26 +390,26 @@ const Admindashboard = () => {
                                             </tr>
                                         </thead>
                                         <tbody>{products.map((product) => (
-                                            <tr key={product._id} style={{ cursor: 'pointer', }} onClick={() => window.location.href = `/product/${product._id}`}>
+                                            <tr key={product._id} style={{ cursor: 'pointer', }} onClick={() => window.location.href = `/productdetail/${product._id}`}>
                                                 < td > {product.title}</td>
                                                 <td>{product.category.title}</td>
                                                 <td>{product.price}</td>
                                                 <td>{product.stockCount} units</td>
-                                               <td>
-    <Link
-        to={`/editProduct/${product._id}`}
-        className="btn btn-warning flex-fill"
-        onClick={(e) => e.stopPropagation()}
-    >
-        Edit
-    </Link>
-</td>
+                                                <td>
+                                                    <Link
+                                                        to={`/editProduct/${product._id}`}
+                                                        className="btn btn-warning flex-fill"
+                                                        onClick={(e) => e.stopPropagation()}
+                                                    >
+                                                        Edit
+                                                    </Link>
+                                                </td>
                                                 <td>
                                                     <button className="btn btn-danger flex-fill"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleDelete(product._id);
-                                    }}><i className="bi bi-trash"></i></button>
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleDelete(product._id);
+                                                        }}><i className="bi bi-trash"></i></button>
                                                 </td>
                                             </tr>
                                         ))}

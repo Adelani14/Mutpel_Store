@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef  } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import { Link, NavLink } from "react-router-dom";
 import Axios from "../utils/axiosInstance.js";
@@ -7,7 +7,7 @@ import Axios from "../utils/axiosInstance.js";
 
 
 const ProductForm = ({ mode, initialData = null }) => {
-const fileInputRef = useRef(null);
+    const fileInputRef = useRef(null);
     const [categories, setCategories] = useState([]);
     const [hasSizes, setHasSizes] = useState("none");
     const [sizes, setSizes] = useState([]);
@@ -207,45 +207,45 @@ const fileInputRef = useRef(null);
 
             console.log(response.data);
 
-        
-            
 
- alert(
-    mode === "create"
-        ? "Product created successfully!"
-        : "Product updated successfully!"
-);
 
-if (mode === "create") {
-    setFormData({
-        title: "",
-        description: "",
-        shortDescription: "",
-        stockCount: "",
-        sku: "",
-        category: "",
-        brand: "",
-        previousPrice: "",
-        discountAmount: "",
-        sizes: [],
-        colors: [],
-    });
 
-    setImagespath([]);
-    setSizes([]);
-    setColors([]);
-    setHasSizes("none");
-    
-    if (fileInputRef.current) {
-    fileInputRef.current.value = "";
-}
-}
+            alert(
+                mode === "create"
+                    ? "Product created successfully!"
+                    : "Product updated successfully!"
+            );
+
+            if (mode === "create") {
+                setFormData({
+                    title: "",
+                    description: "",
+                    shortDescription: "",
+                    stockCount: "",
+                    sku: "",
+                    category: "",
+                    brand: "",
+                    previousPrice: "",
+                    discountAmount: "",
+                    sizes: [],
+                    colors: [],
+                });
+
+                setImagespath([]);
+                setSizes([]);
+                setColors([]);
+                setHasSizes("none");
+
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = "";
+                }
+            }
 
 
         } catch (error) {
 
-              console.log(error);
-    console.log(error.response?.data);
+            console.log(error);
+            console.log(error.response?.data);
 
 
         }
@@ -369,11 +369,11 @@ if (mode === "create") {
                                             <input type="text" className="form-control" placeholder="e.g. Minimalist Ceramic Vessel" id="title" value={formData.title} onChange={handleChange} />
 
                                         </div>
-                                         <div>
+                                        <div>
                                             <label className="form-label fw-semibold"> Short Description</label>
                                             <textarea className="form-control" rows="4" placeholder="Craft a short story for this product..." id="shortDescription" value={formData.shortDescription} onChange={handleChange}></textarea>
                                         </div>
-                                        
+
                                         <div>
                                             <label className="form-label fw-semibold">Description</label>
                                             <textarea className="form-control" rows="7" placeholder="Craft a compelling story for this product..." id="description" value={formData.description} onChange={handleChange}></textarea>
@@ -394,11 +394,11 @@ if (mode === "create") {
                                         <div className="mb-4" style={{ display: hasSizes }}>
                                             <label className="form-label fw-semibold">Colors (comma-separated)</label>
                                             <input
-    className="form-control"
-    placeholder="Red,Blue,Green"
-    value={formData.colors.join(",")}
-    onChange={handleColorsChange}
-/>
+                                                className="form-control"
+                                                placeholder="Red,Blue,Green"
+                                                value={formData.colors.join(",")}
+                                                onChange={handleColorsChange}
+                                            />
                                         </div>
 
 
@@ -419,13 +419,13 @@ if (mode === "create") {
                                                 <p className="mb-1 fw-semibold">Drag & drop your images here</p>
                                                 <p className="text-muted small mb-0">or click to browse from your computer</p>
                                             </div>
-                                           <input
-    ref={fileInputRef}
-    type="file"
-    multiple
-    onChange={handleImages}
-    accept="image/*"
-/>
+                                            <input
+                                                ref={fileInputRef}
+                                                type="file"
+                                                multiple
+                                                onChange={handleImages}
+                                                accept="image/*"
+                                            />
                                         </div>
                                         <div className="row g-3">
 
