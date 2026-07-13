@@ -489,10 +489,11 @@ const Productdetail = () => {
                         : "border"
                         }`}
                       style={{
-                        width: 75,
-                        height: 75,
+                        width: "100%",
+                        height: "180px",
                         cursor: "pointer",
                         objectFit: "cover",
+
                       }}
                     />
                   ))}
@@ -511,7 +512,6 @@ const Productdetail = () => {
                     <span className="text-muted">SKU: MK-2024</span>
                   </div> */}
                   <h2 className="h4">{product?.title}</h2>
-                  <small>{product?.shortDescription}</small>
                   <div className="d-flex align-items-center gap-2 mb-3">
                     {product?.ratings >= 0 && product?.ratings <= 9 && (
 
@@ -534,13 +534,13 @@ const Productdetail = () => {
                     {/* <span className="text-muted">{product.ratings}</span> */}
                   </div>
                   <div className="mb-4">
-                    <div>
+                    <div className="d-flex gap-2">
                       <p className="fs-3 fw-bold">₦{product?.price}</p>
                       {product?.previousPrice > 0 && (
                         <span className="text-decoration-line-through text-muted fs-5 ms-3">₦{product.previousPrice}</span>
                       )}
                       {product?.discountPercentage > 0 && (
-                        <span className="badge bg-primary  text-white ms-3">{product?.discountPercentage}% OFF</span>
+                        <span className="badge bg-primary  text-white ms-2">{product?.discountPercentage}% OFF</span>
                       )}
                     </div>
 
@@ -625,14 +625,7 @@ const Productdetail = () => {
                     </div>
                   )}
                   <div className="d-none d-md-flex align-items-sm-center gap-3 mb-4">
-                    {/* <button
-                      onClick={addToCart}
-                      disabled={isAddedToCart}
-                      className={`btn btn-primary btn-lg w-100 w-sm-auto ${isAddedToCart ? "d-none" : ""
-                        }`}
-                    >
-                      Add to Cart
-                    </button> */}
+
 
 
                     {cartItem ? (
@@ -668,7 +661,7 @@ const Productdetail = () => {
                     )}
                   </div>
                   <div className="list-group list-group-flush rounded-4 bg-light p-3">
-                    <div className="list-group-item bg-transparent border-0 px-0 py-2 d-flex align-items-center gap-2"><i className="bi bi-check-circle-fill text-primary"></i> Free delivery on orders over ₦100k</div>
+                    <div className="list-group-item bg-transparent border-0 px-0 py-2 d-flex align-items-center gap-2"><i className="bi bi-check-circle-fill text-primary"></i> Free delivery on orders over ₦500k</div>
                     <div className="list-group-item bg-transparent border-0 px-0 py-2 d-flex align-items-center gap-2"><i className="bi bi-check-circle-fill text-primary"></i> 30-day hassle-free return</div>
                     <div className="list-group-item bg-transparent border-0 px-0 py-2 d-flex align-items-center gap-2"><i className="bi bi-check-circle-fill text-primary"></i> Safe & encrypted payments</div>
                   </div>

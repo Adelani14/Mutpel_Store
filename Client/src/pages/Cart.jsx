@@ -247,8 +247,16 @@ const Cart = () => {
                                                     <div className="col-sm-4">
                                                         <Link to={`/productdetail/${item.product._id}`}>
 
-                                                            <img src={item.product?.imagespath[0]?.url} className="img-fluid rounded-4" alt={item.product?.title} />
-                                                        </Link>
+                                                            <img
+                                                                src={item.product?.imagespath?.[0]?.url}
+                                                                className="img-fluid rounded-4"
+                                                                alt={item.product?.title}
+                                                                style={{
+                                                                    width: "100%",
+                                                                    height: "180px",
+                                                                    objectFit: "cover",
+                                                                }}
+                                                            />                                                        </Link>
                                                     </div>
                                                     <div className="col-sm-5">
                                                         <span className="badge bg-primary-subtle text-primary mb-2">{item.product?.category.title}</span>
@@ -256,6 +264,9 @@ const Cart = () => {
                                                         <Link to={`/productdetail/${item.product._id}`} className="text-decoration-none text-dark">
                                                             <h2 className="h5 mb-2">{item.product?.title}</h2>
                                                         </Link>
+
+                                                        <small>{item.product?.shortDescription}</small>
+
 
                                                         <a className="text-danger small fw-semibold text-decoration-none" onClick={() => removeFromCart(item)}><i className="bi bi-trash me-1"></i>Remove Item</a>
                                                     </div>
