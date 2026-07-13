@@ -119,6 +119,19 @@ const Productdetail = () => {
     }
   };
 
+  const fetchWishlist = async () => {
+    try {
+      const response = await Axios.get("/api/wishlist/getWishlist");
+
+      setWishlist(response.data.wishlist?.items || []);
+
+    }
+    catch (error) {
+      console.log(error)
+    }
+
+  }
+
   const addToCart = async () => {
 
     try {
@@ -172,19 +185,24 @@ const Productdetail = () => {
     }
   };
 
-  const addToWishlist = async (productId) => {
+  const toggleWishlist = async (productId, isInWishlist) => {
+    setLoading(true);
     try {
-      await Axios.post("/api/wishlist/addToWishlist", {
-        productId,
-      });
+      if (isInWishlist) {
+        await Axios.delete("/api/wishlist/removeFromWishlist", {
+          data: { productId },
+        });
+      } else {
+        await Axios.post("/api/wishlist/addToWishlist", {
+          productId,
+        });
+      }
 
       await fetchWishlist();
-
-      setCartMessage("Product added successfully to Wishlist");
-      setCartSuccess(true);
-
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -736,14 +754,14 @@ const Productdetail = () => {
                               <button
                                 onClick={(e) => {
                                   e.preventDefault();
-                                  addToWishlist(relatedProduct._id);
+                                  toggleWishlist(relatedProduct._id, isInWishlist);
                                 }}
                                 className="btn btn-light rounded-circle position-absolute top-0 end-0 m-2"
                               >
                                 <i
                                   className={`bi ${isInWishlist
-                                      ? "bi-heart-fill text-danger"
-                                      : "bi-heart"
+                                    ? "bi-heart-fill text-danger"
+                                    : "bi-heart"
                                     }`}
                                 ></i>
                               </button>

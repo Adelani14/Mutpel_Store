@@ -50,14 +50,15 @@ const Wishlist = () => {
             await Axios.delete("/api/wishlist/removeFromWishlist", {
                 data: {
                     productId: item.product._id,
-                    size: item.size,
-                    color: item.color,
+                    
                 },
             });
             fetchWishlist(); // refresh wishlist
         } catch (error) {
             console.log(error);
 
+        }finally{
+            setLoading(false)
         }
     };
 
@@ -224,7 +225,7 @@ const Wishlist = () => {
                                                 <button onClick={removeFromWishlist}
                                                     className="btn btn-light rounded-circle position-absolute top-0 end-0 m-2"
                                                 >
-                                                    <i className="bi bi-heart"></i>
+                                                    <i className="bi bi-heart-fill"></i>
                                                 </button>
 
                                             </div>
