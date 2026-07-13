@@ -104,48 +104,35 @@ const Categories = () => {
 
 
 
-                <div className="d-flex overflow-auto ">
+                <div className="d-flex overflow-auto gap-3 pb-2">
 
-                    {filteredCategories.map(category => (
-
+                    {filteredCategories.map((category) => (
                         <div
-                            className="col-6 col-sm-4 col-lg-3"
                             key={category._id}
+                            className="category-card"
                         >
-
                             <button
                                 onClick={() => loadProducts(category._id)}
-                                className={`card shadow-sm rounded-4 h-100 border-0 overflow-hidden ${selectedCategory === category._id
-                                    ? "border border-3 border-primary"
-                                    : ""
+                                className={`card shadow-sm rounded-4 h-100 border-0 overflow-hidden w-100 ${selectedCategory === category._id
+                                        ? "border border-3 border-primary"
+                                        : ""
                                     }`}
                             >
-
                                 <img
-                                    src={category?.image}
+                                    src={category.image}
                                     className="card-img-top"
                                     style={{
                                         height: 170,
-                                        objectFit: "cover"
+                                        objectFit: "cover",
                                     }}
                                 />
 
                                 <div className="card-body">
-
-                                    <h6 className="fw-bold">
-                                        {category.title}
-                                    </h6>
-
-                                    <small className="text-muted">
-                                        Browse products →
-                                    </small>
-
+                                    <h6 className="fw-bold">{category.title}</h6>
+                                    <small className="text-muted">Browse products →</small>
                                 </div>
-
                             </button>
-
                         </div>
-
                     ))}
 
                 </div>

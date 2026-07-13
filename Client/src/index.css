@@ -476,3 +476,23 @@
   transition: opacity .5s ease;
 
 }
+
+
+.category-card {
+  flex: 0 0 50%;
+  /* 2 cards visible on phones */
+}
+
+@media (min-width: 768px) {
+  .category-card {
+    flex: 0 0 25%;
+    /* 4 cards visible on tablets */
+  }
+}
+
+@media (min-width: 992px) {
+  .category-card {
+    flex: 0 0 16.666667%;
+    /* 6 cards visible on desktops */
+  }
+}

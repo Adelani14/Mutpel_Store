@@ -119,7 +119,7 @@ const Productdetail = () => {
   };
 
   const addToCart = async () => {
-    
+
     try {
       if (product.sizes?.length > 0 && !selectedSize) {
         setCartMessage("Please select a size");
@@ -132,7 +132,7 @@ const Productdetail = () => {
         setCartSuccess(true);
         return;
       }
-setLoading(true)
+      setLoading(true)
       const response = await Axios.post("/api/cart/addToCart", {
         productId: product._id,
         quantity,
@@ -162,7 +162,7 @@ setLoading(true)
         error.response?.data?.message || "Something went wrong"
       );
       setCartSuccess(true);
-      
+
 
       setTimeout(() => {
         setCartSuccess(false);
@@ -386,21 +386,21 @@ setLoading(true)
           </div>
         )}
       </header> */}
-<Header />
+      <Header />
 
-{cartSuccess && (
-  <div
-    className="position-fixed start-0 w-100 px-3"
-    style={{
-      top: "70px",
-      zIndex: 9999,
-    }}
-  >
-    <div className="shadow-lg py-3 bg-success text-white text-center rounded-3">
-      {cartMessage}
-    </div>
-  </div>
-)}
+      {cartSuccess && (
+        <div
+          className="position-fixed start-0 w-100 px-3"
+          style={{
+            top: "70px",
+            zIndex: 9999,
+          }}
+        >
+          <div className="shadow-lg py-3 bg-success text-white text-center rounded-3">
+            {cartMessage}
+          </div>
+        </div>
+      )}
 
 
 
@@ -727,18 +727,18 @@ setLoading(true)
                       >
                         <div className="position-relative">
 
-                      <img
-  src={
-    relatedProduct?.imagespath?.[
-      currentIndexes[relatedProduct._id] || 0
-    ]?.url
-  }
-  className="card-img-top"
-  style={{
-    height: 220,
-    objectFit: "cover",
-  }}
-/>
+                          <img
+                            src={
+                              relatedProduct?.imagespath?.[
+                                currentIndexes[relatedProduct._id] || 0
+                              ]?.url
+                            }
+                            className="card-img-top"
+                            style={{
+                              height: 220,
+                              objectFit: "cover",
+                            }}
+                          />
 
                           {relatedProduct.discountPercentage > 0 && (
                             <span className="badge bg-danger position-absolute top-0 start-0 m-2">
@@ -843,6 +843,7 @@ setLoading(true)
       </nav>
 
 
+      {/* modal for gallery */}
 
 
       {
