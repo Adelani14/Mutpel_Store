@@ -2,7 +2,7 @@ import Header from "../components/Header";
 import Helpcenter from "../components/Helpcenter";
 import { useState, useEffect } from "react";
 import Axios from "../utils/axiosInstance.js";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import MobileBottomNav from "../components/MobileBottomNav.jsx";
 
 const Categories = () => {
@@ -12,6 +12,7 @@ const Categories = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState("");
+    const { id } = useParams();
 
     const filteredCategories = categories.filter(category =>
         category.title
@@ -24,28 +25,21 @@ const Categories = () => {
     );
 
     const fetchCategories = async () => {
-
-
         try {
-
             const res = await Axios.get("/api/categories");
 
             setCategories(res.data);
 
-            if (res.data.length > 0) {
+            const categoryId =
+                id || (res.data.length > 0 ? res.data[0]._id : null);
 
-                loadProducts(res.data[0]._id);
-
-                setSelectedCategory(res.data[0]._id);
-
+            if (categoryId) {
+                loadProducts(categoryId);
             }
 
         } catch (error) {
-
             console.log(error);
-
         }
-
     };
 
     const loadProducts = async (categoryId) => {
@@ -77,7 +71,6 @@ const Categories = () => {
     useEffect(() => {
 
         fetchCategories();
-        loadProducts();
 
     }, []);
     return (
