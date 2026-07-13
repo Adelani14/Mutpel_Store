@@ -499,7 +499,7 @@ setLoading(true)
                   </div>
                   <div className="mb-4">
                     <div>
-                      <span className="fs-3 fw-bold">₦{product?.price}</span>
+                      <p className="fs-3 fw-bold">₦{product?.price}</p>
                       {product?.previousPrice > 0 && (
                         <span className="text-decoration-line-through text-muted fs-5 ms-3">₦{product.previousPrice}</span>
                       )}
@@ -727,14 +727,18 @@ setLoading(true)
                       >
                         <div className="position-relative">
 
-                          <img
-                            src={relatedProduct?.imagespath[currentIndexes[relatedProduct._id]?.url || 0]}
-                            className="card-img-top"
-                            style={{
-                              height: 220,
-                              objectFit: "cover"
-                            }}
-                          />
+                      <img
+  src={
+    relatedProduct?.imagespath?.[
+      currentIndexes[relatedProduct._id] || 0
+    ]?.url
+  }
+  className="card-img-top"
+  style={{
+    height: 220,
+    objectFit: "cover",
+  }}
+/>
 
                           {relatedProduct.discountPercentage > 0 && (
                             <span className="badge bg-danger position-absolute top-0 start-0 m-2">
