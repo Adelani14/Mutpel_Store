@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 
 import { Link, NavLink } from "react-router-dom";
 import Axios from "../utils/axiosInstance.js";
+import { useRef } from "react";
+
+const fileInputRef = useRef(null);
 
 const ProductForm = ({ mode, initialData = null }) => {
 
@@ -209,28 +212,34 @@ const ProductForm = ({ mode, initialData = null }) => {
                     ? "Product created successfully!"
                     : "Product updated successfully!"
             );
-            console.log(result);
+            
 
- useEffect(() => {
-            if (mode === "create") {
+ alert(
+    mode === "create"
+        ? "Product created successfully!"
+        : "Product updated successfully!"
+);
 
-                setFormData({
-                    title: "",
-                    description: "",
-                    shortDescription: "",
-                    stockCount: "",
-                    sku: "",
-                    category: "",
-                    brand: "",
-                    previousPrice: "",
-                    discountAmount: "",
-                });
+if (mode === "create") {
+    setFormData({
+        title: "",
+        description: "",
+        shortDescription: "",
+        stockCount: "",
+        sku: "",
+        category: "",
+        brand: "",
+        previousPrice: "",
+        discountAmount: "",
+        sizes: [],
+        colors: [],
+    });
 
-                setImagespath([]);
-
-            }
-
-}, [mode, initialData]);
+    setImagespath([]);
+    setSizes([]);
+    setColors([]);
+    setHasSizes("none");
+}
 
 
         } catch (error) {
@@ -383,10 +392,11 @@ const ProductForm = ({ mode, initialData = null }) => {
                                         <div className="mb-4" style={{ display: hasSizes }}>
                                             <label className="form-label fw-semibold">Colors (comma-separated)</label>
                                             <input
-                                                className="form-control"
-                                                placeholder="Red,Blue,Green"
-                                                onChange={handleColorsChange}
-                                            />
+    className="form-control"
+    placeholder="Red,Blue,Green"
+    value={formData.colors.join(",")}
+    onChange={handleColorsChange}
+/>
                                         </div>
 
 
@@ -407,7 +417,13 @@ const ProductForm = ({ mode, initialData = null }) => {
                                                 <p className="mb-1 fw-semibold">Drag & drop your images here</p>
                                                 <p className="text-muted small mb-0">or click to browse from your computer</p>
                                             </div>
-                                            <input type="file" multiple onChange={handleImages} accept="image/*" className="upload-input" />
+                                           <input
+    ref={fileInputRef}
+    type="file"
+    multiple
+    onChange={handleImages}
+    accept="image/*"
+/>
                                         </div>
                                         <div className="row g-3">
 
