@@ -498,7 +498,7 @@ const Productdetail = () => {
                         width: 75,
                         height: 75,
                         objectFit: "cover",
-                        cursor:"pointer",
+                        cursor: "pointer",
                       }}
                     />
                   ))}
@@ -540,7 +540,7 @@ const Productdetail = () => {
                   </div>
                   <div className="mb-4">
                     <div>
-                      <p className="fs-3 fw-bold">₦{product?.price}</p>
+                      <h3 className="fs-3 fw-bold">₦{product?.price}</h3>
                       {product?.previousPrice > 0 && (
                         <span className="text-decoration-line-through text-muted fs-5 ms-3">₦{product.previousPrice}</span>
                       )}
