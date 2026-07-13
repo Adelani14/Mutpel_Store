@@ -24,7 +24,7 @@ const Categories = () => {
     );
 
     const fetchCategories = async () => {
-        
+
 
         try {
 
@@ -77,6 +77,7 @@ const Categories = () => {
     useEffect(() => {
 
         fetchCategories();
+        loadProducts();
 
     }, []);
     return (
@@ -110,7 +111,7 @@ const Categories = () => {
 
 
 
-                <div className="d-flex overflow-auto gap-2 ">
+                <div className="d-flex overflow-auto ">
 
                     {filteredCategories.map(category => (
 
