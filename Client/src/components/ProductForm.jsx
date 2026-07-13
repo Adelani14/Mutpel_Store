@@ -355,6 +355,11 @@ const ProductForm = ({ mode, initialData = null }) => {
                                             <input type="text" className="form-control" placeholder="e.g. Minimalist Ceramic Vessel" id="title" value={formData.title} onChange={handleChange} />
 
                                         </div>
+                                         <div>
+                                            <label className="form-label fw-semibold"> Short Description</label>
+                                            <textarea className="form-control" rows="7" placeholder="Craft a short story for this product..." id="description" value={formData.description} onChange={handleChange}></textarea>
+                                        </div>
+                                        
                                         <div>
                                             <label className="form-label fw-semibold">Description</label>
                                             <textarea className="form-control" rows="7" placeholder="Craft a compelling story for this product..." id="description" value={formData.description} onChange={handleChange}></textarea>
