@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import Axios from "../utils/axiosInstance.js";
 import MobileBottomNav from "../components/MobileBottomNav.jsx";
+import { NavLink, Link } from "react-router-dom";
 
 const Productlisting = () => {
 
