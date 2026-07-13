@@ -110,12 +110,12 @@ const Categories = () => {
 
 
 
-                <div className="d-flex overflow-auto gap-3 pb-2">
+                <div className="d-flex overflow-auto gap-2 pb-2">
 
                     {filteredCategories.map(category => (
 
                         <div
-                            className="col-6 col-md-4 col-lg-3"
+                            className="col-6 col-sm-4 col-xl-3"
                             key={category._id}
                         >
 
