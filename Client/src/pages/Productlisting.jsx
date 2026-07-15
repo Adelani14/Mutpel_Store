@@ -3,7 +3,7 @@ import Header from "../components/Header.jsx";
 import Footer from "../components/Footer";
 import { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
-import Axios from "../utils/axiosInstance.js";
+import publicAxios from "../utils/publicAxios.js";
 import MobileBottomNav from "../components/MobileBottomNav.jsx";
 import { NavLink, Link } from "react-router-dom";
 
@@ -35,7 +35,6 @@ const Productlisting = () => {
             try {
                 await Promise.all([
                     fetchProducts(page),
-                    getUsername(),
                     fetchCategories(),
                 ]);
             } finally {
@@ -45,10 +44,19 @@ const Productlisting = () => {
 
         loadData();
     }, [page]);
+    
+    
+    useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+
+    if (token) {
+        getUsername();
+    }
+}, []);
 
     const fetchProducts = async (currentPage) => {
         try {
-            const response = await Axios.get(`/api/products?page=${currentPage}&limit=${limit}`)
+            const response = await publicAxios.get(`/api/products?page=${currentPage}&limit=${limit}`)
             setProducts(response.data);
         } catch (error) {
             console.log(error);
@@ -75,7 +83,7 @@ const Productlisting = () => {
 
         try {
 
-            const res = await Axios.get("/api/categories?page=1&limit=6");
+            const res = await publicAxios.get("/api/categories?page=1&limit=6");
 
             setCategories(res.data);
 
