@@ -12,7 +12,7 @@ const Productlisting = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
-    const limit = 20;
+    const limit = 25;
     const [email, setEmail] = useState("");
     const [fullName, setFullName] = useState("");
     const [categories, setCategories] = useState([]);
@@ -75,17 +75,11 @@ const Productlisting = () => {
 
         try {
 
-            const res = await Axios.get("/api/categories");
+            const res = await Axios.get("/api/categories?page=1&limit=6");
 
             setCategories(res.data);
 
-            // if (res.data.length > 0) {
-
-            // loadProducts(res.data[0]._id);
-
-            // setSelectedCategory(res.data[0]._id);
-
-            // }
+           
 
         } catch (error) {
 

@@ -17,10 +17,12 @@ const categorySchema = new mongoose.Schema(
             trim: true,
         },
 
-        image: {
-            type: String,
-            default: "",
-        },
+        imagespath: [
+            {
+                url: String,
+                public_id: String,
+            }
+        ],
 
         description: {
             type: String,

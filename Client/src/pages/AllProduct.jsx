@@ -12,7 +12,7 @@ const AllProduct = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
-    const limit = 10;
+    const limit = 15;
 
 
 

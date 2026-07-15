@@ -51,9 +51,15 @@ export const createCategory = async (req, res) => {
 
 // GET ALL CATEGORIES
 export const getCategories = async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const skip = (page - 1) * limit;
     try {
 
-        const categories = await Category.find();
+        const categories = await Category.find()
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit);
 
         res.json(categories);
 

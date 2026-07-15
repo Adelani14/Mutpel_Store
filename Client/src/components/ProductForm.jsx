@@ -29,6 +29,7 @@ const ProductForm = ({ mode, initialData = null }) => {
     });
 
     const [imagespath, setImagespath] = useState([]);
+    const [featured, setFeatured] = useState(false);
 
     const handleChange = (e) => {
 
@@ -144,6 +145,7 @@ const ProductForm = ({ mode, initialData = null }) => {
             });
 
             setImagespath(initialData.imagespath);
+            setFeatured(initialData.featured);
 
             if (initialData.sizes.length > 0) {
                 setHasSizes("block");
@@ -183,6 +185,7 @@ const ProductForm = ({ mode, initialData = null }) => {
             imagespath.forEach((image) => {
                 data.append("images", image);
             });
+            data.append("featured", featured);
             data.append("price", price);
             data.append("discountPercentage", discountPercentage);
 
@@ -511,8 +514,20 @@ const ProductForm = ({ mode, initialData = null }) => {
                                             <input type="text" className="form-control" placeholder="e.g. Mutpel Co." id="brand" value={formData.brand} onChange={handleChange} />
                                         </div>
                                         <div className="form-check form-switch">
-                                            <input className="form-check-input" type="checkbox" id="inventoryStatus" defaultChecked />
-                                            <label className="form-check-label fw-semibold" htmlFor="inventoryStatus">Active Listing</label>
+                                            <input
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                id="featured"
+                                                checked={featured}
+                                                onChange={(e) => setFeatured(e.target.checked)}
+                                            />
+
+                                            <label
+                                                className="form-check-label fw-semibold"
+                                                htmlFor="featured"
+                                            >
+                                                Feature Product
+                                            </label>
                                         </div>
                                     </div>
 

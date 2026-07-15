@@ -1,7 +1,27 @@
 import Footer from "../components/Footer";
 import Helpcenter from '../components/Helpcenter.jsx';
 import { Link } from "react-router-dom";
+import Axios from "../utils/axiosInstance.js"
+import { useState, useEffect } from "react";
+
+
 const Landing = () => {
+    const [products, setProducts] = useState([]);
+
+
+
+    const fetchProducts = async (currentPage) => {
+        try {
+            const response = await Axios.get(`/api/products?page=1&limit=4`)
+            setProducts(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
     return (
         <>
 
@@ -76,6 +96,15 @@ const Landing = () => {
                             </div>
                         </div>
                     </section> */}
+
+                <div className="bg-primary text-white py-2">
+                    <div className="container d-flex justify-content-center align-items-center">
+                        <small className="fw-semibold">
+                            <i className="fa fa-van"></i>
+                            Free Delivery on orders above ₦200,000
+                        </small>
+                    </div>
+                </div>
                 <section className="hero-section py-5">
                     <div className="container">
                         <div
@@ -94,8 +123,19 @@ const Landing = () => {
                                                 <h2 className="display-6 fw-bold">Upgrade Your Lifestyle With Mutpel Quality</h2>
                                                 <p className="lead mt-3">Up to 40% OFF on premium phone accessories, kitchenware, and footwear.</p>
                                                 <div className="mt-4 d-flex gap-3">
-                                                    <a href="#" className="btn btn-primary btn-lg">Shop Now</a>
-                                                    <a href="#" className="btn btn-outline-light btn-lg">View Deals</a>
+                                                    <Link
+                                                        to="/productlisting"
+                                                        className="btn btn-primary btn-lg"
+                                                    >
+                                                        Shop Now
+                                                    </Link>
+
+                                                    <Link
+                                                        to="/categories"
+                                                        className="btn btn-outline-light btn-lg"
+                                                    >
+                                                        Browse Categories
+                                                    </Link>
                                                 </div>
                                             </div>
                                             <div className="col-lg-5 text-center">
@@ -186,7 +226,7 @@ const Landing = () => {
                     <div className="container">
                         <div className="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
                             <h2 className="h3 mb-1 fs-4 ">Shop by Categories</h2>
-                            <p className="text-muted mb-0"><i className="bi bi-arrow-right text-primary"> view all categories</i></p>
+                            <Link to="/categories" className="text-muted mb-0"><i className="bi bi-arrow-right text-primary"> view all categories</i></Link>
                         </div>
                         <div className="row g-3 justify-content-center text-center">
                             <div className="col-6 col-sm-4 col-md-2">
@@ -242,67 +282,53 @@ const Landing = () => {
                             </div>
                         </div>
                         <div className="row g-4">
-                            <div className="col-md-6 col-xl-3">
-                                <div className="product-card p-3 rounded-4 shadow-sm bg-white h-100">
-                                    <div className="badge bg-danger text-white position-absolute top-0 start-0 m-3">20% OFF</div>
-                                    {/* <div className="product-image rounded-4 bg-secondary-subtle mb-3"></div> */}
-                                    <img src="https://images.unsplash.com/photo-1616406432452-07bc5938759d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fFByZW1pdW0lMjBMZWF0aGVyJTIwTG9hZmVyc3xlbnwwfHwwfHx8MA%3D%3D" alt="" className="product-img rounded-4 mb-3" alt="Backpack" />
-                                    <h3 className="h6">Premium Leather Loafers</h3>
-                                    <div className="d-flex align-items-center gap-2 mb-3 text-warning small">
-                                        <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star"></i>
-                                        <span className="text-muted">(124)</span>
+                            {products
+                                .filter(product => product.discountPercentage >= 20)
+                                .map(product => (
+
+                                    <div key={product._id} className="col-md-6 col-xl-3">
+                                        <Link to={`/productdetail/${product._id}`}>
+
+                                            <div className="product-card p-3 rounded-4 shadow-sm bg-white h-100">
+                                                <div className="badge bg-danger text-white position-absolute top-0 start-0 m-3">20% OFF</div>
+                                                {/* <div className="product-image rounded-4 bg-secondary-subtle mb-3"></div> */}
+                                                <img src={product.imagespath[0]?.url} className="product-img rounded-4 mb-3" alt="Backpack" />
+                                                <h3 className="h6">{product.title}</h3>
+                                                <div className="d-flex align-items-center gap-2 mb-3 text-warning small">
+                                                    {product?.ratings >= 0 && product?.ratings <= 9 && (
+
+                                                        <div className="text-warning small">
+                                                            <i className="bi bi-star-fill"></i><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i>
+                                                            <span>({product.ratings})</span>
+                                                        </div>
+                                                    )}
+                                                    {product?.ratings >= 10 && product?.ratings <= 19 && (
+
+                                                        <div className="text-warning small">
+                                                            <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i></i>
+                                                            <span>({product.ratings})</span>
+                                                        </div>
+                                                    )}
+                                                    {product?.ratings >= 20 && (
+
+                                                        <div className="text-warning small">
+                                                            <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star"></i><i className="bi bi-star"></i>
+                                                            <span>({product.ratings})</span>
+                                                        </div>
+                                                    )}
+                                                    {/* <span className="text-muted">{product.ratings}</span> */}
+                                                </div>
+                                                <div className="d-flex align-items-center justify-content-between mt-auto">
+                                                    <div className="fw-semibold fs-5">₦{product.price}</div>
+                                                    <div href="#" className="btn btn-primary btn-sm">Add to Cart</div>
+                                                </div>
+                                            </div>
+                                        </Link>
+
                                     </div>
-                                    <div className="d-flex align-items-center justify-content-between mt-auto">
-                                        <div className="fw-semibold fs-5">₦28,500</div>
-                                        <a href="#" className="btn btn-primary btn-sm">Add to Cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 col-xl-3">
-                                <div className="product-card p-3 rounded-4 shadow-sm bg-white h-100">
-                                    <div className="badge bg-danger text-white position-absolute top-0 start-0 m-3">15% OFF</div>
-                                    <img src="https://plus.unsplash.com/premium_photo-1711350621900-a5df0c68458e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8TXVsdGktRnVuY3Rpb24lMjBBaXIlMjBGcnllcnxlbnwwfHwwfHx8MA%3D%3D" alt="" className="product-img rounded-4 mb-3" alt="Backpack" />
-                                    <h3 className="h6">Multi-Function Air Fryer</h3>
-                                    <div className="d-flex align-items-center gap-2 mb-3 text-warning small">
-                                        <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star"></i>
-                                        <span className="text-muted">(124)</span>
-                                    </div>
-                                    <div className="d-flex align-items-center justify-content-between mt-auto">
-                                        <div className="fw-semibold fs-5">₦72,000</div>
-                                        <a href="#" className="btn btn-primary btn-sm">Add to Cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 col-xl-3">
-                                <div className="product-card p-3 rounded-4 shadow-sm bg-white h-100">
-                                    <div className="badge bg-danger text-white position-absolute top-0 start-0 m-3">30% OFF</div>
-                                    <img src="https://images.unsplash.com/photo-1633381638729-27f730955c23?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8V2lyZWxlc3MlMjBDaGFyZ2luZyUyMFBhZHxlbnwwfHwwfHx8MA%3D%3D" alt="" className="product-img rounded-4 mb-3" alt="Backpack" />
-                                    <h3 className="h6">Wireless Charging Pad</h3>
-                                    <div className="d-flex align-items-center gap-2 mb-3 text-warning small">
-                                        <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star"></i><i className="bi bi-star"></i>
-                                        <span className="text-muted">(124)</span>
-                                    </div>
-                                    <div className="d-flex align-items-center justify-content-between mt-auto">
-                                        <div className="fw-semibold fs-5">₦12,800</div>
-                                        <a href="#" className="btn btn-primary btn-sm">Add to Cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 col-xl-3">
-                                <div className="product-card p-3 rounded-4 shadow-sm bg-white h-100">
-                                    <div className="badge bg-danger text-white position-absolute top-0 start-0 m-3">10% OFF</div>
-                                    <img src="https://media.istockphoto.com/id/1394456695/photo/a-woman-at-the-airport-holding-a-passport-with-a-boarding-pass.webp?a=1&b=1&s=612x612&w=0&k=20&c=MxEXkYc_okCfofghSel17XkniV8PG2dUvsJE8GmZcdo=" className="product-img rounded-4 mb-3" alt="Backpack" />
-                                    <h3 className="h6">Nylon Travel Backpack</h3>
-                                    <div className="d-flex align-items-center gap-2 mb-3 text-warning small">
-                                        <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star"></i>
-                                        <span className="text-muted">(124)</span>
-                                    </div>
-                                    <div className="d-flex align-items-center justify-content-between mt-auto">
-                                        <div className="fw-semibold fs-5">₦18,500</div>
-                                        <a href="#" className="btn btn-primary btn-sm">Add to Cart</a>
-                                    </div>
-                                </div>
-                            </div>
+
+                                ))}
+
                         </div>
                     </div>
                 </section>
@@ -315,10 +341,22 @@ const Landing = () => {
                                 <p className="text-muted mb-0">Hand-picked quality items just for you.</p>
                             </div>
                             <div className="btn-group" role="group" aria-label="Featured filter">
-                                <button type="button" className="btn btn-primary">all</button>
-                                <button type="button" className="btn btn-outline-secondary">electronics</button>
-                                <button type="button" className="btn btn-outline-secondary">fashion</button>
-                                <button type="button" className="btn btn-outline-secondary">home</button>
+                                <Link
+                                    to="/categories"
+                                    className="text-decoration-none text-dark btn btn-primary"
+                                >  all</Link>
+                                <Link
+                                    to="/categories/electronic"
+                                    className="text-decoration-none text-dark btn btn-primary"
+                                >electronics</Link>
+                                <Link
+                                    to="/categories/fashion"
+                                    className="text-decoration-none text-dark btn btn-primary"
+                                >fashion</Link>
+                                <Link
+                                    to="/categories/home"
+                                    className="text-decoration-none text-dark btn btn-primary"
+                                >home</Link>
                             </div>
                         </div>
                         <div className="row g-4">
@@ -436,7 +474,10 @@ const Landing = () => {
                             </div>
                         </div>
                         <div className="text-center mt-5">
-                            <a href="#" className="btn btn-outline-primary btn-md">Load More Products</a>
+                            <Link
+                                to="/productlisting"
+                                className="btn btn-outline-primary btn-md"
+                            >Load More Products</Link>
                         </div>
                     </div>
                 </section>
@@ -478,11 +519,11 @@ const Landing = () => {
                 <section className="container border-top border-bottom border-secondary border-1 mb-3 py-4 bg-body">
                     <div className="container">
                         <div className="d-flex flex-wrap justify-content-center align-items-center gap-4 text-secondary small text-uppercase fw-semibold">
-                            <span>Apple</span>
-                            <span>Samsung</span>
-                            <span>Nike</span>
-                            <span>Adidas</span>
-                            <span>T-Fal</span>
+                            <span className="badge bg-light text-dark px-3 py-2">Apple</span>
+                            <span className="badge bg-light text-dark px-3 py-2">Samsung</span>
+                            <span className="badge bg-light text-dark px-3 py-2">Nike</span>
+                            <span className="badge bg-light text-dark px-3 py-2">Adidas</span>
+                            <span className="badge bg-light text-dark px-3 py-2">T-Fal</span>
                         </div>
                     </div>
                 </section>

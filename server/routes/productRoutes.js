@@ -1,8 +1,9 @@
 import express from "express";
 import upload from "../middleware/multer.js";
 import isAuth from "../middleware/isAuth.js";
+import isAdmin from "../middleware/isAdmin.js";
 
-import { createProduct, getProducts, getProductById, deleteProduct, searchProducts , updateProduct, getSingleProduct, getRelatedProducts, getProductsByCategory } from "../controllers/productController.js";
+import { createProduct, getProducts, getProductById, deleteProduct, searchProducts, updateProduct, getSingleProduct, getRelatedProducts, getProductsByCategory } from "../controllers/productController.js";
 
 
 const router = express.Router();
@@ -10,33 +11,35 @@ const router = express.Router();
 router.post(
     "/createNewProduct",
     isAuth,
+    isAdmin,
     upload.array("images", 8),
     createProduct
 );
 router.put(
     "/:id",
     isAuth,
+    isAdmin,
     upload.array("images", 8),
     updateProduct
-); router.delete("/:id", isAuth, deleteProduct);
+);
 
-router.get("/getSingleProduct/:id", isAuth, getSingleProduct);
+router.delete("/:id", isAuth, isAdmin, deleteProduct);
+
+router.get("/getSingleProduct/:id", getSingleProduct);
 
 router.get(
     "/relatedproducts/:categoryId/:productId",
-    isAuth,
     getRelatedProducts
 );
 
 router.get(
     "/category/:categoryId",
-    isAuth,
     getProductsByCategory
 );
 
-router.get("/search", searchProducts )
+router.get("/search", searchProducts)
 
-router.get("/", isAuth, getProducts);
-router.get("/:id", isAuth, getProductById);
+router.get("/", getProducts);
+router.get("/:id", getProductById);
 
 export default router;

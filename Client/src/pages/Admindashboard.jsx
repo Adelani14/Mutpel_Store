@@ -55,7 +55,7 @@ const Admindashboard = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
-    const limit = 5;
+    const limit = 10;
 
     const fetchProducts = async (currentPage) => {
         try {
@@ -234,16 +234,14 @@ const Admindashboard = () => {
                                 <div className="nav  flex-column nav-pills " aria-orientation="vertical">
                                     <div className="border-bottom pb-3 mb-3">
                                         <h5 className="mb-1">Admin Panel</h5>
-                                        <small className="text-muted">Mutpel Household</small>
                                     </div>
                                     <a className="nav-link active rounded-4 mb-2" href="#"><i className="bi bi-speedometer2 me-2"></i>Dashboard</a>
                                     <a className="nav-link rounded-4 mb-2" href="/Allproducts"><i className="bi bi-box-seam me-2"></i>Products</a>
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-basket2 me-2"></i>Orders</a>
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-people me-2"></i>Users</a>
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-graph-up me-2"></i>Reports</a>
-                                    <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-gear me-2"></i>Settings</a>
                                     <a className="nav-link rounded-4 mt-2" href="/Productlisting"><i className="bi bi-shop me-2"></i>Check Store</a>
-                                    <button className="nav-link rounded-4 mt-5 text-danger" onClick={logout}><i className="bi bi-box-arrow-right me-2"></i>Sign Out</button>
+                                    <a className="nav-link rounded-4 mt-5 text-danger" onClick={logout}><i className="bi bi-box-arrow-right me-2"></i>Sign Out</a>
                                 </div>
                             </div>
                         </div>

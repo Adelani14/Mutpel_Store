@@ -56,7 +56,7 @@ const NewCategory = () => {
 
             // append banner image
             if (bannerImage) {
-                data.append("image", bannerImage);
+                data.append("imagespath", bannerImage);
             }
 
 
