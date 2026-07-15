@@ -13,9 +13,15 @@ const Footer = () => {
             console.log(error);
         }
     };
-    useEffect(() => {
-        getUsername();
-    }, [])
+    
+
+useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (user) {
+        setEmail(user.email);
+    }
+}, []);
     return (
 
         <>
