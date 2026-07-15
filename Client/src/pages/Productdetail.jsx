@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Axios from "../utils/axiosInstance.js";
+import publicAxios from "../utils/publicAxios.js";
 import { Link, NavLink } from "react-router-dom";
 import Header from "../components/Header.jsx";
 
@@ -102,7 +103,7 @@ const Productdetail = () => {
 
   const fetchProduct = async () => {
     try {
-      const response = await Axios.get(`/api/products/getSingleProduct/${id}`)
+      const response = await publicAxios.get(`/api/products/getSingleProduct/${id}`)
 
       setProduct(response.data?.product);
 
@@ -263,37 +264,32 @@ const Productdetail = () => {
   }, [relatedProducts]);
 
 
+useEffect(() => {
+  const loadData = async () => {
+    setLoading(true);
 
-  useEffect(() => {
+    try {
+      // Everyone can view the product
+      await fetchProduct();
 
-    const loadData = async () => {
-
-      setLoading(true);
-
-      try {
-
+      // Only logged-in users
+      if (localStorage.getItem("accessToken")) {
         await Promise.all([
-          fetchProduct(),
           fetchCart(),
           fetchCartCount(),
           fetchWishlist(),
         ]);
-
-        setCurrentImage(0);
-
-      } finally {
-
-        setLoading(false);
-
       }
 
-    };
+      setCurrentImage(0);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    loadData();
-
-  }, [id]);
-
-
+  loadData();
+}, [id]);
+  
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!showGallery) return;
