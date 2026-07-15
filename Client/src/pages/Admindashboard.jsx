@@ -168,18 +168,22 @@ const Admindashboard = () => {
                 </div>
             )}
             <Helpcenter />
-            <header className="bg-white shadow-sm sticky-top" style={{ zIndex: 1100 }}>
+            <header className="bg-white shadow-sm sticky-top" style={{ height: "80px", zIndex: 1100 }}>
                 <div className="container-fluid py-3">
                     <div className="d-flex align-items-center justify-content-between gap-3 flex-wrap">
                         <div className="d-flex align-items-center gap-2">
                             <div
-                                className="brand-icon rounded-3 d-flex align-items-center justify-content-center bg-primary text-white"
+                                className="brand-icon rounded-3 d-flex d-xl-none align-items-center justify-content-center bg-primary text-white"
                                 onClick={toggleSidebar}
                             >
                                 <img
                                     src="/icons/logo.png"
                                     alt="Mutpel Logo"
-                                    style={{ width: "40px", height: "40px", objectFit: "contain" }}
+                                    style={{
+                                        width: "40px",
+                                        height: "40px",
+                                        objectFit: "contain",
+                                    }}
                                 />
                             </div>
                             <div><h1 className="h5 mb-0 text-primary">Mutpel Household</h1></div>
@@ -207,17 +211,23 @@ const Admindashboard = () => {
                         </div>
                     </div>
                 </div>
-            </header>
+            </header >
 
-            {sidebarOpen && <div className="overlay" onClick={toggleSidebar}></div>}
+            {sidebarOpen && (
+                <div className="overlay d-none d-md-block d-xl-none" onClick={toggleSidebar}></div>
+            )}
 
             <main className="py-5 bg-light">
                 <div className="container-fluid px-3">
                     <div className="d-flex ">
 
-                        <div className={`sidebar ${sidebarOpen ? 'open' : ''}  d-none d-md-block col-xl-2`}>
+                        <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
                             <div className="card rounded-4 shadow-sm border-0 p-3 h-100">
                                 <div className="nav  flex-column nav-pills " aria-orientation="vertical">
+                                    <div className="border-bottom pb-3 mb-3">
+                                        <h5 className="mb-1">Admin Panel</h5>
+                                        <small className="text-muted">Mutpel Household</small>
+                                    </div>
                                     <a className="nav-link active rounded-4 mb-2" href="#"><i className="bi bi-speedometer2 me-2"></i>Dashboard</a>
                                     <a className="nav-link rounded-4 mb-2" href="/Allproducts"><i className="bi bi-box-seam me-2"></i>Products</a>
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-basket2 me-2"></i>Orders</a>
@@ -239,60 +249,121 @@ const Admindashboard = () => {
                                 </div>
 
                             </div>
-                            <div className="row g-3 mb-4 ">
-                                <div className="col-md-3 product-card">
+
+                            {/* ================= BUSINESS OVERVIEW ================= */}
+                            <div className="row g-3 mb-4">
+
+                                <div className="col-md-6 col-lg-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
-                                        <p className="text-muted mb-2">Total Revenue</p>
-                                        <h2 className="h4 mb-0">₦{stats.totalRevenue?.toLocaleString()}</h2>
-                                        <p className="text-success small mb-0">+12.4% vs last month</p>
-                                    </div>
-                                </div>
-                                <div className="col-md-3 product-card">
-                                    <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
-                                        <p className="text-muted mb-2">Active Orders</p>
+                                        <p className="text-muted mb-2">Total Orders</p>
                                         <h2 className="h4 mb-0">{stats.totalOrders}</h2>
-                                        <p className="text-success small mb-0">+8.7% from yesterday</p>
+                                        <small className="text-muted">All-time orders</small>
                                     </div>
                                 </div>
-                                <div className="col-md-3 product-card">
+
+                                <div className="col-md-6 col-lg-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
-                                        <p className="text-muted mb-2">Active Products</p>
-                                        <h2 className="h4 mb-0">{stats.totalProducts}</h2>
-                                        <p className="text-danger small mb-0">-2.3% this week</p>
+                                        <p className="text-muted mb-2">Pending Orders</p>
+                                        <h2 className="h4 mb-0">{stats.pendingOrders}</h2>
+                                        <small className="text-warning">Awaiting processing</small>
                                     </div>
                                 </div>
-                                <div className="col-md-3 product-card">
+
+                                <div className="col-md-6 col-lg-3">
+                                    <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
+                                        <p className="text-muted mb-2">Completed Orders</p>
+                                        <h2 className="h4 mb-0">{stats.completedOrders}</h2>
+                                        <small className="text-success">Successfully delivered</small>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6 col-lg-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Total Customers</p>
                                         <h2 className="h4 mb-0">{stats.totalUsers}</h2>
-                                        <p className="text-success small mb-0">+4.5% growth</p>
+                                        <small className="text-muted">Registered customers</small>
                                     </div>
                                 </div>
+
                             </div>
 
-                            {/* <div className="row g-3 mb-4">
-                                    <div className="col-lg-8">
-                                        <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
-                                            <div className="d-flex align-items-center justify-content-between mb-3">
-                                                <h2 className="h6 mb-0">Revenue & Order Volume</h2>
-                                                <span className="text-muted small">Monthly growth trends for fiscal year 2024</span>
-                                            </div>
-                                            <div className="chart-placeholder bg-secondary-subtle rounded-4" style={{ minHeight: '280px' }}></div>
-                                        </div>
-                                    </div>
-                                    <div className="col-lg-4">
-                                        <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
-                                            <h2 className="h6 mb-3">Category Performance</h2>
-                                            <div className="d-flex align-items-center mb-2"><span className="badge bg-primary me-2">Accessories</span><span className="text-muted">38%</span></div>
-                                            <div className="d-flex align-items-center mb-2"><span className="badge bg-warning me-2">Kitchen</span><span className="text-muted">24%</span></div>
-                                            <div className="d-flex align-items-center mb-2"><span className="badge bg-success me-2">Footwear</span><span className="text-muted">18%</span></div>
-                                            <div className="d-flex align-items-center"><span className="badge bg-info text-dark me-2">Kids</span><span className="text-muted">20%</span></div>
-                                            <div className="chart-placeholder bg-secondary-subtle rounded-4 mt-4" style={{ minHeight: '180px' }}></div>
-                                        </div>
-                                    </div>
-                                </div> */}
+                            {/* ================= REVENUE ================= */}
 
-                            {/* <div className="card overflow-hidden rounded-4 shadow-sm border-0 p-4 mb-4"> */}
+                            <div className="row g-3 mb-4">
+
+                                <div className="col-md-6 col-lg-3">
+                                    <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
+                                        <p className="text-muted mb-2">Revenue Today</p>
+                                        <h2 className="h4 mb-0">₦{stats.revenueToday?.toLocaleString()}</h2>
+                                        <small className="text-success">Today's earnings</small>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6 col-lg-3">
+                                    <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
+                                        <p className="text-muted mb-2">Revenue This Month</p>
+                                        <h2 className="h4 mb-0">₦{stats.revenueThisMonth?.toLocaleString()}</h2>
+                                        <small className="text-primary">Current month</small>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6 col-lg-3">
+                                    <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
+                                        <p className="text-muted mb-2">Revenue This Year</p>
+                                        <h2 className="h4 mb-0">₦{stats.revenueThisYear?.toLocaleString()}</h2>
+                                        <small className="text-info">Current year</small>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6 col-lg-3">
+                                    <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
+                                        <p className="text-muted mb-2">Lifetime Revenue</p>
+                                        <h2 className="h4 mb-0">₦{stats.totalRevenue?.toLocaleString()}</h2>
+                                        <small className="text-success">All-time earnings</small>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            {/* ================= STORE PERFORMANCE ================= */}
+
+                            <div className="row g-3 mb-5">
+
+                                <div className="col-md-6 col-lg-3">
+                                    <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
+                                        <p className="text-muted mb-2">Products Sold</p>
+                                        <h2 className="h4 mb-0">{stats.productsSold}</h2>
+                                        <small className="text-muted">Units sold</small>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6 col-lg-3">
+                                    <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
+                                        <p className="text-muted mb-2">Average Order Value</p>
+                                        <h2 className="h4 mb-0">₦{stats.averageOrderValue?.toLocaleString()}</h2>
+                                        <small className="text-muted">Per order</small>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6 col-lg-3">
+                                    <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
+                                        <p className="text-muted mb-2">Active Products</p>
+                                        <h2 className="h4 mb-0">{stats.totalProducts}</h2>
+                                        <small className="text-muted">Available products</small>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6 col-lg-3">
+                                    <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
+                                        <p className="text-muted mb-2">Categories</p>
+                                        <h2 className="h4 mb-0">{stats.totalCategories}</h2>
+                                        <small className="text-muted">Product categories</small>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
 
                             <div className="admin-card  mb-4" style={{ minWidth: 0 }}>
 
@@ -419,18 +490,7 @@ const Admindashboard = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* <div className="col-lg-5">
-                                        <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
-                                            <h2 className="h6 mb-4">Quick Add</h2>
-                                            <form className="row g-3">
-                                                <div className="col-12"><label className="form-label">Product Name</label><input className="form-control" type="text" placeholder="e.g. Ergonomic Keyboard" /></div>
-                                                <div className="col-12"><label className="form-label">Price (NGN)</label><input className="form-control" type="text" placeholder="₦" /></div>
-                                                <div className="col-12"><label className="form-label">Category</label><select className="form-select"><option>Select category...</option><option>Electronics</option><option>Kitchen</option><option>Fashion</option></select></div>
-                                                <div className="col-12"><label className="form-label">Brief Description</label><textarea className="form-control" rows="3"></textarea></div>
-                                                <div className="col-12"><button className="btn btn-primary w-100">Add Product to Stock</button></div>
-                                            </form>
-                                        </div>
-                                    </div> */}
+
                     </div>
                 </div>
             </main >

@@ -161,30 +161,45 @@
   background-size: 60% 60%;
 } */
 
+/* Default - hidden (phones) */
 .sidebar {
-  position: fixed;
-  top: 0;
-  left: -260px;
-  width: 270px;
-  height: 100%;
-  background: white;
-  z-index: 1050;
-  transition: all 0.3s ease;
-  padding: 15px;
+  display: none;
 }
 
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1199px) {
 
-.sidebar.open {
-  left: 0;
+  .sidebar {
+    display: block;
+    position: fixed;
+    top: 80px;
+    /* Adjust to your header height */
+    left: -270px;
+    width: 270px;
+    height: calc(100vh - 80px);
+    background: #fff;
+    z-index: 1050;
+    transition: left .3s ease;
+    overflow-y: auto;
+    padding: 15px;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
 }
 
 /* Desktop */
 @media (min-width: 1200px) {
+
   .sidebar {
+    display: block;
     position: sticky;
-    width: 250px;
-    height: auto;
+    top: 90px;
     left: 0;
+    width: 250px;
+    height: fit-content;
+    padding: 0;
   }
 
   .main-content {
@@ -194,22 +209,12 @@
 
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: rgba(0, 0, 0, 0.3);
   z-index: 1040;
 }
 
 
-
-
-/* Force the main content to respect the width of its parent */
-.main-content {
-  min-width: 0;
-  overflow: hidden;
-}
 
 /* Ensure the table container handles the overflow */
 .table-responsive {
