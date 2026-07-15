@@ -14,12 +14,21 @@ const Admindashboard = () => {
 
 
     const [stats, setStats] = useState({
+        totalOrders: 0,
+        pendingOrders: 0,
+        completedOrders: 0,
+
+        revenueToday: 0,
+        revenueThisMonth: 0,
+        revenueThisYear: 0,
+        totalRevenue: 0,
+
+        averageOrderValue: 0,
+        productsSold: 0,
+
         totalUsers: 0,
         totalProducts: 0,
         totalCategories: 0,
-        totalOrders: 0,
-        totalOrders: 0,
-        totalRevenue: 0,
     });
 
 
@@ -217,10 +226,9 @@ const Admindashboard = () => {
                 <div className="overlay d-none d-md-block d-xl-none" onClick={toggleSidebar}></div>
             )}
 
-            <main className="py-5 bg-light">
+            <main className="pt-3 pb-5 bg-light">
                 <div className="container-fluid px-3">
-                    <div className="d-flex ">
-
+                    <div className="d-block d-xl-flex">
                         <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
                             <div className="card rounded-4 shadow-sm border-0 p-3 h-100">
                                 <div className="nav  flex-column nav-pills " aria-orientation="vertical">

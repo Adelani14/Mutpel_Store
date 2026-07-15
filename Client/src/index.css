@@ -189,6 +189,12 @@
   }
 }
 
+.main-content {
+  width: 100%;
+  min-width: 0;
+}
+
+
 /* Desktop */
 @media (min-width: 1200px) {
 
