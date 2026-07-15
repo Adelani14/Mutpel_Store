@@ -563,7 +563,7 @@ const Landing = () => {
 
             </main>
 
-            <Footer />
+            
         </>
 
         // <div classNameName="text-rose-300 bg-green-700">hello this is landing page</div>
