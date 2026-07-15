@@ -283,7 +283,7 @@ const Landing = () => {
                         </div>
                         <div className="row g-4">
                             {products
-                                .filter(product => product.discountPercentage >= 20)
+                                .filter(product => product.discountPercentage >= 10)
                                 .map(product => (
 
                                     <div key={product._id} className="col-md-6 col-xl-3">
@@ -562,7 +562,7 @@ const Landing = () => {
                 </section>
 
             </main>
-
+<Footer />
             
         </>
 
