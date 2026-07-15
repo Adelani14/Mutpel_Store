@@ -325,23 +325,23 @@ const Landing = () => {
                                             <div className="d-flex align-items-center gap-2 mb-3 text-warning small">
                                                 {product?.ratings >= 0 && product?.ratings <= 9 && (
 
-                                                    <div className="text-warning small">
+                                                    <div className="d-flex align-items-center gap-2 text-warning small">
                                                         <i className="bi bi-star-fill"></i><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i>
-                                                        <span className="text-dark fs-5">({product.ratings})</span>
+                                                        <span className="text-muted">({product.ratings})</span>
                                                     </div>
                                                 )}
                                                 {product?.ratings >= 10 && product?.ratings <= 19 && (
 
-                                                    <div className="text-warning small">
+                                                    <div className="d-flex align-items-center gap-2 text-warning small">
                                                         <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i></i>
-                                                        <span className="text-dark fs-5">({product.ratings})</span>
+                                                        <span className="text-muted">({product.ratings})</span>
                                                     </div>
                                                 )}
                                                 {product?.ratings >= 20 && (
 
-                                                    <div className="text-warning small">
+                                                    <div className="d-flex align-items-center gap-2 text-warning small">
                                                         <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star"></i><i className="bi bi-star"></i>
-                                                        <span className="text-dark fs-5">({product.ratings})</span>
+                                                        <span className="text-muted ">({product.ratings})</span>
                                                     </div>
                                                 )}
                                                 {/* <span className="text-muted">{product.ratings}</span> */}
@@ -368,7 +368,7 @@ const Landing = () => {
                                 <h2 className="h3 mb-1">Featured Products</h2>
                                 <p className="text-muted mb-0">Hand-picked quality items just for you.</p>
                             </div>
-                            <div className=" text-light border border-right btn-group" role="group" aria-label="Featured filter">
+                            <div className=" text-light border border-right-1 btn-group" role="group" aria-label="Featured filter">
                                 <Link
                                     to="/categories"
                                     className="text-decoration-none text-light btn btn-primary"
