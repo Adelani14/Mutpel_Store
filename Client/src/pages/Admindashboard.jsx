@@ -63,8 +63,7 @@ const Admindashboard = () => {
 
             // const data = await response.json();
 
-            setProducts(response.data);
-
+            setProducts(response.data.products);
         } catch (error) {
             console.log(error);
         }
