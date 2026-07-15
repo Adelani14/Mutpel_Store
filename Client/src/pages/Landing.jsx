@@ -285,14 +285,14 @@ const Landing = () => {
                             {products
                                 .filter(product => product.discountPercentage >= 10)
                                  .sort((a, b) => b.discountPercentage - a.discountPercentage)
-                                 .slice(0, 4)
+                                 .slice(0, 5)
                                 .map(product => (
 
                                     <div key={product._id} className="col-md-6 col-xl-3">
                                         <Link to={`/productdetail/${product._id}`}>
 
                                             <div className="product-card p-3 rounded-4 shadow-sm bg-white h-100">
-                                                <div className="badge bg-danger text-white position-absolute top-0 start-0 m-3">20% OFF</div>
+                                                <div className="badge bg-danger text-white position-absolute top-0 start-0 m-3">{product.discountPercentage}% OFF</div>
                                                 {/* <div className="product-image rounded-4 bg-secondary-subtle mb-3"></div> */}
                                                 <img src={product.imagespath[0]?.url} className="product-img rounded-4 mb-3" alt="Backpack" />
                                                 <h3 className="h6">{product.title}</h3>
