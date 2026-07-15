@@ -35,7 +35,12 @@ const router = createBrowserRouter([
   { path: "/", element: <Landing /> },
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
-  { path: "/profile", element: <Profile /> },
+
+    { path: "/search", element: <Search /> },
+      { path: "/categories/:id", element: <Categories /> },
+      { path: "/categories", element: <Categories /> },
+            { path: "/productlisting", element: <Productlisting /> },
+                  { path: "/productdetail/:id", element: <Productdetail /> },
 
   {
     element: <ProtectedRoute allowedRoles={["admin"]} />,
@@ -52,14 +57,13 @@ const router = createBrowserRouter([
   {
     element: <ProtectedRoute allowedRoles={["user", "admin"]} />,
     children: [
-      { path: "/productlisting", element: <Productlisting /> },
-      { path: "/productdetail/:id", element: <Productdetail /> },
+
+
       { path: "/cart", element: <Cart /> },
       { path: "/wishlist", element: <Wishlist /> },
       { path: "/checkout", element: <Checkout /> },
-      { path: "/search", element: <Search /> },
-      { path: "/categories/:id", element: <Categories /> },
-      { path: "/categories", element: <Categories /> },
+        { path: "/profile", element: <Profile /> },
+    
     ],
   },
 
