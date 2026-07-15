@@ -10,7 +10,7 @@ const Landing = () => {
 
 
 
-    const fetchProducts = async (currentPage) => {
+    const fetchProducts = async () => {
         try {
             const response = await publicAxios.get(`/api/products?page=1&limit=20`)
             setProducts(response.data);
@@ -284,6 +284,8 @@ const Landing = () => {
                         <div className="row g-4">
                             {products
                                 .filter(product => product.discountPercentage >= 10)
+                                 .sort((a, b) => b.discountPercentage - a.discountPercentage)
+                                 .slice(0, 4)
                                 .map(product => (
 
                                     <div key={product._id} className="col-md-6 col-xl-3">
