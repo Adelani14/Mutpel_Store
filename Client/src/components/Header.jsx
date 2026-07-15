@@ -29,9 +29,13 @@ const Header = () => {
 
   };
 
-  useEffect(() => {
+ useEffect(() => {
+  const token = localStorage.getItem("accessToken");
+
+  if (token) {
     fetchCartCount();
-  }, []);
+  }
+}, []);
 
   return (
     <>
