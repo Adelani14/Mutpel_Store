@@ -9,13 +9,18 @@ const Landing = () => {
     const [products, setProducts] = useState([]);
 
 
-
+    const [totalPages, setTotalPages] = useState(1);
     const [page, setPage] = useState(1);
 
-const fetchTopDeals = async () => {
-  const res = await publicAxios.get(`/api/products/top-deals?page=${page}`);
-  setProducts(res.data.products);
-};
+    const fetchTopDeals = async () => {
+        try {
+            const res = await publicAxios.get(`/api/products/top-deals?page=${page}`);
+            setProducts(res.data.products);
+            setTotalPages(res.data.totalPages);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     useEffect(() => {
         fetchTopDeals();
@@ -275,60 +280,68 @@ const fetchTopDeals = async () => {
                                 <p className="text-muted mb-0">Grab them before they disappear! Flash sale active.</p>
                             </div>
                             <div className="btn-group shadow-sm">
-                                <button  onClick={() => setPage(prev => Math.max(prev - 1, 1))} className="btn btn-outline-secondary">
-  <i className="bi bi-chevron-left"></i>
-</button>
+                                <button
+                                    disabled={page === 1}
+                                    onClick={() => setPage(prev => prev - 1)}
+                                    className="btn btn-outline-secondary"
+                                >
+                                    <i className="bi bi-chevron-left"></i>
+                                </button>
 
-<button  onClick={() => setPage(prev => prev + 1)} className="btn btn-outline-secondary">
-  <i className="bi bi-chevron-right"></i>
-</button>
+                                <button
+                                    disabled={page === totalPages}
+                                    onClick={() => setPage(prev => prev + 1)}
+                                    className="btn btn-outline-secondary"
+                                >
+                                    <i className="bi bi-chevron-right"></i>
+                                </button>
                             </div>
                         </div>
                         <div className="row g-4">
                             {products.map(product => (
 
-                                    <div key={product._id} className="col-md-6 col-xl-3">
-                                        <Link to={`/productdetail/${product._id}`}>
+                                <div key={product._id} className="col-md-6 col-xl-3">
+                                    <Link to={`/productdetail/${product._id}`}>
 
-                                            <div className="product-card p-3 rounded-4 shadow-sm bg-white h-100">
-                                                <div className="badge bg-danger text-white position-absolute top-0 start-0 m-3">{product.discountPercentage}% OFF</div>
-                                                {/* <div className="product-image rounded-4 bg-secondary-subtle mb-3"></div> */}
-                                                <img src={product.imagespath[0]?.url} className="product-img rounded-4 mb-3" alt="Backpack" />
-                                                <h3 className="h6">{product.title}</h3>
-                                                <div className="d-flex align-items-center gap-2 mb-3 text-warning small">
-                                                    {product?.ratings >= 0 && product?.ratings <= 9 && (
+                                        <div className="product-card p-3 rounded-4 shadow-sm bg-white h-100">
+                                            <div className="badge bg-danger text-white position-absolute top-0 start-0 m-3">{product.discountPercentage}% OFF</div>
+                                            {/* <div className="product-image rounded-4 bg-secondary-subtle mb-3"></div> */}
+                                            <img src={product.imagespath[0]?.url} className="product-img rounded-4 mb-3" alt="Backpack" />
+                                            <h3 className="h6">{product.title}</h3>
+                                            <div className="d-flex align-items-center gap-2 mb-3 text-warning small">
+                                                {product?.ratings >= 0 && product?.ratings <= 9 && (
 
-                                                        <div className="text-warning small">
-                                                            <i className="bi bi-star-fill"></i><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i>
-                                                            <span>({product.ratings})</span>
-                                                        </div>
-                                                    )}
-                                                    {product?.ratings >= 10 && product?.ratings <= 19 && (
+                                                    <div className="text-warning small">
+                                                        <i className="bi bi-star-fill"></i><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i>
+                                                        <span>({product.ratings})</span>
+                                                    </div>
+                                                )}
+                                                {product?.ratings >= 10 && product?.ratings <= 19 && (
 
-                                                        <div className="text-warning small">
-                                                            <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i></i>
-                                                            <span>({product.ratings})</span>
-                                                        </div>
-                                                    )}
-                                                    {product?.ratings >= 20 && (
+                                                    <div className="text-warning small">
+                                                        <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i></i>
+                                                        <span>({product.ratings})</span>
+                                                    </div>
+                                                )}
+                                                {product?.ratings >= 20 && (
 
-                                                        <div className="text-warning small">
-                                                            <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star"></i><i className="bi bi-star"></i>
-                                                            <span>({product.ratings})</span>
-                                                        </div>
-                                                    )}
-                                                    {/* <span className="text-muted">{product.ratings}</span> */}
-                                                </div>
-                                                <div className="d-flex align-items-center justify-content-between mt-auto">
-                                                    <div className="fw-semibold fs-5">₦{product.price}</div>
-                                                    <div href="#" className="btn btn-primary btn-sm">Add to Cart</div>
-                                                </div>
+                                                    <div className="text-warning small">
+                                                        <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star"></i><i className="bi bi-star"></i>
+                                                        <span>({product.ratings})</span>
+                                                    </div>
+                                                )}
+                                                {/* <span className="text-muted">{product.ratings}</span> */}
                                             </div>
-                                        </Link>
+                                            <div className="d-flex align-items-center justify-content-between mt-auto">
+                                                <div className="fw-semibold fs-5">₦{product.price}</div>
+                                                <div href="#" className="btn btn-primary btn-sm">Add to Cart</div>
+                                            </div>
+                                        </div>
+                                    </Link>
 
-                                    </div>
+                                </div>
 
-                                ))}
+                            ))}
 
                         </div>
                     </div>
@@ -563,8 +576,8 @@ const fetchTopDeals = async () => {
                 </section>
 
             </main>
-<Footer />
-            
+            <Footer />
+
         </>
 
         // <div classNameName="text-rose-300 bg-green-700">hello this is landing page</div>

@@ -12,7 +12,8 @@ const AllProduct = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
-    const limit = 15;
+    // const limit = 15;
+    const [totalPages, setTotalPages] = useState(1);
 
 
 
@@ -23,14 +24,13 @@ const AllProduct = () => {
 
 
 
-    const fetchProducts = async (currentPage) => {
+    const fetchProducts = async () => {
         setLoading(true);
         try {
-            const response = await Axios.get(`/api/products?page=${currentPage}&limit=${limit}`)
+            const response = await Axios.get(`/api/products?page=${page}`);
 
-            // const data = await response.json();
-
-            setProducts(response.data);
+            setProducts(res.data.products);
+            setTotalPages(res.data.totalPages);
 
         } catch (error) {
             console.log(error);
@@ -173,20 +173,22 @@ const AllProduct = () => {
 
                     <div className="d-flex justify-content-between mt-4 mx-2 mb-4">
                         <button
-                            className="btn btn-secondary"
+                            className="btn btn-outline-secondary"
                             disabled={page === 1}
-                            onClick={() => setPage((prev) => prev - 1)}
+                            onClick={() => setPage(prev => prev - 1)}
                         >
+                            <i className="bi bi-chevron-left"></i>
                             Previous
                         </button>
 
                         <span>Page {page}</span>
 
                         <button
-                            className="btn btn-primary"
-                            onClick={() => setPage((prev) => prev + 1)}
+                            className="btn btn-outline-secondary"
+                            disabled={page === totalPages}
+                            onClick={() => setPage(prev => prev + 1)}
                         >
-                            Next
+                            <i className="bi bi-chevron-right"></i> Next
                         </button>
                     </div>
                 </div>

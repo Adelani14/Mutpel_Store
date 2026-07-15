@@ -87,49 +87,61 @@ export const createProduct = async (req, res) => {
 
 // GET ALL PRODUCTS
 export const getProducts = async (req, res) => {
-
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
     const skip = (page - 1) * limit;
-    try {
-        const products = await Product.find()
-            .populate("category")
-            .sort({ createdAt: -1 })
-            .skip(skip)
-            .limit(limit);
 
-        res.json(products);
+    try {
+        const [products, total] = await Promise.all([
+            Product.find()
+                .populate("category")
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(limit),
+
+            Product.countDocuments()
+        ]);
+
+        res.json({
+            products,
+            page,
+            totalPages: Math.ceil(total / limit),
+            total
+        });
+
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
 export const getTopDeals = async (req, res) => {
-  const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 5;
-  const skip = (page - 1) * limit;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
+    const skip = (page - 1) * limit;
 
-  try {
-    const products = await Product.find({
-      discountPercentage: { $gte: 10 }
-    })
-      .sort({ discountPercentage: -1 })
-      .skip(skip)
-      .limit(limit);
+    try {
+        const [products, total] = await Promise.all([
+            Product.find({
+                discountPercentage: { $gte: 10 }
+            })
+                .sort({ discountPercentage: -1 })
+                .skip(skip)
+                .limit(limit),
 
-    const total = await Product.countDocuments({
-      discountPercentage: { $gte: 10 }
-    });
+            Product.countDocuments({
+                discountPercentage: { $gte: 10 }
+            })
+        ]);
 
-    res.json({
-      products,
-      page,
-      totalPages: Math.ceil(total / limit),
-      total,
-    });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+        res.json({
+            products,
+            page,
+            totalPages: Math.ceil(total / limit),
+            total,
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };
 
 // GET PRODUCT BY ID

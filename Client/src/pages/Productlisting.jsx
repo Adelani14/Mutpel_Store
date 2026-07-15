@@ -12,7 +12,8 @@ const Productlisting = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
-    const limit = 25;
+    const [totalPages, setTotalPages] = useState(1);
+    // const limit = 25;
     const [email, setEmail] = useState("");
     const [fullName, setFullName] = useState("");
     const [categories, setCategories] = useState([]);
@@ -44,20 +45,22 @@ const Productlisting = () => {
 
         loadData();
     }, [page]);
-    
-    
+
+
     useEffect(() => {
-    const token = localStorage.getItem("accessToken");
+        const token = localStorage.getItem("accessToken");
 
-    if (token) {
-        getUsername();
-    }
-}, []);
+        if (token) {
+            getUsername();
+        }
+    }, []);
 
-    const fetchProducts = async (currentPage) => {
+    const fetchProducts = async () => {
         try {
-            const response = await publicAxios.get(`/api/products?page=${currentPage}&limit=${limit}`)
-            setProducts(response.data);
+            const response = await publicAxios.get(`/api/products?page=${page}`);
+
+            setProducts(res.data.products);
+            setTotalPages(res.data.totalPages);
         } catch (error) {
             console.log(error);
         }
@@ -87,7 +90,7 @@ const Productlisting = () => {
 
             setCategories(res.data);
 
-           
+
 
         } catch (error) {
 
@@ -140,7 +143,7 @@ const Productlisting = () => {
 
                                 <div className="list-group list-group-flush">
                                     <Link
-                                         to={`/categories`}
+                                        to={`/categories`}
                                         className="list-group-item list-group-item-action rounded-4 active"
                                     >
                                         All Categories
@@ -156,7 +159,7 @@ const Productlisting = () => {
                                         </Link>
                                     ))}
                                 </div>
-                              
+
                             </div>
                         </div>
 
@@ -192,20 +195,21 @@ const Productlisting = () => {
 
                                 <div className="d-flex justify-content-between mt-3">
                                     <button
-                                        className="btn btn-secondary"
+                                        className="btn btn-outline-secondary"
                                         disabled={page === 1}
-                                        onClick={() => setPage((prev) => prev - 1)}
+                                        onClick={() => setPage(prev => prev - 1)}
                                     >
-                                        Previous
+                                        <i className="bi bi-chevron-left"></i> Previous
                                     </button>
 
                                     <span>Page {page}</span>
 
                                     <button
-                                        className="btn btn-primary"
-                                        onClick={() => setPage((prev) => prev + 1)}
+                                        className="btn btn-outline-secondary"
+                                        disabled={page === totalPages}
+                                        onClick={() => setPage(prev => prev + 1)}
                                     >
-                                        Next
+                                        <i className="bi bi-chevron-right"></i> Next
                                     </button>
                                 </div>
                             </nav>
