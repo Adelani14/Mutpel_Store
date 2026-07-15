@@ -103,8 +103,7 @@ const Landing = () => {
                 <div className="bg-primary text-white py-2">
                     <div className="container d-flex justify-content-center align-items-center">
                         <small className="fw-semibold">
-                            <i className="fa fa-van"></i>
-                            Free Delivery on orders above ₦200,000
+                            <i class="bi bi-truck"></i>Free Delivery on orders above ₦200,000
                         </small>
                     </div>
                 </div>
@@ -361,7 +360,7 @@ const Landing = () => {
                                 <h2 className="h3 mb-1">Featured Products</h2>
                                 <p className="text-muted mb-0">Hand-picked quality items just for you.</p>
                             </div>
-                            <div className="btn-group" role="group" aria-label="Featured filter">
+                            <div className=" text-light gap-2 btn-group" role="group" aria-label="Featured filter">
                                 <Link
                                     to="/categories"
                                     className="text-decoration-none text-dark btn btn-primary"

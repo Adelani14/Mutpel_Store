@@ -231,7 +231,7 @@ const Admindashboard = () => {
                         <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
                             <div className="card rounded-4 shadow-sm border-0 p-3 h-100">
                                 <div className="nav  flex-column nav-pills " aria-orientation="vertical">
-                                    <div className="border-bottom pb-3 mb-3">
+                                    <div className="border-bottom mt-2 pb-3 mb-2">
                                         <h5 className="mb-1">Admin Panel</h5>
                                     </div>
                                     <a className="nav-link active rounded-4 mb-2" href="#"><i className="bi bi-speedometer2 me-2"></i>Dashboard</a>
