@@ -17,8 +17,10 @@ function MobileBottomNav() {
     };
 
     useEffect(() => {
-        fetchCartCount();
-    }, []);
+  if (localStorage.getItem("accessToken")) {
+    fetchCartCount();
+  }
+}, []);
 
 
 
