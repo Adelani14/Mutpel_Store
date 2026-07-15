@@ -12,7 +12,7 @@ const Landing = () => {
 
     const fetchProducts = async (currentPage) => {
         try {
-            const response = await Axios.get(`/api/products?page=1&limit=4`)
+            const response = await Axios.get(`/api/products?page=1&limit=20`)
             setProducts(response.data);
         } catch (error) {
             console.log(error);
