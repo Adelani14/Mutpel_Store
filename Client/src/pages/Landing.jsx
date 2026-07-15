@@ -10,18 +10,16 @@ const Landing = () => {
 
 
 
-    const fetchProducts = async () => {
-        try {
-            const response = await publicAxios.get(`/api/products`)
-            setProducts(response.data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    const [page, setPage] = useState(1);
+
+const fetchTopDeals = async () => {
+  const res = await publicAxios.get(`/api/products/top-deals?page=${page}`);
+  setProducts(res.data.products);
+};
 
     useEffect(() => {
-        fetchProducts();
-    }, []);
+        fetchTopDeals();
+    }, [page]);
     return (
         <>
 
@@ -277,16 +275,17 @@ const Landing = () => {
                                 <p className="text-muted mb-0">Grab them before they disappear! Flash sale active.</p>
                             </div>
                             <div className="btn-group shadow-sm">
-                                <button className="btn btn-outline-secondary"><i className="bi bi-chevron-left"></i></button>
-                                <button className="btn btn-outline-secondary"><i className="bi bi-chevron-right"></i></button>
+                                <button  onClick={() => setPage(prev => Math.max(prev - 1, 1))} className="btn btn-outline-secondary">
+  <i className="bi bi-chevron-left"></i>
+</button>
+
+<button  onClick={() => setPage(prev => prev + 1)} className="btn btn-outline-secondary">
+  <i className="bi bi-chevron-right"></i>
+</button>
                             </div>
                         </div>
                         <div className="row g-4">
-                            {products
-                                .filter(product => product.discountPercentage >= 10)
-                                 .sort((a, b) => b.discountPercentage - a.discountPercentage)
-                                 .slice(0, 5)
-                                .map(product => (
+                            {products.map(product => (
 
                                     <div key={product._id} className="col-md-6 col-xl-3">
                                         <Link to={`/productdetail/${product._id}`}>
