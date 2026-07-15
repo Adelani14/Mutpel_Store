@@ -1,7 +1,7 @@
 import Footer from "../components/Footer";
 import Helpcenter from '../components/Helpcenter.jsx';
 import { Link } from "react-router-dom";
-import Axios from "../utils/axiosInstance.js"
+import publicAxios from "../utils/publicAxios.js";
 import { useState, useEffect } from "react";
 
 
@@ -12,7 +12,7 @@ const Landing = () => {
 
     const fetchProducts = async (currentPage) => {
         try {
-            const response = await Axios.get(`/api/products?page=1&limit=20`)
+            const response = await publicAxios.get(`/api/products?page=1&limit=20`)
             setProducts(response.data);
         } catch (error) {
             console.log(error);
