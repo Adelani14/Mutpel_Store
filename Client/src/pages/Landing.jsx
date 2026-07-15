@@ -108,7 +108,7 @@ const Landing = () => {
                         </small>
                     </div>
                 </div>
-                <section className="hero-section py-5">
+                <section className="hero-section py-3">
                     <div className="container">
                         <div
                             id="heroCarousel"
@@ -306,7 +306,14 @@ const Landing = () => {
                                         <div className="product-card p-3 rounded-4 shadow-sm bg-white h-100">
                                             <div className="badge bg-danger text-white position-absolute top-0 start-0 m-3">{product.discountPercentage}% OFF</div>
                                             {/* <div className="product-image rounded-4 bg-secondary-subtle mb-3"></div> */}
-                                            <img src={product.imagespath[0]?.url} className="product-img rounded-4 mb-3" alt="Backpack" />
+                                            <img src={product.imagespath[0]?.url}
+                                                className="product-img rounded-4 mb-3" alt="Backpack"
+
+                                                style={{
+                                                    width: "100%",
+                                                    height: "180px",
+                                                    objectFit: "cover",
+                                                }} />
                                             <h3 className="h6">{product.title}</h3>
                                             <div className="d-flex align-items-center gap-2 mb-3 text-warning small">
                                                 {product?.ratings >= 0 && product?.ratings <= 9 && (

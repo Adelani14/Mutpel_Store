@@ -29,8 +29,8 @@ const AllProduct = () => {
         try {
             const response = await Axios.get(`/api/products?page=${page}`);
 
-            setProducts(res.data.products);
-            setTotalPages(res.data.totalPages);
+            setProducts(response.data.products);
+            setTotalPages(response.data.totalPages);
 
         } catch (error) {
             console.log(error);

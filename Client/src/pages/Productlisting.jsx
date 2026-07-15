@@ -59,8 +59,8 @@ const Productlisting = () => {
         try {
             const response = await publicAxios.get(`/api/products?page=${page}`);
 
-            setProducts(res.data.products);
-            setTotalPages(res.data.totalPages);
+            setProducts(response.data.product);
+            setTotalPages(response.data.totalPages);
         } catch (error) {
             console.log(error);
         }
