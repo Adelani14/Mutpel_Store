@@ -12,7 +12,7 @@ const Landing = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await publicAxios.get(`/api/products?page=1&limit=20`)
+            const response = await publicAxios.get(`/api/products`)
             setProducts(response.data);
         } catch (error) {
             console.log(error);
