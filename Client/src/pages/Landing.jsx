@@ -37,7 +37,15 @@ const Landing = () => {
                             className="brand-icon rounded-3 d-flex align-items-center justify-content-center bg-primary text-white"
                             style={{ width: "44px", height: "44px" }}
                         >
-                            <i className="bi bi-basket-fill fs-5"></i>
+                             <img
+                                    src="/icons/logo.png"
+                                    alt="Mutpel Logo"
+                                    style={{
+                                        width: "40px",
+                                        height: "40px",
+                                        objectFit: "contain",
+                                    }}
+                                />
                         </div>
 
                         <h1 className="h5 mb-0 text-primary">
@@ -103,7 +111,7 @@ const Landing = () => {
                 <div className="bg-primary text-white py-2">
                     <div className="container d-flex justify-content-center align-items-center">
                         <small className="fw-semibold">
-                            <i class="bi bi-truck"></i>Free Delivery on orders above ₦200,000
+                            <i class="bi bi-truck me-2"></i>Free Delivery on orders above ₦200,000
                         </small>
                     </div>
                 </div>
@@ -319,21 +327,21 @@ const Landing = () => {
 
                                                     <div className="text-warning small">
                                                         <i className="bi bi-star-fill"></i><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i>
-                                                        <span>({product.ratings})</span>
+                                                        <span className="text-dark fs-3">({product.ratings})</span>
                                                     </div>
                                                 )}
                                                 {product?.ratings >= 10 && product?.ratings <= 19 && (
 
                                                     <div className="text-warning small">
                                                         <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i></i>
-                                                        <span>({product.ratings})</span>
+                                                        <span className="text-dark fs-3">({product.ratings})</span>
                                                     </div>
                                                 )}
                                                 {product?.ratings >= 20 && (
 
                                                     <div className="text-warning small">
                                                         <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star"></i><i className="bi bi-star"></i>
-                                                        <span>({product.ratings})</span>
+                                                        <span className="text-dark fs-3">({product.ratings})</span>
                                                     </div>
                                                 )}
                                                 {/* <span className="text-muted">{product.ratings}</span> */}
@@ -360,22 +368,22 @@ const Landing = () => {
                                 <h2 className="h3 mb-1">Featured Products</h2>
                                 <p className="text-muted mb-0">Hand-picked quality items just for you.</p>
                             </div>
-                            <div className=" text-light gap-2 btn-group" role="group" aria-label="Featured filter">
+                            <div className=" text-light border border-right btn-group" role="group" aria-label="Featured filter">
                                 <Link
                                     to="/categories"
-                                    className="text-decoration-none text-dark btn btn-primary"
+                                    className="text-decoration-none text-light btn btn-primary"
                                 >  all</Link>
                                 <Link
                                     to="/categories/electronic"
-                                    className="text-decoration-none text-dark btn btn-primary"
+                                    className="text-decoration-none text-light btn btn-primary"
                                 >electronics</Link>
                                 <Link
                                     to="/categories/fashion"
-                                    className="text-decoration-none text-dark btn btn-primary"
+                                    className="text-decoration-none text-light btn btn-primary"
                                 >fashion</Link>
                                 <Link
                                     to="/categories/home"
-                                    className="text-decoration-none text-dark btn btn-primary"
+                                    className="text-decoration-none text-light btn btn-primary"
                                 >home</Link>
                             </div>
                         </div>
