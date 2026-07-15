@@ -327,21 +327,21 @@ const Landing = () => {
 
                                                     <div className="text-warning small">
                                                         <i className="bi bi-star-fill"></i><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i>
-                                                        <span className="text-dark fs-3">({product.ratings})</span>
+                                                        <span className="text-dark fs-5">({product.ratings})</span>
                                                     </div>
                                                 )}
                                                 {product?.ratings >= 10 && product?.ratings <= 19 && (
 
                                                     <div className="text-warning small">
                                                         <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"><i className="bi bi-star"></i><i className="bi bi-star"></i><i className="bi bi-star"></i></i>
-                                                        <span className="text-dark fs-3">({product.ratings})</span>
+                                                        <span className="text-dark fs-5">({product.ratings})</span>
                                                     </div>
                                                 )}
                                                 {product?.ratings >= 20 && (
 
                                                     <div className="text-warning small">
                                                         <i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star-fill"></i><i className="bi bi-star"></i><i className="bi bi-star"></i>
-                                                        <span className="text-dark fs-3">({product.ratings})</span>
+                                                        <span className="text-dark fs-5">({product.ratings})</span>
                                                     </div>
                                                 )}
                                                 {/* <span className="text-muted">{product.ratings}</span> */}
