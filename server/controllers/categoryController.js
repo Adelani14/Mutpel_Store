@@ -30,7 +30,7 @@ export const createCategory = async (req, res) => {
             description: req.body.description,
             featured: req.body.featured,
             priority: req.body.priority,
-            image: req.file?.path
+            imagespath: req.file?.path
         });
 
         res.status(201).json(category);
