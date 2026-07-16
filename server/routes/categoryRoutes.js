@@ -8,7 +8,7 @@ const router = express.Router();
 // router.post("/createCategory", createCategory);
 router.post(
     "/createCategory",
-    upload.single("image"),
+    upload.single("imagespath"),
     createCategory
 );
 router.get("/", getCategories);
