@@ -32,7 +32,7 @@ export const createCategory = async (req, res) => {
             featured: req.body.featured === "true",
             priority: Number(req.body.priority) || 0,
             imagespath: req.files
-                ? req.files.map(file => ({
+                ? req.file.map(file => ({
                       url: file.path,
                       public_id: file.filename,
                   }))
