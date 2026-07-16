@@ -5,11 +5,12 @@ import Category from "../models/category.js";
 
 
 export const createCategory = async (req, res) => {
-
     try {
-
-        console.log(req.body);
-        console.log(req.file);
+        if (!req.body.title) {
+            return res.status(400).json({
+                message: "Category title is required",
+            });
+        }
 
         const slug = req.body.title
             .toLowerCase()
@@ -20,38 +21,33 @@ export const createCategory = async (req, res) => {
 
         if (categoryExists) {
             return res.status(400).json({
-                message: "Category already exists"
+                message: "Category already exists",
             });
         }
 
         const category = await Category.create({
-    title: req.body.title,
-    slug,
-    description: req.body.description,
-    featured: req.body.featured,
-    priority: req.body.priority,
-    imagespath: req.files
-        ? req.files.map(file => ({
-              url: file.path,
-              public_id: file.filename,
-          }))
-        : [],
-});
+            title: req.body.title,
+            slug,
+            description: req.body.description,
+            featured: req.body.featured === "true",
+            priority: Number(req.body.priority) || 0,
+            imagespath: req.files
+                ? req.files.map(file => ({
+                      url: file.path,
+                      public_id: file.filename,
+                  }))
+                : [],
+        });
 
         res.status(201).json(category);
-
     } catch (error) {
-
         console.log(error);
 
         res.status(500).json({
-            message: error.message
+            message: error.message,
         });
-
     }
-
 };
-
 
 
 // GET ALL CATEGORIES
