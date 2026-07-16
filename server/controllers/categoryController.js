@@ -31,12 +31,14 @@ export const createCategory = async (req, res) => {
             description: req.body.description,
             featured: req.body.featured === "true",
             priority: Number(req.body.priority) || 0,
-            imagespath: req.files
-                ? req.file.map(file => ({
-                      url: file.path,
-                      public_id: file.filename,
-                  }))
-                : [],
+            imagespath: req.file
+    ? [
+        {
+            url: req.file.path,
+            public_id: req.file.filename,
+        },
+      ]
+    : [],
         });
 
         res.status(201).json(category);
