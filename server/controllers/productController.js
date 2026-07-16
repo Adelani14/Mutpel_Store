@@ -144,6 +144,63 @@ export const getTopDeals = async (req, res) => {
     }
 };
 
+//getfeatureproduct
+export const getFeaturedProducts = async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 8;
+    const skip = (page - 1) * limit;
+
+    try {
+        const products = await Product.find({
+            featured: true,
+        })
+            .populate("category")
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit);
+
+        const total = await Product.countDocuments({
+            featured: true,
+        });
+
+        res.json({
+            products,
+            page,
+            totalPages: Math.ceil(total / limit),
+            total,
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+//new arriver
+// GET NEW ARRIVALS
+export const getNewArrivals = async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 4;
+    const skip = (page - 1) * limit;
+
+    try {
+        const products = await Product.find()
+            .populate("category")
+            .sort({ createdAt: -1 }) // newest first
+            .skip(skip)
+            .limit(limit);
+
+        const total = await Product.countDocuments();
+
+        res.json({
+            products,
+            page,
+            totalPages: Math.ceil(total / limit),
+            total,
+        });
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 // GET PRODUCT BY ID
 export const getProductById = async (req, res) => {
     try {

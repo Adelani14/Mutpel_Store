@@ -3,7 +3,7 @@ import upload from "../middleware/multer.js";
 import isAuth from "../middleware/isAuth.js";
 import isAdmin from "../middleware/isAdmin.js";
 
-import { createProduct, getProducts, getTopDeals, getProductById, deleteProduct, searchProducts, updateProduct, getSingleProduct, getRelatedProducts, getProductsByCategory } from "../controllers/productController.js";
+import { createProduct, getProducts, getNewArrivals, getFeaturedProducts, getTopDeals, getProductById, deleteProduct, searchProducts, updateProduct, getSingleProduct, getRelatedProducts, getProductsByCategory } from "../controllers/productController.js";
 
 
 const router = express.Router();
@@ -41,6 +41,8 @@ router.get("/search", searchProducts)
 
 router.get("/", getProducts);
 router.get("/top-deals", getTopDeals);
+router.get("/featured", getFeaturedProducts);
+router.get("/new-arrivals", getNewArrivals);
 router.get("/:id", getProductById);
 
 export default router;
