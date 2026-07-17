@@ -26,19 +26,20 @@ export const createCategory = async (req, res) => {
         }
 
         const category = await Category.create({
-            title: req.body.title,
-            slug,
-            description: req.body.description,
-            featured: req.body.featured === "true",
-            priority: Number(req.body.priority) || 0,
-            imagespath: req.file
-    ? [
-        {
-            url: req.file.path,
-            public_id: req.file.filename,
-        },
-      ]
-    : [],
+    title: req.body.title,
+    slug,
+    description: req.body.description,
+    featured: req.body.featured === "true",
+    priority: Number(req.body.priority) || 0,
+    imagespath: req.file
+        ? [
+              {
+                  url: req.file.path,
+                  public_id: req.file.filename,
+              },
+          ]
+        : [],
+
         });
 
         res.status(201).json(category);
