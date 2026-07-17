@@ -12,6 +12,9 @@ const Checkout = () => {
     const [fullName, setFullName] = useState("");
     const [states, setStates] = useState([]);
     const [lgas, setLgas] = useState([]);
+    const [phone, setPhone] = useState("");
+    const [address, setAddress] = useState("");
+    const [email, setEmail] = useState("");
 
     const [selectedState, setSelectedState] = useState("");
     const [selectedLga, setSelectedLga] = useState("");
@@ -33,6 +36,80 @@ const Checkout = () => {
             console.log(error);
         }
     };
+
+    const handlePlaceOrder = async () => {
+        try {
+
+            // Basic validation
+            if (!phone) {
+                return alert("Please enter your phone number.");
+            }
+
+            if (!selectedState) {
+                return alert("Please select your state.");
+            }
+
+            if (!selectedLga) {
+                return alert("Please select your LGA.");
+            }
+
+            if (
+                (deliveryMethod === "home" ||
+                    deliveryMethod === "interstate") &&
+                !address
+            ) {
+                return alert("Please enter your address.");
+            }
+
+            // Build shipping address
+            const shippingAddress = {
+                fullName,
+                email,
+                phone,
+                address,
+                city: selectedLga,
+                state: selectedState,
+            };
+
+
+            let method = "Home Delivery";
+
+            if (deliveryMethod === "pickup") {
+                method = "Pickup";
+            }
+
+            if (deliveryMethod === "interstate") {
+                method = "Interstate Delivery";
+            }
+
+            const response = await Axios.post(
+                "/api/payment/initialize",
+                {
+                    email,
+                    amount: grandTotal,
+                    shippingAddress,
+
+                    deliveryMethod: method,
+
+                    shippingFee,
+                    discount: 0,
+                }
+            );
+
+            // Redirect to Paystack
+            window.location.href =
+                response.data.data.authorization_url;
+
+        } catch (error) {
+            console.log(error);
+
+            alert(
+                error.response?.data?.message ||
+                "Unable to initialize payment."
+            );
+        }
+    };
+
 
 
     const handleStateChange = async (e) => {
@@ -56,6 +133,7 @@ const Checkout = () => {
             const res = await Axios.get("/api/users/Username");
 
             setFullName(res.data?.user?.fullName || "");
+            setEmail(res.data.user.email);
         } catch (error) {
             console.log(error);
         }
@@ -80,15 +158,25 @@ const Checkout = () => {
     }, 0);
 
     const shippingFee = (() => {
-        // Iwo customers
         if (selectedState === "Osun" && selectedLga === "Iwo") {
             return deliveryMethod === "home" ? 1000 : 0;
         }
+
         return 0;
     })();
 
     const grandTotal = totalPrice + shippingFee;
 
+
+    useEffect(() => {
+        if (!selectedState || !selectedLga) return;
+
+        if (selectedState === "Osun" && selectedLga === "Iwo") {
+            return;
+        }
+
+        setDeliveryMethod("interstate");
+    }, [selectedState, selectedLga]);
 
     useEffect(() => {
         const loadData = async () => {
@@ -160,7 +248,15 @@ const Checkout = () => {
                                 <h2 className="h6 text-uppercase text-primary mb-4">1 Shipping Information</h2>
                                 <div className="row g-3">
                                     <div className="col-md-6"><label className="form-label">Full Name</label><input className="form-control" type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} /></div>
-                                    <div className="col-md-6"><label className="form-label">Phone Number</label><input className="form-control" type="number" placeholder="08000000000" /></div>
+                                    <div className="col-md-6"><label className="form-label">Phone Number</label>
+                                        <input
+                                            className="form-control"
+                                            type="tel"
+                                            placeholder="08000000000"
+                                            value={phone}
+                                            onChange={(e) => setPhone(e.target.value)}
+                                        />
+                                    </div>
                                     <div className="col-md-4">
                                         <label className="form-label">State</label>
                                         <select
@@ -195,6 +291,19 @@ const Checkout = () => {
                                             ))}
                                         </select>
                                     </div>
+
+
+                                    {!isIwo && selectedState && selectedLga && (
+                                        <div className="alert alert-info mt-3 rounded-3">
+                                            <i className="bi bi-truck me-2"></i>
+
+                                            Orders outside <strong>Iwo, Osun State</strong>
+                                            are delivered through trusted interstate transport
+                                            companies. We'll contact you after payment to
+                                            arrange delivery.
+                                        </div>
+                                    )}
+
                                     {isIwo && (
                                         <div className="mt-2 form-control ">
                                             <label className="me-3">
@@ -218,15 +327,18 @@ const Checkout = () => {
                                             </label>
                                         </div>
                                     )}
-                                    {deliveryMethod === "home" && (
-                                        <div >
-                                            <input
-                                                type="text"
-                                                className="mt-2 form-control"
-                                                placeholder="Enter Home Address"
-                                            />
-                                        </div>
-                                    )}
+                                    {(deliveryMethod === "home" ||
+                                        deliveryMethod === "interstate") && (
+                                            <div >
+                                                <input
+                                                    type="text"
+                                                    className="mt-2 form-control"
+                                                    placeholder="Enter Home Address"
+                                                    value={address}
+                                                    onChange={(e) => setAddress(e.target.value)}
+                                                />
+                                            </div>
+                                        )}
                                 </div>
                             </div>
 
@@ -290,8 +402,12 @@ const Checkout = () => {
                                     )}
                                     <div className="d-flex justify-content-between align-items-center fw-semibold fs-5"><span>Total</span><span>₦{grandTotal}</span></div>
                                 </div>
-                                <button className="btn btn-primary btn-lg w-100 mt-4">Place Order via Paystack</button>
-                                <p className="text-muted small mt-3">By placing your order, you agree to our Terms of Service and Privacy Policy. Secure 256-bit SSL encrypted payment.</p>
+                                <button
+                                    className="btn btn-primary btn-lg w-100 mt-4"
+                                    onClick={handlePlaceOrder}
+                                >
+                                    Place Order via Paystack
+                                </button>                                <p className="text-muted small mt-3">By placing your order, you agree to our Terms of Service and Privacy Policy. Secure 256-bit SSL encrypted payment.</p>
                             </div>
                         </div>
                     </div>

@@ -98,7 +98,11 @@ const orderSchema = new mongoose.Schema(
 
         deliveryMethod: {
             type: String,
-            enum: ["Home Delivery", "Pickup"],
+            enum: [
+                "Pickup",
+                "Home Delivery",
+                "Interstate Delivery"
+            ],
             default: "Home Delivery",
         },
 
