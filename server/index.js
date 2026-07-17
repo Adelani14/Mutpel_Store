@@ -15,6 +15,11 @@ import dashboardRoutes from "./routes/dashboardRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import wishlistRoutes from "./routes/wishlistRoutes.js";
 import naijastateRoutes from "./routes/naijastateRoutes.js"
+import orderRoutes from "./routes/orderRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
+
+
+
 
 // MIDDLEWARErs
 // GLOBAL MIDDLEWARE
@@ -49,6 +54,10 @@ app.use("/api/dashboardstats", dashboardRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/allState", naijastateRoutes);
+app.use("/api/payment", paymentRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/payment", paymentRoutes);
+
 
 
 
