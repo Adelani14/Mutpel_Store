@@ -36,6 +36,16 @@ export const initializePayment = async (req, res) => {
             }
         );
 
+        console.log({
+            email,
+            amount,
+            shippingAddress,
+            deliveryMethod,
+            shippingFee,
+            userId
+        });
+
+
         // Initialize Paystack
         const response = await axios.post(
             "https://api.paystack.co/transaction/initialize",
@@ -63,13 +73,14 @@ export const initializePayment = async (req, res) => {
 
     } catch (error) {
 
-        console.log(error.response?.data || error.message);
+        console.log("PAYMENT INITIALIZE ERROR");
+        console.log(error.response?.data || error);
 
         res.status(500).json({
             success: false,
-            message: "Unable to initialize payment"
+            message: error.response?.data?.message || error.message,
+            error: error.response?.data || error.message,
         });
-
     }
 };
 
