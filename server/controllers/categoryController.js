@@ -1,4 +1,6 @@
 import Category from "../models/category.js";
+import streamifier from "streamifier";
+import cloudinary from "../config/cloudinary.js";
 
 
 
@@ -25,20 +27,47 @@ export const createCategory = async (req, res) => {
             });
         }
 
+        let image = null;
+
+        if (req.file) {
+            const result = await new Promise((resolve, reject) => {
+                const stream = cloudinary.uploader.upload_stream(
+                    {
+                        folder: "categories",
+                    },
+                    (error, result) => {
+                        if (error) return reject(error);
+                        resolve(result);
+                    }
+                );
+
+                streamifier.createReadStream(req.file.buffer).pipe(stream);
+            });
+
+            image = {
+                url: result.secure_url,
+                public_id: result.public_id,
+            };
+        }
+
+
+
         const category = await Category.create({
-    title: req.body.title,
-    slug,
-    description: req.body.description,
-    featured: req.body.featured === "true",
-    priority: Number(req.body.priority) || 0,
-    imagespath: req.file
-        ? [
-              {
-                  url: req.file.path,
-                  public_id: req.file.filename,
-              },
-          ]
-        : [],
+            title: req.body.title,
+            slug,
+            description: req.body.description,
+            featured: req.body.featured === "true",
+            priority: Number(req.body.priority) || 0,
+            imagespath: image ? [image] : []
+
+            // imagespath: req.file
+            //     ? [
+            //         {
+            //             url: req.file.path,
+            //             public_id: req.file.filename,
+            //         },
+            //     ]
+            //     : [],
 
         });
 
@@ -91,23 +120,86 @@ export const getCategoryById = async (req, res) => {
 // UPDATE CATEGORY
 export const updateCategory = async (req, res) => {
     try {
-        const { title, slug, imagespath, description, featured } = req.body;
-        const category = await Category.findByIdAndUpdate(req.params.id, { title, slug, imagespath, description, featured }, { new: true });
+        const { title, description, featured } = req.body;
+
+        const category = await Category.findById(req.params.id);
+
         if (!category) {
-            return res.status(404).json({ message: "Category not found" });
+            return res.status(404).json({
+                message: "Category not found",
+            });
         }
-        res.json(category);
+
+        if (req.file) {
+            if (category.imagespath.length > 0) {
+                await cloudinary.uploader.destroy(
+                    category.imagespath[0].public_id
+                );
+            }
+
+            const result = await new Promise((resolve, reject) => {
+                const stream = cloudinary.uploader.upload_stream(
+                    { folder: "categories" },
+                    (error, result) => {
+                        if (error) return reject(error);
+                        resolve(result);
+                    }
+                );
+
+                streamifier.createReadStream(req.file.buffer).pipe(stream);
+            });
+
+            category.imagespath = [
+                {
+                    url: result.secure_url,
+                    public_id: result.public_id,
+                },
+            ];
+        }
+
+        if (title) {
+            category.title = title;
+            category.slug = title
+                .toLowerCase()
+                .trim()
+                .replace(/\s+/g, "-");
+        }
+
+        if (description !== undefined) {
+            category.description = description;
+        }
+
+        if (featured !== undefined) {
+            category.featured = featured === "true";
+        }
+
+        await category.save();
+
+        res.status(200).json(category);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({
+            message: error.message,
+        });
     }
 };
+
+
 // DELETE CATEGORY
 export const deleteCategory = async (req, res) => {
     try {
-        const category = await Category.findByIdAndDelete(req.params.id);
+        const category = await Category.findById(req.params.id);
+
         if (!category) {
-            return res.status(404).json({ message: "Category not found" });
+            return res.status(404).json({
+                message: "Category not found",
+            });
         }
+        if (category.imagespath.length > 0) {
+            await cloudinary.uploader.destroy(
+                category.imagespath[0].public_id
+            );
+        }
+        await category.deleteOne();
         res.json({ message: "Category deleted" });
     } catch (error) {
         res.status(500).json({ message: error.message });

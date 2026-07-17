@@ -1,5 +1,8 @@
 import Product from "../models/products.js";
 import cloudinary from "../config/cloudinary.js";
+import streamifier from "streamifier";
+
+
 // CREATE PRODUCT
 
 export const createProduct = async (req, res) => {
@@ -38,13 +41,32 @@ export const createProduct = async (req, res) => {
             .replace(/\s+/g, "-");
 
         // Cloudinary image URL
-        const imagespath = req.files
-            ? req.files.map(file => ({
-                url: file.path,
-                public_id: file.filename
-            }))
-            : [];
+        let imagespath = [];
 
+        if (req.files && req.files.length > 0) {
+            imagespath = await Promise.all(
+                req.files.map(async (file) => {
+                    const result = await new Promise((resolve, reject) => {
+                        const stream = cloudinary.uploader.upload_stream(
+                            {
+                                folder: "products",
+                            },
+                            (error, result) => {
+                                if (error) return reject(error);
+                                resolve(result);
+                            }
+                        );
+
+                        streamifier.createReadStream(file.buffer).pipe(stream);
+                    });
+
+                    return {
+                        url: result.secure_url,
+                        public_id: result.public_id,
+                    };
+                })
+            );
+        }
 
         const product = new Product({
             title,
@@ -402,10 +424,28 @@ export const updateProduct = async (req, res) => {
             }
 
             // Save new images
-            updatedData.imagespath = req.files.map(file => ({
-                url: file.path,
-                public_id: file.filename
-            }));
+            updatedData.imagespath = await Promise.all(
+                req.files.map(async (file) => {
+                    const result = await new Promise((resolve, reject) => {
+                        const stream = cloudinary.uploader.upload_stream(
+                            {
+                                folder: "products",
+                            },
+                            (error, result) => {
+                                if (error) return reject(error);
+                                resolve(result);
+                            }
+                        );
+
+                        streamifier.createReadStream(file.buffer).pipe(stream);
+                    });
+
+                    return {
+                        url: result.secure_url,
+                        public_id: result.public_id,
+                    };
+                })
+            );
         }
         const product = await Product.findByIdAndUpdate(
             req.params.id,
