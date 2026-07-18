@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import Axios from "../utils/axiosInstance";
+import Axios from "../utils/axiosInstance.js";
 import Header from "../components/Header";
 import Helpcenter from "../components/Helpcenter";
 
