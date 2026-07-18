@@ -180,7 +180,6 @@ export const createOrderFromPayment = async (
     paymentReference
 ) => {
 
-    // Find customer's cart
     const cart = await Cart.findOne({
         user: checkout.user
     }).populate("items.product");
@@ -200,7 +199,6 @@ export const createOrderFromPayment = async (
             throw new Error("Product no longer exists.");
         }
 
-        // Check stock
         if (product.stockCount < item.quantity) {
             throw new Error(`${product.title} is out of stock.`);
         }
@@ -210,73 +208,50 @@ export const createOrderFromPayment = async (
         itemsPrice += subtotal;
 
         orderItems.push({
-
             product: product._id,
-
             title: product.title,
-
             image: product.imagespath[0]?.url || "",
-
             price: product.price,
-
             quantity: item.quantity,
-
             size: item.size,
-
             color: item.color,
-
             subtotal
-
         });
 
-        // Reduce stock
         product.stockCount -= item.quantity;
-
         await product.save();
-
     }
 
     const shippingFee = checkout.shippingFee;
-
     const discount = checkout.discount;
 
     const totalAmount = itemsPrice + shippingFee - discount;
 
-
     const order = await Order.create({
-
         user: checkout.user,
-
         orderItems,
-
         shippingAddress: checkout.shippingAddress,
-
         deliveryMethod: checkout.deliveryMethod,
-
         itemsPrice,
-
         shippingFee,
-
         discount,
-
         totalAmount,
-
         paymentMethod: "Paystack",
-
         paymentStatus: "Paid",
-
         paymentReference,
-
         paidAt: new Date()
-
     });
 
-    await sendOrderEmail(order);
-
-    // Clear customer's cart
+    // Clear cart
     cart.items = [];
-
     await cart.save();
-    return order;
 
+    // Send email (don't let email failure break the order)
+    try {
+        await sendOrderEmail(order);
+    } catch (err) {
+        console.error("Email Error:", err.message);
+    }
+
+    return order;
 };

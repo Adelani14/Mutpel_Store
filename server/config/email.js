@@ -8,4 +8,27 @@ const transporter = nodemailer.createTransport({
     },
 });
 
+transporter.verify((error) => {
+    if (error) {
+        console.log("❌ Email configuration error:", error.message);
+    } else {
+        console.log("✅ Email server is ready");
+    }
+});
+
+export const sendEmail = async ({
+    to,
+    subject,
+    html,
+}) => {
+    return transporter.sendMail({
+        from: `"Mutpel Household" <${process.env.EMAIL_USER}>`,
+        to,
+        subject,
+        html,
+    });
+};
+
+
+
 export default transporter;
