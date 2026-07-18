@@ -29,6 +29,8 @@ import Categories from './pages/Categories.jsx';
 import EditProduct from "./pages/EditProduct";
 import ProductForm from './components/ProductForm.jsx'
 import PaymentSuccess from './pages/PaymentSuccess.jsx';
+import OrderSuccess from './pages/OrderSuccess.jsx';
+import orders from './pages/orders.jsx';
 
 
 
@@ -43,6 +45,8 @@ const router = createBrowserRouter([
   { path: "/productlisting", element: <Productlisting /> },
   { path: "/productdetail/:id", element: <Productdetail /> },
   { path: "/payment-success", element: <PaymentSuccess /> },
+  { path: "/order-success", element: <OrderSuccess /> },
+  { path: "/orders", element: <orders /> },
 
 
   {
