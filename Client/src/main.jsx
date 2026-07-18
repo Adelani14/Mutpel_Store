@@ -33,6 +33,7 @@ import Order from './pages/Orderspage.jsx'
 import OrderDetails from './pages/OrderDetails.jsx'
 import NotFound from "./pages/NotFound.jsx";
 import PrintInvoice from "./pages/PrintInvoice";
+import AdminOrderPage from "./pages/AdminOrderPage.jsx";
 
 
 
@@ -81,6 +82,7 @@ const router = createBrowserRouter([
       { path: "/profile", element: <Profile /> },
       { path: "/orders", element: <Order /> },
       { path: "/orders/:id", element: <OrderDetails /> },
+      { path: "/allorders", element: <AdminOrderPage /> },
 
 
     ],
