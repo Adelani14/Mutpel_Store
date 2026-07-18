@@ -1,6 +1,5 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Routes, Route } from "react-router-dom";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 
@@ -9,7 +8,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-import App from './App.jsx'
 import Landing from './pages/Landing.jsx'
 import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
@@ -31,8 +29,9 @@ import ProductForm from './components/ProductForm.jsx'
 import PaymentSuccess from './pages/PaymentSuccess.jsx';
 import OrderSuccess from './pages/OrderSuccess.jsx';
 import PaymentFailed from './pages/PaymentFailed.jsx'
-import Order from './pages/Orders.jsx'
+import Order from './pages/Orderspage.jsx'
 import OrderDetails from './pages/OrderDetails.jsx'
+import NotFound from "./pages/NotFound.jsx";
 
 
 
@@ -49,6 +48,7 @@ const router = createBrowserRouter([
   { path: "/payment-success", element: <PaymentSuccess /> },
   { path: "/order-success", element: <OrderSuccess /> },
   { path: "/payment-failed", element: <PaymentFailed /> },
+  { path: "*", element: <NotFound /> },
 
 
   {
