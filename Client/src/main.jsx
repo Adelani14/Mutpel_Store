@@ -30,8 +30,8 @@ import EditProduct from "./pages/EditProduct";
 import ProductForm from './components/ProductForm.jsx'
 import PaymentSuccess from './pages/PaymentSuccess.jsx';
 import OrderSuccess from './pages/OrderSuccess.jsx';
-import Orders from './pages/Orders.jsx';
 import PaymentFailed from './pages/PaymentFailed.jsx'
+import Orders from './pages/Orders.jsx'
 import OrderDetails from './pages/OrderDetails.jsx'
 
 
