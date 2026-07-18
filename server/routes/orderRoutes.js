@@ -6,7 +6,7 @@ import {
     updateOrderStatus,
 } from "../controllers/orderController.js";
 
-import isAuth from "../middleware/isAdmin.js";
+import isAuth from "../middleware/isAuth.js";
 import isAdmin from "../middleware/isAdmin.js";
 
 const router = express.Router();
