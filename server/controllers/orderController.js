@@ -247,13 +247,16 @@ export const createOrderFromPayment = async (
     await cart.save();
 
     // Send email (don't let email failure break the order)
-    sendOrderEmail(order)
-        .then(() => {
-            console.log("Email sent");
-        })
-        .catch(err => {
-            console.log("Email failed");
-            console.log(err);
-        });
+    try {
+
+        await sendOrderEmail(order);
+
+    } catch (error) {
+
+        console.log("Email failed");
+
+        console.log(error);
+
+    }
     return order;
 };
