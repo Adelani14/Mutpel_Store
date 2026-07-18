@@ -34,7 +34,7 @@ function AdminMobileBottomNav() {
                     <small>Home</small>
                 </NavLink>
 
-                <NavLink to="/categories" className={({ isActive }) =>
+                <NavLink to="/allorders" className={({ isActive }) =>
                     `nav-item ${isActive ? "active" : ""}`
                 }>
                     <i className="bi bi-basket2 fs-5"></i>
