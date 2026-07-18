@@ -12,36 +12,51 @@ const PaymentSuccess = () => {
                 const reference = searchParams.get("reference");
 
                 if (!reference) {
-                    alert("Payment reference missing.");
+                    navigate("/payment-failed", {
+                        state: {
+                            message: "Payment reference is missing.",
+                        },
+                    });
                     return;
                 }
 
-                const response = await Axios.post("/api/payment/verify", {
-                    reference,
+                const response = await Axios.post(
+                    "/api/payment/verify",
+                    {
+                        reference,
+                    }
+                );
+
+                if (response.data.success) {
+                    navigate("/order-success", {
+                        state: {
+                            order: response.data.order,
+                        },
+                    });
+                } else {
+                    navigate("/payment-failed", {
+                        state: {
+                            message: response.data.message,
+                        },
+                    });
+                }
+
+            } catch (error) {
+
+                navigate("/payment-failed", {
+                    state: {
+                        message:
+                            error.response?.data?.message ||
+                            "We couldn't verify your payment.",
+                    },
                 });
 
-
-
-                alert(response.data.message);
-
-                navigate("/order-success", {
-                    state: {
-                        order: response.data.order,
-                    }
-                })
-            } catch (error) {
-                console.log(error);
-
-                alert(
-                    error.response?.data?.message ||
-                    "Payment verification failed."
-                );
             }
         };
 
         verify();
-    }, []);
 
+    }, [navigate, searchParams]);
     return (
         <div className="container py-5">
             <div className="row justify-content-center">

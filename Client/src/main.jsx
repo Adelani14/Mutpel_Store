@@ -30,7 +30,9 @@ import EditProduct from "./pages/EditProduct";
 import ProductForm from './components/ProductForm.jsx'
 import PaymentSuccess from './pages/PaymentSuccess.jsx';
 import OrderSuccess from './pages/OrderSuccess.jsx';
-import orders from './pages/orders.jsx';
+import Orders from './pages/Orders.jsx';
+import PaymentFailed from './pages/PaymentFailed.jsx'
+import OrderDetails from './pages/OrderDetails.jsx'
 
 
 
@@ -46,7 +48,7 @@ const router = createBrowserRouter([
   { path: "/productdetail/:id", element: <Productdetail /> },
   { path: "/payment-success", element: <PaymentSuccess /> },
   { path: "/order-success", element: <OrderSuccess /> },
-  { path: "/orders", element: <orders /> },
+  { path: "/payment-failed", element: <PaymentFailed /> },
 
 
   {
@@ -70,6 +72,9 @@ const router = createBrowserRouter([
       { path: "/wishlist", element: <Wishlist /> },
       { path: "/checkout", element: <Checkout /> },
       { path: "/profile", element: <Profile /> },
+      { path: "/orders/:id", element: <OrderDetails /> },
+      { path: "/orders", element: <Orders /> },
+
 
     ],
   },
