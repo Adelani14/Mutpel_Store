@@ -126,10 +126,13 @@ const Profile = () => {
                             <i className="bi bi-inbox me-2"></i>
                             Inbox
                         </li>
-                        <li className="list-group-item">
-                            <i className="bi bi-box me-2"></i>
-                            Orders
-                        </li>
+                        <Link to="/orders" className="text-decoration-none text-dark">
+
+                            <li className="list-group-item">
+                                <i className="bi bi-box me-2"></i>
+                                Orders
+                            </li>
+                        </Link>
 
                         <li className="list-group-item">
                             <Link to="/wishlist" className="text-decoration-none text-dark">

@@ -14,7 +14,7 @@ const Orderspage = () => {
     const fetchOrders = async () => {
         try {
             const response = await Axios.get("/api/orders/my-orders");
-
+            console.log(response.data.orders)
             setOrders(response.data.orders || []);
         } catch (error) {
             console.log(error);
