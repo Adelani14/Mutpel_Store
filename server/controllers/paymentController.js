@@ -52,6 +52,9 @@ export const initializePayment = async (req, res) => {
             {
                 email,
                 amount: amount * 100,
+
+                callback_url:
+                    "https://mutpel-store.vercel.app/payment-success",
                 metadata: {
                     userId
                 }

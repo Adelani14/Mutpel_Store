@@ -28,6 +28,7 @@ import Search from './pages/Search.jsx';
 import Categories from './pages/Categories.jsx';
 import EditProduct from "./pages/EditProduct";
 import ProductForm from './components/ProductForm.jsx'
+import PaymentSuccess from './pages/PaymentSuccess.jsx';
 
 
 
@@ -36,11 +37,13 @@ const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
 
-    { path: "/search", element: <Search /> },
-      { path: "/categories/:id", element: <Categories /> },
-      { path: "/categories", element: <Categories /> },
-            { path: "/productlisting", element: <Productlisting /> },
-                  { path: "/productdetail/:id", element: <Productdetail /> },
+  { path: "/search", element: <Search /> },
+  { path: "/categories/:id", element: <Categories /> },
+  { path: "/categories", element: <Categories /> },
+  { path: "/productlisting", element: <Productlisting /> },
+  { path: "/productdetail/:id", element: <Productdetail /> },
+  { path: "/payment-success", element: <PaymentSuccess /> },
+
 
   {
     element: <ProtectedRoute allowedRoles={["admin"]} />,
@@ -62,8 +65,8 @@ const router = createBrowserRouter([
       { path: "/cart", element: <Cart /> },
       { path: "/wishlist", element: <Wishlist /> },
       { path: "/checkout", element: <Checkout /> },
-        { path: "/profile", element: <Profile /> },
-    
+      { path: "/profile", element: <Profile /> },
+
     ],
   },
 
