@@ -6,20 +6,27 @@ const sendOrderEmail = async (order) => {
     const html = `
       ...
     `;
+    try {
+        console.log("2. Before sendMail");
 
-    console.log("2. Before sendMail");
+        const info = await transporter.sendMail({
+            from: `"Mutpel Household" <${process.env.EMAIL_USER}>`,
+            to: order.shippingAddress.email,
+            subject: "Your Order Has Been Received",
+            html,
+        });
 
-    const info = await transporter.sendMail({
-        from: `"Mutpel Household" <${process.env.EMAIL_USER}>`,
-        to: order.shippingAddress.email,
-        subject: "Your Order Has Been Received",
-        html,
-    });
+        console.log("3. After sendMail");
+        console.log(info);
 
-    console.log("3. After sendMail");
-    console.log(info);
+    } catch (err) {
 
-    return info;
-};
+        console.log("SENDMAIL ERROR");
+
+        console.log(err);
+
+        throw err;
+    }
+}
 
 export default sendOrderEmail;
