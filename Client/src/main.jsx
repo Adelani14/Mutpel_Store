@@ -32,6 +32,7 @@ import PaymentFailed from './pages/PaymentFailed.jsx'
 import Order from './pages/Orderspage.jsx'
 import OrderDetails from './pages/OrderDetails.jsx'
 import NotFound from "./pages/NotFound.jsx";
+import PrintInvoice from "./pages/PrintInvoice";
 
 
 
@@ -49,6 +50,8 @@ const router = createBrowserRouter([
   { path: "/order-success", element: <OrderSuccess /> },
   { path: "/payment-failed", element: <PaymentFailed /> },
   { path: "*", element: <NotFound /> },
+  { path: "*", element: <NotFound /> },
+  { path: "/admin/orders/:id/invoice", element:< PrintInvoice />},
 
 
   {
@@ -60,7 +63,8 @@ const router = createBrowserRouter([
       { path: "/allproducts", element: <AllProduct /> },
       { path: "/editProduct/:id", element: <EditProduct /> },
       { path: "/productForm", element: <ProductForm /> },
-      { path: "/admin/orders/:id/invoice", element: < PrintInvoice />
+      {
+        path: "/admin/orders/:id/invoice", element: < PrintInvoice />
       },
 
     ],
