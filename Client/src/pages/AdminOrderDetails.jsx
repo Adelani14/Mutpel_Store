@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Axios from "../utils/axiosInstance";
+import AdminMobileBottomNav from '../components/AdminMobileBottomNav.jsx';
 
 const AdminOrderDetails = () => {
 
@@ -654,6 +655,9 @@ const AdminOrderDetails = () => {
                 </div>
 
             </main>
+
+
+            <AdminMobileBottomNav />
 
         </>
 

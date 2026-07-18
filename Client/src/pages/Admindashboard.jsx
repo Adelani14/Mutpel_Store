@@ -235,11 +235,17 @@ const Admindashboard = () => {
                                         <h5 className="mb-1">Admin Panel</h5>
                                     </div>
                                     <a className="nav-link active rounded-4 mb-2" href="#"><i className="bi bi-speedometer2 me-2"></i>Dashboard</a>
-                                    <a className="nav-link rounded-4 mb-2" href="/Allproducts"><i className="bi bi-box-seam me-2"></i>Products</a>
-                                    <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-basket2 me-2"></i>Orders</a>
+                                    <NavLink to="/Allproducts" className="mb-2">
+                                        <i className="bi bi-box-seam mb-e"></i>Products
+                                    </NavLink>
+                                    <NavLink to="/allorders" className="mb-2">
+                                        <i className="bi bi-basket2 mb-e"></i>Orders
+                                    </NavLink>
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-people me-2"></i>Users</a>
                                     <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-graph-up me-2"></i>Reports</a>
-                                    <a className="nav-link rounded-4 mt-2" href="/Productlisting"><i className="bi bi-shop me-2"></i>Check Store</a>
+                                    <NavLink to="/Productlisting" className="mb-2">
+                                        <i className="bi bi-shop me-2"></i>Check Store
+                                    </NavLink>
                                     <a className="nav-link rounded-4 mt-5 text-danger" onClick={logout}><i className="bi bi-box-arrow-right me-2"></i>Sign Out</a>
                                 </div>
                             </div>

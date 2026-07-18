@@ -1,24 +1,24 @@
 import { NavLink } from "react-router-dom";
-import Axios from "../utils/axiosInstance.js";
-import { useState, useEffect } from "react";
+// import Axios from "../utils/axiosInstance.js";
+// import { useState, useEffect } from "react";
 
 
 function AdminMobileBottomNav() {
-    const [cartCount, setCartCount] = useState(0);
-    const fetchCartCount = async () => {
-        try {
-            const res = await Axios.get("/api/cart/getCartCount")
+    // const [cartCount, setCartCount] = useState(0);
+    // const fetchCartCount = async () => {
+    //     try {
+    //         const res = await Axios.get("/api/cart/getCartCount")
 
-            setCartCount(res.data?.count || 0);
-        } catch (error) {
-            console.log(error);
-        }
+    //         setCartCount(res.data?.count || 0);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
 
-    };
+    // };
 
-    useEffect(() => {
-        fetchCartCount();
-    }, []);
+    // useEffect(() => {
+    //     fetchCartCount();
+    // }, []);
 
 
 
