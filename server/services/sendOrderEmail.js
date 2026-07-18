@@ -10,7 +10,7 @@ const sendOrderEmail = async (order) => {
         console.log("2. Before sendMail");
 
         const info = await transporter.sendMail({
-            from: `"Mutpel Household" <${process.env.EMAIL_USER}>`,
+            from: '"Mutpel Household" <princeadelani27@gmail.com>',
             to: order.shippingAddress.email,
             subject: "Your Order Has Been Received",
             html,

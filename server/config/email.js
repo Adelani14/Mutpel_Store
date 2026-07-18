@@ -1,38 +1,22 @@
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: process.env.EMAIL_HOST,
+    port: Number(process.env.EMAIL_PORT),
+    secure: false,
+
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
     },
-
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 10000,
 });
 
 transporter.verify((error) => {
     if (error) {
-        console.log("❌ Email configuration error:", error.message);
+        console.log("❌ Email configuration error:", error);
     } else {
-        console.log("✅ Email server is ready");
+        console.log("✅ Brevo email server is ready");
     }
 });
-
-export const sendEmail = async ({
-    to,
-    subject,
-    html,
-}) => {
-    return transporter.sendMail({
-        from: `"Mutpel Household" <${process.env.EMAIL_USER}>`,
-        to,
-        subject,
-        html,
-    });
-};
-
-
 
 export default transporter;
