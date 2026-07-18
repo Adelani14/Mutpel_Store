@@ -34,6 +34,7 @@ import OrderDetails from './pages/OrderDetails.jsx'
 import NotFound from "./pages/NotFound.jsx";
 import PrintInvoice from "./pages/PrintInvoice";
 import AdminOrderPage from "./pages/AdminOrderPage.jsx";
+import AdminOrderDetails from "./pages/AdminOrderDetails.jsx";
 
 
 
@@ -51,10 +52,8 @@ const router = createBrowserRouter([
   { path: "/order-success", element: <OrderSuccess /> },
   { path: "/payment-failed", element: <PaymentFailed /> },
   { path: "*", element: <NotFound /> },
-  { path: "*", element: <NotFound /> },
-  { path: "/admin/orders/:id/invoice", element:< PrintInvoice />},
-
-
+  
+  
   {
     element: <ProtectedRoute allowedRoles={["admin"]} />,
     children: [
@@ -64,9 +63,10 @@ const router = createBrowserRouter([
       { path: "/allproducts", element: <AllProduct /> },
       { path: "/editProduct/:id", element: <EditProduct /> },
       { path: "/productForm", element: <ProductForm /> },
-      {
-        path: "/admin/orders/:id/invoice", element: < PrintInvoice />
-      },
+      { path: "/admin/orders/:id/invoice", element: < PrintInvoice /> },
+      { path: "/allorders", element: <AdminOrderPage /> },
+      { path: "/admin/orders/:id/invoice", element:< PrintInvoice />},
+      { path: "/adminorderdetails/:id", element: < AdminOrderDetails /> },
 
     ],
   },
@@ -82,7 +82,6 @@ const router = createBrowserRouter([
       { path: "/profile", element: <Profile /> },
       { path: "/orders", element: <Order /> },
       { path: "/orders/:id", element: <OrderDetails /> },
-      { path: "/allorders", element: <AdminOrderPage /> },
 
 
     ],

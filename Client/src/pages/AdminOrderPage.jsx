@@ -495,7 +495,7 @@ const AdminOrderPage = () => {
                                                     <td>
 
                                                         <Link
-                                                            to={`/orders/${order._id}`}
+                                                            to={`/adminorderdetails/${order._id}`}
                                                             className="btn btn-sm btn-primary rounded-pill"
                                                         >
                                                             <i className="bi bi-eye me-1"></i>
