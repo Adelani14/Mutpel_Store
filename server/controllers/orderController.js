@@ -5,8 +5,10 @@ import Cart from "../models/cart.js";
 export const getMyOrders = async (req, res) => {
     try {
 
+        console.log(req.user);
+
         const orders = await Order.find({
-            user: req.user.id
+            user: req.user.userID
         })
             .populate("user", "fullName email")
             .sort({ createdAt: -1 });
@@ -45,7 +47,7 @@ export const getOrderById = async (req, res) => {
         // If user is not admin and doesn't own the order
         if (
             req.user.role !== "admin" &&
-            order.user._id.toString() !== req.user.id
+            order.user._id.toString() !== req.user.userID
         ) {
             return res.status(403).json({
                 success: false,

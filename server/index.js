@@ -49,7 +49,6 @@ app.use("/api/products", productRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/dashboardstats", dashboardRoutes);
 
-// app.use("/api/orders", orderRoutes);
 
 app.use("/api/cart", cartRoutes);
 app.use("/api/wishlist", wishlistRoutes);
