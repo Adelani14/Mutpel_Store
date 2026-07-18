@@ -1,7 +1,7 @@
 import Axios from '../utils/axiosInstance.js'
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import Axios from "../utils/axiosInstance.js";
+
 
 
 const AdminOrderPage = () => {
