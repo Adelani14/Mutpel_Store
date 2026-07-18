@@ -1,6 +1,6 @@
 import Order from "../models/order.js";
 import Cart from "../models/cart.js";
-
+import sendOrderEmail from "../services/sendOrderEmail.js";
 
 export const getMyOrders = async (req, res) => {
     try {
@@ -270,6 +270,8 @@ export const createOrderFromPayment = async (
         paidAt: new Date()
 
     });
+
+    await sendOrderEmail(order);
 
     // Clear customer's cart
     cart.items = [];

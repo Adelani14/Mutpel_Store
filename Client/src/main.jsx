@@ -60,6 +60,9 @@ const router = createBrowserRouter([
       { path: "/allproducts", element: <AllProduct /> },
       { path: "/editProduct/:id", element: <EditProduct /> },
       { path: "/productForm", element: <ProductForm /> },
+      { path: "/admin/orders/:id/invoice", element: < PrintInvoice />
+      },
+
     ],
   },
 
