@@ -24,12 +24,9 @@ import paymentRoutes from "./routes/paymentRoutes.js";
 // MIDDLEWARErs
 // GLOBAL MIDDLEWARE
 app.use(cors({
-    origin: [
-        "https://mutpel-store.vercel.app",
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-
-    credentials: true
+    origin: "https://mutpel-store.vercel.app",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
 }));
 
 app.use(cookieParser());
