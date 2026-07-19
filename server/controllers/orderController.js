@@ -272,11 +272,13 @@ export const getRecentOrders = async (req, res) => {
             .sort({ createdAt: -1 })
             .limit(8);
 
-        res.json({
-            success: true,
-            orders,
-        });
+        res.status(200).json({
 
+            success: true,
+
+            orders
+
+        });
     } catch (error) {
         res.status(500).json({
             success: false,
