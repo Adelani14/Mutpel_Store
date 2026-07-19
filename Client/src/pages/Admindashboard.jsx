@@ -41,7 +41,7 @@ const Admindashboard = () => {
 
     const fetchRecentOrders = async () => {
         try {
-            const res = await Axios.get("/api/orders/recent-orders");
+            const res = await Axios.get("/api/orders/recentorders");
 
             setRecentOrders(res.data.orders);
 
@@ -54,7 +54,7 @@ const Admindashboard = () => {
         try {
             const response = await Axios.get("/api/dashboardstats/stats")
 
-            const data = await response.json();
+            //const data = await response.json();
 
             // console.log(data);
 
