@@ -41,7 +41,7 @@ const Admindashboard = () => {
 
     const fetchRecentOrders = async () => {
         try {
-            const res = await Axios.get("/api/dashboardstats/recent-orders");
+            const res = await Axios.get("/api/orders/recent-orders");
 
             setRecentOrders(res.data.orders);
 
@@ -460,7 +460,7 @@ const Admindashboard = () => {
                                                                 handleDelete(product._id);
                                                             }}
                                                         >
-                                                            {deletingId === product._id ? (
+                                                            {deletingId === order._id ? (
                                                                 <span className="spinner-border spinner-border-sm"></span>
                                                             ) : (
                                                                 <i className="bi bi-trash"></i>
