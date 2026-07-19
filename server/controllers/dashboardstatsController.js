@@ -44,12 +44,15 @@ export const dashboardStats = async (req, res) => {
             0
         );
 
-        const revenueToday = paidOrders
-            .filter(order =>
-                new Date(order.createdAt).toDateString() === today
-            )
-            .reduce((sum, order) => sum + order.totalAmount, 0);
+        const revenueToday = paidOrders.reduce((sum, order) => {
+            const orderDate = new Date(order.createdAt);
 
+            if (orderDate.toDateString() === today) {
+                return sum + order.totalAmount;
+            }
+
+            return sum;
+        }, 0);
         const revenueThisMonth = paidOrders
             .filter(order => {
                 const date = new Date(order.createdAt);
