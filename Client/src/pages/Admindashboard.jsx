@@ -105,7 +105,7 @@ const Admindashboard = () => {
         }
     };
 
-
+    const [deletingId, setDeletingId] = useState(null);
     const handleDelete = async (id) => {
 
         const confirmDelete = window.confirm(
@@ -114,7 +114,7 @@ const Admindashboard = () => {
 
         if (!confirmDelete) return;
 
-        setLoading(true);
+        setDeletingId(id);
 
         try {
             await Axios.delete(`/api/products/${id}`);
@@ -122,15 +122,8 @@ const Admindashboard = () => {
             setProducts(prev =>
                 prev.filter(product => product._id !== id)
             );
-
-            alert("Product deleted successfully.");
-        } catch (error) {
-
-            console.log(error);
-
-            alert("Failed to delete product.");
         } finally {
-            setLoading(false);
+            setDeletingId(null);
         }
 
     };
@@ -460,9 +453,18 @@ const Admindashboard = () => {
 
                                                     <td>
                                                         <button
-                                                            className="btn btn-sm btn-danger"
+                                                            className="btn btn-danger"
+                                                            disabled={deletingId === product._id}
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                handleDelete(product._id);
+                                                            }}
                                                         >
-                                                            <i className="bi bi-trash"></i>
+                                                            {deletingId === product._id ? (
+                                                                <span className="spinner-border spinner-border-sm"></span>
+                                                            ) : (
+                                                                <i className="bi bi-trash"></i>
+                                                            )}
                                                         </button>
                                                     </td>
                                                 </tr>
