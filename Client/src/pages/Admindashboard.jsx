@@ -108,7 +108,7 @@ const Admindashboard = () => {
     const averageOrderValue =
         paidOrders.length > 0
             ? paidOrders.reduce(
-                (sum, order) => sum + order.totalPrice,
+                (sum, order) => sum + order.totalAmount,
                 0
             ) / paidOrders.length
             : 0;

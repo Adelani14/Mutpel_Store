@@ -259,7 +259,7 @@ const AdminOrderDetails = () => {
 
                                 </div>
 
-                                <div className="col-md-3">
+                                <div className="col-md-3 d-col gap-1">
 
                                     <small className="text-muted">
 
