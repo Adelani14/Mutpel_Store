@@ -345,7 +345,7 @@ const Admindashboard = () => {
                                 <div className="col-md-6 col-lg-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Revenue This Month</p>
-                                        <h2 className="h4 mb-0">₦{stats.revenueThisMonth?.toLocaleString()}</h2>
+                                        <h2 className="h4 mb-0">₦{stats.revenueThisMonth}</h2>
                                         <small className="text-primary">Current month</small>
                                     </div>
                                 </div>
@@ -353,7 +353,7 @@ const Admindashboard = () => {
                                 <div className="col-md-6 col-lg-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Revenue This Year</p>
-                                        <h2 className="h4 mb-0">₦{stats.revenueThisYear?.toLocaleString()}</h2>
+                                        <h2 className="h4 mb-0">₦{stats.revenueThisYear}</h2>
                                         <small className="text-info">Current year</small>
                                     </div>
                                 </div>
@@ -383,7 +383,7 @@ const Admindashboard = () => {
                                 <div className="col-md-6 col-lg-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Average Order Value</p>
-                                        <h2 className="h4 mb-0">₦{stats.averageOrderValue?.toLocaleString()}</h2>
+                                        <h2 className="h4 mb-0">₦{stats.averageOrderValue}</h2>
                                         <small className="text-muted">Per order</small>
                                     </div>
                                 </div>
