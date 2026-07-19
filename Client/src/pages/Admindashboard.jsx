@@ -269,13 +269,13 @@ const Admindashboard = () => {
                                     </div>
                                     <NavLink to="" className="list-group-item list-group-item-action rounded-4"><i className="bi bi-speedometer2 me-2"></i>Dashboard</NavLink>
                                     <NavLink to="/Allproducts" className="list-group-item list-group-item-action rounded-4">
-                                        <i className="bi bi-box-seam mb-e"></i>Products
+                                        <i className="bi bi-box-seam me-2"></i>Products
                                     </NavLink>
                                     <NavLink to="/allorders" className="mb-2 list-group-item list-group-item-action rounded-4">
-                                        <i className="bi bi-basket2 mb-e"></i>Orders
+                                        <i className="bi bi-basket2 me-2"></i>Orders
                                     </NavLink>
-                                    <NavLink to="" className="list-group-item list-group-item-action rounded-4"><i className="bi bi-people me-2"></i>Users</NavLink>
-                                    <NavLink to="" className="list-group-item list-group-item-action rounded-4"><i className="bi bi-graph-up me-2"></i>Reports</NavLink>
+                                    <NavLink to="/#" className="list-group-item list-group-item-action rounded-4"><i className="bi bi-people me-2"></i>Users</NavLink>
+                                    <NavLink to="/#" className="list-group-item list-group-item-action rounded-4"><i className="bi bi-graph-up me-2"></i>Reports</NavLink>
                                     <NavLink to="/Productlisting" className="mb-2 list-group-item list-group-item-action rounded-4">
                                         <i className="bi bi-shop me-2"></i>Check Store
                                     </NavLink>
