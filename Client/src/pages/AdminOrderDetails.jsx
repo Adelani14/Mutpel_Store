@@ -267,11 +267,11 @@ const AdminOrderDetails = () => {
 
                                     </small>
 
-                                    <h5 className="badge bg-success">
+                                    <p className="badge bg-success">
 
                                         {order.paymentStatus}
 
-                                    </h5>
+                                    </p>
 
                                 </div>
 

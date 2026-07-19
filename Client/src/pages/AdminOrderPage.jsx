@@ -528,29 +528,36 @@ const AdminOrderPage = () => {
                                 </div>
 
 
-                                <button
-                                    disabled={page === 1}
-                                    onClick={() => fetchOrders(page - 1)}
-                                >
-                                    Previous
-                                </button>
-
-                                <span>
-                                    {page} / {totalPages}
-                                </span>
-
-                                <button
-                                    disabled={page === totalPages}
-                                    onClick={() => fetchOrders(page + 1)}
-                                >
-                                    Next
-                                </button>
 
                             </div>
+
+
                         </div>
 
 
                     )}
+
+                    <div className='ms-auto mt-3'>
+
+                        <button
+                            disabled={page === 1}
+                            onClick={() => fetchOrders(page - 1)}
+                        >
+                            Previous
+                        </button>
+
+                        <span>
+                            {page} / {totalPages}
+                        </span>
+
+                        <button
+                            disabled={page === totalPages}
+                            onClick={() => fetchOrders(page + 1)}
+                        >
+                            Next
+                        </button>
+
+                    </div>
 
                 </div>
             </main>
