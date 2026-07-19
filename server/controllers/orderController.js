@@ -260,3 +260,28 @@ export const createOrderFromPayment = async (
     }
     return order;
 };
+
+
+// dashboardController.js
+
+import Order from "../models/order.js";
+
+export const getRecentOrders = async (req, res) => {
+    try {
+        const orders = await Order.find()
+            .populate("user", "fullName email")
+            .sort({ createdAt: -1 })
+            .limit(8);
+
+        res.json({
+            success: true,
+            orders,
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
