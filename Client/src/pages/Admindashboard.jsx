@@ -262,7 +262,8 @@ const Admindashboard = () => {
                     <div className="d-block d-xl-flex">
                         <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
                             <div className="card rounded-4 shadow-sm border-0 p-3 h-100">
-                                <div className="nav  flex-column nav-pills " aria-orientation="vertical">
+                                <div className="list-group list-group-flush" aria-orientation="vertical">
+
                                     <div className="border-bottom mt-2 pb-3 mb-2">
                                         <h5 className="mb-1">Admin Panel</h5>
                                     </div>

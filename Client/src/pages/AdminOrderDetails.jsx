@@ -117,7 +117,7 @@ const AdminOrderDetails = () => {
 
                         <Link
 
-                            to="/admin/orders"
+                            to="/allorders"
 
                             className="btn btn-outline-secondary"
 
@@ -214,11 +214,11 @@ const AdminOrderDetails = () => {
 
                             <p className="mb-1">
 
-                                <span>City: {order.shippingAddress.city}</span>
+                                {order.shippingAddress.city},
 
                                 {" "}
 
-                                <span>State: {order.shippingAddress.state}</span>
+                                {order.shippingAddress.state}
 
                             </p>
 
@@ -261,17 +261,17 @@ const AdminOrderDetails = () => {
 
                                 <div className="col-md-3">
 
-                                    <small className="text-muted me-1">
+                                    <small className="text-muted">
 
                                         Status
 
                                     </small>
 
-                                    <span className="badge bg-success">
+                                    <div className="badge bg-success">
 
                                         {order.paymentStatus}
 
-                                    </span>
+                                    </div>
 
                                 </div>
 
@@ -637,7 +637,7 @@ const AdminOrderDetails = () => {
                         </Link>
 
                         <Link
-                            to="/admin/orders"
+                            to="/allorders"
                             className="btn btn-outline-secondary"
                         >
                             <i className="bi bi-arrow-left me-2"></i>
