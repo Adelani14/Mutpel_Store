@@ -444,8 +444,7 @@ const AdminOrderPage = () => {
 
                                                     <td className="fw-bold text-primary">
 
-                                                        ₦
-                                                        {order.totalAmount.toLocaleString()}
+                                                        ₦{order.totalAmount.toLocaleString()}
 
                                                     </td>
 

@@ -266,16 +266,16 @@ const Admindashboard = () => {
                                     <div className="border-bottom mt-2 pb-3 mb-2">
                                         <h5 className="mb-1">Admin Panel</h5>
                                     </div>
-                                    <a className="nav-link active rounded-4 mb-2" href="#"><i className="bi bi-speedometer2 me-2"></i>Dashboard</a>
-                                    <NavLink to="/Allproducts" className="mb-2">
+                                    <NavLink to="" className="list-group-item list-group-item-action rounded-4"><i className="bi bi-speedometer2 me-2"></i>Dashboard</NavLink>
+                                    <NavLink to="/Allproducts" className="list-group-item list-group-item-action rounded-4">
                                         <i className="bi bi-box-seam mb-e"></i>Products
                                     </NavLink>
-                                    <NavLink to="/allorders" className="mb-2">
+                                    <NavLink to="/allorders" className="mb-2 list-group-item list-group-item-action rounded-4">
                                         <i className="bi bi-basket2 mb-e"></i>Orders
                                     </NavLink>
-                                    <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-people me-2"></i>Users</a>
-                                    <a className="nav-link rounded-4 mb-2" href="#"><i className="bi bi-graph-up me-2"></i>Reports</a>
-                                    <NavLink to="/Productlisting" className="mb-2">
+                                    <NavLink to="" className="list-group-item list-group-item-action rounded-4"><i className="bi bi-people me-2"></i>Users</NavLink>
+                                    <NavLink to="" className="list-group-item list-group-item-action rounded-4"><i className="bi bi-graph-up me-2"></i>Reports</NavLink>
+                                    <NavLink to="/Productlisting" className="mb-2 list-group-item list-group-item-action rounded-4">
                                         <i className="bi bi-shop me-2"></i>Check Store
                                     </NavLink>
                                     <a className="nav-link rounded-4 mt-5 text-danger" onClick={logout}><i className="bi bi-box-arrow-right me-2"></i>Sign Out</a>
@@ -337,7 +337,7 @@ const Admindashboard = () => {
                                 <div className="col-md-6 col-lg-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Revenue Today</p>
-                                        <h2 className="h4 mb-0">₦{totalRevenue}</h2>
+                                        <h2 className="h4 mb-0">₦{totalRevenue.toLocaleString()}</h2>
                                         <small className="text-success">Today's earnings</small>
                                     </div>
                                 </div>
@@ -361,7 +361,7 @@ const Admindashboard = () => {
                                 <div className="col-md-6 col-lg-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Lifetime Revenue</p>
-                                        <h2 className="h4 mb-0">₦{totalRevenue}</h2>
+                                        <h2 className="h4 mb-0">₦{totalRevenue.toLocaleString()}</h2>
                                         <small className="text-success">All-time earnings</small>
                                     </div>
                                 </div>
@@ -429,6 +429,7 @@ const Admindashboard = () => {
                                                 <th>Customer</th>
                                                 <th>Date</th>
                                                 <th>Amount</th>
+                                                <th>Payment</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -448,22 +449,41 @@ const Admindashboard = () => {
                                                     </td>
 
                                                     <td>
-                                                        ₦{order.totalPrice}
+                                                        ₦{order.totalAmount.toLocaleString()}
                                                     </td>
 
                                                     <td>
+
                                                         <span
-                                                            className={`badge ${order.status === "Delivered"
+                                                            className={`badge ${order.paymentStatus === "Paid"
                                                                 ? "bg-success"
-                                                                : order.status === "Cancelled"
-                                                                    ? "bg-danger"
-                                                                    : order.status === "Processing"
-                                                                        ? "bg-info"
-                                                                        : "bg-warning text-dark"
+                                                                : "bg-danger"
                                                                 }`}
                                                         >
-                                                            {order.status}
+                                                            {order.paymentStatus}
                                                         </span>
+
+                                                    </td>
+
+                                                    <td>
+
+                                                        <span
+                                                            className={`badge ${order.orderStatus === "Pending"
+                                                                ? "bg-warning text-dark"
+                                                                : order.orderStatus === "Confirmed"
+                                                                    ? "bg-primary"
+                                                                    : order.orderStatus === "Processing"
+                                                                        ? "bg-info text-dark"
+                                                                        : order.orderStatus === "Shipped"
+                                                                            ? "bg-secondary"
+                                                                            : order.orderStatus === "Delivered"
+                                                                                ? "bg-success"
+                                                                                : "bg-danger"
+                                                                }`}
+                                                        >
+                                                            {order.orderStatus}
+                                                        </span>
+
                                                     </td>
 
                                                     <td>

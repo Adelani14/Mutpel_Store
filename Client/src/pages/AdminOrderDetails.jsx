@@ -152,7 +152,7 @@ const AdminOrderDetails = () => {
 
                                     <h6>
 
-                                        {order.user.fullName}
+                                        {order.shippingAddress.fullName}
 
                                     </h6>
 
@@ -205,11 +205,6 @@ const AdminOrderDetails = () => {
 
                             </h5>
 
-                            <p className="mb-1">
-
-                                {order.shippingAddress.fullName}
-
-                            </p>
 
                             <p className="mb-1">
 
@@ -219,19 +214,19 @@ const AdminOrderDetails = () => {
 
                             <p className="mb-1">
 
-                                {order.shippingAddress.city},
+                                <span>City: {order.shippingAddress.city}</span>
 
                                 {" "}
 
-                                {order.shippingAddress.state}
+                                <span>State: {order.shippingAddress.state}</span>
 
                             </p>
 
-                            <p className="mb-0">
+                            {/* <p className="mb-0">
 
                                 {order.shippingAddress.email}
 
-                            </p>
+                            </p> */}
 
                         </div>
 
@@ -266,7 +261,7 @@ const AdminOrderDetails = () => {
 
                                 <div className="col-md-3">
 
-                                    <small className="text-muted">
+                                    <small className="text-muted me-1">
 
                                         Status
 
