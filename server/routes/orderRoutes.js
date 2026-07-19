@@ -18,7 +18,7 @@ router.get("/:id", isAuth, getOrderById);
 
 // Admin routes
 router.get("/", isAuth, isAdmin, getAllOrders);
-router.get("/recent-orders", isAuth, isAdmin, getRecentOrders);
+router.get("/recentorders", isAuth, isAdmin, getRecentOrders);
 router.patch("/:id/status", isAuth, isAdmin, updateOrderStatus);
 
 export default router;
