@@ -16,7 +16,9 @@ const Admindashboard = () => {
     const [stats, setStats] = useState({
         totalOrders: 0,
         pendingOrders: 0,
-        completedOrders: 0,
+        deliveredOrders: 0,
+        
+        
 
         revenueToday: 0,
         revenueThisMonth: 0,
@@ -46,8 +48,7 @@ const Admindashboard = () => {
 
     const fetchOrders = async () => {
         try {
-
-            const response = await Axios.get("/api/orders");
+            const res = await Axios.get("/api/orders/recent-orders");
 
             setOrders(response.data.orders || []);
 
@@ -78,7 +79,7 @@ const Admindashboard = () => {
             try {
                 const response = await Axios.get("/api/dashboardstats/stats")
 
-                // const data = await response.json();
+            const data = await response.json();
 
                 // console.log(data);
 
@@ -312,13 +313,13 @@ const Admindashboard = () => {
                                         </div>
                                     </div>
 
-                                    <div className="col-md-6 col-lg-3">
-                                        <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
-                                            <p className="text-muted mb-2">Completed Orders</p>
-                                            <h2 className="h4 mb-0">{deliveredOrders}</h2>
-                                            <small className="text-success">Successfully delivered</small>
-                                        </div>
+                                <div className="col-md-6 col-lg-3">
+                                    <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
+                                        <p className="text-muted mb-2">Completed Orders</p>
+                                        <h2 className="h4 mb-0">{stats.completedOrders}</h2>
+                                        <small className="text-success">Successfully delivered</small>
                                     </div>
+                                </div>
 
                                     <div className="col-md-6 col-lg-3">
                                         <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
