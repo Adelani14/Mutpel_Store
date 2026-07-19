@@ -337,7 +337,7 @@ const Admindashboard = () => {
                                 <div className="col-md-6 col-lg-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Revenue Today</p>
-                                        <h2 className="h4 mb-0">₦{totalRevenue?.toLocaleString()}</h2>
+                                        <h2 className="h4 mb-0">₦{totalRevenue}</h2>
                                         <small className="text-success">Today's earnings</small>
                                     </div>
                                 </div>
@@ -361,7 +361,7 @@ const Admindashboard = () => {
                                 <div className="col-md-6 col-lg-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Lifetime Revenue</p>
-                                        <h2 className="h4 mb-0">₦{totalRevenue?.toLocaleString()}</h2>
+                                        <h2 className="h4 mb-0">₦{totalRevenue}</h2>
                                         <small className="text-success">All-time earnings</small>
                                     </div>
                                 </div>
