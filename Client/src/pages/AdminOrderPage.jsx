@@ -2,6 +2,7 @@ import Axios from '../utils/axiosInstance.js'
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import AdminMobileBottomNav from '../components/AdminMobileBottomNav.jsx';
+import Helpcenter from '../components/Helpcenter.jsx';
 
 
 
@@ -79,7 +80,8 @@ const AdminOrderPage = () => {
 
     return (
         <>
-            <main className="py-4">
+            <Helpcenter />
+            <main className="py-4 mb-5">
 
                 <div className="container-fluid">
 
@@ -100,14 +102,17 @@ const AdminOrderPage = () => {
                                 </p>
 
                             </div>
+                            <div className=' mt-3 mt-lg-0 d-flex gap-2'>
+                                <button
+                                    className="btn btn-primary "
+                                    onClick={fetchOrders}
+                                >
+                                    <i className="bi bi-arrow-clockwise me-2"></i>
+                                    Refresh Orders
+                                </button>
+                                <Link to="/admindashboard" className="btn btn-outline-secondary btn-sm ms-2 d-none d-md-block">Dashboard</Link>
 
-                            <button
-                                className="btn btn-primary mt-3 mt-lg-0"
-                                onClick={fetchOrders}
-                            >
-                                <i className="bi bi-arrow-clockwise me-2"></i>
-                                Refresh Orders
-                            </button>
+                            </div>
 
                         </div>
 

@@ -104,7 +104,7 @@ const AllProduct = () => {
             )}
             <Helpcenter />
             <Header />
-            <div className=" container-fluid admin-card mb-5 mt-2" style={{ minWidth: 0 }}>
+            <div className="mb-4 container-fluid admin-card mb-5 mt-2" style={{ minWidth: 0 }}>
 
                 <div className='d-flex justify-content-between'>
                     <h2 className="h6 mb-4">Product Management</h2>

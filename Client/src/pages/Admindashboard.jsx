@@ -14,18 +14,6 @@ const Admindashboard = () => {
 
 
     const [stats, setStats] = useState({
-        totalOrders: 0,
-        pendingOrders: 0,
-        completedOrders: 0,
-
-        revenueToday: 0,
-        revenueThisMonth: 0,
-        revenueThisYear: 0,
-        totalRevenue: 0,
-
-        averageOrderValue: 0,
-        productsSold: 0,
-
         totalUsers: 0,
         totalProducts: 0,
         totalCategories: 0,
@@ -60,6 +48,11 @@ const Admindashboard = () => {
 
 
     const totalOrders = orders.length;
+    const now = new Date();
+
+    const today = now.toDateString();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
 
     const pendingOrders = orders.filter(
         order => order.orderStatus === "Pending"
@@ -72,6 +65,67 @@ const Admindashboard = () => {
     const totalRevenue = orders
         .filter(order => order.paymentStatus === "Paid")
         .reduce((sum, order) => sum + order.totalAmount, 0);
+
+    const revenueToday = orders
+        .filter(order => {
+            if (order.paymentStatus !== "Paid") return false;
+
+            const orderDate = new Date(order.createdAt);
+
+            return orderDate.toDateString() === today;
+        })
+        .reduce((sum, order) => sum + order.totalAmount, 0);
+
+
+    const revenueThisMonth = orders
+        .filter(order => {
+            if (order.paymentStatus !== "Paid") return false;
+
+            const orderDate = new Date(order.createdAt);
+
+            return (
+                orderDate.getMonth() === currentMonth &&
+                orderDate.getFullYear() === currentYear
+            );
+        })
+        .reduce((sum, order) => sum + order.totalAmount, 0);
+
+    const revenueThisYear = orders
+        .filter(order => {
+            if (order.paymentStatus !== "Paid") return false;
+
+            const orderDate = new Date(order.createdAt);
+
+            return orderDate.getFullYear() === currentYear;
+        })
+        .reduce((sum, order) => sum + order.totalAmount, 0);
+
+
+    const paidOrders = orders.filter(
+        order => order.paymentStatus === "Paid"
+    );
+
+    const averageOrderValue =
+        paidOrders.length > 0
+            ? paidOrders.reduce(
+                (sum, order) => sum + order.totalPrice,
+                0
+            ) / paidOrders.length
+            : 0;
+
+
+
+    const productsSold = orders
+        .filter(order => order.paymentStatus === "Paid")
+        .reduce((total, order) => {
+            return (
+                total +
+                order.orderItems.reduce(
+                    (sum, item) => sum + item.quantity,
+                    0
+                )
+            );
+        }, 0);
 
 
     const fetchDashboardStats = async () => {
@@ -338,7 +392,7 @@ const Admindashboard = () => {
                                 <div className="col-md-6 col-lg-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Revenue Today</p>
-                                        <h2 className="h4 mb-0">₦{totalRevenue.toLocaleString()}</h2>
+                                        <h2 className="h4 mb-0">₦{revenueToday.toLocaleString()}</h2>
                                         <small className="text-success">Today's earnings</small>
                                     </div>
                                 </div>
@@ -346,7 +400,7 @@ const Admindashboard = () => {
                                 <div className="col-md-6 col-lg-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Revenue This Month</p>
-                                        <h2 className="h4 mb-0">₦{stats.revenueThisMonth}</h2>
+                                        <h2 className="h4 mb-0">₦{revenueThisMonth.toLocaleString()}</h2>
                                         <small className="text-primary">Current month</small>
                                     </div>
                                 </div>
@@ -354,7 +408,7 @@ const Admindashboard = () => {
                                 <div className="col-md-6 col-lg-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Revenue This Year</p>
-                                        <h2 className="h4 mb-0">₦{stats.revenueThisYear}</h2>
+                                        <h2 className="h4 mb-0">₦{revenueThisYear.toLocaleString()}</h2>
                                         <small className="text-info">Current year</small>
                                     </div>
                                 </div>
@@ -376,7 +430,7 @@ const Admindashboard = () => {
                                 <div className="col-md-6 col-lg-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Products Sold</p>
-                                        <h2 className="h4 mb-0">{stats.productsSold}</h2>
+                                        <h2 className="h4 mb-0">{productsSold}</h2>
                                         <small className="text-muted">Units sold</small>
                                     </div>
                                 </div>
@@ -384,7 +438,7 @@ const Admindashboard = () => {
                                 <div className="col-md-6 col-lg-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Average Order Value</p>
-                                        <h2 className="h4 mb-0">₦{stats.averageOrderValue}</h2>
+                                        <h2 className="h4 mb-0">₦{averageOrderValue.toFixed(2)}</h2>
                                         <small className="text-muted">Per order</small>
                                     </div>
                                 </div>
@@ -558,7 +612,7 @@ const Admindashboard = () => {
                     </div>
                 </div>
             </main >
-            <footer className="mt-5 text-center text-muted small mb-4 py-4">
+            <footer className="mt-5 text-center text-muted small mb-5 py-4">
                 © 2026 Mutpel. All rights reserved.
             </footer>
             <AdminMobileBottomNav />

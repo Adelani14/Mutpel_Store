@@ -93,7 +93,7 @@ const AdminOrderDetails = () => {
 
         <>
 
-            <main className="py-4">
+            <main className="py-4 mb-5">
 
                 <div className="container-fluid py-4">
 
@@ -267,11 +267,11 @@ const AdminOrderDetails = () => {
 
                                     </small>
 
-                                    <div className="badge bg-success">
+                                    <h5 className="badge bg-success">
 
                                         {order.paymentStatus}
 
-                                    </div>
+                                    </h5>
 
                                 </div>
 

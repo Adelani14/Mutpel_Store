@@ -46,10 +46,9 @@ const PrintInvoice = () => {
     return (
         <>
             <div
-                className="container py-5"
+                className="container bg-white shadow-sm rounded-4 p-5 my-4"
                 style={{
-                    maxWidth: "900px",
-                    background: "#fff",
+                    maxWidth: "850px",
                 }}
             >
 
@@ -74,167 +73,126 @@ const PrintInvoice = () => {
 
                 </div>
 
-                {/* Company */}
+                
 
-                <div className="d-flex justify-content-between align-items-center border-bottom pb-4 mb-4">
+                {/* ================= Header ================= */}
 
-                    <div className="d-flex align-items-center">
+                <div className="border-bottom pb-4 mb-4">
+                    <div className="d-flex justify-content-between align-items-center">
 
-                        <img
-                            src="/icons/logo.png"
-                            alt="Mutpel Logo"
-                            style={{
-                                width: "75px"
-                            }}
-                        />
+                        <div className="d-flex align-items-center">
 
-                        <div className="ms-3">
+                            <img
+                                src="/icons/logo.png"
+                                alt="Mutpel Household"
+                                className="bg-primary rounded"
+                                style={{
+                                    width: 70,
+                                    height: 70,
+                                    objectFit: "contain"
+                                }}
+                            />
 
-                            <h2 className="fw-bold text-primary mb-1">
-                                MUTPEL HOUSEHOLD
-                            </h2>
+                            <div className="ms-3">
 
-                            <p className="text-muted mb-0">
-                                Sales Invoice
+                                <h2 className="fw-bold text-primary mb-0">
+                                    MUTPEL HOUSEHOLD
+                                </h2>
+
+                                <small className="text-muted">
+                                    Sales Invoice
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        <div className="text-end">
+
+                            <h3 className="fw-bold mb-2">
+                                INVOICE
+                            </h3>
+
+                            <p className="mb-1">
+                                <strong>#</strong> INV-{order._id.slice(-6).toUpperCase()}
                             </p>
+
+                            <p className="mb-1">
+                                {new Date(order.createdAt).toLocaleDateString("en-NG", {
+                                    day: "numeric",
+                                    month: "long",
+                                    year: "numeric",
+                                })}
+                            </p>
+
+                            <span
+                                className={`badge ${order.paymentStatus === "paid"
+                                    ? "bg-success"
+                                    : "bg-warning text-dark"
+                                    }`}
+                            >
+                                {order.paymentStatus.toUpperCase()}
+                            </span>
 
                         </div>
 
                     </div>
-
-                    <div className="text-end">
-
-                        <h4 className="fw-bold">
-                            Invoice
-                        </h4>
-
-                        <small className="text-muted">
-                            INV-{order._id.slice(-6).toUpperCase()}
-                        </small>
-
-                    </div>
-
                 </div>
 
-                {/* Invoice Info */}
+                {/* ================= Customer ================= */}
 
                 <div className="row mb-5">
 
-                    <div className="col-md-6">
+                    <div className="col-md-8">
 
-                        <h6 className="fw-bold">
+                        <h6 className="text-uppercase fw-bold text-secondary mb-3">
                             Bill To
                         </h6>
 
-                        <p className="mb-1">
+                        <h5 className="fw-semibold mb-1">
                             {order.shippingAddress.fullName}
-                        </p>
-
-                        <p className="mb-1">
-                            {order.shippingAddress.email}
-                        </p>
+                        </h5>
 
                         <p className="mb-1">
                             {order.shippingAddress.phone}
                         </p>
 
                         <p className="mb-1">
-                            {order.shippingAddress.address}
+                            {order.shippingAddress.email}
                         </p>
 
-                        <p className="mb-1">
-                            {order.shippingAddress.city}, {order.shippingAddress.state}
+                        <p className="mb-0">
+                            {order.shippingAddress.address}
+                            <br />
+                            {order.shippingAddress.city},{" "}
+                            {order.shippingAddress.state}
                         </p>
 
                     </div>
 
-                    <div className="col-md-6 text-md-end">
+                    <div className="col-md-4 text-md-end mt-4 mt-md-0">
 
-                        <p className="mb-1">
+                        <div className="mb-3">
 
-                            <strong>Date:</strong>{" "}
-
-                            {new Date(order.createdAt).toLocaleDateString("en-NG", {
-                                day: "numeric",
-                                month: "long",
-                                year: "numeric",
-                            })}
-
-                        </p>
-
-                        <p className="mb-1">
-
-                            <strong>Payment:</strong>{" "}
-
-                            {order.paymentMethod}
-
-                        </p>
-
-                        <p className="mb-1">
-
-                            <strong>Status:</strong>{" "}
-
-                            {order.paymentStatus}
-
-                        </p>
-
-                        <p className="mb-1">
-
-                            <strong>Paid On:</strong>{" "}
-
-                            {new Date(order.paidAt).toLocaleDateString("en-NG", {
-                                day: "numeric",
-                                month: "long",
-                                year: "numeric",
-                            })}
-
-                        </p>
-
-                        <div className="col-md-3">
-
-                            <small className="text-muted">
-                                Payment Method
+                            <small className="text-muted d-block">
+                                Payment
                             </small>
 
-                            <h6>
+                            <strong>
                                 {order.paymentMethod}
-                            </h6>
+                            </strong>
 
                         </div>
 
-                        <div className="col-md-3">
+                        <div>
 
-                            <small className="text-muted">
-                                Payment Status
-                            </small>
-
-                            <h6 className="text-success">
-                                {order.paymentStatus}
-                            </h6>
-
-                        </div>
-
-                        <div className="col-md-3">
-
-                            <small className="text-muted">
+                            <small className="text-muted d-block">
                                 Delivery
                             </small>
 
-                            <h6>
+                            <strong>
                                 {order.deliveryMethod}
-                            </h6>
-
-                        </div>
-
-                        <div className="col-md-3">
-
-                            <small className="text-muted">
-                                Order Status
-                            </small>
-
-                            <h6>
-                                {order.orderStatus}
-                            </h6>
+                            </strong>
 
                         </div>
 
@@ -242,249 +200,169 @@ const PrintInvoice = () => {
 
                 </div>
 
-                {/* Shipping */}
+                {/* ================= Items ================= */}
 
-                <div className="mb-5">
+                <h5 className="fw-bold mb-3">
+                    Order Items
+                </h5>
 
-                    <h6 className="fw-bold mb-3">
-                        Shipping Address
-                    </h6>
+                <div className="table-responsive mb-5">
 
-                    <p className="mb-1">
-                        {order.shippingAddress.address}
-                    </p>
+                    <table className="table align-middle">
 
-                    <p className="mb-1">
-                        {order.shippingAddress.city},{" "}
-                        {order.shippingAddress.state}
-                    </p>
+                        <thead className="table-light">
 
-                    <p className="mb-0">
-                        {order.deliveryMethod}
-                    </p>
+                            <tr>
 
-                </div>
+                                <th>Item</th>
 
-                {/* Order Items */}
+                                <th className="text-center">
+                                    Qty
+                                </th>
 
-                <div className="mb-5">
+                                <th className="text-end">
+                                    Price
+                                </th>
 
-                    <h5 className="fw-bold mb-3">
-                        Order Items
-                    </h5>
+                                <th className="text-end">
+                                    Total
+                                </th>
 
-                    <div className="table-responsive">
+                            </tr>
 
-                        <table className="table align-middle">
+                        </thead>
 
-                            <thead className="table-light">
+                        <tbody>
 
-                                <tr>
+                            {order.orderItems.map((item) => (
 
-                                    <th>Item</th>
+                                <tr key={item.product}>
 
-                                    <th>Price</th>
+                                    <td>
 
-                                    <th>Qty</th>
+                                        <div className="d-flex align-items-center">
 
-                                    <th className="text-end">
-                                        Total
-                                    </th>
+                                            <img
+                                                src={item.image}
+                                                alt={item.title}
+                                                className="border rounded me-3"
+                                                style={{
+                                                    width: 55,
+                                                    height: 55,
+                                                    objectFit: "cover"
+                                                }}
+                                            />
 
-                                </tr>
+                                            <div>
 
-                            </thead>
-
-                            <tbody>
-
-                                {order.orderItems.map((item) => (
-
-                                    <tr key={item.product}>
-
-                                        <td>
-
-                                            <div className="d-flex align-items-center">
-
-                                                <img
-                                                    src={item.image}
-                                                    alt={item.title}
-                                                    className="rounded border me-3"
-                                                    style={{
-                                                        width: "70px",
-                                                        height: "70px",
-                                                        objectFit: "cover"
-                                                    }}
-                                                />
-
-                                                <div>
-
-                                                    <h6 className="mb-1">
-                                                        {item.title}
-                                                    </h6>
-
-                                                    {item.size && (
-                                                        <small className="text-muted d-block">
-                                                            Size: {item.size}
-                                                        </small>
-                                                    )}
-
-                                                    {item.color && (
-                                                        <small className="text-muted">
-                                                            Color: {item.color}
-                                                        </small>
-                                                    )}
-
+                                                <div className="fw-semibold">
+                                                    {item.title}
                                                 </div>
+
+                                                {(item.size || item.color) && (
+
+                                                    <small className="text-muted">
+
+                                                        {item.size && `Size: ${item.size}`}
+
+                                                        {item.size && item.color && " • "}
+
+                                                        {item.color && `Color: ${item.color}`}
+
+                                                    </small>
+
+                                                )}
 
                                             </div>
 
-                                        </td>
+                                        </div>
 
-                                        <td>
+                                    </td>
 
-                                            ₦{item.price.toLocaleString()}
+                                    <td className="text-center">
+                                        {item.quantity}
+                                    </td>
 
-                                        </td>
+                                    <td className="text-end">
+                                        ₦{item.price.toLocaleString()}
+                                    </td>
 
-                                        <td>
+                                    <td className="text-end fw-semibold">
+                                        ₦{item.subtotal.toLocaleString()}
+                                    </td>
 
-                                            {item.quantity}
+                                </tr>
 
-                                        </td>
+                            ))}
 
-                                        <td className="text-end fw-bold">
+                        </tbody>
 
-                                            ₦{item.subtotal.toLocaleString()}
-
-                                        </td>
-
-                                    </tr>
-
-                                ))}
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
+                    </table>
 
                 </div>
+                {/* ================= Summary ================= */}
 
-                {/* Order Summary */}
-
-                <div className="row justify-content-end mb-5">
+                <div className="row justify-content-end">
 
                     <div className="col-md-5">
 
-                        <table className="table">
+                        <div className="card border-0 shadow-sm">
 
-                            <tbody>
+                            <div className="card-body p-0">
 
-                                <tr>
+                                <table className="table mb-0">
 
-                                    <td>Items Total</td>
+                                    <tbody>
 
-                                    <td className="text-end">
+                                        <tr>
 
-                                        ₦{order.itemsPrice.toLocaleString()}
+                                            <td>Subtotal</td>
 
-                                    </td>
+                                            <td className="text-end">
+                                                ₦{order.itemsPrice.toLocaleString()}
+                                            </td>
 
-                                </tr>
+                                        </tr>
 
-                                <tr>
+                                        <tr>
 
-                                    <td>Shipping Fee</td>
+                                            <td>Shipping</td>
 
-                                    <td className="text-end">
+                                            <td className="text-end">
+                                                ₦{order.shippingFee.toLocaleString()}
+                                            </td>
 
-                                        ₦{order.shippingFee.toLocaleString()}
+                                        </tr>
 
-                                    </td>
+                                        {order.discount > 0 && (
 
-                                </tr>
+                                            <tr>
 
-                                <tr>
+                                                <td>Discount</td>
 
-                                    <td>Discount</td>
+                                                <td className="text-end text-success">
+                                                    -₦{order.discount.toLocaleString()}
+                                                </td>
 
-                                    <td className="text-end text-success">
+                                            </tr>
 
-                                        -₦{order.discount.toLocaleString()}
+                                        )}
 
-                                    </td>
+                                        <tr className="table-primary">
 
-                                </tr>
+                                            <th className="py-3 fs-5">
+                                                Total
+                                            </th>
 
-                                <tr className="table-primary">
+                                            <th className="text-end py-3 fs-5">
+                                                ₦{order.totalAmount.toLocaleString()}
+                                            </th>
 
-                                    <th>Total Paid</th>
+                                        </tr>
 
-                                    <th className="text-end">
+                                    </tbody>
 
-                                        ₦{order.totalAmount.toLocaleString()}
-
-                                    </th>
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-                {/* Payment Information */}
-
-                <div className="card border-0 bg-light rounded-4 mb-4">
-
-                    <div className="card-body">
-
-                        <h5 className="fw-bold mb-3">
-
-                            Payment Information
-
-                        </h5>
-
-                        <div className="row">
-
-                            <div className="col-md-4">
-
-                                <small className="text-muted">
-                                    Payment Method
-                                </small>
-
-                                <h6>
-                                    {order.paymentMethod}
-                                </h6>
-
-                            </div>
-
-                            <div className="col-md-4">
-
-                                <small className="text-muted">
-                                    Payment Status
-                                </small>
-
-                                <h6 className="text-success">
-                                    {order.paymentStatus}
-                                </h6>
-
-                            </div>
-
-                            <div className="col-md-4">
-
-                                <small className="text-muted">
-                                    Order Status
-                                </small>
-
-                                <h6>
-
-                                    {order.orderStatus}
-
-                                </h6>
+                                </table>
 
                             </div>
 
@@ -494,37 +372,43 @@ const PrintInvoice = () => {
 
                 </div>
 
-                {/* Footer */}
+                {/* ================= Footer ================= */}
 
-                <div className="text-center mt-5 pt-4 border-top">
+                <div className="border-top mt-5 pt-4">
 
-                    <h4 className="fw-bold text-primary mb-3">
-                        Thank You For Your Purchase!
-                    </h4>
+                    <div className="row align-items-center">
 
-                    <p className="text-muted">
+                        <div className="col-md-6">
 
-                        Your payment has been received successfully.
-                        We appreciate your trust in
-                        <strong> Mutpel Household</strong>.
+                            <h5 className="fw-bold text-primary mb-2">
+                                Thank You!
+                            </h5>
 
-                    </p>
+                            <p className="text-muted mb-0">
+                                Thank you for shopping with <strong>Mutpel Household</strong>.
+                                We appreciate your business and look forward to serving you again.
+                            </p>
 
-                    <p className="text-muted">
+                        </div>
 
-                        If you have any questions regarding your order,
-                        kindly contact our customer support.
+                        <div className="col-md-6 text-md-end mt-4 mt-md-0">
 
-                    </p>
+                            <small className="text-muted d-block">
+                                This invoice serves as proof of payment.
+                            </small>
 
-                    <hr />
+                            <small className="text-muted">
+                                Generated on{" "}
+                                {new Date().toLocaleDateString("en-NG", {
+                                    day: "numeric",
+                                    month: "long",
+                                    year: "numeric",
+                                })}
+                            </small>
 
-                    <small className="text-secondary">
+                        </div>
 
-                        This invoice was automatically generated by
-                        Mutpel Household.
-
-                    </small>
+                    </div>
 
                 </div>
             </div>
