@@ -81,8 +81,8 @@ const PrintInvoice = () => {
                     <div className="d-flex align-items-center">
 
                         <img
-                            src="/mutpellogo.png"
-                            alt="Mutpel"
+                            src="/icons/logo.png"
+                            alt="Mutpel Logo"
                             style={{
                                 width: "75px"
                             }}

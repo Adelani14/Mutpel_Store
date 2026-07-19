@@ -32,7 +32,23 @@ const Admindashboard = () => {
     });
 
 
+    const [products, setProducts] = useState([]);
+    const [pageLoading, setPageLoading] = useState(true);
+    const [deleteLoading, setDeleteLoading] = useState(false); const [page, setPage] = useState(1);
+    const limit = 10;
 
+    const [recentOrders, setRecentOrders] = useState([]);
+
+    const fetchRecentOrders = async () => {
+        try {
+            const res = await Axios.get("/api/dashboardstats/recent-orders");
+
+            setRecentOrders(res.data.orders);
+
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     const fetchDashboardStats = async () => {
         try {
@@ -52,10 +68,7 @@ const Admindashboard = () => {
 
 
 
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [page, setPage] = useState(1);
-    const limit = 10;
+
 
     const fetchProducts = async (currentPage) => {
         try {
@@ -100,10 +113,10 @@ const Admindashboard = () => {
         );
 
         if (!confirmDelete) return;
-        setLoading(true)
+
+        setLoading(true);
 
         try {
-
             await Axios.delete(`/api/products/${id}`);
 
             setProducts(prev =>
@@ -111,13 +124,11 @@ const Admindashboard = () => {
             );
 
             alert("Product deleted successfully.");
-
         } catch (error) {
 
             console.log(error);
 
             alert("Failed to delete product.");
-
         } finally {
             setLoading(false);
         }
@@ -126,18 +137,21 @@ const Admindashboard = () => {
 
 
 
+
+
     useEffect(() => {
         const loadData = async () => {
-            setLoading(true);
+            setPageLoading(true);
 
             try {
                 await Promise.all([
                     fetchDashboardStats(),
                     getUsername(),
                     fetchProducts(page),
+                    fetchRecentOrders(),
                 ]);
             } finally {
-                setLoading(false);
+                setPageLoading(false);
             }
         };
 
@@ -149,7 +163,7 @@ const Admindashboard = () => {
 
     return (
         <>
-            {loading && (
+            {pageLoading && (
                 <div
                     className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
                     style={{
@@ -382,8 +396,12 @@ const Admindashboard = () => {
                                     <h2 className="h6 mb-0">Recent Orders</h2>
                                     <div className='d-flex gap-2'>
                                         <button className="btn btn-outline-secondary btn-sm">Filter</button>
-                                        <a href="#" className="btn btn-primary btn-sm">View All Orders</a>
-                                    </div>
+                                        <Link
+                                            to="/allorders"
+                                            className="btn btn-primary btn-sm"
+                                        >
+                                            View All Orders
+                                        </Link>                                    </div>
                                 </div>
                                 <div className="table-responsive">
                                     <table className="table table-hover align-middle mb-0">
@@ -399,53 +417,56 @@ const Admindashboard = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>#ORD-823</td><td>Clarine Adebayo</td><td>2026-05-12</td><td>₦25,500</td><td><span className="badge bg-success">Delivered</span></td><td>
-                                                    <select>
+                                            {recentOrders.map((order) => (
+                                                <tr key={order._id}>
+                                                    <td>#{order._id.slice(-6).toUpperCase()}</td>
 
-                                                        <option value="Pending">Pending</option>
-                                                        <option value="Progress">Delivered</option>
-                                                        <option value="Resolved">Cancelled</option>
+                                                    <td>
+                                                        {order.shippingAddress?.fullName ||
+                                                            order.user?.fullName}
+                                                    </td>
 
-                                                    </select>
-                                                </td><td><button className="btn btn-sm"><i className="bi bi-trash" ></i></button></td></tr>
-                                            <tr><td>#ORD-821</td><td>Chioma Okoro</td><td>2026-05-11</td><td>₦21,200</td><td><span className="badge bg-warning">Pending</span></td><td>
-                                                <select>
+                                                    <td>
+                                                        {new Date(order.createdAt).toLocaleDateString()}
+                                                    </td>
 
-                                                    <option value="Pending">Pending</option>
-                                                    <option value="Progress">Delivered</option>
-                                                    <option value="Resolved">Cancelled</option>
+                                                    <td>
+                                                        ₦{order.totalPrice.toLocaleString()}
+                                                    </td>
 
-                                                </select>
-                                            </td><td><button className="btn btn-sm"><i className="bi bi-trash" ></i></button></td>
-                                            </tr>
-                                            <tr><td>#ORD-818</td><td>Ibrahim Musa</td><td>2026-05-10</td><td>₦30,000</td><td><span className="badge bg-info text-dark">Processing</span></td><td>
-                                                <select>
+                                                    <td>
+                                                        <span
+                                                            className={`badge ${order.status === "Delivered"
+                                                                ? "bg-success"
+                                                                : order.status === "Cancelled"
+                                                                    ? "bg-danger"
+                                                                    : order.status === "Processing"
+                                                                        ? "bg-info"
+                                                                        : "bg-warning text-dark"
+                                                                }`}
+                                                        >
+                                                            {order.status}
+                                                        </span>
+                                                    </td>
 
-                                                    <option value="Pending">Pending</option>
-                                                    <option value="Progress">Delivered</option>
-                                                    <option value="Resolved">Cancelled</option>
+                                                    <td>
+                                                        <Link
+                                                            to={`/allorders`}
+                                                            className="btn btn-sm btn-outline-primary"
+                                                        >
+                                                            View
+                                                        </Link>
+                                                    </td>
 
-                                                </select>
-                                            </td><td><button className="btn btn-sm"><i className="bi bi-trash" ></i></button></td></tr>
-                                            <tr><td>#ORD-814</td><td>Fatima Yusuf</td><td>2026-05-09</td><td>₦25,000</td><td><span className="badge bg-success">Delivered</span></td><td>
-                                                <select>
-
-                                                    <option value="Pending">Pending</option>
-                                                    <option value="Progress">Delivered</option>
-                                                    <option value="Resolved">Cancelled</option>
-
-                                                </select>
-                                            </td><td><button className="btn btn-sm"><i className="bi bi-trash" ></i></button></td></tr>
-                                            <tr><td>#ORD-809</td><td>Emeka Nwosu</td><td>2026-05-08</td><td>₦18,200</td><td><span className="badge bg-danger">Cancelled</span></td><td>
-                                                <select>
-
-                                                    <option value="Pending">Pending</option>
-                                                    <option value="Progress">Delivered</option>
-                                                    <option value="Resolved">Cancelled</option>
-
-                                                </select>
-                                            </td><td><button className="btn btn-sm"><i className="bi bi-trash" ></i></button></td></tr>
+                                                    <td>
+                                                        <button
+                                                            className="btn btn-sm btn-danger"
+                                                        >
+                                                            <i className="bi bi-trash"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))}
                                         </tbody>
                                     </table>
                                 </div>
