@@ -448,7 +448,7 @@ const Admindashboard = () => {
                                                     </td>
 
                                                     <td>
-                                                        ₦{order.totalPrice.toLocaleString()}
+                                                        ₦{order.totalPrice}
                                                     </td>
 
                                                     <td>
