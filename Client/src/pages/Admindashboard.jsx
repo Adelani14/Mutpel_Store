@@ -454,10 +454,10 @@ const Admindashboard = () => {
                                                     <td>
                                                         <button
                                                             className="btn btn-danger"
-                                                            disabled={deletingId === product._id}
+                                                            disabled={deletingId === order._id}
                                                             onClick={(e) => {
                                                                 e.stopPropagation();
-                                                                handleDelete(product._id);
+                                                                handleDelete(order._id)
                                                             }}
                                                         >
                                                             {deletingId === order._id ? (

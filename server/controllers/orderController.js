@@ -264,7 +264,6 @@ export const createOrderFromPayment = async (
 
 // dashboardController.js
 
-import Order from "../models/order.js";
 
 export const getRecentOrders = async (req, res) => {
     try {
