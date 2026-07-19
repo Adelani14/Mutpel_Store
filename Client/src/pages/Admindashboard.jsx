@@ -23,29 +23,27 @@ const Admindashboard = () => {
     const [products, setProducts] = useState([]);
     const [pageLoading, setPageLoading] = useState(true);
     const [deleteLoading, setDeleteLoading] = useState(false); const [page, setPage] = useState(1);
-    const limit = 10;
-
-    // const [recentOrders, setRecentOrders] = useState([]);
-
-
-
+    const limit = 8;
+    const orderlimit = 8;
     const [orders, setOrders] = useState([]);
 
 
-    const fetchOrders = async () => {
+
+    const fetchOrders = async (page = 1) => {
         try {
+            const res = await Axios.get(
+                `/api/orders?page=${page}&limit=${orderlimit}`
+            );
 
-            const response = await Axios.get("/api/orders");
-
-            setOrders(response.data.orders || []);
-
+            setOrders(res.data.orders);
+            setPage(res.data.page);
+            setTotalPages(res.data.totalPages);
         } catch (error) {
-            console.log(error);
+            console.log(error)
+        }
 
-        };
 
     }
-
 
     const totalOrders = orders.length;
     const now = new Date();
@@ -438,7 +436,7 @@ const Admindashboard = () => {
                                 <div className="col-md-6 col-lg-3">
                                     <div className="card rounded-4 shadow-sm border-0 p-4 h-100">
                                         <p className="text-muted mb-2">Average Order Value</p>
-                                        <h2 className="h4 mb-0">₦{averageOrderValue.toFixed(2)}</h2>
+                                        <h2 className="h4 mb-0">₦{Math.round(averageOrderValue).toLocaleString()}</h2>
                                         <small className="text-muted">Per order</small>
                                     </div>
                                 </div>

@@ -76,33 +76,35 @@ export const getOrderById = async (req, res) => {
 
 
 export const getAllOrders = async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const skip = (page - 1) * limit;
 
     try {
+        // Count all orders
+        const total = await Order.countDocuments();
 
+        // Fetch only the current page
         const orders = await Order.find()
             .populate("user", "fullName email")
-            .sort({ createdAt: -1 });
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit);
 
         res.status(200).json({
-
             success: true,
-
-            orders
-
+            orders,
+            page,
+            totalPages: Math.ceil(total / limit),
+            total,
         });
 
     } catch (error) {
-
         res.status(500).json({
-
             success: false,
-
-            message: error.message
-
+            message: error.message,
         });
-
     }
-
 };
 
 
@@ -262,27 +264,5 @@ export const createOrderFromPayment = async (
 };
 
 
-// dashboardController.js
 
 
-export const getRecentOrders = async (req, res) => {
-    try {
-        const orders = await Order.find()
-            .populate("user", "fullName email")
-            .sort({ createdAt: -1 })
-            .limit(8);
-
-        res.status(200).json({
-
-            success: true,
-
-            orders
-
-        });
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message,
-        });
-    }
-};

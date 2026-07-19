@@ -14,6 +14,10 @@ const AdminOrderPage = () => {
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState("All");
 
+    const [page, setPage] = useState(1);
+    const limit = 20;
+    const [totalPages, setTotalPages] = useState(1);
+
 
 
 
@@ -21,9 +25,13 @@ const AdminOrderPage = () => {
         try {
             setLoading(true);
 
-            const response = await Axios.get("/api/orders");
+            const res = await Axios.get(
+                `/api/orders?page=${page}&limit=${limit}`
+            );
 
-            setOrders(response.data.orders || []);
+            setOrders(res.data.orders);
+            setPage(res.data.page);
+            setTotalPages(res.data.totalPages);
 
         } catch (error) {
             console.log(error);
@@ -518,6 +526,26 @@ const AdminOrderPage = () => {
                                     </table>
 
                                 </div>
+
+
+                                <button
+                                    disabled={page === 1}
+                                    onClick={() => fetchOrders(page - 1)}
+                                >
+                                    Previous
+                                </button>
+
+                                <span>
+                                    {page} / {totalPages}
+                                </span>
+
+                                <button
+                                    disabled={page === totalPages}
+                                    onClick={() => fetchOrders(page + 1)}
+                                >
+                                    Next
+                                </button>
+
                             </div>
                         </div>
 
