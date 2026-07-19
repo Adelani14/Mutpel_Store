@@ -21,20 +21,54 @@ const AdminOrderPage = () => {
 
 
 
-    const fetchOrders = async () => {
+    const [stats, setStats] = useState({
+        totalUsers: 0,
+        totalProducts: 0,
+        totalCategories: 0,
+
+        totalOrders: 0,
+        pendingOrders: 0,
+        deliveredOrders: 0,
+
+        revenueToday: 0,
+        revenueThisMonth: 0,
+        revenueThisYear: 0,
+        totalRevenue: 0,
+
+        averageOrderValue: 0,
+        productsSold: 0,
+    });
+
+
+    const fetchDashboardStats = async () => {
+        try {
+            const response = await Axios.get("/api/dashboardstats/stats")
+
+            // const data = await response.json();
+
+            // console.log(data);
+
+            setStats(response.data);
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
+
+
+    const fetchOrders = async (currentPage = page) => {
         try {
             setLoading(true);
 
             const res = await Axios.get(
-                `/api/orders?page=${page}&limit=${limit}`
+                `/api/orders?page=${currentPage}&limit=${limit}`
             );
 
             setOrders(res.data.orders);
             setPage(res.data.page);
             setTotalPages(res.data.totalPages);
-
-        } catch (error) {
-            console.log(error);
         } finally {
             setLoading(false);
         }
@@ -42,23 +76,8 @@ const AdminOrderPage = () => {
 
     useEffect(() => {
         fetchOrders();
-    }, []);
-
-
-
-    const totalOrders = orders.length;
-
-    const pendingOrders = orders.filter(
-        order => order.orderStatus === "Pending"
-    ).length;
-
-    const deliveredOrders = orders.filter(
-        order => order.orderStatus === "Delivered"
-    ).length;
-
-    const totalRevenue = orders
-        .filter(order => order.paymentStatus === "Paid")
-        .reduce((sum, order) => sum + order.totalAmount, 0);
+        fetchDashboardStats();
+    }, [page]);
 
 
     const filteredOrders = useMemo(() => {
@@ -145,7 +164,7 @@ const AdminOrderPage = () => {
                                             </small>
 
                                             <h2 className="fw-bold mt-2">
-                                                {totalOrders}
+                                                {stats.totalOrders}
                                             </h2>
 
                                         </div>
@@ -183,7 +202,7 @@ const AdminOrderPage = () => {
                                             </small>
 
                                             <h2 className="fw-bold mt-2">
-                                                {pendingOrders}
+                                                {stats.pendingOrders}
                                             </h2>
 
                                         </div>
@@ -221,7 +240,7 @@ const AdminOrderPage = () => {
                                             </small>
 
                                             <h2 className="fw-bold mt-2">
-                                                {deliveredOrders}
+                                                {stats.deliveredOrders}
                                             </h2>
 
                                         </div>
@@ -259,7 +278,7 @@ const AdminOrderPage = () => {
                                             </small>
 
                                             <h4 className="fw-bold mt-2 text-primary">
-                                                ₦{totalRevenue.toLocaleString()}
+                                                ₦{stats.totalRevenue.toLocaleString()}
                                             </h4>
 
                                         </div>

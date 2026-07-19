@@ -77,7 +77,7 @@ export const getOrderById = async (req, res) => {
 
 export const getAllOrders = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 20;
+    const limit = parseInt(req.query.limit);
     const skip = (page - 1) * limit;
 
     try {
