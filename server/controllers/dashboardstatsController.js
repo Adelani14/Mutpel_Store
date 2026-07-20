@@ -62,6 +62,14 @@ const currentYear = nigeriaNow.getFullYear();
             (sum, order) => sum + order.totalAmount,
             0
         );
+      
+      const averageOrderValue =
+    paidOrders.length > 0
+        ? totalRevenue / paidOrders.length
+        : 0;
+      
+      
+      
 
         const revenueToday = paidOrders.reduce((sum, order) => {
     const orderDate = nigeriaFormatter.format(
@@ -101,14 +109,14 @@ const currentYear = nigeriaNow.getFullYear();
 
         // Products Sold
         const productsSold = paidOrders.reduce((total, order) => {
-            return (
-                total +
-                order.orderItems.reduce(
-                    (sum, item) => sum + item.quantity,
-                    0
-                )
-            );
-        }, 0);
+    return (
+        total +
+        (order.orderItems || []).reduce(
+            (sum, item) => sum + item.quantity,
+            0
+        )
+    );
+}, 0);
 
         res.status(200).json({
             totalUsers,
