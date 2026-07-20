@@ -4,7 +4,16 @@ import Category from "../models/category.js";
 import Order from "../models/order.js";
 
 export const dashboardStats = async (req, res) => {
-    try {
+   const nigeriaFormatter = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Africa/Lagos",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+});
+    
+    
+    
+     try {
         const [
             totalUsers,
             totalProducts,
@@ -18,9 +27,17 @@ export const dashboardStats = async (req, res) => {
         ]);
 
         const now = new Date();
-        const today = now.toDateString();
-        const currentMonth = now.getMonth();
-        const currentYear = now.getFullYear();
+
+const today = nigeriaFormatter.format(now);
+
+const nigeriaNow = new Date(
+    now.toLocaleString("en-US", {
+        timeZone: "Africa/Lagos",
+    })
+);
+
+const currentMonth = nigeriaNow.getMonth();
+const currentYear = nigeriaNow.getFullYear();
 
         // Order Counts
         const totalOrders = orders.length;
@@ -45,36 +62,40 @@ export const dashboardStats = async (req, res) => {
         );
 
         const revenueToday = paidOrders.reduce((sum, order) => {
-            const orderDate = new Date(order.createdAt);
+    const orderDate = nigeriaFormatter.format(
+        new Date(order.createdAt)
+    );
 
-            if (orderDate.toDateString() === today) {
-                return sum + order.totalAmount;
-            }
+    return orderDate === today
+        ? sum + order.totalAmount
+        : sum;
+}, 0);
+        const revenueThisMonth = paidOrders.reduce((sum, order) => {
+    const date = new Date(
+        new Date(order.createdAt).toLocaleString("en-US", {
+            timeZone: "Africa/Lagos",
+        })
+    );
 
-            return sum;
-        }, 0);
-        const revenueThisMonth = paidOrders
-            .filter(order => {
-                const date = new Date(order.createdAt);
+    return (
+        date.getMonth() === currentMonth &&
+        date.getFullYear() === currentYear
+    )
+        ? sum + order.totalAmount
+        : sum;
+}, 0);
 
-                return (
-                    date.getMonth() === currentMonth &&
-                    date.getFullYear() === currentYear
-                );
-            })
-            .reduce((sum, order) => sum + order.totalAmount, 0);
+        const revenueThisYear = paidOrders.reduce((sum, order) => {
+    const date = new Date(
+        new Date(order.createdAt).toLocaleString("en-US", {
+            timeZone: "Africa/Lagos",
+        })
+    );
 
-        const revenueThisYear = paidOrders
-            .filter(order =>
-                new Date(order.createdAt).getFullYear() === currentYear
-            )
-            .reduce((sum, order) => sum + order.totalAmount, 0);
-
-        // Average Order Value
-        const averageOrderValue =
-            paidOrders.length > 0
-                ? totalRevenue / paidOrders.length
-                : 0;
+    return date.getFullYear() === currentYear
+        ? sum + order.totalAmount
+        : sum;
+}, 0);
 
         // Products Sold
         const productsSold = paidOrders.reduce((total, order) => {
