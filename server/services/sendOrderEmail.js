@@ -60,9 +60,6 @@ const sendOrderEmail = async (order) => {
 
             <br>
 
-            <strong>
-                Mutpel Household
-            </strong>
 
         </div>
     `;
@@ -81,7 +78,7 @@ const sendOrderEmail = async (order) => {
 
                     email: process.env.EMAIL_USER
 
-                },
+                }, 
 
                 to: [
 

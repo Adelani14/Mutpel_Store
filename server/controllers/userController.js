@@ -2,6 +2,7 @@ import User from "../models/users.js";
 import bcrypt from "bcryptjs";
 // import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
+import signUpEmail from "../services/signUpEmail.js"
 
 import {
     CreateAccessToken,
@@ -40,6 +41,8 @@ export const signupUser = async (req, res) => {
             message: "User created successfully"
         });
 
+
+        await signUpEmail(newUser);
     } catch (error) {
 
         res.status(500).json({
