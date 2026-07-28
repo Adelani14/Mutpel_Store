@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import Axios from "../utils/axiosInstance";
-import AdminMobileBottomNav from '../components/AdminMobileBottomNav.jsx';
+import Axios from "../../utils/axiosInstance.js";
+import AdminMobileBottomNav from '../../components/AdminMobileBottomNav.jsx';
 
 const AdminOrderDetails = () => {
 
@@ -292,19 +292,8 @@ const AdminOrderDetails = () => {
                                 </div>
 
                                 <div className="col-md-3">
-
-                                    <small className="text-muted">
-
-                                        Reference
-
-                                    </small>
-
-                                    <div>
-
-                                        {order.paymentReference}
-
-                                    </div>
-
+                                    <small className="text-muted">Reference</small>
+                                    <div>{order.paymentReference}</div>
                                 </div>
 
                             </div>

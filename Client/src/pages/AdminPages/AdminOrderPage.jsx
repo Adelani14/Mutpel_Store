@@ -1,8 +1,8 @@
-import Axios from '../utils/axiosInstance.js'
+import Axios from '../../utils/axiosInstance.js'
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import AdminMobileBottomNav from '../components/AdminMobileBottomNav.jsx';
-import Helpcenter from '../components/Helpcenter.jsx';
+import AdminMobileBottomNav from '../../components/AdminMobileBottomNav.jsx';
+import Helpcenter from '../../components/Helpcenter.jsx';
 
 
 

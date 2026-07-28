@@ -1,10 +1,10 @@
-import Helpcenter from "../components/Helpcenter.jsx";
-import Header from "../components/Header.jsx";
-import Footer from "../components/Footer";
+import Helpcenter from "../../components/Helpcenter.jsx";
+import Header from "../../components/Header.jsx";
+import Footer from "../../components/Footer.jsx";
 import { useState, useEffect } from "react";
-import ProductCard from "../components/ProductCard";
-import publicAxios from "../utils/publicAxios.js";
-import MobileBottomNav from "../components/MobileBottomNav.jsx";
+import ProductCard from "../../components/ProductCard.jsx";
+import publicAxios from "../../utils/publicAxios.js";
+import MobileBottomNav from "../../components/MobileBottomNav.jsx";
 import { NavLink, Link } from "react-router-dom";
 
 const Productlisting = () => {

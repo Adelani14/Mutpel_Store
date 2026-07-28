@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Helpcenter from "../components/Helpcenter.jsx";
-import Header from "../components/Header.jsx";
-import Axios from "../utils/axiosInstance.js";
-import AdminMobileBottomNav from "../components/AdminMobileBottomNav.jsx";
-import ProductForm from "../components/ProductForm.jsx";
+import Helpcenter from "../../components/Helpcenter.jsx";
+import Header from "../../components/Header.jsx";
+import Axios from "../../utils/axiosInstance.js";
+import AdminMobileBottomNav from "../../components/AdminMobileBottomNav.jsx";
+import ProductForm from "../../components/ProductForm.jsx";
 import { useParams } from "react-router-dom";
 
 const EditProduct = () => {

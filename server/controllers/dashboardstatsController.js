@@ -4,11 +4,11 @@ import Category from "../models/category.js";
 import Order from "../models/order.js";
 
 export const dashboardStats = async (req, res) => {
-   
-    
-    
-    
-     try {
+
+
+
+
+    try {
         const [
             totalUsers,
             totalProducts,
@@ -20,26 +20,26 @@ export const dashboardStats = async (req, res) => {
             Category.countDocuments(),
             Order.find(),
         ]);
-      
-      const nigeriaFormatter = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Africa/Lagos",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-});
+
+        const nigeriaFormatter = new Intl.DateTimeFormat("en-CA", {
+            timeZone: "Africa/Lagos",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+        });
 
         const now = new Date();
 
-const today = nigeriaFormatter.format(now);
+        const today = nigeriaFormatter.format(now);
 
-const nigeriaNow = new Date(
-    now.toLocaleString("en-US", {
-        timeZone: "Africa/Lagos",
-    })
-);
+        const nigeriaNow = new Date(
+            now.toLocaleString("en-US", {
+                timeZone: "Africa/Lagos",
+            })
+        );
 
-const currentMonth = nigeriaNow.getMonth();
-const currentYear = nigeriaNow.getFullYear();
+        const currentMonth = nigeriaNow.getMonth();
+        const currentYear = nigeriaNow.getFullYear();
 
         // Order Counts
         const totalOrders = orders.length;
@@ -62,61 +62,62 @@ const currentYear = nigeriaNow.getFullYear();
             (sum, order) => sum + order.totalAmount,
             0
         );
-      
-      const averageOrderValue =
-    paidOrders.length > 0
-        ? totalRevenue / paidOrders.length
-        : 0;
-      
-      
-      
+
+        const averageOrderValue =
+            paidOrders.length > 0
+                ? totalRevenue / paidOrders.length
+                : 0;
+
+
+
 
         const revenueToday = paidOrders.reduce((sum, order) => {
-    const orderDate = nigeriaFormatter.format(
-        new Date(order.createdAt)
-    );
+            const orderDate = nigeriaFormatter.format(
+                new Date(order.createdAt)
+            );
 
-    return orderDate === today
-        ? sum + order.totalAmount
-        : sum;
-}, 0);
+            return orderDate === today
+                ? sum + order.totalAmount
+                : sum;
+        }, 0);
         const revenueThisMonth = paidOrders.reduce((sum, order) => {
-    const date = new Date(
-        new Date(order.createdAt).toLocaleString("en-US", {
-            timeZone: "Africa/Lagos",
-        })
-    );
+            const date = new Date(
+                new Date(order.createdAt).toLocaleString("en-US", {
+                    timeZone: "Africa/Lagos",
+                })
+            );
 
-    return (
-        date.getMonth() === currentMonth &&
-        date.getFullYear() === currentYear
-    )
-        ? sum + order.totalAmount
-        : sum;
-}, 0);
+            return (
+                date.getMonth() === currentMonth &&
+                date.getFullYear() === currentYear
+            )
+                ? sum + order.totalAmount
+                : sum;
+        },
+            0);
 
         const revenueThisYear = paidOrders.reduce((sum, order) => {
-    const date = new Date(
-        new Date(order.createdAt).toLocaleString("en-US", {
-            timeZone: "Africa/Lagos",
-        })
-    );
+            const date = new Date(
+                new Date(order.createdAt).toLocaleString("en-US", {
+                    timeZone: "Africa/Lagos",
+                })
+            );
 
-    return date.getFullYear() === currentYear
-        ? sum + order.totalAmount
-        : sum;
-}, 0);
+            return date.getFullYear() === currentYear
+                ? sum + order.totalAmount
+                : sum;
+        }, 0);
 
         // Products Sold
         const productsSold = paidOrders.reduce((total, order) => {
-    return (
-        total +
-        (order.orderItems || []).reduce(
-            (sum, item) => sum + item.quantity,
-            0
-        )
-    );
-}, 0);
+            return (
+                total +
+                (order.orderItems || []).reduce(
+                    (sum, item) => sum + item.quantity,
+                    0
+                )
+            );
+        }, 0);
 
         res.status(200).json({
             totalUsers,

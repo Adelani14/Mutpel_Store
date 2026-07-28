@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Helpcenter from "../components/Helpcenter.jsx";
-import Header from "../components/Header.jsx";
+import Helpcenter from "../../components/Helpcenter.jsx";
+import Header from "../../components/Header.jsx";
 import { Link } from "react-router-dom";
-import Axios from "../utils/axiosInstance.js";
-import AdminMobileBottomNav from '../components/AdminMobileBottomNav.jsx';
+import Axios from "../../utils/axiosInstance.js";
+import AdminMobileBottomNav from '../../components/AdminMobileBottomNav.jsx';
 
 const NewCategory = () => {
     const [formData, setFormData] = useState({

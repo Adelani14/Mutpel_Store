@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import Axios from "../utils/axiosInstance.js";
-import Header from "../components/Header";
-import Helpcenter from "../components/Helpcenter";
-import MobileBottomNav from "../components/MobileBottomNav.jsx";
+import Axios from "../../utils/axiosInstance.js";
+import Header from "../../components/Header.jsx";
+import Helpcenter from "../../components/Helpcenter.jsx";
+import MobileBottomNav from "../../components/MobileBottomNav.jsx";
 
 const OrderDetails = () => {
     const { id } = useParams();

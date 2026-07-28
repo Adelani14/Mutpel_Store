@@ -1,9 +1,9 @@
-import Header from "../components/Header";
-import Helpcenter from "../components/Helpcenter";
+import Header from "../../components/Header.jsx";
+import Helpcenter from "../../components/Helpcenter.jsx";
 import { useState, useEffect } from "react";
-import Axios from "../utils/axiosInstance.js";
+import Axios from "../../utils/axiosInstance.js";
 import { Link, NavLink, useParams } from "react-router-dom";
-import MobileBottomNav from "../components/MobileBottomNav.jsx";
+import MobileBottomNav from "../../components/MobileBottomNav.jsx";
 
 const Categories = () => {
 

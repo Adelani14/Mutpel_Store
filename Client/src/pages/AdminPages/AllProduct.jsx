@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import Helpcenter from '../components/Helpcenter.jsx';
-import Axios from "../utils/axiosInstance.js"
-import AdminMobileBottomNav from '../components/AdminMobileBottomNav.jsx';
-import Header from '../components/Header.jsx';
-import ProductCard from '../components/ProductCard.jsx';
+import Helpcenter from '../../components/Helpcenter.jsx';
+import Axios from "../../utils/axiosInstance.js"
+import AdminMobileBottomNav from '../../components/AdminMobileBottomNav.jsx';
+import Header from '../../components/Header.jsx';
+import ProductCard from '../../components/ProductCard.jsx';
 
 const AllProduct = () => {
 

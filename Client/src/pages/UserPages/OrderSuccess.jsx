@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
-import Header from "../components/Header";
-import Helpcenter from "../components/Helpcenter";
+import Header from "../../components/Header";
+import Helpcenter from "../../components/Helpcenter";
 
 const OrderSuccess = () => {
     const location = useLocation();

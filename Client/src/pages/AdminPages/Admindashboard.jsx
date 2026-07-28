@@ -1,10 +1,10 @@
 
 import React from 'react';
 import { useState, useEffect } from 'react';
-import Helpcenter from '../components/Helpcenter';
-import Axios from "../utils/axiosInstance.js";
+import Helpcenter from '../../components/Helpcenter.jsx';
+import Axios from "../../utils/axiosInstance.js";
 import { Link, NavLink } from 'react-router-dom';
-import AdminMobileBottomNav from '../components/AdminMobileBottomNav.jsx';
+import AdminMobileBottomNav from '../../components/AdminMobileBottomNav.jsx';
 const Admindashboard = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -32,7 +32,7 @@ const Admindashboard = () => {
     });
 
 
-    
+
 
 
     const [products, setProducts] = useState([]);
@@ -229,10 +229,10 @@ const Admindashboard = () => {
                             </button>
 
                             <ul className="dropdown-menu dropdown-menu-end">
-                                <li><Link to="/productlisting" className="dropdown-item"><i className="bi bi-house me-2"></i>Home</Link></li>
+                                <li><Link to="/productlisting" className="dropdown-item"><i className="bi bi-house me-2"></i>Banner</Link></li>
                                 <li><Link to="/categories" className="dropdown-item"><i className="bi bi-list me-2"></i>Categories</Link></li>
-                                <li><Link to="/wishlist" className="dropdown-item"><i className="bi bi-heart me-2"></i>Wishlist</Link></li>
-                                <li><Link to="/cart" className="dropdown-item"><i className="bi bi-cart me-2"></i>Cart</Link></li>
+                                <li><Link to="/cart" className="dropdown-item"><i className="bi bi-cart me-2"></i>Coupons</Link></li>
+                                <li><Link to="/cart" className="dropdown-item"><i className="bi bi-cart me-2"></i>Adverticement</Link></li>
                                 <li><Link to="/profile" className="dropdown-item"><i className="bi bi-person me-2"></i>Account</Link></li>
                             </ul>
                         </div>

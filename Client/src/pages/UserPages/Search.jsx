@@ -1,12 +1,12 @@
-import Helpcenter from "../components/Helpcenter";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import MobileBottomNav from "../components/MobileBottomNav";
-import ProductCard from "../components/ProductCard";
+import Helpcenter from "../../components/Helpcenter";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import MobileBottomNav from "../../components/MobileBottomNav";
+import ProductCard from "../../components/ProductCard";
 
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Axios from "../utils/axiosInstance";
+import Axios from "../../utils/axiosInstance";
 
 const Search = () => {
     const [products, setProducts] = useState([]);

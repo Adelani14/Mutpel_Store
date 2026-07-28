@@ -11,30 +11,37 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import Landing from './pages/Landing.jsx'
 import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
-import Admindashboard from './pages/Admindashboard.jsx'
-import Productlisting from './pages/Productlisting.jsx'
-import Productdetail from './pages/Productdetail.jsx'
-import Cart from './pages/Cart.jsx'
-import Wishlist from './pages/Wishlist.jsx'
-import Checkout from './pages/Checkout.jsx'
-import Newproduct from './pages/Newproduct.jsx'
-import Newcategory from './pages/NewCategory.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx';
-import AllProduct from './pages/AllProduct.jsx';
 import Profile from './pages/Profile.jsx';
-import Search from './pages/Search.jsx';
-import Categories from './pages/Categories.jsx';
-import EditProduct from "./pages/EditProduct";
-import ProductForm from './components/ProductForm.jsx'
-import PaymentSuccess from './pages/PaymentSuccess.jsx';
-import OrderSuccess from './pages/OrderSuccess.jsx';
-import PaymentFailed from './pages/PaymentFailed.jsx'
-import Order from './pages/Orderspage.jsx'
-import OrderDetails from './pages/OrderDetails.jsx'
 import NotFound from "./pages/NotFound.jsx";
 import PrintInvoice from "./pages/PrintInvoice";
-import AdminOrderPage from "./pages/AdminOrderPage.jsx";
-import AdminOrderDetails from "./pages/AdminOrderDetails.jsx";
+import ProductForm from './components/ProductForm.jsx'
+
+
+import Productlisting from './pages/UserPages/Productlisting.jsx'
+import Productdetail from './pages/UserPages/Productdetail.jsx'
+import PaymentSuccess from './pages/UserPages/PaymentSuccess.jsx';
+import Cart from './pages/UserPages/Cart.jsx'
+import Wishlist from './pages/UserPages/Wishlist.jsx'
+import Search from './pages/UserPages/Search.jsx';
+import Categories from './pages/UserPages/Categories.jsx';
+import OrderSuccess from './pages/UserPages/OrderSuccess.jsx';
+import PaymentFailed from './pages/UserPages/PaymentFailed.jsx'
+import Order from './pages/UserPages/Orderspage.jsx'
+import OrderDetails from './pages/UserPages/OrderDetails.jsx'
+import Checkout from './pages/UserPages/Checkout.jsx'
+
+
+import Admindashboard from './pages/AdminPages/Admindashboard.jsx'
+import AdminOrderPage from "./pages/AdminPages/AdminOrderPage.jsx";
+import AdminOrderDetails from "./pages/AdminPages/AdminOrderDetails.jsx";
+import Newproduct from './pages/AdminPages/Newproduct.jsx'
+import AllProduct from './pages/AdminPages/AllProduct.jsx';
+import Newcategory from './pages/AdminPages/NewCategory.jsx'
+import EditProduct from "./pages/AdminPages/EditProduct";
+
+
+
 
 
 
@@ -52,8 +59,8 @@ const router = createBrowserRouter([
   { path: "/order-success", element: <OrderSuccess /> },
   { path: "/payment-failed", element: <PaymentFailed /> },
   { path: "*", element: <NotFound /> },
-  
-  
+
+
   {
     element: <ProtectedRoute allowedRoles={["admin"]} />,
     children: [
@@ -65,7 +72,7 @@ const router = createBrowserRouter([
       { path: "/productForm", element: <ProductForm /> },
       { path: "/admin/orders/:id/invoice", element: < PrintInvoice /> },
       { path: "/allorders", element: <AdminOrderPage /> },
-      { path: "/admin/orders/:id/invoice", element:< PrintInvoice />},
+      { path: "/admin/orders/:id/invoice", element: < PrintInvoice /> },
       { path: "/adminorderdetails/:id", element: < AdminOrderDetails /> },
 
     ],

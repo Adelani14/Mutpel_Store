@@ -1,9 +1,9 @@
-import Helpcenter from "../components/Helpcenter.jsx";
-import Header from "../components/Header.jsx";
+import Helpcenter from "../../components/Helpcenter.jsx";
+import Header from "../../components/Header.jsx";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Axios from "../utils/axiosInstance.js";
-import MobileBottomNav from "../components/MobileBottomNav.jsx";
+import Axios from "../../utils/axiosInstance.js";
+import MobileBottomNav from "../../components/MobileBottomNav.jsx";
 
 const Wishlist = () => {
 
