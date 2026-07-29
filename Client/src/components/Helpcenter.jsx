@@ -1,7 +1,7 @@
 const Helpcenter = () => {
     return (
         <>
-            <div className="container-fluid border-bottom py-1 d-none d-md-flex justify-content-between small bg-primary text-light">
+            <div className="container-fluid border-bottom py-1 d-flex justify-content-between small bg-primary text-light">
                         <div>
                             <span className="me-4">NGN (₦)</span>
                             <span>English</span>

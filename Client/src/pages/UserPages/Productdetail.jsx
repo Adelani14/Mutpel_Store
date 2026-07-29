@@ -264,32 +264,32 @@ const Productdetail = () => {
   }, [relatedProducts]);
 
 
-useEffect(() => {
-  const loadData = async () => {
-    setLoading(true);
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true);
 
-    try {
-      // Everyone can view the product
-      await fetchProduct();
+      try {
+        // Everyone can view the product
+        await fetchProduct();
 
-      // Only logged-in users
-      if (localStorage.getItem("accessToken")) {
-        await Promise.all([
-          fetchCart(),
-          fetchCartCount(),
-          fetchWishlist(),
-        ]);
+        // Only logged-in users
+        if (localStorage.getItem("accessToken")) {
+          await Promise.all([
+            fetchCart(),
+            fetchCartCount(),
+            fetchWishlist(),
+          ]);
+        }
+
+        setCurrentImage(0);
+      } finally {
+        setLoading(false);
       }
+    };
 
-      setCurrentImage(0);
-    } finally {
-      setLoading(false);
-    }
-  };
+    loadData();
+  }, [id]);
 
-  loadData();
-}, [id]);
-  
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!showGallery) return;
@@ -342,82 +342,7 @@ useEffect(() => {
         </div>
       )}
       <Helpcenter />
-      {/* <header className="container-fluid py-3">
-        <div className="d-flex align-items-center gap-2">
 
-          <div className="d-none d-md-flex align-items-center gap-2">
-            <div
-              className="brand-icon rounded-3 d-flex align-items-center justify-content-center bg-primary text-white"
-              style={{ width: "44px", height: "44px" }}
-            >
-              <i className="bi bi-basket-fill fs-5"></i>
-            </div>
-
-            <h1 className="h5 mb-0 text-primary">
-              Motpel Household
-            </h1>
-          </div>
-
-          <form className="flex-grow-1">
-            <div className="input-group shadow-sm rounded-pill overflow-hidden border">
-              <span className="input-group-text bg-white border-0">
-                <i className="bi bi-search"></i>
-              </span>
-
-              <input
-                type="search"
-                className="form-control border-0"
-                placeholder="Search Products..."
-              />
-
-              <button className="btn btn-primary d-none d-sm-block">
-                Search
-              </button>
-            </div>
-          </form>
-
-          <div className="d-flex align-items-center gap-2 flex-shrink-0">
-            <Link
-              to="/cart"
-              className="btn btn-link text-secondary position-relative p-0 d-none d-md-block"
-            >
-              <i className="bi bi-cart4 fs-4"></i>
-
-              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {cartCount}
-              </span>
-            </Link>
-
-            <div className="dropdown">
-              <button
-                className="btn btn-link text-primary"
-                data-bs-toggle="dropdown"
-              >
-                <i className="bi bi-person fs-4"></i>
-              </button>
-
-              <ul className="dropdown-menu dropdown-menu-end">
-                <li><Link to="/productlisting" className="dropdown-item"><i className="bi bi-house me-2"></i>Home</Link></li>
-                <li><Link to="/categories" className="dropdown-item"><i className="bi bi-list me-2"></i>Categories</Link></li>
-                <li><Link to="/wishlist" className="dropdown-item"><i className="bi bi-heart me-2"></i>Wishlist</Link></li>
-                <li><Link to="/cart" className="dropdown-item"><i className="bi bi-cart me-2"></i>Cart</Link></li>
-                <li><Link to="/profile" className="dropdown-item"><i className="bi bi-person me-2"></i>Account</Link></li>
-              </ul>
-            </div>
-          </div>
-
-        </div>
-
-
-        {cartSuccess && (
-          <div className="position-fixed top-0 start-0 w-100 mt-2 px-3 z-3" style={{ zIndex: 9999 }} >
-            <div className="shadow-lg py-3 bg-success text-white text-center rounded-3">
-              {cartMessage}
-
-            </div>
-          </div>
-        )}
-      </header> */}
       <Header />
 
       {cartSuccess && (
@@ -442,7 +367,18 @@ useEffect(() => {
             <div className="d-flex flex-column flex-md-row align-items-start justify-content-between gap-3 mb-4">
               <div>
                 <h6 className="text-muted mb-1">
-                  <Link to="/productlisting">Home</Link> /
+
+                  <Link
+                    to="/productlisting"
+                    className="btn btn-outline-secondary btn-lg rounded-pill px-4"
+                  >
+
+                    <i className="bi bi-arrow-left me-2"></i>
+
+                    Back
+
+                  </Link>
+                  
                   {product?.category?.title} /
                   {product?.title}
                 </h6>
@@ -464,7 +400,7 @@ useEffect(() => {
                     className="img-fluid rounded-4"
                     style={{
                       width: "100%",
-                      height: "420px",
+                      height: "320px",
                       objectFit: "contain",
                       cursor: "zoom-in",
                     }}

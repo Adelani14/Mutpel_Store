@@ -225,14 +225,14 @@ const Admindashboard = () => {
                                 className="btn btn-link text-primary"
                                 data-bs-toggle="dropdown"
                             >
-                                <i className="bi bi-person fs-4"></i>
+                                <i className="bi bi-three-dots fs-4"></i>
                             </button>
 
                             <ul className="dropdown-menu dropdown-menu-end">
                                 <li><Link to="/productlisting" className="dropdown-item"><i className="bi bi-house me-2"></i>Banner</Link></li>
                                 <li><Link to="/categories" className="dropdown-item"><i className="bi bi-list me-2"></i>Categories</Link></li>
-                                <li><Link to="/cart" className="dropdown-item"><i className="bi bi-cart me-2"></i>Coupons</Link></li>
-                                <li><Link to="/cart" className="dropdown-item"><i className="bi bi-cart me-2"></i>Adverticement</Link></li>
+                                <li><Link to="/cart" className="dropdown-item"><i className="bi bi-gift-fill me-2"></i>Coupons</Link></li>
+                                <li><Link to="/cart" className="dropdown-item"><i className="bi bi-bell-fill me-2"></i>Updates</Link></li>
                                 <li><Link to="/profile" className="dropdown-item"><i className="bi bi-person me-2"></i>Account</Link></li>
                             </ul>
                         </div>
@@ -258,14 +258,20 @@ const Admindashboard = () => {
                                     <NavLink to="/Allproducts" className="list-group-item list-group-item-action rounded-4">
                                         <i className="bi bi-box-seam me-2"></i>Products
                                     </NavLink>
+                                    <NavLink to="/Allproducts" className="list-group-item list-group-item-action rounded-4">
+                                        <i className="bi bi-list me-2"></i>Categories
+                                    </NavLink>
                                     <NavLink to="/allorders" className="mb-2 list-group-item list-group-item-action rounded-4">
                                         <i className="bi bi-basket2 me-2"></i>Orders
                                     </NavLink>
                                     <NavLink to="/#" className="list-group-item list-group-item-action rounded-4"><i className="bi bi-people me-2"></i>Users</NavLink>
-                                    <NavLink to="/#" className="list-group-item list-group-item-action rounded-4"><i className="bi bi-graph-up me-2"></i>Reports</NavLink>
+                                    <NavLink to="/#" className="list-group-item list-group-item-action rounded-4"><i className="bi bi-house me-2"></i>Banner</NavLink>
+                                    <NavLink to="/#" className="list-group-item list-group-item-action rounded-4"><i className="bi bi-gift-fill me-2"></i>Coupons</NavLink>
+                                    <NavLink to="/#" className="list-group-item list-group-item-action rounded-4"><i className="bi bi-bell-fill me-2"></i>Updates</NavLink>
                                     <NavLink to="/Productlisting" className="mb-2 list-group-item list-group-item-action rounded-4">
                                         <i className="bi bi-shop me-2"></i>Check Store
                                     </NavLink>
+                                    <NavLink to="/#" className="list-group-item list-group-item-action rounded-4"><i className="bi bi-person me-2"></i>Account</NavLink>
                                     <a className="nav-link rounded-4 mt-5 text-danger" onClick={logout}><i className="bi bi-box-arrow-right me-2"></i>Sign Out</a>
                                 </div>
                             </div>
