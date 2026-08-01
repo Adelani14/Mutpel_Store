@@ -13,8 +13,8 @@ router.post(
 );
 router.get("/", getCategories);
 router.get("/getCategoryById", getCategoryById);
-// router.put("/:id", updateCategory);
-// router.delete("/:id", deleteCategory);
+router.put("/update/:id", updateCategory);
+router.delete("/delete/:id", deleteCategory);
 router.get("/featured", getFeaturedCategories);
 
 export default router;

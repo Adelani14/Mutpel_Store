@@ -366,19 +366,12 @@ const Productdetail = () => {
           <div className="container">
             <div className="d-flex flex-column flex-md-row align-items-start justify-content-between gap-3 mb-4">
               <div>
+
+                <Link to="/productlisting" className="btn btn-outline-secondary btn-lg rounded-pill px-4">
+                  <i className="bi bi-arrow-left me-2"></i>
+                  Back
+                </Link>
                 <h6 className="text-muted mb-1">
-
-                  <Link
-                    to="/productlisting"
-                    className="btn btn-outline-secondary btn-lg rounded-pill px-4"
-                  >
-
-                    <i className="bi bi-arrow-left me-2"></i>
-
-                    Back
-
-                  </Link>
-                  
                   {product?.category?.title} /
                   {product?.title}
                 </h6>
@@ -598,7 +591,7 @@ const Productdetail = () => {
                     )}
                   </div>
                   <div className="list-group list-group-flush rounded-4 bg-light p-3">
-                    <div className="list-group-item bg-transparent border-0 px-0 py-2 d-flex align-items-center gap-2"><i className="bi bi-check-circle-fill text-primary"></i> Free delivery on orders over ₦500k</div>
+                    <div className="list-group-item bg-transparent border-0 px-0 py-2 d-flex align-items-center gap-2"><i className="bi bi-check-circle-fill text-primary"></i> Free delivery on orders over ₦200k</div>
                     <div className="list-group-item bg-transparent border-0 px-0 py-2 d-flex align-items-center gap-2"><i className="bi bi-check-circle-fill text-primary"></i> 30-day hassle-free return</div>
                     <div className="list-group-item bg-transparent border-0 px-0 py-2 d-flex align-items-center gap-2"><i className="bi bi-check-circle-fill text-primary"></i> Safe & encrypted payments</div>
                   </div>
