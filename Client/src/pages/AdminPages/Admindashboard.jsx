@@ -230,7 +230,7 @@ const Admindashboard = () => {
 
                             <ul className="dropdown-menu dropdown-menu-end">
                                 <li><Link to="/productlisting" className="dropdown-item"><i className="bi bi-house me-2"></i>Banner</Link></li>
-                                <li><Link to="/categories" className="dropdown-item"><i className="bi bi-list me-2"></i>Categories</Link></li>
+                                <li><Link to="/allcategories" className="dropdown-item"><i className="bi bi-list me-2"></i>Categories</Link></li>
                                 <li><Link to="/cart" className="dropdown-item"><i className="bi bi-gift me-2"></i>Coupons</Link></li>
                                 <li><Link to="/cart" className="dropdown-item"><i className="bi bi-bell me-2"></i>Updates</Link></li>
                                 <li><Link to="/profile" className="dropdown-item"><i className="bi bi-person me-2"></i>Account</Link></li>

@@ -37,6 +37,7 @@ import AdminOrderPage from "./pages/AdminPages/AdminOrderPage.jsx";
 import AdminOrderDetails from "./pages/AdminPages/AdminOrderDetails.jsx";
 import Newproduct from './pages/AdminPages/Newproduct.jsx'
 import AllProduct from './pages/AdminPages/AllProduct.jsx';
+import AllCategories from './pages/AdminPages/AllCategories.jsx';
 import Newcategory from './pages/AdminPages/NewCategory.jsx'
 import EditProduct from "./pages/AdminPages/EditProduct";
 
@@ -68,6 +69,7 @@ const router = createBrowserRouter([
       { path: "/newproduct", element: <Newproduct /> },
       { path: "/newcategory", element: <Newcategory /> },
       { path: "/allproducts", element: <AllProduct /> },
+      { path: "/allcategories", element: <AllCategories /> },
       { path: "/editProduct/:id", element: <EditProduct /> },
       { path: "/productForm", element: <ProductForm /> },
       { path: "/admin/orders/:id/invoice", element: < PrintInvoice /> },
