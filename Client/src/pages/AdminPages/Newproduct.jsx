@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Helpcenter from "../../components/Helpcenter.jsx";
-import Header from "../../components/Header.jsx";
+import AdminHeader from "../../components/AdminHeader.jsx";
 import { Link, NavLink } from "react-router-dom";
 import Axios from "../../utils/axiosInstance.js";
 import AdminMobileBottomNav from "../../components/AdminMobileBottomNav.jsx";
@@ -12,7 +12,7 @@ const Newproduct = () => {
 
         <>
             <Helpcenter />
-            <Header />
+            <AdminHeader />
 
             <ProductForm mode="create" />
 

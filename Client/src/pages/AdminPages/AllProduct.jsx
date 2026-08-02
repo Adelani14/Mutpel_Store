@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Helpcenter from '../../components/Helpcenter.jsx';
 import Axios from "../../utils/axiosInstance.js"
 import AdminMobileBottomNav from '../../components/AdminMobileBottomNav.jsx';
-import Header from '../../components/Header.jsx';
+import AdminHeader from '../../components/AdminHeader.jsx';
 import ProductCard from '../../components/ProductCard.jsx';
 
 const AllProduct = () => {
@@ -103,7 +103,7 @@ const AllProduct = () => {
                 </div>
             )}
             <Helpcenter />
-            <Header />
+            <AdminHeader />
             <div className="mb-4 container-fluid admin-card mb-5 mt-2" style={{ minWidth: 0 }}>
 
                 <div className='d-flex justify-content-between'>

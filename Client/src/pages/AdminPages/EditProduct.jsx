@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Helpcenter from "../../components/Helpcenter.jsx";
-import Header from "../../components/Header.jsx";
+import AdminHeader from "../../components/AdminHeader.jsx";
 import Axios from "../../utils/axiosInstance.js";
 import AdminMobileBottomNav from "../../components/AdminMobileBottomNav.jsx";
 import ProductForm from "../../components/ProductForm.jsx";
@@ -62,7 +62,7 @@ const EditProduct = () => {
 
 
             <Helpcenter />
-            <Header />
+            <AdminHeader />
 
             {
                 product &&
