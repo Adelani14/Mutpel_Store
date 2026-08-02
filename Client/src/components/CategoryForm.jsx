@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Axios from "../utils/axiosInstance.js";
 
 
@@ -10,7 +10,7 @@ const CategoryForm = ({ mode, initialData = null }) => {
 
 
     const fileInputRef = useRef(null);
-    const [categories, setCategories] = useState([]);
+    // const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
 
 
@@ -58,11 +58,13 @@ const CategoryForm = ({ mode, initialData = null }) => {
                 priority: initialData.priority || "Normal Priority",
             });
 
-            setBannerPreview(initialData.imagespath[0] || null);
-            setBannerImage(initialData.imagespath[0] || null);
+            setBannerPreview(initialData.imagespath?.[0] || null);
+            setBannerImage(null);
         }
 
     }, [mode, initialData]);
+
+
     const saveCategory = async () => {
 
 
@@ -119,8 +121,8 @@ const CategoryForm = ({ mode, initialData = null }) => {
                     featured: false,
                     priority: "Normal Priority",
                 });
-                const [bannerImage, setBannerImage] = useState(null);
-                const [bannerPreview, setBannerPreview] = useState(null);
+                setBannerImage(null);
+                setBannerPreview(null);
 
                 if (fileInputRef.current) {
                     fileInputRef.current.value = "";
@@ -211,7 +213,9 @@ const CategoryForm = ({ mode, initialData = null }) => {
                                 <div className="d-flex align-items-center justify-content-between gap-3 mb-4">
                                     <div>
                                         <p className="text-muted mb-1">Products / Category</p>
-                                        <h1 className="h4 mb-0">Create Category</h1>
+                                        <h1 className="h4 mb-0">
+                                            {mode === "create" ? "Create Category" : "Edit Category"}
+                                        </h1>
                                     </div>
                                     <div className="d-flex gap-2 d-block d-md-none">
                                         <Link to="/Newproduct" className="btn btn-primary btn-sm">
@@ -269,8 +273,14 @@ const CategoryForm = ({ mode, initialData = null }) => {
                                                 <p className="text-muted small mb-3">Support for high-res JPG, PNG or WebP</p>
                                                 <label className="btn btn-primary btn-sm">
                                                     Browse Files
-                                                    <input type="file" accept="image/*" hidden onChange={handleBannerChange} />
-                                                </label>
+                                                    <input
+                                                        ref={fileInputRef}
+
+                                                        type="file"
+                                                        accept="image/*"
+                                                        hidden
+                                                        onChange={handleBannerChange}
+                                                    />                                                </label>
                                             </>
                                         )}
                                     </div>
@@ -286,19 +296,13 @@ const CategoryForm = ({ mode, initialData = null }) => {
                                         disabled={loading}
                                     >
                                         {
-                                            loading ? (
-                                                <>
-                                                    <span
-                                                        className="spinner-border spinner-border-sm me-2"
-                                                        role="status"
-                                                    ></span>
-
-                                                    Saving...
-                                                </>
-                                            ) : (
-                                                "Save Category"
-                                            )
+                                            loading
+                                                ? "Saving..."
+                                                : mode === "create"
+                                                    ? "Create Category"
+                                                    : "Update Category"
                                         }
+
                                     </button>
                                 </div>
                             </div>
