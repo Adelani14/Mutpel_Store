@@ -58,7 +58,7 @@ const CategoryForm = ({ mode, initialData = null }) => {
                 priority: initialData.priority || "Normal Priority",
             });
 
-            setBannerPreview(initialData.imagespath?.[0] || null);
+            setBannerPreview(initialData.imagespath?.[0]?.url || null);
             setBannerImage(null);
         }
 
