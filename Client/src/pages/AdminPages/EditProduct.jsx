@@ -66,7 +66,7 @@ const EditProduct = () => {
 
             {
                 product &&
-                <ProductForm
+                <CategoryForm
                     mode="edit"
                     initialData={product}
                 />
