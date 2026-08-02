@@ -10,10 +10,13 @@ router.post(
     upload.single("imagespath"),
     createCategory
 );
+router.put(
+    "/update/:id",
+    upload.single("imagespath"),
+    updateCategory
+); router.delete("/delete/:id", deleteCategory);
 router.get("/", getCategories);
 router.get("/getCategoryById/:id", getCategoryById);
-router.put("/update/:id", updateCategory);
-router.delete("/delete/:id", deleteCategory);
 router.get("/featured", getFeaturedCategories);
 
 export default router;
