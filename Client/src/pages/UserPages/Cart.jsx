@@ -397,7 +397,7 @@ const Cart = () => {
                                             <div className="d-flex flex-wrap justify-content-between gap-3 text-muted small">
 
                                                 <span>
-                                                    <i className="bi bi-shield-lock-fill text-success me-1"></i>
+                                                    <i className="bi bi-shield-lock text-success me-1"></i>
                                                     Safe & Secure Checkout
                                                 </span>
 

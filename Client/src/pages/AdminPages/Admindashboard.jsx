@@ -258,7 +258,7 @@ const Admindashboard = () => {
                                     <NavLink to="/Allproducts" className="list-group-item list-group-item-action rounded-4">
                                         <i className="bi bi-box-seam me-2"></i>Products
                                     </NavLink>
-                                    <NavLink to="/Allproducts" className="list-group-item list-group-item-action rounded-4">
+                                    <NavLink to="/Allcategories" className="list-group-item list-group-item-action rounded-4">
                                         <i className="bi bi-list me-2"></i>Categories
                                     </NavLink>
                                     <NavLink to="/allorders" className="mb-2 list-group-item list-group-item-action rounded-4">
