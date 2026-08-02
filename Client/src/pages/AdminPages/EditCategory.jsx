@@ -66,10 +66,10 @@ const EditCategory = () => {
 
             {
                 category &&
-                <CategoryForm
-                    mode="edit"
-                    initialData={category}
-                />
+                <>
+                    <h1>Category Loaded Successfully</h1>
+                    <pre>{JSON.stringify(category, null, 2)}</pre>
+                </>
             }
 
             <AdminMobileBottomNav />
