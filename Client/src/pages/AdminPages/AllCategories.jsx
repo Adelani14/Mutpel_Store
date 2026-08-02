@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Helpcenter from '../../components/Helpcenter.jsx';
 import Axios from "../../utils/axiosInstance.js"
 import AdminMobileBottomNav from '../../components/AdminMobileBottomNav.jsx';
-import Header from '../../components/Header.jsx';
+import AdminHeader from '../../components/AdminHeader.jsx';
 
 const AllCategories = () => {
 
@@ -103,18 +103,18 @@ const AllCategories = () => {
                 </div>
             )}
             <Helpcenter />
-            <Header />
+            <AdminHeader />
             <div className="mb-4 container-fluid admin-card mb-5 mt-2" style={{ minWidth: 0 }}>
 
                 <div className='d-flex justify-content-between'>
                     <h2 className="h6 mb-4">Product Categories Management</h2>
                     <div className=" gap-2 mb-4 d-none d-md-flex">
-                        <Link to="/newcategory" className="btn btn-primary btn-sm"><i className='fa fa-plus '></i>New</Link>
+                        <Link to="/newcategory" className="btn btn-primary btn-sm"><i className='bi bi-plus '></i>New</Link>
                         <Link to="/admindashboard" className="btn btn-outline-secondary btn-sm ms-2">Dashboard</Link>
                     </div>
                 </div>
-                
-                <div className="row g-2">
+
+                <div className="row g-3 mb-2">
                     {categories?.map((category) => (
                         <div
                             key={category._id}
@@ -136,35 +136,37 @@ const AllCategories = () => {
                                     <Link to={`/browseCategory/${category._id}`}>
                                         <small className="text-muted">Browse products →</small>
                                     </Link>
+
+                                    <div className="card-footer bg-white border-0 d-flex gap-2">
+
+                                        <Link
+                                            to={`/editCategory/${category._id}`}
+                                            className="btn btn-warning flex-fill"
+                                        >
+                                            Edit
+                                        </Link>
+
+                                        <button
+                                            className="btn btn-danger flex-fill"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleDelete(category._id);
+                                            }}
+                                        >
+                                            Delete
+                                        </button>
+
+                                    </div>
                                 </div>
+
                             </button>
 
 
-                            <div className="card-footer bg-white border-0 d-flex gap-2">
-
-                                <Link
-                                    to={`/editCategory/${category._id}`}
-                                    className="btn btn-warning flex-fill"
-                                >
-                                    Edit
-                                </Link>
-
-                                <button
-                                    className="btn btn-danger flex-fill"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleDelete(category._id);
-                                    }}
-                                >
-                                    Delete
-                                </button>
-
-                            </div>
 
                         </div>
                     ))}
 
-                    <div className="d-flex justify-content-between mt-4 mx-2 mb-4">
+                    <div className="d-flex justify-content-between my-4 mx-2 mb-4">
                         <button
                             className="btn btn-outline-secondary"
                             disabled={page === 1}
