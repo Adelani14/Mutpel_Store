@@ -131,18 +131,22 @@ export const getCategoryById = async (req, res) => {
 // UPDATE CATEGORY
 export const updateCategory = async (req, res) => {
     try {
-        const { title, description, featured } = req.body;
+        const { title, description, featured, priority } = req.body;
 
         const category = await Category.findById(req.params.id);
 
         if (!category) {
             return res.status(404).json({
+                success: false,
                 message: "Category not found",
             });
         }
 
         if (req.file) {
-            if (category.imagespath.length > 0) {
+            if (
+                category.imagespath.length > 0 &&
+                category.imagespath[0].public_id
+            ) {
                 await cloudinary.uploader.destroy(
                     category.imagespath[0].public_id
                 );
@@ -168,7 +172,7 @@ export const updateCategory = async (req, res) => {
             ];
         }
 
-        if (title) {
+        if (title !== undefined) {
             category.title = title;
             category.slug = title
                 .toLowerCase()
@@ -181,15 +185,28 @@ export const updateCategory = async (req, res) => {
         }
 
         if (featured !== undefined) {
-            category.featured = featured === "true";
+            category.featured =
+                featured === true || featured === "true";
+        }
+
+        if (priority !== undefined) {
+            category.priority = priority;
         }
 
         await category.save();
 
-        res.status(200).json(category);
+        return res.status(200).json({
+            success: true,
+            message: "Category updated successfully",
+            category,
+        });
+
     } catch (error) {
-        res.status(500).json({
-            message: error.message,
+        console.error(error);
+
+        return res.status(500).json({
+            success: false,
+            message: error.message || "Internal Server Error",
         });
     }
 };
