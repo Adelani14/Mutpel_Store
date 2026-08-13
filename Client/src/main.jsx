@@ -16,6 +16,8 @@ import Profile from './pages/Profile.jsx';
 import NotFound from "./pages/NotFound.jsx";
 import PrintInvoice from "./pages/PrintInvoice";
 import ProductForm from './components/ProductForm.jsx'
+import ForgotPassword from './pages/ForgotPassword.jsx'
+import ResetPassword from './pages/ResetPassword.jsx'
 
 
 import Productlisting from './pages/UserPages/Productlisting.jsx'
@@ -51,6 +53,8 @@ const router = createBrowserRouter([
   { path: "/", element: <Landing /> },
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
+  { path: "/forgot-password", element: <ForgotPassword /> },
+  { path: "/reset-password/:token", element: <ResetPassword /> },
 
   { path: "/search", element: <Search /> },
   { path: "/categories/:id", element: <Categories /> },
