@@ -7,6 +7,8 @@ import {
     getUsername,
     logoutUser,
     refreshToken,
+    forgotPassword,
+    resetPassword
 } from "../controllers/userController.js";
 
 const router = express.Router();
@@ -19,6 +21,10 @@ router.get("/Username", isAuth, getUsername);
 router.post("/logout", logoutUser);
 
 router.post("/refresh-token", refreshToken);
+
+router.post("/forgot-password", forgotPassword);
+
+router.post("/reset-password/:token", resetPassword);
 
 
 

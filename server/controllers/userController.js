@@ -1,6 +1,6 @@
 import User from "../models/users.js";
 import bcrypt from "bcryptjs";
-// import cookieParser from "cookie-parser";
+import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import signUpEmail from "../services/signUpEmail.js"
 
@@ -259,3 +259,134 @@ export const getUsername = async (req, res) => {
     }
 };
 
+
+// Forgot password
+
+export const forgotPassword = async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        if (!email) {
+            return res.status(400).json({
+                message: "Email is required"
+            });
+        }
+
+        const user = await User.findOne({ email });
+
+        // Don't reveal whether the email exists
+        if (!user) {
+            return res.status(200).json({
+                message:
+                    "If an account with that email exists, a reset link has been sent."
+            });
+        }
+
+        // Generate random token
+        const resetToken = crypto.randomBytes(32).toString("hex");
+
+        // Hash token before saving to database
+        const hashedToken = crypto
+            .createHash("sha256")
+            .update(resetToken)
+            .digest("hex");
+
+        user.resetPasswordToken = hashedToken;
+
+        // Token expires in 15 minutes
+        user.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
+
+        await user.save();
+
+        // Frontend reset page
+        const resetUrl =
+            `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
+
+        console.log("RESET URL:", resetUrl);
+
+        return res.status(200).json({
+            message:
+                "If an account with that email exists, a reset link has been sent."
+        });
+
+    } catch (error) {
+        console.error("Forgot password error:", error);
+
+        return res.status(500).json({
+            message: "Server error"
+        });
+    }
+};
+
+
+
+// Reset password
+
+export const resetPassword = async (req, res) => {
+    const { token } = req.params;
+    const { password, confirmPassword } = req.body;
+
+    try {
+
+        if (!password || !confirmPassword) {
+            return res.status(400).json({
+                message: "Password and confirm password are required"
+            });
+        }
+
+        if (password !== confirmPassword) {
+            return res.status(400).json({
+                message: "Passwords do not match"
+            });
+        }
+
+        if (password.length < 8) {
+            return res.status(400).json({
+                message: "Password must be at least 8 characters"
+            });
+        }
+
+        // Hash token from URL
+        const hashedToken = crypto
+            .createHash("sha256")
+            .update(token)
+            .digest("hex");
+
+        // Find user with valid token
+        const user = await User.findOne({
+            resetPasswordToken: hashedToken,
+            resetPasswordExpire: {
+                $gt: Date.now()
+            }
+        });
+
+        if (!user) {
+            return res.status(400).json({
+                message: "Reset link is invalid or has expired"
+            });
+        }
+
+        // Hash new password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        user.password = hashedPassword;
+
+        // Invalidate reset token
+        user.resetPasswordToken = null;
+        user.resetPasswordExpire = null;
+
+        await user.save();
+
+        return res.status(200).json({
+            message: "Password reset successfully"
+        });
+
+    } catch (error) {
+
+        console.error("Reset password error:", error);
+
+        return res.status(500).json({
+            message: "Server error"
+        });
+    }
+};
