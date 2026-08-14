@@ -129,7 +129,7 @@ const Login = () => {
             <div className="mb-3">
               <div className="d-flex justify-content-between">
                 <label className="form-label fw-bold small">Password</label>
-                <a href="#" className="text-primary small text-decoration-none">Forgot password?</a>
+                <a href="/forgot-password" className="text-primary small text-decoration-none">Forgot password?</a>
               </div>
               <div className="input-group">
                 <span className="input-group-text bg-light border-end-0"><i className="bi bi-lock"></i></span>
@@ -150,11 +150,11 @@ const Login = () => {
 
             <div className="text-center">
 
-              <div className="text-center text-muted my-1">OR CONTINUE WITH</div>
+              {/* <div className="text-center text-muted my-1">OR CONTINUE WITH</div>
               <div className="d-flex gap-2">
                 <button className="btn btn-outline-secondary w-100"><i className="bi bi-google me-2"></i>Google</button>
                 <button className="btn btn-outline-secondary w-100"><i className="bi bi-facebook me-2"></i>Facebook</button>
-              </div>
+              </div> */}
 
 
               <small className="text-muted text-uppercase fw-bold" style={{ fontSize: "10px", letterSpacing: "1px" }}>dont have an account yet?</small>

@@ -203,11 +203,11 @@ const Signup = () => {
 
             <div className="text-center">
 
-              <div className="text-center text-muted my-1">OR CONTINUE WITH</div>
+              {/* <div className="text-center text-muted my-1">OR CONTINUE WITH</div>
               <div className="d-flex gap-2">
                 <button className="btn btn-outline-secondary w-100"><i className="bi bi-google me-2"></i>Google</button>
                 <button className="btn btn-outline-secondary w-100"><i className="bi bi-facebook me-2"></i>Facebook</button>
-              </div>
+              </div> */}
               <small className="text-muted text-uppercase fw-bold" style={{ fontSize: "10px", letterSpacing: "1px" }}>Already have an account?</small>
               <button type="button" className="btn btn-outline-primary w-100 mt-2 py-2 fw-bold"><a href="/login" className="text-decoration-none text-dark">Sign In</a></button>
             </div>
@@ -228,72 +228,4 @@ const Signup = () => {
   );
 };
 
-// export default Signup;
-
-// const Signup = () => {
-//   return (
-//     <>
-
-//       <Helpcenter />
-
-
-//       <main class="min-vh-100 d-flex align-items-center py-5 bg-light">
-//         <div class="container">
-//           <div class="row justify-content-center">
-//             <div class="col-md-8 col-lg-5">
-//               <div class="card rounded-4 shadow-sm border-0 p-4">
-//                 <div class="text-center mb-4">
-//                   <div class="brand-icon rounded-4 d-inline-flex align-items-center justify-content-center bg-primary text-white mb-3" style={{ width: '60px', height: '60px' }}>
-//                     <i class="bi bi-basket-fill fs-4"></i>
-//                   </div>
-//                   <h1 class="h4">Create your account</h1>
-//                   <p class="text-muted mb-0">Join Mutpel today for exclusive deals and quality goods.</p>
-//                 </div>
-//                 <form>
-//                   <div class="mb-3">
-//                     <label class="form-label">Full Name</label>
-//                     <input onChange={(e) => { setfullname(e.target.value) }} type="text" id="fname" className="form-control bg-light border-start-0" placeholder="Enter your full name" value={fullname} />
-//                   </div>
-//                   <div class="mb-3">
-//                     <label class="form-label">Email Address</label>
-//                     <input onChange={(e) => { setemail(e.target.value) }} type="email" id="eemail" className="form-control bg-light border-start-0" placeholder="name@example.com" value={email} />
-//                   </div>
-//                   <div class="mb-3">
-//                     <label class="form-label">Password</label>
-//                     <div class="input-group shadow-sm rounded-3 overflow-hidden">
-//                       <span class="input-group-text bg-white border-0"><i class="bi bi-lock"></i></span>
-//                       <input onChange={(e) => { setpassword(e.target.value) }} type="password" id="ppasword" class="form-control border-0" placeholder="Create a password" value={password} required />
-//                       <button class="btn btn-outline-secondary" type="button"><i class="bi bi-eye"></i></button>
-//                     </div>
-//                   </div>
-//                   <div class="mb-3">
-//                     <label class="form-label">Confirm Password</label>
-//                     <div class="input-group shadow-sm rounded-3 overflow-hidden">
-//                       <span class="input-group-text bg-white border-0"><i class="bi bi-lock"></i></span>
-//                       <input onChange={(e) => { setconfirmpassword(e.target.value) }} type="password" class="form-control border-0" placeholder="Confirm password" id="Cpass" value={confirmpassword} required />
-//                       <button class="btn btn-outline-secondary" type="button"><i class="bi bi-eye"></i></button>
-//                     </div>
-//                   </div>
-//                   <p class="text-danger small mb-3 d-none">Passwords do not match.</p>
-
-//                   <button onClick={submitDetails} type="button" className="btn btn-primary-fma w-100 py-3 mb-3 fw-bold" >Sign up &rarr;</button>
-//                 </form>
-//                 <div class="text-center text-muted my-3">OR CONTINUE WITH</div>
-//                 <div class="d-flex gap-2">
-//                   <button class="btn btn-outline-secondary w-100"><i class="bi bi-google me-2"></i>Google</button>
-//                   <button class="btn btn-outline-secondary w-100"><i class="bi bi-facebook me-2"></i>Facebook</button>
-//                 </div>
-//                 <p class="text-center text-muted small mt-4 mb-0">Already have an account? <a href="login.html" class="text-primary text-decoration-none">Log in here</a></p>
-//               </div>
-//               <p class="text-center auth-form-footer">By continuing, you agree to our <a href="#">Terms of Service</a> and <a
-//                 href="#">Privacy Policy</a>.</p>
-//               <div class="text-center text-muted small mt-4">Premium Shopping</div>
-//             </div>
-//           </div>
-//         </div>
-//       </main>
-
-//     </>
-//   )
-// };
 export default Signup;

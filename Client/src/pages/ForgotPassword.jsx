@@ -35,63 +35,82 @@ const ForgotPassword = () => {
 
     return (
         <>
-            <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+            < div className="container min-vh-100 d-flex flex-column justify-content-center align-items-center" >
 
-                <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-
-                    <div className="text-center mb-8">
-
-                        <h1 className="text-2xl font-bold text-gray-900">
-                            Forgot Password?
-                        </h1>
-
-                        <p className="text-gray-500 mt-2">
-                            Enter your email and we'll send you a link
-                            to reset your password.
-                        </p>
-
+                <div className="card shadow-lg p-4 mt-3" style={{ maxWidth: "480px", width: "100%", borderRadius: "20px" }}>
+                    <div className="text-center mb-4">
+                        <div className="brand-icon rounded-4 d-inline-flex align-items-center justify-content-center bg-primary text-white mb-3" style={{ width: '60px', height: '60px' }}>
+                            <img
+                                src="/icons/logo.png"
+                                alt="Mutpel Logo"
+                                style={{ width: "44px", height: "44px", objectFit: "contain" }}
+                            />
+                        </div>
+                        <h1 className="h4">Forgot Password?</h1>
+                        <p className="text-muted mb-0">Enter your email address to reset your password.</p>
                     </div>
-
-                    {message && (
-                        <div className="mb-5 rounded-lg bg-green-50 border border-green-200 p-3 text-sm text-green-700">
-                            {message}
-                        </div>
-                    )}
-
-                    {error && (
-                        <div className="mb-5 rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-700">
-                            {error}
-                        </div>
-                    )}
 
                     <form onSubmit={handleSubmit}>
 
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Email Address
-                        </label>
+                        <div className="mb-2">
+                            <label htmlFor="email" className=" form-label fw-bold small">
+                                Email Address
+                            </label>
+                            <div className="input-group">
+                                <span className="input-group-text bg-light border-end-0"><i className="bi bi-envelope"></i></span>
 
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Enter your email"
-                            required
-                            className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-black"
-                        />
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="Enter your email"
+                                    required
+                                    className="form-control bg-light border-start-0 active"
+                                />
+                            </div>
+                        </div>
 
+                        {message && (
+                            <small className=" text-success ">
+                                {message}
+                            </small>
+                        )}
+                        {error && (
+                            <small className=" text-danger ">
+                                {error}
+                            </small>
+                        )}
+                        
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full mt-5 bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition disabled:opacity-50"
+                            className="btn btn-outline-primary w-100 mt-2 py-2 fw-bold"
                         >
-                            {loading ? "Sending..." : "Send Reset Link"}
+                            {loading ? "Processing..." : "Continue"}
                         </button>
 
                     </form>
 
+
+                    {/* Back to Login */}
+                    <div className="text-center mt-3">
+                        <a
+                            href="/login"
+                            className="small font-medium text-secondary text-decoration-none "
+                        >
+                            ← Back to login
+                        </a>
+                    </div>
                 </div>
 
-            </div>
+
+
+                <p className="text-center mt-4 text-xs text-gray-400 mt-6">
+                    © 2026 Mutpel Household. All rights reserved.
+                </p>
+            </div >
+
+
         </>
     );
 }

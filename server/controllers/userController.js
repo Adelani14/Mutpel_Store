@@ -3,6 +3,8 @@ import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import signUpEmail from "../services/signUpEmail.js"
+import forgotPasswordEmail from "../services/forgotPasswordEmail.js"
+import resetPasswordEmail from "../services/resetPasswordEmail.js"
 
 import {
     CreateAccessToken,
@@ -274,11 +276,11 @@ export const forgotPassword = async (req, res) => {
 
         const user = await User.findOne({ email });
 
-        // Don't reveal whether the email exists
+
         if (!user) {
             return res.status(200).json({
                 message:
-                    "If an account with that email exists, a reset link has been sent."
+                    "No account found. Check your mobile number or email address and try again."
             });
         }
 
@@ -298,15 +300,16 @@ export const forgotPassword = async (req, res) => {
 
         await user.save();
 
-        // Frontend reset page
+
         const resetUrl =
             `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
 
-        console.log("RESET URL:", resetUrl);
+        // console.log("RESET URL:", resetUrl);
+        await forgotPasswordEmail(user, resetUrl);
 
         return res.status(200).json({
             message:
-                "If an account with that email exists, a reset link has been sent."
+                "check your email for the reset link."
         });
 
     } catch (error) {
@@ -340,9 +343,9 @@ export const resetPassword = async (req, res) => {
             });
         }
 
-        if (password.length < 8) {
+        if (password.length < 6) {
             return res.status(400).json({
-                message: "Password must be at least 8 characters"
+                message: "Password must be at least 6 characters"
             });
         }
 
@@ -376,6 +379,7 @@ export const resetPassword = async (req, res) => {
         user.resetPasswordExpire = null;
 
         await user.save();
+        await resetPasswordEmail(user);
 
         return res.status(200).json({
             message: "Password reset successfully"
