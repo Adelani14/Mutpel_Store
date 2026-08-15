@@ -129,7 +129,7 @@ const Login = () => {
             <div className="mb-3">
               <div className="d-flex justify-content-between">
                 <label className="form-label fw-bold small">Password</label>
-                <a href="/forgot-password" className="text-primary small text-decoration-none">Forgot password?</a>
+                <Link to="/forgot-password" className="text-primary small text-decoration-none">Forgot password?</Link>
               </div>
               <div className="input-group">
                 <span className="input-group-text bg-light border-end-0"><i className="bi bi-lock"></i></span>
@@ -158,14 +158,13 @@ const Login = () => {
 
 
               <small className="text-muted text-uppercase fw-bold" style={{ fontSize: "10px", letterSpacing: "1px" }}>dont have an account yet?</small>
-              <button type="button" className="btn btn-outline-primary w-100 mt-2 py-2 fw-bold"><a href="/signup" className="text-decoration-none text-dark">Create an Account</a></button>
+              <button type="button" className="btn btn-outline-primary w-100 mt-2 py-2 fw-bold"><Link to="/signup" className="text-decoration-none text-dark">Create an Account</Link></button>
             </div>
           </form>
         </div >
 
         <div className="mt-2 small text-muted">
-          <p className="text-center auth-form-footer">By continuing, you agree to our <a href="#">Terms of Service</a> and <a
-            href="#">Privacy Policy</a>.</p>
+          <p className="text-center auth-form-footer">By continuing, you agree to our <Link to="/terms" className="text-decoration-none">Terms of Service</Link> and <Link to="/privacy" className="text-decoration-none">Privacy Policy</Link>.</p>
         </div>
       </div >
 

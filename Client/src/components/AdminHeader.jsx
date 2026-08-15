@@ -25,7 +25,9 @@ const AdminHeader = () => {
                             <div><h1 className="h5 mb-0 text-primary">Mutpel Household</h1></div>
                         </div>
                         <div className="d-flex align-items-center gap-3 d-none d-md-flex">
-                            <button className="btn btn-primary btn-sm"><a href="/NewProduct" className="text-white text-decoration-none">New Product</a></button>
+                            <button className="btn btn-primary btn-sm">
+                                <Link to="/NewProduct" className="text-white text-decoration-none">New Product</Link>
+                            </button>
                         </div>
 
                         <div className="dropdown d-block d-md-none">

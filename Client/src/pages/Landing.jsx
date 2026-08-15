@@ -188,8 +188,12 @@ const Landing = () => {
                                                 <h2 className="display-6 fw-bold">Fresh Gadgets Just Landed</h2>
                                                 <p className="lead mt-3">Discover the latest tech accessories and smart devices.</p>
                                                 <div className="mt-4 d-flex gap-3">
-                                                    <a href="#" className="btn btn-primary btn-lg">Explore</a>
-                                                    <a href="#" className="btn btn-outline-light btn-lg">See More</a>
+                                                    <Link to="/products" className="btn btn-primary btn-lg">
+                                                        Explore
+                                                    </Link>
+                                                    <Link to="/products" className="btn btn-outline-light btn-lg">
+                                                        See More
+                                                    </Link>
                                                 </div>
                                             </div>
                                             <div className="col-lg-5 text-center">
@@ -211,8 +215,12 @@ const Landing = () => {
                                                 <h2 className="display-6 fw-bold">Step Out in Style</h2>
                                                 <p className="lead mt-3">Get trendy footwear and fashion items at amazing discounts.</p>
                                                 <div className="mt-4 d-flex gap-3">
-                                                    <a href="#" className="btn btn-primary btn-lg">Buy Now</a>
-                                                    <a href="#" className="btn btn-outline-light btn-lg">Browse</a>
+                                                    <Link to="/products" className="btn btn-primary btn-lg">
+                                                        Buy Now
+                                                    </Link>
+                                                    <Link to="/products" className="btn btn-outline-light btn-lg">
+                                                        Browse
+                                                    </Link>
                                                 </div>
                                             </div>
                                             <div className="col-lg-5 text-center">

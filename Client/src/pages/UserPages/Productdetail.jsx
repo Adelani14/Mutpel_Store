@@ -631,7 +631,7 @@ const Productdetail = () => {
             <div className="mt-5">
               <div className="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
                 <h2 className="h5 mb-0">You Might Also Like</h2>
-                <a href="/product-listing" className="text-primary text-decoration-none">Explore More</a>
+                <Link to="/product-listing" className="text-primary text-decoration-none">Explore More</Link>
               </div>
 
               <div className="row g-3">

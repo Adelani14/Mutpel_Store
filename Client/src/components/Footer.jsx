@@ -1,5 +1,6 @@
 import Axios from "../utils/axiosInstance.js";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 const Footer = () => {
     const [email, setEmail] = useState("");
 
@@ -43,19 +44,19 @@ useEffect(() => {
                         <div className="col-md-2">
                             <h3 className="h6 text-dark">Shop Categories</h3>
                             <ul className="list-unstyled mt-3 mb-0 text-muted small">
-                                <li className="mb-2"><a href="#" className="text-muted text-decoration-none">Phone Accessories</a></li>
-                                <li className="mb-2"><a href="#" className="text-muted text-decoration-none">Kitchen Utensils</a></li>
-                                <li className="mb-2"><a href="#" className="text-muted text-decoration-none">Footwear</a></li>
-                                <li><a href="#" className="text-muted text-decoration-none">Baby & Kids</a></li>
+                                <li className="mb-2"><Link to="/phone-accessories" className="text-muted text-decoration-none">Phone Accessories</Link></li>
+                                <li className="mb-2"><Link to="/kitchen-utensils" className="text-muted text-decoration-none">Kitchen Utensils</Link></li>
+                                <li className="mb-2"><Link to="/footwear" className="text-muted text-decoration-none">Footwear</Link></li>
+                                <li><Link to="/baby-kids" className="text-muted text-decoration-none">Baby & Kids</Link></li>
                             </ul>
                         </div>
                         <div className="col-md-2">
                             <h3 className="h6 text-dark">Customer Service</h3>
                             <ul className="list-unstyled mt-3 mb-0 text-muted small">
-                                <li className="mb-2"><a href="#" className="text-muted text-decoration-none">Track Your Order</a></li>
-                                <li className="mb-2"><a href="#" className="text-muted text-decoration-none">Shipping & Returns</a></li>
-                                <li className="mb-2"><a href="#" className="text-muted text-decoration-none">FAQs</a></li>
-                                <li><a href="#" className="text-muted text-decoration-none">Privacy Policy</a></li>
+                                <li className="mb-2"><Link to="/track-order" className="text-muted text-decoration-none">Track Your Order</Link></li>
+                                <li className="mb-2"><Link to="/shipping-returns" className="text-muted text-decoration-none">Shipping & Returns</Link></li>
+                                <li className="mb-2"><Link to="/faqs" className="text-muted text-decoration-none">FAQs</Link></li>
+                                <li><Link to="/privacy-policy" className="text-muted text-decoration-none">Privacy Policy</Link></li>
                             </ul>
                         </div>
                         <div className="col-md-4">

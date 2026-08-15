@@ -217,7 +217,7 @@ const Admindashboard = () => {
                         </div>
                         <div className="d-flex align-items-center gap-3 d-none d-md-flex">
                             <button className="btn btn-outline-secondary btn-sm">Filter</button>
-                            <button className="btn btn-primary btn-sm"><a href="/NewProduct" className="text-white text-decoration-none">New Product</a></button>
+                            <button className="btn btn-primary btn-sm"><Link to="/NewProduct" className="text-white text-decoration-none">New Product</Link></button>
                         </div>
 
                         <div className="dropdown d-block d-md-none">
@@ -500,7 +500,7 @@ const Admindashboard = () => {
 
                                 <div className='d-flex justify-content-between'>
                                     <h2 className="h6 mb-4">Product Management</h2>
-                                    <div > <a href="/AllProducts" className="text-primary" >View All products</a></div>
+                                    <div > <Link to="/AllProducts" className="text-primary" >View All products</Link></div>
 
                                 </div>
                                 <div className="table-responsive">

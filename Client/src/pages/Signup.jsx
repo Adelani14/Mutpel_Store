@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Axios from "../utils/axiosInstance.js";
+import { Link } from "react-router-dom";
 
 import Helpcenter from '../components/Helpcenter.jsx';
 
@@ -34,7 +35,7 @@ const Signup = () => {
 
 
       let nameChecked = /^[A-Za-z]{2,30}$/;
-      let PassChecked = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      let PassChecked = /^[A-Za-z\d]{6,}$/;
       let emailChecked = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       let emailValid = emailChecked.test(theemail);
 
@@ -209,15 +210,14 @@ const Signup = () => {
                 <button className="btn btn-outline-secondary w-100"><i className="bi bi-facebook me-2"></i>Facebook</button>
               </div> */}
               <small className="text-muted text-uppercase fw-bold" style={{ fontSize: "10px", letterSpacing: "1px" }}>Already have an account?</small>
-              <button type="button" className="btn btn-outline-primary w-100 mt-2 py-2 fw-bold"><a href="/login" className="text-decoration-none text-dark">Sign In</a></button>
+              <button type="button" className="btn btn-outline-primary w-100 mt-2 py-2 fw-bold"><Link to="/login" className="text-decoration-none text-dark">Sign In</Link></button>
             </div>
           </form>
         </div>
 
       </div>
       <div className="mt-2 small text-muted">
-        <p className="text-center auth-form-footer">By continuing, you agree to our <a href="#">Terms of Service</a> and <a
-          href="#">Privacy Policy</a>.</p>
+        <p className="text-center auth-form-footer">By continuing, you agree to our <Link to="/terms" className="text-decoration-none">Terms of Service</Link> and <Link to="/privacy" className="text-decoration-none">Privacy Policy</Link>.</p>
       </div>
       <div className="text-center text-muted small mt-2">Premium Shopping</div>
 

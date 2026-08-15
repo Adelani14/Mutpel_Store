@@ -225,9 +225,7 @@ const Cart = () => {
                                     <p className="text-muted mb-0">Review your curated items before moving to checkout.</p>
                                 </div>
                             </div>
-                            {/* <div className="col-lg-4 text-lg-end">
-                            <a href="checkout2.html" className="btn btn-primary btn-lg">Proceed to Checkout</a>
-                        </div> */}
+                           
                         </div>
 
                         <div className="row g-4">
@@ -461,7 +459,6 @@ const Cart = () => {
                                         {/* <div className="d-flex justify-content-between mb-4"><span className="text-muted">Shipping</span><span className="text-success fw-semibold">₦1000</span></div> */}
                                         <div className="d-flex justify-content-between align-items-center fw-semibold fs-5"><span>Total</span><span>₦{totalPrice}</span></div>
                                     </div>
-                                    {/* <a href="checkout2.html" className="btn btn-primary btn-lg w-100 mt-4">Proceed to Checkout</a> */}
                                     <Link to="/checkout" className="btn btn-primary btn-lg w-100 mt-4">Proceed to Checkout</Link>
                                 </div>
                             </div>

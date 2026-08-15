@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import publicAxios from "../utils/publicAxios.js";
+import { Link } from "react-router-dom";
 
 
 
@@ -148,12 +149,12 @@ const ResetPassword = () => {
 
                     {/* Back to Login */}
                     <div className="text-center mt-3">
-                        <a
-                            href="/login"
+                        <Link
+                            to="/login"
                             className="small font-medium text-secondary text-decoration-none "
                         >
                             ← Back to login
-                        </a>
+                        </Link>
                     </div>
                 </div>
 

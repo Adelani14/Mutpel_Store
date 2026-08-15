@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Helpcenter = () => {
     return (
         <>
@@ -7,7 +9,12 @@ const Helpcenter = () => {
                     <span>English</span>
                 </div>
                 <div>
-                    <a href="#" className="text-light text-decoration-none"><i className="bi bi-telephone ms-2"></i> +234 9160031012<i className="bi bi-envelope  ms-3"></i> support@mutpel.com</a>
+                    <Link to="tel:+2349160031012" className="text-light text-decoration-none">
+                        <i className="bi bi-telephone ms-2"></i> +234 9160031012
+                    </Link>
+                    <Link to="mailto:support@mutpel.com" className="text-light text-decoration-none">
+                        <i className="bi bi-envelope ms-3"></i> support@mutpel.com
+                    </Link>
                 </div>
             </div>
         </>
