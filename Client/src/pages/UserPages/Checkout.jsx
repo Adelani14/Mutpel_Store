@@ -297,7 +297,7 @@ const Checkout = () => {
                                         <div className="alert alert-info mt-3 rounded-3">
                                             <i className="bi bi-truck me-2"></i>
 
-                                            Orders outside <strong>Iwo, Osun State</strong>
+                                            Orders outside <strong>Iwo, Osun State </strong> 
                                             are delivered through trusted interstate transport
                                             companies. We'll contact you after payment to
                                             arrange delivery.

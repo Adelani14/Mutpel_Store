@@ -367,7 +367,7 @@ const Productdetail = () => {
             <div className="d-flex flex-column flex-md-row align-items-start justify-content-between gap-3 mb-4">
               <div>
 
-                <Link to="/productlisting" className="btn btn-outline-secondary btn-lg rounded-pill px-4">
+                <Link to="/productlisting" className="btn btn-outline-secondary mb-2 btn-lg rounded-pill px-4">
                   <i className="bi bi-arrow-left me-2"></i>
                   Back
                 </Link>

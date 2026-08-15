@@ -26,6 +26,7 @@ import paymentRoutes from "./routes/paymentRoutes.js";
 app.use(cors({
     origin: [
         "https://mutpel-store.vercel.app",
+        "https://mutpel.devadelani.com.ng",
         "http://localhost:5173/"
     ],
     credentials: true,

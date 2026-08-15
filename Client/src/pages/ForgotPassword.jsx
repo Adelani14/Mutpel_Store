@@ -28,6 +28,9 @@ const ForgotPassword = () => {
                 error.response?.data?.message ||
                 "Something went wrong. Please try again."
             );
+            setTimeout(() => {
+                setError("");
+            }, 2000);
         } finally {
             setLoading(false);
         }
@@ -80,7 +83,7 @@ const ForgotPassword = () => {
                                 {error}
                             </small>
                         )}
-                        
+
                         <button
                             type="submit"
                             disabled={loading}

@@ -2,6 +2,6 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: "https://mutpel-store.onrender.com",
+    baseURL: "https://mutpelapi.devadelani.com.ng",
     withCredentials: true,
 });
